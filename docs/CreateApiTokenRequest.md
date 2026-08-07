@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Name** | **string** | Token name for identification | 
 **Scopes** | **[]string** | Permission scopes for the token | 
 **ExpiresInDays** | Pointer to **int32** | Token expiry in days (optional, max 365) | [optional] 
+**BrandId** | Pointer to **NullableString** | Restrict this token to a single brand. Requests made with it can only read and write that brand&#39;s data. Omit for organization-wide access. | [optional] 
 
 ## Methods
 
@@ -92,6 +93,41 @@ SetExpiresInDays sets ExpiresInDays field to given value.
 
 HasExpiresInDays returns a boolean if a field has been set.
 
+### GetBrandId
+
+`func (o *CreateApiTokenRequest) GetBrandId() string`
+
+GetBrandId returns the BrandId field if non-nil, zero value otherwise.
+
+### GetBrandIdOk
+
+`func (o *CreateApiTokenRequest) GetBrandIdOk() (*string, bool)`
+
+GetBrandIdOk returns a tuple with the BrandId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBrandId
+
+`func (o *CreateApiTokenRequest) SetBrandId(v string)`
+
+SetBrandId sets BrandId field to given value.
+
+### HasBrandId
+
+`func (o *CreateApiTokenRequest) HasBrandId() bool`
+
+HasBrandId returns a boolean if a field has been set.
+
+### SetBrandIdNil
+
+`func (o *CreateApiTokenRequest) SetBrandIdNil(b bool)`
+
+ SetBrandIdNil sets the value for BrandId to be an explicit nil
+
+### UnsetBrandId
+`func (o *CreateApiTokenRequest) UnsetBrandId()`
+
+UnsetBrandId ensures that no value is present for BrandId, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -232,7 +232,7 @@ Name | Type | Description  | Notes
 
 ## ListOrders
 
-> ListOrders200Response ListOrders(ctx, orgId).Page(page).Limit(limit).Status(status).OrderChannelId(orderChannelId).Search(search).Execute()
+> ListOrders200Response ListOrders(ctx, orgId).Page(page).Limit(limit).BrandId(brandId).Status(status).OrderChannelId(orderChannelId).Search(search).Execute()
 
 List orders
 
@@ -254,13 +254,14 @@ func main() {
 	orgId := "org_8f3kd92ld0" // string | Organization ID
 	page := int32(1) // int32 | Page number (1-based) (optional) (default to 1)
 	limit := int32(20) // int32 | Items per page (max 100) (optional) (default to 20)
+	brandId := "brnd_8f3kd92ld0" // string | Filter by brand. Pass a brand ID, or \"none\" for records not assigned to any brand. (optional)
 	status := "processing" // string | Order fulfilment status derived from its shipments. (optional)
 	orderChannelId := "clz9k2f0a0001abcd1234efgh" // string | Filter by order channel ID. (optional)
 	search := "Anna" // string | Search by order number or customer name/email. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.OrdersAPI.ListOrders(context.Background(), orgId).Page(page).Limit(limit).Status(status).OrderChannelId(orderChannelId).Search(search).Execute()
+	resp, r, err := apiClient.OrdersAPI.ListOrders(context.Background(), orgId).Page(page).Limit(limit).BrandId(brandId).Status(status).OrderChannelId(orderChannelId).Search(search).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `OrdersAPI.ListOrders``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -288,6 +289,7 @@ Name | Type | Description  | Notes
 
  **page** | **int32** | Page number (1-based) | [default to 1]
  **limit** | **int32** | Items per page (max 100) | [default to 20]
+ **brandId** | **string** | Filter by brand. Pass a brand ID, or \&quot;none\&quot; for records not assigned to any brand. | 
  **status** | **string** | Order fulfilment status derived from its shipments. | 
  **orderChannelId** | **string** | Filter by order channel ID. | 
  **search** | **string** | Search by order number or customer name/email. | 

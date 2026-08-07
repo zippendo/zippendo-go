@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **CustomerName** | Pointer to **NullableString** | Customer full name. | [optional] 
 **CustomerEmail** | Pointer to **NullableString** | Customer email address. | [optional] 
 **Status** | **string** | Order fulfilment status derived from its shipments. | 
+**BrandId** | **NullableString** | Brand this record belongs to, or null when it is organization-wide | 
 **SubtotalAmount** | Pointer to **NullableFloat32** | Order subtotal before shipping and tax. | [optional] 
 **TotalAmount** | Pointer to **NullableFloat32** | Order grand total. | [optional] 
 **Currency** | Pointer to **NullableString** | ISO 4217 currency code. | [optional] 
@@ -21,7 +22,7 @@ Name | Type | Description | Notes
 
 ### NewListOrders200ResponseDataInner
 
-`func NewListOrders200ResponseDataInner(id string, orderNumber string, status string, shipmentCount int32, orderChannel ListOrders200ResponseDataInnerOrderChannel, createdAt string, updatedAt string, ) *ListOrders200ResponseDataInner`
+`func NewListOrders200ResponseDataInner(id string, orderNumber string, status string, brandId NullableString, shipmentCount int32, orderChannel ListOrders200ResponseDataInnerOrderChannel, createdAt string, updatedAt string, ) *ListOrders200ResponseDataInner`
 
 NewListOrders200ResponseDataInner instantiates a new ListOrders200ResponseDataInner object
 This constructor will assign default values to properties that have it defined,
@@ -166,6 +167,36 @@ and a boolean to check if the value has been set.
 SetStatus sets Status field to given value.
 
 
+### GetBrandId
+
+`func (o *ListOrders200ResponseDataInner) GetBrandId() string`
+
+GetBrandId returns the BrandId field if non-nil, zero value otherwise.
+
+### GetBrandIdOk
+
+`func (o *ListOrders200ResponseDataInner) GetBrandIdOk() (*string, bool)`
+
+GetBrandIdOk returns a tuple with the BrandId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBrandId
+
+`func (o *ListOrders200ResponseDataInner) SetBrandId(v string)`
+
+SetBrandId sets BrandId field to given value.
+
+
+### SetBrandIdNil
+
+`func (o *ListOrders200ResponseDataInner) SetBrandIdNil(b bool)`
+
+ SetBrandIdNil sets the value for BrandId to be an explicit nil
+
+### UnsetBrandId
+`func (o *ListOrders200ResponseDataInner) UnsetBrandId()`
+
+UnsetBrandId ensures that no value is present for BrandId, not even an explicit nil
 ### GetSubtotalAmount
 
 `func (o *ListOrders200ResponseDataInner) GetSubtotalAmount() float32`

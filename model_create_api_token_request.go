@@ -1,7 +1,7 @@
 /*
 Zippendo Public API
 
-Public API documentation for Zippendo. Authenticate using your API token (Bearer token prefixed with zipp_).
+Public API documentation for Zippendo. Authenticate using your API token (Bearer token prefixed with zipp_).  **Brands (sub-accounts).** An organization can be split into brands, each keeping its own orders, shipments and configuration separate. There are two ways to scope requests to one brand, and NEITHER changes any request body:  1. **Bind the token.** Create an API token with a `brandId` and every request it makes is confined    to that brand — reads filtered, writes stamped. This is the recommended way to give a single    brand's team its own credential. 2. **Send the `X-Zippendo-Brand` header.** An organization-wide token can scope an individual    request by sending the brand's id or slug in this header. Most SDKs let you set it once on the    client so every call inherits it.  A brand-bound token that receives an `X-Zippendo-Brand` header naming a different brand is rejected with `403 BRAND_ACCESS_DENIED` — the binding is never widened. Omit both and requests cover the whole organization, which is the behaviour of every existing token.  Records that belong to no brand carry `brandId: null`. Configuration (carriers, shipping rules, addresses) with a null brand is organization-wide and remains visible inside every brand; orders and shipments with a null brand are only visible organization-wide.
 
 API version: 1.0.0
 Contact: support@zippendo.com
@@ -28,6 +28,8 @@ type CreateApiTokenRequest struct {
 	Scopes []string `json:"scopes"`
 	// Token expiry in days (optional, max 365)
 	ExpiresInDays *int32 `json:"expiresInDays,omitempty"`
+	// Restrict this token to a single brand. Requests made with it can only read and write that brand's data. Omit for organization-wide access.
+	BrandId NullableString `json:"brandId,omitempty"`
 }
 
 type _CreateApiTokenRequest CreateApiTokenRequest
@@ -131,6 +133,48 @@ func (o *CreateApiTokenRequest) SetExpiresInDays(v int32) {
 	o.ExpiresInDays = &v
 }
 
+// GetBrandId returns the BrandId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateApiTokenRequest) GetBrandId() string {
+	if o == nil || IsNil(o.BrandId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.BrandId.Get()
+}
+
+// GetBrandIdOk returns a tuple with the BrandId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateApiTokenRequest) GetBrandIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.BrandId.Get(), o.BrandId.IsSet()
+}
+
+// HasBrandId returns a boolean if a field has been set.
+func (o *CreateApiTokenRequest) HasBrandId() bool {
+	if o != nil && o.BrandId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetBrandId gets a reference to the given NullableString and assigns it to the BrandId field.
+func (o *CreateApiTokenRequest) SetBrandId(v string) {
+	o.BrandId.Set(&v)
+}
+// SetBrandIdNil sets the value for BrandId to be an explicit nil
+func (o *CreateApiTokenRequest) SetBrandIdNil() {
+	o.BrandId.Set(nil)
+}
+
+// UnsetBrandId ensures that no value is present for BrandId, not even an explicit nil
+func (o *CreateApiTokenRequest) UnsetBrandId() {
+	o.BrandId.Unset()
+}
+
 func (o CreateApiTokenRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -145,6 +189,9 @@ func (o CreateApiTokenRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["scopes"] = o.Scopes
 	if !IsNil(o.ExpiresInDays) {
 		toSerialize["expiresInDays"] = o.ExpiresInDays
+	}
+	if o.BrandId.IsSet() {
+		toSerialize["brandId"] = o.BrandId.Get()
 	}
 	return toSerialize, nil
 }

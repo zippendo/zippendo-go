@@ -538,7 +538,7 @@ Name | Type | Description  | Notes
 
 ## ListShipments
 
-> ListShipments200Response ListShipments(ctx, orgId).Page(page).Limit(limit).Execute()
+> ListShipments200Response ListShipments(ctx, orgId).Page(page).Limit(limit).BrandId(brandId).Execute()
 
 List shipments
 
@@ -560,10 +560,11 @@ func main() {
 	orgId := "org_8f3kd92ld0" // string | Organization ID
 	page := int32(1) // int32 | Page number (1-based) (optional) (default to 1)
 	limit := int32(20) // int32 | Items per page (max 100) (optional) (default to 20)
+	brandId := "brnd_8f3kd92ld0" // string | Filter by brand. Pass a brand ID, or \"none\" for records not assigned to any brand. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShipmentsAPI.ListShipments(context.Background(), orgId).Page(page).Limit(limit).Execute()
+	resp, r, err := apiClient.ShipmentsAPI.ListShipments(context.Background(), orgId).Page(page).Limit(limit).BrandId(brandId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShipmentsAPI.ListShipments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -591,6 +592,7 @@ Name | Type | Description  | Notes
 
  **page** | **int32** | Page number (1-based) | [default to 1]
  **limit** | **int32** | Items per page (max 100) | [default to 20]
+ **brandId** | **string** | Filter by brand. Pass a brand ID, or \&quot;none\&quot; for records not assigned to any brand. | 
 
 ### Return type
 

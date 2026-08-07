@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Type** | **string** | Direction of the shipment relative to the organization. | 
 **CarrierSettings** | [**ListShipments200ResponseDataInnerCarrierSettings**](ListShipments200ResponseDataInnerCarrierSettings.md) |  | 
 **Status** | **string** | Lifecycle status of the shipment. | 
+**BrandId** | **NullableString** | Brand this record belongs to, or null when it is organization-wide | 
 **Address** | Pointer to [**NullableListShipments200ResponseDataInnerAddress**](ListShipments200ResponseDataInnerAddress.md) |  | [optional] 
 **CreatedAt** | **string** | Timestamp when the shipment was created. | 
 **UpdatedAt** | **string** | Timestamp when the shipment was last updated. | 
@@ -17,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewListShipments200ResponseDataInner
 
-`func NewListShipments200ResponseDataInner(id string, reference string, type_ string, carrierSettings ListShipments200ResponseDataInnerCarrierSettings, status string, createdAt string, updatedAt string, ) *ListShipments200ResponseDataInner`
+`func NewListShipments200ResponseDataInner(id string, reference string, type_ string, carrierSettings ListShipments200ResponseDataInnerCarrierSettings, status string, brandId NullableString, createdAt string, updatedAt string, ) *ListShipments200ResponseDataInner`
 
 NewListShipments200ResponseDataInner instantiates a new ListShipments200ResponseDataInner object
 This constructor will assign default values to properties that have it defined,
@@ -132,6 +133,36 @@ and a boolean to check if the value has been set.
 SetStatus sets Status field to given value.
 
 
+### GetBrandId
+
+`func (o *ListShipments200ResponseDataInner) GetBrandId() string`
+
+GetBrandId returns the BrandId field if non-nil, zero value otherwise.
+
+### GetBrandIdOk
+
+`func (o *ListShipments200ResponseDataInner) GetBrandIdOk() (*string, bool)`
+
+GetBrandIdOk returns a tuple with the BrandId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBrandId
+
+`func (o *ListShipments200ResponseDataInner) SetBrandId(v string)`
+
+SetBrandId sets BrandId field to given value.
+
+
+### SetBrandIdNil
+
+`func (o *ListShipments200ResponseDataInner) SetBrandIdNil(b bool)`
+
+ SetBrandIdNil sets the value for BrandId to be an explicit nil
+
+### UnsetBrandId
+`func (o *ListShipments200ResponseDataInner) UnsetBrandId()`
+
+UnsetBrandId ensures that no value is present for BrandId, not even an explicit nil
 ### GetAddress
 
 `func (o *ListShipments200ResponseDataInner) GetAddress() ListShipments200ResponseDataInnerAddress`

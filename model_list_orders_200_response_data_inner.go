@@ -1,7 +1,7 @@
 /*
 Zippendo Public API
 
-Public API documentation for Zippendo. Authenticate using your API token (Bearer token prefixed with zipp_).
+Public API documentation for Zippendo. Authenticate using your API token (Bearer token prefixed with zipp_).  **Brands (sub-accounts).** An organization can be split into brands, each keeping its own orders, shipments and configuration separate. There are two ways to scope requests to one brand, and NEITHER changes any request body:  1. **Bind the token.** Create an API token with a `brandId` and every request it makes is confined    to that brand — reads filtered, writes stamped. This is the recommended way to give a single    brand's team its own credential. 2. **Send the `X-Zippendo-Brand` header.** An organization-wide token can scope an individual    request by sending the brand's id or slug in this header. Most SDKs let you set it once on the    client so every call inherits it.  A brand-bound token that receives an `X-Zippendo-Brand` header naming a different brand is rejected with `403 BRAND_ACCESS_DENIED` — the binding is never widened. Omit both and requests cover the whole organization, which is the behaviour of every existing token.  Records that belong to no brand carry `brandId: null`. Configuration (carriers, shipping rules, addresses) with a null brand is organization-wide and remains visible inside every brand; orders and shipments with a null brand are only visible organization-wide.
 
 API version: 1.0.0
 Contact: support@zippendo.com
@@ -32,6 +32,8 @@ type ListOrders200ResponseDataInner struct {
 	CustomerEmail NullableString `json:"customerEmail,omitempty"`
 	// Order fulfilment status derived from its shipments.
 	Status string `json:"status"`
+	// Brand this record belongs to, or null when it is organization-wide
+	BrandId NullableString `json:"brandId"`
 	// Order subtotal before shipping and tax.
 	SubtotalAmount NullableFloat32 `json:"subtotalAmount,omitempty"`
 	// Order grand total.
@@ -53,11 +55,12 @@ type _ListOrders200ResponseDataInner ListOrders200ResponseDataInner
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListOrders200ResponseDataInner(id string, orderNumber string, status string, shipmentCount int32, orderChannel ListOrders200ResponseDataInnerOrderChannel, createdAt string, updatedAt string) *ListOrders200ResponseDataInner {
+func NewListOrders200ResponseDataInner(id string, orderNumber string, status string, brandId NullableString, shipmentCount int32, orderChannel ListOrders200ResponseDataInnerOrderChannel, createdAt string, updatedAt string) *ListOrders200ResponseDataInner {
 	this := ListOrders200ResponseDataInner{}
 	this.Id = id
 	this.OrderNumber = orderNumber
 	this.Status = status
+	this.BrandId = brandId
 	this.ShipmentCount = shipmentCount
 	this.OrderChannel = orderChannel
 	this.CreatedAt = createdAt
@@ -227,6 +230,32 @@ func (o *ListOrders200ResponseDataInner) GetStatusOk() (*string, bool) {
 // SetStatus sets field value
 func (o *ListOrders200ResponseDataInner) SetStatus(v string) {
 	o.Status = v
+}
+
+// GetBrandId returns the BrandId field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *ListOrders200ResponseDataInner) GetBrandId() string {
+	if o == nil || o.BrandId.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.BrandId.Get()
+}
+
+// GetBrandIdOk returns a tuple with the BrandId field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListOrders200ResponseDataInner) GetBrandIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.BrandId.Get(), o.BrandId.IsSet()
+}
+
+// SetBrandId sets field value
+func (o *ListOrders200ResponseDataInner) SetBrandId(v string) {
+	o.BrandId.Set(&v)
 }
 
 // GetSubtotalAmount returns the SubtotalAmount field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -470,6 +499,7 @@ func (o ListOrders200ResponseDataInner) ToMap() (map[string]interface{}, error) 
 		toSerialize["customerEmail"] = o.CustomerEmail.Get()
 	}
 	toSerialize["status"] = o.Status
+	toSerialize["brandId"] = o.BrandId.Get()
 	if o.SubtotalAmount.IsSet() {
 		toSerialize["subtotalAmount"] = o.SubtotalAmount.Get()
 	}
@@ -494,6 +524,7 @@ func (o *ListOrders200ResponseDataInner) UnmarshalJSON(data []byte) (err error) 
 		"id",
 		"orderNumber",
 		"status",
+		"brandId",
 		"shipmentCount",
 		"orderChannel",
 		"createdAt",

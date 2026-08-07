@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Name** | **string** | Token name for identification | 
 **TokenPrefix** | **string** | First 12 chars of the token for identification | 
 **Scopes** | **[]string** | Permission scopes granted by the token | 
+**BrandId** | **NullableString** | Brand this token is restricted to, or null for organization-wide access | 
 **LastUsedAt** | **NullableString** | Timestamp the token was last used (ISO 8601), null if never used | 
 **ExpiresAt** | **NullableString** | Expiry timestamp (ISO 8601), null if it never expires | 
 **CreatedAt** | **string** | Creation timestamp (ISO 8601) | 
@@ -17,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewCreateApiToken201Response
 
-`func NewCreateApiToken201Response(id string, name string, tokenPrefix string, scopes []string, lastUsedAt NullableString, expiresAt NullableString, createdAt string, token string, ) *CreateApiToken201Response`
+`func NewCreateApiToken201Response(id string, name string, tokenPrefix string, scopes []string, brandId NullableString, lastUsedAt NullableString, expiresAt NullableString, createdAt string, token string, ) *CreateApiToken201Response`
 
 NewCreateApiToken201Response instantiates a new CreateApiToken201Response object
 This constructor will assign default values to properties that have it defined,
@@ -112,6 +113,36 @@ and a boolean to check if the value has been set.
 SetScopes sets Scopes field to given value.
 
 
+### GetBrandId
+
+`func (o *CreateApiToken201Response) GetBrandId() string`
+
+GetBrandId returns the BrandId field if non-nil, zero value otherwise.
+
+### GetBrandIdOk
+
+`func (o *CreateApiToken201Response) GetBrandIdOk() (*string, bool)`
+
+GetBrandIdOk returns a tuple with the BrandId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBrandId
+
+`func (o *CreateApiToken201Response) SetBrandId(v string)`
+
+SetBrandId sets BrandId field to given value.
+
+
+### SetBrandIdNil
+
+`func (o *CreateApiToken201Response) SetBrandIdNil(b bool)`
+
+ SetBrandIdNil sets the value for BrandId to be an explicit nil
+
+### UnsetBrandId
+`func (o *CreateApiToken201Response) UnsetBrandId()`
+
+UnsetBrandId ensures that no value is present for BrandId, not even an explicit nil
 ### GetLastUsedAt
 
 `func (o *CreateApiToken201Response) GetLastUsedAt() string`

@@ -1,7 +1,7 @@
 /*
 Zippendo Public API
 
-Public API documentation for Zippendo. Authenticate using your API token (Bearer token prefixed with zipp_).
+Public API documentation for Zippendo. Authenticate using your API token (Bearer token prefixed with zipp_).  **Brands (sub-accounts).** An organization can be split into brands, each keeping its own orders, shipments and configuration separate. There are two ways to scope requests to one brand, and NEITHER changes any request body:  1. **Bind the token.** Create an API token with a `brandId` and every request it makes is confined    to that brand — reads filtered, writes stamped. This is the recommended way to give a single    brand's team its own credential. 2. **Send the `X-Zippendo-Brand` header.** An organization-wide token can scope an individual    request by sending the brand's id or slug in this header. Most SDKs let you set it once on the    client so every call inherits it.  A brand-bound token that receives an `X-Zippendo-Brand` header naming a different brand is rejected with `403 BRAND_ACCESS_DENIED` — the binding is never widened. Omit both and requests cover the whole organization, which is the behaviour of every existing token.  Records that belong to no brand carry `brandId: null`. Configuration (carriers, shipping rules, addresses) with a null brand is organization-wide and remains visible inside every brand; orders and shipments with a null brand are only visible organization-wide.
 
 API version: 1.0.0
 Contact: support@zippendo.com
@@ -31,6 +31,8 @@ type ListShipments200ResponseDataInner struct {
 	CarrierSettings ListShipments200ResponseDataInnerCarrierSettings `json:"carrierSettings"`
 	// Lifecycle status of the shipment.
 	Status string `json:"status"`
+	// Brand this record belongs to, or null when it is organization-wide
+	BrandId NullableString `json:"brandId"`
 	Address NullableListShipments200ResponseDataInnerAddress `json:"address,omitempty"`
 	// Timestamp when the shipment was created.
 	CreatedAt string `json:"createdAt"`
@@ -44,13 +46,14 @@ type _ListShipments200ResponseDataInner ListShipments200ResponseDataInner
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListShipments200ResponseDataInner(id string, reference string, type_ string, carrierSettings ListShipments200ResponseDataInnerCarrierSettings, status string, createdAt string, updatedAt string) *ListShipments200ResponseDataInner {
+func NewListShipments200ResponseDataInner(id string, reference string, type_ string, carrierSettings ListShipments200ResponseDataInnerCarrierSettings, status string, brandId NullableString, createdAt string, updatedAt string) *ListShipments200ResponseDataInner {
 	this := ListShipments200ResponseDataInner{}
 	this.Id = id
 	this.Reference = reference
 	this.Type = type_
 	this.CarrierSettings = carrierSettings
 	this.Status = status
+	this.BrandId = brandId
 	this.CreatedAt = createdAt
 	this.UpdatedAt = updatedAt
 	return &this
@@ -184,6 +187,32 @@ func (o *ListShipments200ResponseDataInner) SetStatus(v string) {
 	o.Status = v
 }
 
+// GetBrandId returns the BrandId field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *ListShipments200ResponseDataInner) GetBrandId() string {
+	if o == nil || o.BrandId.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.BrandId.Get()
+}
+
+// GetBrandIdOk returns a tuple with the BrandId field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListShipments200ResponseDataInner) GetBrandIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.BrandId.Get(), o.BrandId.IsSet()
+}
+
+// SetBrandId sets field value
+func (o *ListShipments200ResponseDataInner) SetBrandId(v string) {
+	o.BrandId.Set(&v)
+}
+
 // GetAddress returns the Address field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ListShipments200ResponseDataInner) GetAddress() ListShipments200ResponseDataInnerAddress {
 	if o == nil || IsNil(o.Address.Get()) {
@@ -289,6 +318,7 @@ func (o ListShipments200ResponseDataInner) ToMap() (map[string]interface{}, erro
 	toSerialize["type"] = o.Type
 	toSerialize["carrierSettings"] = o.CarrierSettings
 	toSerialize["status"] = o.Status
+	toSerialize["brandId"] = o.BrandId.Get()
 	if o.Address.IsSet() {
 		toSerialize["address"] = o.Address.Get()
 	}
@@ -307,6 +337,7 @@ func (o *ListShipments200ResponseDataInner) UnmarshalJSON(data []byte) (err erro
 		"type",
 		"carrierSettings",
 		"status",
+		"brandId",
 		"createdAt",
 		"updatedAt",
 	}
