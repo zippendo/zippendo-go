@@ -25,6 +25,11 @@ info:
     Records that belong to no brand carry `brandId: null`. Configuration (carriers, shipping rules,
     addresses) with a null brand is organization-wide and remains visible inside every brand;
     orders and shipments with a null brand are only visible organization-wide.
+
+    Brands themselves are managed under the **Brands** tag. Retiring a brand is done with
+    `POST /orgs/{orgId}/brands/{brandId}/archive` — permanent deletion is a dashboard-only action,
+    since it is refused while any order, shipment, member or token still references the brand.
+    Brands require a plan that includes them; creating one beyond your plan's limit returns `403`.
   license:
     name: MIT
   termsOfService: https://zippendo.com/terms
@@ -1119,6 +1124,944 @@ paths:
 
           Zippendo.configure { |c| c.access_token = ENV["ZIPPENDO_API_TOKEN"] }
           result = Zippendo::OrgsApi.new.upload_org_logo("...", Zippendo::UploadOrgLogoRequest.new)
+  /orgs/{orgId}/brands:
+    get:
+      description: Returns the organization's brands (sub-accounts). Archived brands
+        are excluded unless `includeArchived` is set.
+      operationId: listOrgBrands
+      parameters:
+      - description: Include archived brands in the response
+        explode: true
+        in: query
+        name: includeArchived
+        required: false
+        schema:
+          example: "false"
+          type: string
+        style: form
+      - description: Organization ID
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          example: org_8f3kd92ld0
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listOrgBrands_200_response"
+          description: Default Response
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+      summary: List brands
+      tags:
+      - Brands
+      x-codeSamples:
+      - lang: typescript
+        label: TypeScript
+        source: |-
+          import { Configuration, BrandsApi } from "@zippendo/sdk"
+
+          const api = new BrandsApi(new Configuration({ accessToken: process.env.ZIPPENDO_API_TOKEN }))
+          const result = await api.listOrgBrands({ orgId: "..." })
+      - lang: python
+        label: Python
+        source: |-
+          import os
+          import zippendo
+
+          config = zippendo.Configuration(access_token=os.environ["ZIPPENDO_API_TOKEN"])
+          with zippendo.ApiClient(config) as client:
+              result = zippendo.BrandsApi(client).list_org_brands("...")
+      - lang: php
+        label: PHP
+        source: |-
+          <?php
+          $config = Zippendo\Sdk\Configuration::getDefaultConfiguration()->setAccessToken(getenv("ZIPPENDO_API_TOKEN"));
+          $api = new Zippendo\Sdk\Api\BrandsApi(new GuzzleHttp\Client(), $config);
+          $result = $api->listOrgBrands("...");
+      - lang: go
+        label: Go
+        source: |-
+          client := zippendo.NewAPIClient(zippendo.NewConfiguration())
+          ctx := context.WithValue(context.Background(), zippendo.ContextAccessToken, os.Getenv("ZIPPENDO_API_TOKEN"))
+          result, _, err := client.BrandsAPI.ListOrgBrands(ctx, "...").Execute()
+      - lang: ruby
+        label: Ruby
+        source: |-
+          require "zippendo"
+
+          Zippendo.configure { |c| c.access_token = ENV["ZIPPENDO_API_TOKEN"] }
+          result = Zippendo::BrandsApi.new.list_org_brands("...")
+    post:
+      description: Creates a brand (sub-account) in the organization. The slug is
+        derived from the name when omitted. Requires a plan that includes brands.
+      operationId: createOrgBrand
+      parameters:
+      - description: Organization ID
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          example: org_8f3kd92ld0
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createOrgBrand_request"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listOrgBrands_200_response_data_inner"
+          description: Default Response
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+      summary: Create brand
+      tags:
+      - Brands
+      x-codeSamples:
+      - lang: typescript
+        label: TypeScript
+        source: |-
+          import { Configuration, BrandsApi } from "@zippendo/sdk"
+
+          const api = new BrandsApi(new Configuration({ accessToken: process.env.ZIPPENDO_API_TOKEN }))
+          const result = await api.createOrgBrand({ orgId: "...", createOrgBrandRequest: { /* ... */ } })
+      - lang: python
+        label: Python
+        source: |-
+          import os
+          import zippendo
+
+          config = zippendo.Configuration(access_token=os.environ["ZIPPENDO_API_TOKEN"])
+          with zippendo.ApiClient(config) as client:
+              result = zippendo.BrandsApi(client).create_org_brand("...", zippendo.CreateOrgBrandRequest())
+      - lang: php
+        label: PHP
+        source: |-
+          <?php
+          $config = Zippendo\Sdk\Configuration::getDefaultConfiguration()->setAccessToken(getenv("ZIPPENDO_API_TOKEN"));
+          $api = new Zippendo\Sdk\Api\BrandsApi(new GuzzleHttp\Client(), $config);
+          $result = $api->createOrgBrand("...", new \Zippendo\Sdk\Model\CreateOrgBrandRequest([]));
+      - lang: go
+        label: Go
+        source: |-
+          client := zippendo.NewAPIClient(zippendo.NewConfiguration())
+          ctx := context.WithValue(context.Background(), zippendo.ContextAccessToken, os.Getenv("ZIPPENDO_API_TOKEN"))
+          result, _, err := client.BrandsAPI.CreateOrgBrand(ctx, "...").CreateOrgBrandRequest(*zippendo.NewCreateOrgBrandRequest()).Execute()
+      - lang: ruby
+        label: Ruby
+        source: |-
+          require "zippendo"
+
+          Zippendo.configure { |c| c.access_token = ENV["ZIPPENDO_API_TOKEN"] }
+          result = Zippendo::BrandsApi.new.create_org_brand("...", Zippendo::CreateOrgBrandRequest.new)
+  /orgs/{orgId}/brands/check-slug/{slug}:
+    get:
+      description: "Reports whether a brand slug is free within this organization.\
+        \ Brand slugs are unique per organization, so the same slug may exist in another\
+        \ organization. Archived brands still hold their slug."
+      operationId: checkBrandSlug
+      parameters:
+      - description: Organization ID
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          example: org_8f3kd92ld0
+          type: string
+        style: simple
+      - description: Brand slug to check
+        explode: false
+        in: path
+        name: slug
+        required: true
+        schema:
+          example: acme
+          maxLength: 60
+          minLength: 2
+          pattern: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/checkBrandSlug_200_response"
+          description: Default Response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+      summary: Check brand slug availability
+      tags:
+      - Brands
+      x-codeSamples:
+      - lang: typescript
+        label: TypeScript
+        source: |-
+          import { Configuration, BrandsApi } from "@zippendo/sdk"
+
+          const api = new BrandsApi(new Configuration({ accessToken: process.env.ZIPPENDO_API_TOKEN }))
+          const result = await api.checkBrandSlug({ orgId: "...", slug: "..." })
+      - lang: python
+        label: Python
+        source: |-
+          import os
+          import zippendo
+
+          config = zippendo.Configuration(access_token=os.environ["ZIPPENDO_API_TOKEN"])
+          with zippendo.ApiClient(config) as client:
+              result = zippendo.BrandsApi(client).check_brand_slug("...", "...")
+      - lang: php
+        label: PHP
+        source: |-
+          <?php
+          $config = Zippendo\Sdk\Configuration::getDefaultConfiguration()->setAccessToken(getenv("ZIPPENDO_API_TOKEN"));
+          $api = new Zippendo\Sdk\Api\BrandsApi(new GuzzleHttp\Client(), $config);
+          $result = $api->checkBrandSlug("...", "...");
+      - lang: go
+        label: Go
+        source: |-
+          client := zippendo.NewAPIClient(zippendo.NewConfiguration())
+          ctx := context.WithValue(context.Background(), zippendo.ContextAccessToken, os.Getenv("ZIPPENDO_API_TOKEN"))
+          result, _, err := client.BrandsAPI.CheckBrandSlug(ctx, "...", "...").Execute()
+      - lang: ruby
+        label: Ruby
+        source: |-
+          require "zippendo"
+
+          Zippendo.configure { |c| c.access_token = ENV["ZIPPENDO_API_TOKEN"] }
+          result = Zippendo::BrandsApi.new.check_brand_slug("...", "...")
+  /orgs/{orgId}/brands/{brandId}:
+    get:
+      description: Returns a single brand (sub-account) by id.
+      operationId: getOrgBrand
+      parameters:
+      - description: Organization ID
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          example: org_8f3kd92ld0
+          type: string
+        style: simple
+      - description: Brand ID
+        explode: false
+        in: path
+        name: brandId
+        required: true
+        schema:
+          example: brnd_8f3kd92ld0
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listOrgBrands_200_response_data_inner"
+          description: Default Response
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+      summary: Get brand
+      tags:
+      - Brands
+      x-codeSamples:
+      - lang: typescript
+        label: TypeScript
+        source: |-
+          import { Configuration, BrandsApi } from "@zippendo/sdk"
+
+          const api = new BrandsApi(new Configuration({ accessToken: process.env.ZIPPENDO_API_TOKEN }))
+          const result = await api.getOrgBrand({ orgId: "...", brandId: "..." })
+      - lang: python
+        label: Python
+        source: |-
+          import os
+          import zippendo
+
+          config = zippendo.Configuration(access_token=os.environ["ZIPPENDO_API_TOKEN"])
+          with zippendo.ApiClient(config) as client:
+              result = zippendo.BrandsApi(client).get_org_brand("...", "...")
+      - lang: php
+        label: PHP
+        source: |-
+          <?php
+          $config = Zippendo\Sdk\Configuration::getDefaultConfiguration()->setAccessToken(getenv("ZIPPENDO_API_TOKEN"));
+          $api = new Zippendo\Sdk\Api\BrandsApi(new GuzzleHttp\Client(), $config);
+          $result = $api->getOrgBrand("...", "...");
+      - lang: go
+        label: Go
+        source: |-
+          client := zippendo.NewAPIClient(zippendo.NewConfiguration())
+          ctx := context.WithValue(context.Background(), zippendo.ContextAccessToken, os.Getenv("ZIPPENDO_API_TOKEN"))
+          result, _, err := client.BrandsAPI.GetOrgBrand(ctx, "...", "...").Execute()
+      - lang: ruby
+        label: Ruby
+        source: |-
+          require "zippendo"
+
+          Zippendo.configure { |c| c.access_token = ENV["ZIPPENDO_API_TOKEN"] }
+          result = Zippendo::BrandsApi.new.get_org_brand("...", "...")
+    patch:
+      description: "Updates a brand's name, slug, identity overrides (company name,\
+        \ VAT, customs, address) and document colours. Null clears an override so\
+        \ the organization's value applies again."
+      operationId: updateOrgBrand
+      parameters:
+      - description: Organization ID
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          example: org_8f3kd92ld0
+          type: string
+        style: simple
+      - description: Brand ID
+        explode: false
+        in: path
+        name: brandId
+        required: true
+        schema:
+          example: brnd_8f3kd92ld0
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/updateOrgBrand_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listOrgBrands_200_response_data_inner"
+          description: Default Response
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+      summary: Update brand
+      tags:
+      - Brands
+      x-codeSamples:
+      - lang: typescript
+        label: TypeScript
+        source: |-
+          import { Configuration, BrandsApi } from "@zippendo/sdk"
+
+          const api = new BrandsApi(new Configuration({ accessToken: process.env.ZIPPENDO_API_TOKEN }))
+          const result = await api.updateOrgBrand({ orgId: "...", brandId: "...", updateOrgBrandRequest: { /* ... */ } })
+      - lang: python
+        label: Python
+        source: |-
+          import os
+          import zippendo
+
+          config = zippendo.Configuration(access_token=os.environ["ZIPPENDO_API_TOKEN"])
+          with zippendo.ApiClient(config) as client:
+              result = zippendo.BrandsApi(client).update_org_brand("...", "...", zippendo.UpdateOrgBrandRequest())
+      - lang: php
+        label: PHP
+        source: |-
+          <?php
+          $config = Zippendo\Sdk\Configuration::getDefaultConfiguration()->setAccessToken(getenv("ZIPPENDO_API_TOKEN"));
+          $api = new Zippendo\Sdk\Api\BrandsApi(new GuzzleHttp\Client(), $config);
+          $result = $api->updateOrgBrand("...", "...", new \Zippendo\Sdk\Model\UpdateOrgBrandRequest([]));
+      - lang: go
+        label: Go
+        source: |-
+          client := zippendo.NewAPIClient(zippendo.NewConfiguration())
+          ctx := context.WithValue(context.Background(), zippendo.ContextAccessToken, os.Getenv("ZIPPENDO_API_TOKEN"))
+          result, _, err := client.BrandsAPI.UpdateOrgBrand(ctx, "...", "...").UpdateOrgBrandRequest(*zippendo.NewUpdateOrgBrandRequest()).Execute()
+      - lang: ruby
+        label: Ruby
+        source: |-
+          require "zippendo"
+
+          Zippendo.configure { |c| c.access_token = ENV["ZIPPENDO_API_TOKEN"] }
+          result = Zippendo::BrandsApi.new.update_org_brand("...", "...", Zippendo::UpdateOrgBrandRequest.new)
+  /orgs/{orgId}/brands/{brandId}/archive:
+    post:
+      description: "Archives a brand: it leaves the brand switcher and default listings,\
+        \ but its orders, shipments and settings are retained and remain visible in\
+        \ the organization-wide view."
+      operationId: archiveOrgBrand
+      parameters:
+      - description: Organization ID
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          example: org_8f3kd92ld0
+          type: string
+        style: simple
+      - description: Brand ID
+        explode: false
+        in: path
+        name: brandId
+        required: true
+        schema:
+          example: brnd_8f3kd92ld0
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listOrgBrands_200_response_data_inner"
+          description: Default Response
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+      summary: Archive brand
+      tags:
+      - Brands
+      x-codeSamples:
+      - lang: typescript
+        label: TypeScript
+        source: |-
+          import { Configuration, BrandsApi } from "@zippendo/sdk"
+
+          const api = new BrandsApi(new Configuration({ accessToken: process.env.ZIPPENDO_API_TOKEN }))
+          const result = await api.archiveOrgBrand({ orgId: "...", brandId: "..." })
+      - lang: python
+        label: Python
+        source: |-
+          import os
+          import zippendo
+
+          config = zippendo.Configuration(access_token=os.environ["ZIPPENDO_API_TOKEN"])
+          with zippendo.ApiClient(config) as client:
+              result = zippendo.BrandsApi(client).archive_org_brand("...", "...")
+      - lang: php
+        label: PHP
+        source: |-
+          <?php
+          $config = Zippendo\Sdk\Configuration::getDefaultConfiguration()->setAccessToken(getenv("ZIPPENDO_API_TOKEN"));
+          $api = new Zippendo\Sdk\Api\BrandsApi(new GuzzleHttp\Client(), $config);
+          $result = $api->archiveOrgBrand("...", "...");
+      - lang: go
+        label: Go
+        source: |-
+          client := zippendo.NewAPIClient(zippendo.NewConfiguration())
+          ctx := context.WithValue(context.Background(), zippendo.ContextAccessToken, os.Getenv("ZIPPENDO_API_TOKEN"))
+          result, _, err := client.BrandsAPI.ArchiveOrgBrand(ctx, "...", "...").Execute()
+      - lang: ruby
+        label: Ruby
+        source: |-
+          require "zippendo"
+
+          Zippendo.configure { |c| c.access_token = ENV["ZIPPENDO_API_TOKEN"] }
+          result = Zippendo::BrandsApi.new.archive_org_brand("...", "...")
+  /orgs/{orgId}/brands/{brandId}/unarchive:
+    post:
+      description: Restores an archived brand so it appears in the brand switcher
+        again.
+      operationId: unarchiveOrgBrand
+      parameters:
+      - description: Organization ID
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          example: org_8f3kd92ld0
+          type: string
+        style: simple
+      - description: Brand ID
+        explode: false
+        in: path
+        name: brandId
+        required: true
+        schema:
+          example: brnd_8f3kd92ld0
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listOrgBrands_200_response_data_inner"
+          description: Default Response
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+      summary: Unarchive brand
+      tags:
+      - Brands
+      x-codeSamples:
+      - lang: typescript
+        label: TypeScript
+        source: |-
+          import { Configuration, BrandsApi } from "@zippendo/sdk"
+
+          const api = new BrandsApi(new Configuration({ accessToken: process.env.ZIPPENDO_API_TOKEN }))
+          const result = await api.unarchiveOrgBrand({ orgId: "...", brandId: "..." })
+      - lang: python
+        label: Python
+        source: |-
+          import os
+          import zippendo
+
+          config = zippendo.Configuration(access_token=os.environ["ZIPPENDO_API_TOKEN"])
+          with zippendo.ApiClient(config) as client:
+              result = zippendo.BrandsApi(client).unarchive_org_brand("...", "...")
+      - lang: php
+        label: PHP
+        source: |-
+          <?php
+          $config = Zippendo\Sdk\Configuration::getDefaultConfiguration()->setAccessToken(getenv("ZIPPENDO_API_TOKEN"));
+          $api = new Zippendo\Sdk\Api\BrandsApi(new GuzzleHttp\Client(), $config);
+          $result = $api->unarchiveOrgBrand("...", "...");
+      - lang: go
+        label: Go
+        source: |-
+          client := zippendo.NewAPIClient(zippendo.NewConfiguration())
+          ctx := context.WithValue(context.Background(), zippendo.ContextAccessToken, os.Getenv("ZIPPENDO_API_TOKEN"))
+          result, _, err := client.BrandsAPI.UnarchiveOrgBrand(ctx, "...", "...").Execute()
+      - lang: ruby
+        label: Ruby
+        source: |-
+          require "zippendo"
+
+          Zippendo.configure { |c| c.access_token = ENV["ZIPPENDO_API_TOKEN"] }
+          result = Zippendo::BrandsApi.new.unarchive_org_brand("...", "...")
+  /orgs/{orgId}/brands/{brandId}/logo:
+    delete:
+      description: Removes a brand's logo. Its documents fall back to the organization's
+        logo. Requires the brands and customBranding entitlements.
+      operationId: deleteBrandLogo
+      parameters:
+      - description: Organization ID
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          example: org_8f3kd92ld0
+          type: string
+        style: simple
+      - description: Brand ID
+        explode: false
+        in: path
+        name: brandId
+        required: true
+        schema:
+          example: brnd_8f3kd92ld0
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listOrgBrands_200_response_data_inner"
+          description: Default Response
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+      summary: Delete brand logo
+      tags:
+      - Brands
+      x-codeSamples:
+      - lang: typescript
+        label: TypeScript
+        source: |-
+          import { Configuration, BrandsApi } from "@zippendo/sdk"
+
+          const api = new BrandsApi(new Configuration({ accessToken: process.env.ZIPPENDO_API_TOKEN }))
+          const result = await api.deleteBrandLogo({ orgId: "...", brandId: "..." })
+      - lang: python
+        label: Python
+        source: |-
+          import os
+          import zippendo
+
+          config = zippendo.Configuration(access_token=os.environ["ZIPPENDO_API_TOKEN"])
+          with zippendo.ApiClient(config) as client:
+              result = zippendo.BrandsApi(client).delete_brand_logo("...", "...")
+      - lang: php
+        label: PHP
+        source: |-
+          <?php
+          $config = Zippendo\Sdk\Configuration::getDefaultConfiguration()->setAccessToken(getenv("ZIPPENDO_API_TOKEN"));
+          $api = new Zippendo\Sdk\Api\BrandsApi(new GuzzleHttp\Client(), $config);
+          $result = $api->deleteBrandLogo("...", "...");
+      - lang: go
+        label: Go
+        source: |-
+          client := zippendo.NewAPIClient(zippendo.NewConfiguration())
+          ctx := context.WithValue(context.Background(), zippendo.ContextAccessToken, os.Getenv("ZIPPENDO_API_TOKEN"))
+          result, _, err := client.BrandsAPI.DeleteBrandLogo(ctx, "...", "...").Execute()
+      - lang: ruby
+        label: Ruby
+        source: |-
+          require "zippendo"
+
+          Zippendo.configure { |c| c.access_token = ENV["ZIPPENDO_API_TOKEN"] }
+          result = Zippendo::BrandsApi.new.delete_brand_logo("...", "...")
+    get:
+      description: Streams the brand's logo bytes. This is the URL returned as the
+        brand's `logoUrl`.
+      operationId: getBrandLogo
+      parameters:
+      - description: Organization ID
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          example: org_8f3kd92ld0
+          type: string
+        style: simple
+      - description: Brand ID
+        explode: false
+        in: path
+        name: brandId
+        required: true
+        schema:
+          example: brnd_8f3kd92ld0
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            image/png:
+              schema:
+                description: The logo image bytes
+                format: binary
+                type: string
+            image/jpeg:
+              schema:
+                description: The logo image bytes
+                format: binary
+                type: string
+            image/webp:
+              schema:
+                description: The logo image bytes
+                format: binary
+                type: string
+          description: The logo image bytes
+        "401":
+          content:
+            image/png:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+            image/jpeg:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+            image/webp:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "403":
+          content:
+            image/png:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+            image/jpeg:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+            image/webp:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "404":
+          content:
+            image/png:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+            image/jpeg:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+            image/webp:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+      summary: Get brand logo
+      tags:
+      - Brands
+      x-codeSamples:
+      - lang: typescript
+        label: TypeScript
+        source: |-
+          import { Configuration, BrandsApi } from "@zippendo/sdk"
+
+          const api = new BrandsApi(new Configuration({ accessToken: process.env.ZIPPENDO_API_TOKEN }))
+          const result = await api.getBrandLogo({ orgId: "...", brandId: "..." })
+      - lang: python
+        label: Python
+        source: |-
+          import os
+          import zippendo
+
+          config = zippendo.Configuration(access_token=os.environ["ZIPPENDO_API_TOKEN"])
+          with zippendo.ApiClient(config) as client:
+              result = zippendo.BrandsApi(client).get_brand_logo("...", "...")
+      - lang: php
+        label: PHP
+        source: |-
+          <?php
+          $config = Zippendo\Sdk\Configuration::getDefaultConfiguration()->setAccessToken(getenv("ZIPPENDO_API_TOKEN"));
+          $api = new Zippendo\Sdk\Api\BrandsApi(new GuzzleHttp\Client(), $config);
+          $result = $api->getBrandLogo("...", "...");
+      - lang: go
+        label: Go
+        source: |-
+          client := zippendo.NewAPIClient(zippendo.NewConfiguration())
+          ctx := context.WithValue(context.Background(), zippendo.ContextAccessToken, os.Getenv("ZIPPENDO_API_TOKEN"))
+          result, _, err := client.BrandsAPI.GetBrandLogo(ctx, "...", "...").Execute()
+      - lang: ruby
+        label: Ruby
+        source: |-
+          require "zippendo"
+
+          Zippendo.configure { |c| c.access_token = ENV["ZIPPENDO_API_TOKEN"] }
+          result = Zippendo::BrandsApi.new.get_brand_logo("...", "...")
+    post:
+      description: "Uploads a brand's logo as multipart/form-data. Accepts PNG, JPG\
+        \ or WEBP up to 5MB and 4096×4096px; the image is re-encoded and stored. Documents\
+        \ for this brand's shipments use it instead of the organization's logo. Requires\
+        \ the brands and customBranding entitlements."
+      operationId: uploadBrandLogo
+      parameters:
+      - description: Organization ID
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          example: org_8f3kd92ld0
+          type: string
+        style: simple
+      - description: Brand ID
+        explode: false
+        in: path
+        name: brandId
+        required: true
+        schema:
+          example: brnd_8f3kd92ld0
+          type: string
+        style: simple
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/uploadOrgLogo_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listOrgBrands_200_response_data_inner"
+          description: Default Response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "413":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+      summary: Upload brand logo
+      tags:
+      - Brands
+      x-codeSamples:
+      - lang: typescript
+        label: TypeScript
+        source: |-
+          import { Configuration, BrandsApi } from "@zippendo/sdk"
+
+          const api = new BrandsApi(new Configuration({ accessToken: process.env.ZIPPENDO_API_TOKEN }))
+          const result = await api.uploadBrandLogo({ orgId: "...", brandId: "...", uploadBrandLogoRequest: { /* ... */ } })
+      - lang: python
+        label: Python
+        source: |-
+          import os
+          import zippendo
+
+          config = zippendo.Configuration(access_token=os.environ["ZIPPENDO_API_TOKEN"])
+          with zippendo.ApiClient(config) as client:
+              result = zippendo.BrandsApi(client).upload_brand_logo("...", "...", zippendo.UploadBrandLogoRequest())
+      - lang: php
+        label: PHP
+        source: |-
+          <?php
+          $config = Zippendo\Sdk\Configuration::getDefaultConfiguration()->setAccessToken(getenv("ZIPPENDO_API_TOKEN"));
+          $api = new Zippendo\Sdk\Api\BrandsApi(new GuzzleHttp\Client(), $config);
+          $result = $api->uploadBrandLogo("...", "...", new \Zippendo\Sdk\Model\UploadBrandLogoRequest([]));
+      - lang: go
+        label: Go
+        source: |-
+          client := zippendo.NewAPIClient(zippendo.NewConfiguration())
+          ctx := context.WithValue(context.Background(), zippendo.ContextAccessToken, os.Getenv("ZIPPENDO_API_TOKEN"))
+          result, _, err := client.BrandsAPI.UploadBrandLogo(ctx, "...", "...").UploadBrandLogoRequest(*zippendo.NewUploadBrandLogoRequest()).Execute()
+      - lang: ruby
+        label: Ruby
+        source: |-
+          require "zippendo"
+
+          Zippendo.configure { |c| c.access_token = ENV["ZIPPENDO_API_TOKEN"] }
+          result = Zippendo::BrandsApi.new.upload_brand_logo("...", "...", Zippendo::UploadBrandLogoRequest.new)
   /orgs/{orgId}/addresses:
     get:
       description: "Returns a paginated list of addresses for the organization, optionally\
@@ -5161,7 +6104,7 @@ components:
       description: "Scope the request to one brand (sub-account), by brand ID or slug.\
         \ Omit for the organization-wide view. A brand-bound API token is already\
         \ restricted to its brand and rejects a different value."
-      example: pitaya
+      example: acme
       explode: false
       in: header
       name: x-zippendo-brand
@@ -6117,6 +7060,418 @@ components:
           type: string
       required:
       - file
+      type: object
+    listOrgBrands_200_response_data_inner:
+      additionalProperties: false
+      example:
+        companyName: Acme ApS
+        vatNumber: DK12345678
+        customs:
+          eori: DK12345678
+        addressLine1: Vestergade 12
+        addressLine2: 3. sal
+        city: København
+        postalCode: "1456"
+        country: DK
+        primaryColor: "#1D4ED8"
+        secondaryColor: "#F59E0B"
+        id: brnd_8f3kd92ld0
+        orgId: org_8f3kd92ld0
+        name: Acme
+        slug: acme
+        useOrgCustoms: true
+        logoUrl: /orgs/org_1/brands/brnd_1/logo
+        archivedAt: 2026-08-05T10:00:00.000Z
+        createdAt: 2026-06-22T14:30:00.000Z
+        updatedAt: 2026-06-22T14:30:00.000Z
+      properties:
+        companyName:
+          description: Legal entity name printed on this brand's documents
+          example: Acme ApS
+          maxLength: 200
+          nullable: true
+          type: string
+        vatNumber:
+          description: VAT/tax ID for this brand's shipments and documents
+          example: DK12345678
+          maxLength: 40
+          nullable: true
+          type: string
+        customs:
+          additionalProperties:
+            type: string
+          description: Customs identifiers keyed by type
+          example:
+            eori: DK12345678
+          nullable: true
+          required:
+          - duns
+          - eori
+          - fda
+          - ioss
+          - sprn
+          - voec
+          type: object
+        addressLine1:
+          description: Street address line 1
+          example: Vestergade 12
+          maxLength: 200
+          nullable: true
+          type: string
+        addressLine2:
+          description: Street address line 2
+          example: 3. sal
+          maxLength: 200
+          nullable: true
+          type: string
+        city:
+          description: City
+          example: København
+          maxLength: 100
+          nullable: true
+          type: string
+        postalCode:
+          description: Postal code
+          example: "1456"
+          maxLength: 20
+          nullable: true
+          type: string
+        country:
+          description: Country (ISO 3166-1 alpha-2)
+          example: DK
+          maxLength: 2
+          minLength: 2
+          nullable: true
+          type: string
+        primaryColor:
+          description: Primary brand colour — document title and table headers
+          example: "#1D4ED8"
+          nullable: true
+          pattern: "^#[0-9a-fA-F]{6}$"
+          type: string
+        secondaryColor:
+          description: "Secondary brand colour — subtitle, section headings, totals\
+            \ accent"
+          example: "#F59E0B"
+          nullable: true
+          pattern: "^#[0-9a-fA-F]{6}$"
+          type: string
+        id:
+          description: Unique brand identifier
+          example: brnd_8f3kd92ld0
+          type: string
+        orgId:
+          description: Owning organization
+          example: org_8f3kd92ld0
+          type: string
+        name:
+          description: Brand display name
+          example: Acme
+          type: string
+        slug:
+          description: "URL-safe identifier, unique within the organization"
+          example: acme
+          type: string
+        useOrgCustoms:
+          description: "Whether this brand ships under the organization's fiscal identity.\
+            \ True (the default) declares the organization's VAT number and customs\
+            \ identifiers and ignores the brand's own. False makes the brand's own\
+            \ values the sole source — nothing falls back to the organization, so\
+            \ an identifier the brand has not set is not declared at all."
+          example: true
+          type: boolean
+        logoUrl:
+          description: "Authenticated URL for the brand logo, or null when none is\
+            \ set"
+          example: /orgs/org_1/brands/brnd_1/logo
+          nullable: true
+          type: string
+        archivedAt:
+          description: When the brand was archived; null when active
+          example: 2026-08-05T10:00:00.000Z
+          nullable: true
+          type: string
+        createdAt:
+          description: Creation timestamp (ISO 8601)
+          example: 2026-06-22T14:30:00.000Z
+          type: string
+        updatedAt:
+          description: Last update timestamp (ISO 8601)
+          example: 2026-06-22T14:30:00.000Z
+          type: string
+      required:
+      - archivedAt
+      - createdAt
+      - id
+      - logoUrl
+      - name
+      - orgId
+      - slug
+      - updatedAt
+      - useOrgCustoms
+      type: object
+    listOrgBrands_200_response:
+      additionalProperties: false
+      example:
+        data:
+        - companyName: Acme ApS
+          vatNumber: DK12345678
+          customs:
+            eori: DK12345678
+          addressLine1: Vestergade 12
+          addressLine2: 3. sal
+          city: København
+          postalCode: "1456"
+          country: DK
+          primaryColor: "#1D4ED8"
+          secondaryColor: "#F59E0B"
+          id: brnd_8f3kd92ld0
+          orgId: org_8f3kd92ld0
+          name: Acme
+          slug: acme
+          useOrgCustoms: true
+          logoUrl: /orgs/org_1/brands/brnd_1/logo
+          archivedAt: 2026-08-05T10:00:00.000Z
+          createdAt: 2026-06-22T14:30:00.000Z
+          updatedAt: 2026-06-22T14:30:00.000Z
+        - companyName: Acme ApS
+          vatNumber: DK12345678
+          customs:
+            eori: DK12345678
+          addressLine1: Vestergade 12
+          addressLine2: 3. sal
+          city: København
+          postalCode: "1456"
+          country: DK
+          primaryColor: "#1D4ED8"
+          secondaryColor: "#F59E0B"
+          id: brnd_8f3kd92ld0
+          orgId: org_8f3kd92ld0
+          name: Acme
+          slug: acme
+          useOrgCustoms: true
+          logoUrl: /orgs/org_1/brands/brnd_1/logo
+          archivedAt: 2026-08-05T10:00:00.000Z
+          createdAt: 2026-06-22T14:30:00.000Z
+          updatedAt: 2026-06-22T14:30:00.000Z
+      properties:
+        data:
+          items:
+            $ref: "#/components/schemas/listOrgBrands_200_response_data_inner"
+          type: array
+      required:
+      - data
+      type: object
+    createOrgBrand_request:
+      properties:
+        companyName:
+          description: Legal entity name printed on this brand's documents
+          example: Acme ApS
+          maxLength: 200
+          nullable: true
+          type: string
+        vatNumber:
+          description: VAT/tax ID for this brand's shipments and documents
+          example: DK12345678
+          maxLength: 40
+          nullable: true
+          type: string
+        customs:
+          additionalProperties:
+            type: string
+          description: Customs identifiers keyed by type
+          example:
+            eori: DK12345678
+          nullable: true
+          required:
+          - duns
+          - eori
+          - fda
+          - ioss
+          - sprn
+          - voec
+          type: object
+        addressLine1:
+          description: Street address line 1
+          example: Vestergade 12
+          maxLength: 200
+          nullable: true
+          type: string
+        addressLine2:
+          description: Street address line 2
+          example: 3. sal
+          maxLength: 200
+          nullable: true
+          type: string
+        city:
+          description: City
+          example: København
+          maxLength: 100
+          nullable: true
+          type: string
+        postalCode:
+          description: Postal code
+          example: "1456"
+          maxLength: 20
+          nullable: true
+          type: string
+        country:
+          description: Country (ISO 3166-1 alpha-2)
+          example: DK
+          maxLength: 2
+          minLength: 2
+          nullable: true
+          type: string
+        primaryColor:
+          description: Primary brand colour — document title and table headers
+          example: "#1D4ED8"
+          nullable: true
+          pattern: "^#[0-9a-fA-F]{6}$"
+          type: string
+        secondaryColor:
+          description: "Secondary brand colour — subtitle, section headings, totals\
+            \ accent"
+          example: "#F59E0B"
+          nullable: true
+          pattern: "^#[0-9a-fA-F]{6}$"
+          type: string
+        name:
+          description: Brand display name
+          example: Acme
+          maxLength: 120
+          minLength: 1
+          type: string
+        slug:
+          description: "URL-safe identifier, unique within the org. Derived from the\
+            \ name when omitted."
+          example: acme
+          maxLength: 60
+          minLength: 2
+          pattern: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          type: string
+        useOrgCustoms:
+          description: "Whether this brand ships under the organization's fiscal identity.\
+            \ True (the default) declares the organization's VAT number and customs\
+            \ identifiers and ignores the brand's own. False makes the brand's own\
+            \ values the sole source — nothing falls back to the organization, so\
+            \ an identifier the brand has not set is not declared at all."
+          example: true
+          type: boolean
+      required:
+      - name
+      type: object
+    checkBrandSlug_200_response:
+      additionalProperties: false
+      example:
+        slug: acme
+        available: true
+      properties:
+        slug:
+          description: The slug that was checked
+          example: acme
+          type: string
+        available:
+          description: Whether the slug is free within this organization
+          example: true
+          type: boolean
+      required:
+      - available
+      - slug
+      type: object
+    updateOrgBrand_request:
+      properties:
+        companyName:
+          description: Legal entity name printed on this brand's documents
+          example: Acme ApS
+          maxLength: 200
+          nullable: true
+          type: string
+        vatNumber:
+          description: VAT/tax ID for this brand's shipments and documents
+          example: DK12345678
+          maxLength: 40
+          nullable: true
+          type: string
+        customs:
+          additionalProperties:
+            type: string
+          description: Customs identifiers keyed by type
+          example:
+            eori: DK12345678
+          nullable: true
+          required:
+          - duns
+          - eori
+          - fda
+          - ioss
+          - sprn
+          - voec
+          type: object
+        addressLine1:
+          description: Street address line 1
+          example: Vestergade 12
+          maxLength: 200
+          nullable: true
+          type: string
+        addressLine2:
+          description: Street address line 2
+          example: 3. sal
+          maxLength: 200
+          nullable: true
+          type: string
+        city:
+          description: City
+          example: København
+          maxLength: 100
+          nullable: true
+          type: string
+        postalCode:
+          description: Postal code
+          example: "1456"
+          maxLength: 20
+          nullable: true
+          type: string
+        country:
+          description: Country (ISO 3166-1 alpha-2)
+          example: DK
+          maxLength: 2
+          minLength: 2
+          nullable: true
+          type: string
+        primaryColor:
+          description: Primary brand colour — document title and table headers
+          example: "#1D4ED8"
+          nullable: true
+          pattern: "^#[0-9a-fA-F]{6}$"
+          type: string
+        secondaryColor:
+          description: "Secondary brand colour — subtitle, section headings, totals\
+            \ accent"
+          example: "#F59E0B"
+          nullable: true
+          pattern: "^#[0-9a-fA-F]{6}$"
+          type: string
+        name:
+          description: Brand display name
+          example: Acme
+          maxLength: 120
+          minLength: 1
+          type: string
+        slug:
+          description: "URL-safe identifier, unique within the org"
+          example: acme
+          maxLength: 60
+          minLength: 2
+          pattern: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          type: string
+        useOrgCustoms:
+          description: "Whether this brand ships under the organization's fiscal identity.\
+            \ True (the default) declares the organization's VAT number and customs\
+            \ identifiers and ignores the brand's own. False makes the brand's own\
+            \ values the sole source — nothing falls back to the organization, so\
+            \ an identifier the brand has not set is not declared at all."
+          example: true
+          type: boolean
       type: object
     listAddresses_200_response_data_inner:
       additionalProperties: false

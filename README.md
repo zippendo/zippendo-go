@@ -42,7 +42,7 @@ which one the request acts on.
 ## Brands
 
 A **brand** is a sub-account inside an organization: one company running several consumer-facing
-labels (say Pitaya and Kiwi) keeps each label's orders and shipments separate, with its own company
+labels (say Acme and Globex) keeps each label's orders and shipments separate, with its own company
 name, address and logo on the documents its shipments produce. Scope a request to one brand with the
 `X-Zippendo-Brand` header, whose value is the brand's ID or slug.
 
@@ -51,14 +51,14 @@ default header on the `Configuration` and every call inherits it:
 
 ```go
 cfg := zippendo.NewConfiguration()
-cfg.AddDefaultHeader("X-Zippendo-Brand", "pitaya") // brand ID or slug
+cfg.AddDefaultHeader("X-Zippendo-Brand", "acme") // brand ID or slug
 client := zippendo.NewAPIClient(cfg)
 
 shipments, _, err := client.ShipmentsAPI.ListShipments(ctx, "org_8f3kd92ld0").Limit(50).Execute()
 if err != nil {
 	panic(err)
 }
-fmt.Println(shipments.GetTotal()) // only Pitaya's shipments; new shipments are stamped with the brand
+fmt.Println(shipments.GetTotal()) // only Acme's shipments; new shipments are stamped with the brand
 ```
 
 Omit the header and the request covers the whole organization — the behaviour of every existing
@@ -69,8 +69,29 @@ all. Sending `X-Zippendo-Brand` naming a *different* brand on such a token is re
 `403 BRAND_ACCESS_DENIED`; the binding is never widened. A brand that does not exist in the
 organization gives `404 BRAND_NOT_FOUND`.
 
-Creating, updating and deleting brands is done in the Zippendo dashboard — there are no brand
-management endpoints in this SDK.
+### Managing brands
+
+Brands are managed with `BrandsAPI`. Use a client without the brand default header — you are
+administering brands, not acting inside one:
+
+```go
+created, _, err := client.BrandsAPI.CreateOrgBrand(ctx, "org_8f3kd92ld0").
+	CreateOrgBrandRequest(zippendo.CreateOrgBrandRequest{
+		Name:        "Acme",
+		CompanyName: *zippendo.NewNullableString(zippendo.PtrString("Acme ApS")),
+	}).Execute()
+if err != nil {
+	panic(err)
+}
+
+page, _, err := client.BrandsAPI.ListOrgBrands(ctx, "org_8f3kd92ld0").Execute()
+_, _, err = client.BrandsAPI.ArchiveOrgBrand(ctx, "org_8f3kd92ld0", created.GetId()).Execute()
+```
+
+Retire a brand with `ArchiveOrgBrand` — archived brands keep their slug and can be restored with
+`UnarchiveOrgBrand`. Permanent deletion is dashboard-only: it is refused while any order, shipment,
+member or token still references the brand. Brands require a plan that includes them; creating one
+past your plan's limit returns `403`.
 
 ## Listing & pagination
 
