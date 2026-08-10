@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **CarrierId** | Pointer to **string** | Carrier ID | [optional] 
 **ProductId** | Pointer to **string** | Product ID from carrier | [optional] 
 **Services** | Pointer to **[]string** | List of selected services | [optional] 
-**AdditionalParameters** | Pointer to [**CreateShippingRuleRequestAdditionalParameters**](CreateShippingRuleRequestAdditionalParameters.md) |  | [optional] [default to {}]
+**AdditionalParameters** | Pointer to [**map[string]CreateShippingRuleRequestAdditionalParametersValue**](CreateShippingRuleRequestAdditionalParametersValue.md) | Carrier-specific extra parameters, keyed by the carrier parameter &#x60;key&#x60; from the product&#39;s &#x60;additionalParameters[].key&#x60;. Omit to leave the rule&#39;s parameters unchanged. | [optional] 
 **AddressId** | Pointer to **string** | Sender address ID | [optional] 
 **ReceivingCountries** | Pointer to **[]string** | List of supported country codes | [optional] 
 **EmailNotification** | Pointer to **bool** | Send email notification to recipient | [optional] [default to false]
@@ -201,20 +201,20 @@ HasServices returns a boolean if a field has been set.
 
 ### GetAdditionalParameters
 
-`func (o *UpdateShippingRuleRequest) GetAdditionalParameters() CreateShippingRuleRequestAdditionalParameters`
+`func (o *UpdateShippingRuleRequest) GetAdditionalParameters() map[string]CreateShippingRuleRequestAdditionalParametersValue`
 
 GetAdditionalParameters returns the AdditionalParameters field if non-nil, zero value otherwise.
 
 ### GetAdditionalParametersOk
 
-`func (o *UpdateShippingRuleRequest) GetAdditionalParametersOk() (*CreateShippingRuleRequestAdditionalParameters, bool)`
+`func (o *UpdateShippingRuleRequest) GetAdditionalParametersOk() (*map[string]CreateShippingRuleRequestAdditionalParametersValue, bool)`
 
 GetAdditionalParametersOk returns a tuple with the AdditionalParameters field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAdditionalParameters
 
-`func (o *UpdateShippingRuleRequest) SetAdditionalParameters(v CreateShippingRuleRequestAdditionalParameters)`
+`func (o *UpdateShippingRuleRequest) SetAdditionalParameters(v map[string]CreateShippingRuleRequestAdditionalParametersValue)`
 
 SetAdditionalParameters sets AdditionalParameters field to given value.
 

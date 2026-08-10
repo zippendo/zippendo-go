@@ -34,7 +34,8 @@ type CreateShippingRuleRequest struct {
 	ProductId string `json:"productId"`
 	// List of selected services
 	Services []string `json:"services"`
-	AdditionalParameters *CreateShippingRuleRequestAdditionalParameters `json:"additionalParameters,omitempty"`
+	// Carrier-specific extra parameters, keyed by the carrier parameter `key` from the product's `additionalParameters[].key` (e.g. `returnFunctionality`).
+	AdditionalParameters map[string]CreateShippingRuleRequestAdditionalParametersValue `json:"additionalParameters,omitempty"`
 	// Sender address ID
 	AddressId string `json:"addressId"`
 	// List of supported country codes
@@ -87,8 +88,6 @@ func NewCreateShippingRuleRequest(name string, carrierId string, productId strin
 	this.CarrierId = carrierId
 	this.ProductId = productId
 	this.Services = services
-	var additionalParameters CreateShippingRuleRequestAdditionalParameters = {}
-	this.AdditionalParameters = &additionalParameters
 	this.AddressId = addressId
 	this.ReceivingCountries = receivingCountries
 	var emailNotification bool = false
@@ -118,8 +117,6 @@ func NewCreateShippingRuleRequestWithDefaults() *CreateShippingRuleRequest {
 	this := CreateShippingRuleRequest{}
 	var direction string = "outbound"
 	this.Direction = &direction
-	var additionalParameters CreateShippingRuleRequestAdditionalParameters = {}
-	this.AdditionalParameters = &additionalParameters
 	var emailNotification bool = false
 	this.EmailNotification = &emailNotification
 	var phoneNotification bool = false
@@ -300,19 +297,19 @@ func (o *CreateShippingRuleRequest) SetServices(v []string) {
 }
 
 // GetAdditionalParameters returns the AdditionalParameters field value if set, zero value otherwise.
-func (o *CreateShippingRuleRequest) GetAdditionalParameters() CreateShippingRuleRequestAdditionalParameters {
+func (o *CreateShippingRuleRequest) GetAdditionalParameters() map[string]CreateShippingRuleRequestAdditionalParametersValue {
 	if o == nil || IsNil(o.AdditionalParameters) {
-		var ret CreateShippingRuleRequestAdditionalParameters
+		var ret map[string]CreateShippingRuleRequestAdditionalParametersValue
 		return ret
 	}
-	return *o.AdditionalParameters
+	return o.AdditionalParameters
 }
 
 // GetAdditionalParametersOk returns a tuple with the AdditionalParameters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateShippingRuleRequest) GetAdditionalParametersOk() (*CreateShippingRuleRequestAdditionalParameters, bool) {
+func (o *CreateShippingRuleRequest) GetAdditionalParametersOk() (map[string]CreateShippingRuleRequestAdditionalParametersValue, bool) {
 	if o == nil || IsNil(o.AdditionalParameters) {
-		return nil, false
+		return map[string]CreateShippingRuleRequestAdditionalParametersValue{}, false
 	}
 	return o.AdditionalParameters, true
 }
@@ -326,9 +323,9 @@ func (o *CreateShippingRuleRequest) HasAdditionalParameters() bool {
 	return false
 }
 
-// SetAdditionalParameters gets a reference to the given CreateShippingRuleRequestAdditionalParameters and assigns it to the AdditionalParameters field.
-func (o *CreateShippingRuleRequest) SetAdditionalParameters(v CreateShippingRuleRequestAdditionalParameters) {
-	o.AdditionalParameters = &v
+// SetAdditionalParameters gets a reference to the given map[string]CreateShippingRuleRequestAdditionalParametersValue and assigns it to the AdditionalParameters field.
+func (o *CreateShippingRuleRequest) SetAdditionalParameters(v map[string]CreateShippingRuleRequestAdditionalParametersValue) {
+	o.AdditionalParameters = v
 }
 
 // GetAddressId returns the AddressId field value

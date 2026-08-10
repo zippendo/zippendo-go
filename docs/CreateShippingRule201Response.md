@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **CarrierId** | **string** | Carrier ID | 
 **ProductId** | **string** | Product ID from carrier | 
 **Services** | **[]string** | List of selected services | 
-**AdditionalParameters** | [**[]ListShippingRules200ResponseDataInnerAdditionalParametersInner**](ListShippingRules200ResponseDataInnerAdditionalParametersInner.md) | Carrier-specific extra parameters. DEPRECATED array form &#x60;[{ name, val }]&#x60; where &#x60;name&#x60; is the carrier parameter &#x60;key&#x60; (from the product&#39;s &#x60;additionalParameters[].key&#x60;, e.g. &#x60;returnFunctionality&#x60;) and &#x60;val&#x60; is the stringified value. This will change to a &#x60;{ key: value }&#x60; object in a future version — writes already accept either shape. | 
+**AdditionalParameters** | [**map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue**](ListShippingRules200ResponseDataInnerAdditionalParametersValue.md) | Carrier-specific extra parameters, keyed by the carrier parameter &#x60;key&#x60; from the product&#39;s &#x60;additionalParameters[].key&#x60;. | 
 **AddressId** | **string** | Sender address ID | 
 **ReceivingCountries** | **[]string** | List of supported country codes | 
 **EmailNotification** | **bool** | Send email notification to recipient | [default to false]
@@ -38,7 +38,7 @@ Name | Type | Description | Notes
 
 ### NewCreateShippingRule201Response
 
-`func NewCreateShippingRule201Response(id string, name string, description NullableString, direction string, carrierId string, productId string, services []string, additionalParameters []ListShippingRules200ResponseDataInnerAdditionalParametersInner, addressId string, receivingCountries []string, emailNotification bool, phoneNotification bool, minWeight NullableFloat32, maxWeight NullableFloat32, minOrderValue NullableFloat32, maxOrderValue NullableFloat32, conditions []ListShippingRules200ResponseDataInnerConditionsInner, generateProformaInvoice bool, generateCommercialInvoice bool, generatePackingList bool, autoPrintLabels bool, autoPrintDocuments bool, labelPrinterId NullableString, documentPrinterId NullableString, returnShippingRuleId NullableString, autoCreateReturnShipment bool, orgId string, createdAt string, updatedAt string, ) *CreateShippingRule201Response`
+`func NewCreateShippingRule201Response(id string, name string, description NullableString, direction string, carrierId string, productId string, services []string, additionalParameters map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue, addressId string, receivingCountries []string, emailNotification bool, phoneNotification bool, minWeight NullableFloat32, maxWeight NullableFloat32, minOrderValue NullableFloat32, maxOrderValue NullableFloat32, conditions []ListShippingRules200ResponseDataInnerConditionsInner, generateProformaInvoice bool, generateCommercialInvoice bool, generatePackingList bool, autoPrintLabels bool, autoPrintDocuments bool, labelPrinterId NullableString, documentPrinterId NullableString, returnShippingRuleId NullableString, autoCreateReturnShipment bool, orgId string, createdAt string, updatedAt string, ) *CreateShippingRule201Response`
 
 NewCreateShippingRule201Response instantiates a new CreateShippingRule201Response object
 This constructor will assign default values to properties that have it defined,
@@ -205,20 +205,20 @@ SetServices sets Services field to given value.
 
 ### GetAdditionalParameters
 
-`func (o *CreateShippingRule201Response) GetAdditionalParameters() []ListShippingRules200ResponseDataInnerAdditionalParametersInner`
+`func (o *CreateShippingRule201Response) GetAdditionalParameters() map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue`
 
 GetAdditionalParameters returns the AdditionalParameters field if non-nil, zero value otherwise.
 
 ### GetAdditionalParametersOk
 
-`func (o *CreateShippingRule201Response) GetAdditionalParametersOk() (*[]ListShippingRules200ResponseDataInnerAdditionalParametersInner, bool)`
+`func (o *CreateShippingRule201Response) GetAdditionalParametersOk() (*map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue, bool)`
 
 GetAdditionalParametersOk returns a tuple with the AdditionalParameters field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAdditionalParameters
 
-`func (o *CreateShippingRule201Response) SetAdditionalParameters(v []ListShippingRules200ResponseDataInnerAdditionalParametersInner)`
+`func (o *CreateShippingRule201Response) SetAdditionalParameters(v map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue)`
 
 SetAdditionalParameters sets AdditionalParameters field to given value.
 

@@ -29,7 +29,7 @@ type ListShipments200ResponseDataInnerCarrierSettings struct {
 	// Additional service codes requested from the carrier.
 	Services []string `json:"services"`
 	// Carrier-specific extra parameters as key/value pairs.
-	AdditionalParameters map[string]ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue `json:"additionalParameters"`
+	AdditionalParameters map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue `json:"additionalParameters"`
 }
 
 type _ListShipments200ResponseDataInnerCarrierSettings ListShipments200ResponseDataInnerCarrierSettings
@@ -38,7 +38,7 @@ type _ListShipments200ResponseDataInnerCarrierSettings ListShipments200ResponseD
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListShipments200ResponseDataInnerCarrierSettings(carrierId string, productId string, services []string, additionalParameters map[string]ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue) *ListShipments200ResponseDataInnerCarrierSettings {
+func NewListShipments200ResponseDataInnerCarrierSettings(carrierId string, productId string, services []string, additionalParameters map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue) *ListShipments200ResponseDataInnerCarrierSettings {
 	this := ListShipments200ResponseDataInnerCarrierSettings{}
 	this.CarrierId = carrierId
 	this.ProductId = productId
@@ -128,9 +128,9 @@ func (o *ListShipments200ResponseDataInnerCarrierSettings) SetServices(v []strin
 }
 
 // GetAdditionalParameters returns the AdditionalParameters field value
-func (o *ListShipments200ResponseDataInnerCarrierSettings) GetAdditionalParameters() map[string]ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue {
+func (o *ListShipments200ResponseDataInnerCarrierSettings) GetAdditionalParameters() map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue {
 	if o == nil {
-		var ret map[string]ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue
+		var ret map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue
 		return ret
 	}
 
@@ -139,15 +139,15 @@ func (o *ListShipments200ResponseDataInnerCarrierSettings) GetAdditionalParamete
 
 // GetAdditionalParametersOk returns a tuple with the AdditionalParameters field value
 // and a boolean to check if the value has been set.
-func (o *ListShipments200ResponseDataInnerCarrierSettings) GetAdditionalParametersOk() (map[string]ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue, bool) {
+func (o *ListShipments200ResponseDataInnerCarrierSettings) GetAdditionalParametersOk() (map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue, bool) {
 	if o == nil {
-		return map[string]ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue{}, false
+		return map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue{}, false
 	}
 	return o.AdditionalParameters, true
 }
 
 // SetAdditionalParameters sets field value
-func (o *ListShipments200ResponseDataInnerCarrierSettings) SetAdditionalParameters(v map[string]ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue) {
+func (o *ListShipments200ResponseDataInnerCarrierSettings) SetAdditionalParameters(v map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue) {
 	o.AdditionalParameters = v
 }
 

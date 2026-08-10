@@ -7,13 +7,13 @@ Name | Type | Description | Notes
 **CarrierId** | **string** | Identifier of the carrier to use. | 
 **ProductId** | **string** | Identifier of the carrier product/service. | 
 **Services** | **[]string** | Additional service codes requested from the carrier. | 
-**AdditionalParameters** | [**map[string]ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue**](ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue.md) | Carrier-specific extra parameters as key/value pairs. | 
+**AdditionalParameters** | [**map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue**](ListShippingRules200ResponseDataInnerAdditionalParametersValue.md) | Carrier-specific extra parameters as key/value pairs. | 
 
 ## Methods
 
 ### NewListShipments200ResponseDataInnerCarrierSettings
 
-`func NewListShipments200ResponseDataInnerCarrierSettings(carrierId string, productId string, services []string, additionalParameters map[string]ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue, ) *ListShipments200ResponseDataInnerCarrierSettings`
+`func NewListShipments200ResponseDataInnerCarrierSettings(carrierId string, productId string, services []string, additionalParameters map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue, ) *ListShipments200ResponseDataInnerCarrierSettings`
 
 NewListShipments200ResponseDataInnerCarrierSettings instantiates a new ListShipments200ResponseDataInnerCarrierSettings object
 This constructor will assign default values to properties that have it defined,
@@ -90,20 +90,20 @@ SetServices sets Services field to given value.
 
 ### GetAdditionalParameters
 
-`func (o *ListShipments200ResponseDataInnerCarrierSettings) GetAdditionalParameters() map[string]ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue`
+`func (o *ListShipments200ResponseDataInnerCarrierSettings) GetAdditionalParameters() map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue`
 
 GetAdditionalParameters returns the AdditionalParameters field if non-nil, zero value otherwise.
 
 ### GetAdditionalParametersOk
 
-`func (o *ListShipments200ResponseDataInnerCarrierSettings) GetAdditionalParametersOk() (*map[string]ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue, bool)`
+`func (o *ListShipments200ResponseDataInnerCarrierSettings) GetAdditionalParametersOk() (*map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue, bool)`
 
 GetAdditionalParametersOk returns a tuple with the AdditionalParameters field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAdditionalParameters
 
-`func (o *ListShipments200ResponseDataInnerCarrierSettings) SetAdditionalParameters(v map[string]ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue)`
+`func (o *ListShipments200ResponseDataInnerCarrierSettings) SetAdditionalParameters(v map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue)`
 
 SetAdditionalParameters sets AdditionalParameters field to given value.
 

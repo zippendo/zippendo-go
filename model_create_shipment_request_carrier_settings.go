@@ -29,7 +29,7 @@ type CreateShipmentRequestCarrierSettings struct {
 	// Additional service codes requested from the carrier.
 	Services []string `json:"services"`
 	// Carrier-specific extra parameters as key/value pairs.
-	AdditionalParameters map[string]CreateShippingRuleRequestAdditionalParametersAnyOfValue `json:"additionalParameters"`
+	AdditionalParameters map[string]CreateShippingRuleRequestAdditionalParametersValue `json:"additionalParameters"`
 }
 
 type _CreateShipmentRequestCarrierSettings CreateShipmentRequestCarrierSettings
@@ -38,7 +38,7 @@ type _CreateShipmentRequestCarrierSettings CreateShipmentRequestCarrierSettings
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateShipmentRequestCarrierSettings(carrierId string, productId string, services []string, additionalParameters map[string]CreateShippingRuleRequestAdditionalParametersAnyOfValue) *CreateShipmentRequestCarrierSettings {
+func NewCreateShipmentRequestCarrierSettings(carrierId string, productId string, services []string, additionalParameters map[string]CreateShippingRuleRequestAdditionalParametersValue) *CreateShipmentRequestCarrierSettings {
 	this := CreateShipmentRequestCarrierSettings{}
 	this.CarrierId = carrierId
 	this.ProductId = productId
@@ -128,9 +128,9 @@ func (o *CreateShipmentRequestCarrierSettings) SetServices(v []string) {
 }
 
 // GetAdditionalParameters returns the AdditionalParameters field value
-func (o *CreateShipmentRequestCarrierSettings) GetAdditionalParameters() map[string]CreateShippingRuleRequestAdditionalParametersAnyOfValue {
+func (o *CreateShipmentRequestCarrierSettings) GetAdditionalParameters() map[string]CreateShippingRuleRequestAdditionalParametersValue {
 	if o == nil {
-		var ret map[string]CreateShippingRuleRequestAdditionalParametersAnyOfValue
+		var ret map[string]CreateShippingRuleRequestAdditionalParametersValue
 		return ret
 	}
 
@@ -139,15 +139,15 @@ func (o *CreateShipmentRequestCarrierSettings) GetAdditionalParameters() map[str
 
 // GetAdditionalParametersOk returns a tuple with the AdditionalParameters field value
 // and a boolean to check if the value has been set.
-func (o *CreateShipmentRequestCarrierSettings) GetAdditionalParametersOk() (map[string]CreateShippingRuleRequestAdditionalParametersAnyOfValue, bool) {
+func (o *CreateShipmentRequestCarrierSettings) GetAdditionalParametersOk() (map[string]CreateShippingRuleRequestAdditionalParametersValue, bool) {
 	if o == nil {
-		return map[string]CreateShippingRuleRequestAdditionalParametersAnyOfValue{}, false
+		return map[string]CreateShippingRuleRequestAdditionalParametersValue{}, false
 	}
 	return o.AdditionalParameters, true
 }
 
 // SetAdditionalParameters sets field value
-func (o *CreateShipmentRequestCarrierSettings) SetAdditionalParameters(v map[string]CreateShippingRuleRequestAdditionalParametersAnyOfValue) {
+func (o *CreateShipmentRequestCarrierSettings) SetAdditionalParameters(v map[string]CreateShippingRuleRequestAdditionalParametersValue) {
 	o.AdditionalParameters = v
 }
 

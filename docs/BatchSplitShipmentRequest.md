@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **CarrierId** | Pointer to **string** | Carrier for all new shipments. Copied from the original if omitted. | [optional] 
 **ProductId** | Pointer to **string** | Carrier product for all new shipments. Copied from the original if omitted. | [optional] 
 **Services** | Pointer to **[]string** | Service codes for all new shipments. Copied from the original if omitted. | [optional] 
-**AdditionalParameters** | Pointer to **map[string]interface{}** | Carrier-specific parameters for all new shipments. | [optional] 
+**AdditionalParameters** | Pointer to [**map[string]CreateShippingRuleRequestAdditionalParametersValue**](CreateShippingRuleRequestAdditionalParametersValue.md) | Carrier-specific parameters for all new shipments. Copied from the original if omitted. | [optional] 
 
 ## Methods
 
@@ -147,20 +147,20 @@ HasServices returns a boolean if a field has been set.
 
 ### GetAdditionalParameters
 
-`func (o *BatchSplitShipmentRequest) GetAdditionalParameters() map[string]interface{}`
+`func (o *BatchSplitShipmentRequest) GetAdditionalParameters() map[string]CreateShippingRuleRequestAdditionalParametersValue`
 
 GetAdditionalParameters returns the AdditionalParameters field if non-nil, zero value otherwise.
 
 ### GetAdditionalParametersOk
 
-`func (o *BatchSplitShipmentRequest) GetAdditionalParametersOk() (*map[string]interface{}, bool)`
+`func (o *BatchSplitShipmentRequest) GetAdditionalParametersOk() (*map[string]CreateShippingRuleRequestAdditionalParametersValue, bool)`
 
 GetAdditionalParametersOk returns a tuple with the AdditionalParameters field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAdditionalParameters
 
-`func (o *BatchSplitShipmentRequest) SetAdditionalParameters(v map[string]interface{})`
+`func (o *BatchSplitShipmentRequest) SetAdditionalParameters(v map[string]CreateShippingRuleRequestAdditionalParametersValue)`
 
 SetAdditionalParameters sets AdditionalParameters field to given value.
 

@@ -17,13 +17,13 @@ import (
 )
 
 
-// CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfCoordinatesInner struct for CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfCoordinatesInner
-type CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfCoordinatesInner struct {
+// ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOfCoordinatesInner struct for ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOfCoordinatesInner
+type ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOfCoordinatesInner struct {
 	Float32 *float32
 }
 
 // Unmarshal JSON data into any of the pointers in the struct
-func (dst *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfCoordinatesInner) UnmarshalJSON(data []byte) error {
+func (dst *ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOfCoordinatesInner) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal JSON data into Float32
 	err = json.Unmarshal(data, &dst.Float32);
@@ -38,11 +38,11 @@ func (dst *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfCoordinat
 		dst.Float32 = nil
 	}
 
-	return fmt.Errorf("data failed to match schemas in anyOf(CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfCoordinatesInner)")
+	return fmt.Errorf("data failed to match schemas in anyOf(ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOfCoordinatesInner)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
-func (src CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfCoordinatesInner) MarshalJSON() ([]byte, error) {
+func (src ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOfCoordinatesInner) MarshalJSON() ([]byte, error) {
 	if src.Float32 != nil {
 		return json.Marshal(&src.Float32)
 	}
@@ -51,38 +51,38 @@ func (src CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfCoordinate
 }
 
 
-type NullableCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfCoordinatesInner struct {
-	value *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfCoordinatesInner
+type NullableListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOfCoordinatesInner struct {
+	value *ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOfCoordinatesInner
 	isSet bool
 }
 
-func (v NullableCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfCoordinatesInner) Get() *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfCoordinatesInner {
+func (v NullableListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOfCoordinatesInner) Get() *ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOfCoordinatesInner {
 	return v.value
 }
 
-func (v *NullableCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfCoordinatesInner) Set(val *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfCoordinatesInner) {
+func (v *NullableListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOfCoordinatesInner) Set(val *ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOfCoordinatesInner) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfCoordinatesInner) IsSet() bool {
+func (v NullableListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOfCoordinatesInner) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfCoordinatesInner) Unset() {
+func (v *NullableListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOfCoordinatesInner) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfCoordinatesInner(val *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfCoordinatesInner) *NullableCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfCoordinatesInner {
-	return &NullableCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfCoordinatesInner{value: val, isSet: true}
+func NewNullableListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOfCoordinatesInner(val *ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOfCoordinatesInner) *NullableListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOfCoordinatesInner {
+	return &NullableListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOfCoordinatesInner{value: val, isSet: true}
 }
 
-func (v NullableCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfCoordinatesInner) MarshalJSON() ([]byte, error) {
+func (v NullableListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOfCoordinatesInner) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfCoordinatesInner) UnmarshalJSON(src []byte) error {
+func (v *NullableListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOfCoordinatesInner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

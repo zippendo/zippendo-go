@@ -17,28 +17,28 @@ import (
 )
 
 
-// CreateShippingRuleRequestAdditionalParametersAnyOfValue struct for CreateShippingRuleRequestAdditionalParametersAnyOfValue
-type CreateShippingRuleRequestAdditionalParametersAnyOfValue struct {
-	CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf
+// CreateShippingRuleRequestAdditionalParametersValue struct for CreateShippingRuleRequestAdditionalParametersValue
+type CreateShippingRuleRequestAdditionalParametersValue struct {
+	CreateShippingRuleRequestAdditionalParametersValueAnyOf *CreateShippingRuleRequestAdditionalParametersValueAnyOf
 	Bool *bool
 	Float32 *float32
 	String *string
 }
 
 // Unmarshal JSON data into any of the pointers in the struct
-func (dst *CreateShippingRuleRequestAdditionalParametersAnyOfValue) UnmarshalJSON(data []byte) error {
+func (dst *CreateShippingRuleRequestAdditionalParametersValue) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal JSON data into CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf
-	err = json.Unmarshal(data, &dst.CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf);
+	// try to unmarshal JSON data into CreateShippingRuleRequestAdditionalParametersValueAnyOf
+	err = json.Unmarshal(data, &dst.CreateShippingRuleRequestAdditionalParametersValueAnyOf);
 	if err == nil {
-		jsonCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf, _ := json.Marshal(dst.CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf)
-		if string(jsonCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) == "{}" { // empty struct
-			dst.CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf = nil
+		jsonCreateShippingRuleRequestAdditionalParametersValueAnyOf, _ := json.Marshal(dst.CreateShippingRuleRequestAdditionalParametersValueAnyOf)
+		if string(jsonCreateShippingRuleRequestAdditionalParametersValueAnyOf) == "{}" { // empty struct
+			dst.CreateShippingRuleRequestAdditionalParametersValueAnyOf = nil
 		} else {
-			return nil // data stored in dst.CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf, return on the first match
+			return nil // data stored in dst.CreateShippingRuleRequestAdditionalParametersValueAnyOf, return on the first match
 		}
 	} else {
-		dst.CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf = nil
+		dst.CreateShippingRuleRequestAdditionalParametersValueAnyOf = nil
 	}
 
 	// try to unmarshal JSON data into Bool
@@ -80,13 +80,13 @@ func (dst *CreateShippingRuleRequestAdditionalParametersAnyOfValue) UnmarshalJSO
 		dst.String = nil
 	}
 
-	return fmt.Errorf("data failed to match schemas in anyOf(CreateShippingRuleRequestAdditionalParametersAnyOfValue)")
+	return fmt.Errorf("data failed to match schemas in anyOf(CreateShippingRuleRequestAdditionalParametersValue)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
-func (src CreateShippingRuleRequestAdditionalParametersAnyOfValue) MarshalJSON() ([]byte, error) {
-	if src.CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf != nil {
-		return json.Marshal(&src.CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf)
+func (src CreateShippingRuleRequestAdditionalParametersValue) MarshalJSON() ([]byte, error) {
+	if src.CreateShippingRuleRequestAdditionalParametersValueAnyOf != nil {
+		return json.Marshal(&src.CreateShippingRuleRequestAdditionalParametersValueAnyOf)
 	}
 
 	if src.Bool != nil {
@@ -105,38 +105,38 @@ func (src CreateShippingRuleRequestAdditionalParametersAnyOfValue) MarshalJSON()
 }
 
 
-type NullableCreateShippingRuleRequestAdditionalParametersAnyOfValue struct {
-	value *CreateShippingRuleRequestAdditionalParametersAnyOfValue
+type NullableCreateShippingRuleRequestAdditionalParametersValue struct {
+	value *CreateShippingRuleRequestAdditionalParametersValue
 	isSet bool
 }
 
-func (v NullableCreateShippingRuleRequestAdditionalParametersAnyOfValue) Get() *CreateShippingRuleRequestAdditionalParametersAnyOfValue {
+func (v NullableCreateShippingRuleRequestAdditionalParametersValue) Get() *CreateShippingRuleRequestAdditionalParametersValue {
 	return v.value
 }
 
-func (v *NullableCreateShippingRuleRequestAdditionalParametersAnyOfValue) Set(val *CreateShippingRuleRequestAdditionalParametersAnyOfValue) {
+func (v *NullableCreateShippingRuleRequestAdditionalParametersValue) Set(val *CreateShippingRuleRequestAdditionalParametersValue) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableCreateShippingRuleRequestAdditionalParametersAnyOfValue) IsSet() bool {
+func (v NullableCreateShippingRuleRequestAdditionalParametersValue) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableCreateShippingRuleRequestAdditionalParametersAnyOfValue) Unset() {
+func (v *NullableCreateShippingRuleRequestAdditionalParametersValue) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableCreateShippingRuleRequestAdditionalParametersAnyOfValue(val *CreateShippingRuleRequestAdditionalParametersAnyOfValue) *NullableCreateShippingRuleRequestAdditionalParametersAnyOfValue {
-	return &NullableCreateShippingRuleRequestAdditionalParametersAnyOfValue{value: val, isSet: true}
+func NewNullableCreateShippingRuleRequestAdditionalParametersValue(val *CreateShippingRuleRequestAdditionalParametersValue) *NullableCreateShippingRuleRequestAdditionalParametersValue {
+	return &NullableCreateShippingRuleRequestAdditionalParametersValue{value: val, isSet: true}
 }
 
-func (v NullableCreateShippingRuleRequestAdditionalParametersAnyOfValue) MarshalJSON() ([]byte, error) {
+func (v NullableCreateShippingRuleRequestAdditionalParametersValue) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableCreateShippingRuleRequestAdditionalParametersAnyOfValue) UnmarshalJSON(src []byte) error {
+func (v *NullableCreateShippingRuleRequestAdditionalParametersValue) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

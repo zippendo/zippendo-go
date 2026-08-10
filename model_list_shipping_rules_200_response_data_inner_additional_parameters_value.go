@@ -17,28 +17,28 @@ import (
 )
 
 
-// ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue struct for ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue
-type ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue struct {
-	ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValueAnyOf *ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValueAnyOf
+// ListShippingRules200ResponseDataInnerAdditionalParametersValue struct for ListShippingRules200ResponseDataInnerAdditionalParametersValue
+type ListShippingRules200ResponseDataInnerAdditionalParametersValue struct {
+	ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf *ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf
 	Bool *bool
 	Float32 *float32
 	String *string
 }
 
 // Unmarshal JSON data into any of the pointers in the struct
-func (dst *ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue) UnmarshalJSON(data []byte) error {
+func (dst *ListShippingRules200ResponseDataInnerAdditionalParametersValue) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal JSON data into ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValueAnyOf
-	err = json.Unmarshal(data, &dst.ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValueAnyOf);
+	// try to unmarshal JSON data into ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf
+	err = json.Unmarshal(data, &dst.ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf);
 	if err == nil {
-		jsonListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValueAnyOf, _ := json.Marshal(dst.ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValueAnyOf)
-		if string(jsonListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValueAnyOf) == "{}" { // empty struct
-			dst.ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValueAnyOf = nil
+		jsonListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf, _ := json.Marshal(dst.ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf)
+		if string(jsonListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf) == "{}" { // empty struct
+			dst.ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf = nil
 		} else {
-			return nil // data stored in dst.ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValueAnyOf, return on the first match
+			return nil // data stored in dst.ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf, return on the first match
 		}
 	} else {
-		dst.ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValueAnyOf = nil
+		dst.ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf = nil
 	}
 
 	// try to unmarshal JSON data into Bool
@@ -80,13 +80,13 @@ func (dst *ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersV
 		dst.String = nil
 	}
 
-	return fmt.Errorf("data failed to match schemas in anyOf(ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue)")
+	return fmt.Errorf("data failed to match schemas in anyOf(ListShippingRules200ResponseDataInnerAdditionalParametersValue)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
-func (src ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue) MarshalJSON() ([]byte, error) {
-	if src.ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValueAnyOf != nil {
-		return json.Marshal(&src.ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValueAnyOf)
+func (src ListShippingRules200ResponseDataInnerAdditionalParametersValue) MarshalJSON() ([]byte, error) {
+	if src.ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf != nil {
+		return json.Marshal(&src.ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf)
 	}
 
 	if src.Bool != nil {
@@ -105,38 +105,38 @@ func (src ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersVa
 }
 
 
-type NullableListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue struct {
-	value *ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue
+type NullableListShippingRules200ResponseDataInnerAdditionalParametersValue struct {
+	value *ListShippingRules200ResponseDataInnerAdditionalParametersValue
 	isSet bool
 }
 
-func (v NullableListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue) Get() *ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue {
+func (v NullableListShippingRules200ResponseDataInnerAdditionalParametersValue) Get() *ListShippingRules200ResponseDataInnerAdditionalParametersValue {
 	return v.value
 }
 
-func (v *NullableListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue) Set(val *ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue) {
+func (v *NullableListShippingRules200ResponseDataInnerAdditionalParametersValue) Set(val *ListShippingRules200ResponseDataInnerAdditionalParametersValue) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue) IsSet() bool {
+func (v NullableListShippingRules200ResponseDataInnerAdditionalParametersValue) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue) Unset() {
+func (v *NullableListShippingRules200ResponseDataInnerAdditionalParametersValue) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue(val *ListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue) *NullableListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue {
-	return &NullableListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue{value: val, isSet: true}
+func NewNullableListShippingRules200ResponseDataInnerAdditionalParametersValue(val *ListShippingRules200ResponseDataInnerAdditionalParametersValue) *NullableListShippingRules200ResponseDataInnerAdditionalParametersValue {
+	return &NullableListShippingRules200ResponseDataInnerAdditionalParametersValue{value: val, isSet: true}
 }
 
-func (v NullableListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue) MarshalJSON() ([]byte, error) {
+func (v NullableListShippingRules200ResponseDataInnerAdditionalParametersValue) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableListShipments200ResponseDataInnerCarrierSettingsAdditionalParametersValue) UnmarshalJSON(src []byte) error {
+func (v *NullableListShippingRules200ResponseDataInnerAdditionalParametersValue) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

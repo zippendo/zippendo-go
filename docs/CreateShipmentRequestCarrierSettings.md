@@ -7,13 +7,13 @@ Name | Type | Description | Notes
 **CarrierId** | **string** | Identifier of the carrier to use. | 
 **ProductId** | **string** | Identifier of the carrier product/service. | 
 **Services** | **[]string** | Additional service codes requested from the carrier. | 
-**AdditionalParameters** | [**map[string]CreateShippingRuleRequestAdditionalParametersAnyOfValue**](CreateShippingRuleRequestAdditionalParametersAnyOfValue.md) | Carrier-specific extra parameters as key/value pairs. | 
+**AdditionalParameters** | [**map[string]CreateShippingRuleRequestAdditionalParametersValue**](CreateShippingRuleRequestAdditionalParametersValue.md) | Carrier-specific extra parameters as key/value pairs. | 
 
 ## Methods
 
 ### NewCreateShipmentRequestCarrierSettings
 
-`func NewCreateShipmentRequestCarrierSettings(carrierId string, productId string, services []string, additionalParameters map[string]CreateShippingRuleRequestAdditionalParametersAnyOfValue, ) *CreateShipmentRequestCarrierSettings`
+`func NewCreateShipmentRequestCarrierSettings(carrierId string, productId string, services []string, additionalParameters map[string]CreateShippingRuleRequestAdditionalParametersValue, ) *CreateShipmentRequestCarrierSettings`
 
 NewCreateShipmentRequestCarrierSettings instantiates a new CreateShipmentRequestCarrierSettings object
 This constructor will assign default values to properties that have it defined,
@@ -90,20 +90,20 @@ SetServices sets Services field to given value.
 
 ### GetAdditionalParameters
 
-`func (o *CreateShipmentRequestCarrierSettings) GetAdditionalParameters() map[string]CreateShippingRuleRequestAdditionalParametersAnyOfValue`
+`func (o *CreateShipmentRequestCarrierSettings) GetAdditionalParameters() map[string]CreateShippingRuleRequestAdditionalParametersValue`
 
 GetAdditionalParameters returns the AdditionalParameters field if non-nil, zero value otherwise.
 
 ### GetAdditionalParametersOk
 
-`func (o *CreateShipmentRequestCarrierSettings) GetAdditionalParametersOk() (*map[string]CreateShippingRuleRequestAdditionalParametersAnyOfValue, bool)`
+`func (o *CreateShipmentRequestCarrierSettings) GetAdditionalParametersOk() (*map[string]CreateShippingRuleRequestAdditionalParametersValue, bool)`
 
 GetAdditionalParametersOk returns a tuple with the AdditionalParameters field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAdditionalParameters
 
-`func (o *CreateShipmentRequestCarrierSettings) SetAdditionalParameters(v map[string]CreateShippingRuleRequestAdditionalParametersAnyOfValue)`
+`func (o *CreateShipmentRequestCarrierSettings) SetAdditionalParameters(v map[string]CreateShippingRuleRequestAdditionalParametersValue)`
 
 SetAdditionalParameters sets AdditionalParameters field to given value.
 

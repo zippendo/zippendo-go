@@ -17,11 +17,11 @@ import (
 	"fmt"
 )
 
-// checks if the CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf{}
+// checks if the ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf{}
 
-// CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf struct for CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf
-type CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf struct {
+// ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf struct for ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf
+type ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf struct {
 	// Identifier of the selected service point.
 	Id string `json:"id"`
 	// Display name of the service point.
@@ -29,33 +29,33 @@ type CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf struct {
 	// Formatted address of the service point.
 	Address string `json:"address"`
 	// Latitude/longitude of the service point.
-	Coordinates []CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfCoordinatesInner `json:"coordinates,omitempty"`
+	Coordinates []ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOfCoordinatesInner `json:"coordinates,omitempty"`
 }
 
-type _CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf
+type _ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf
 
-// NewCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf instantiates a new CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf object
+// NewListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf instantiates a new ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf(id string, name string, address string) *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf {
-	this := CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf{}
+func NewListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf(id string, name string, address string) *ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf {
+	this := ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf{}
 	this.Id = id
 	this.Name = name
 	this.Address = address
 	return &this
 }
 
-// NewCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfWithDefaults instantiates a new CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf object
+// NewListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOfWithDefaults instantiates a new ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfWithDefaults() *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf {
-	this := CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf{}
+func NewListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOfWithDefaults() *ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf {
+	this := ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf{}
 	return &this
 }
 
 // GetId returns the Id field value
-func (o *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) GetId() string {
+func (o *ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf) GetId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -66,7 +66,7 @@ func (o *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) GetId() s
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) GetIdOk() (*string, bool) {
+func (o *ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -74,12 +74,12 @@ func (o *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) GetIdOk()
 }
 
 // SetId sets field value
-func (o *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) SetId(v string) {
+func (o *ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf) SetId(v string) {
 	o.Id = v
 }
 
 // GetName returns the Name field value
-func (o *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) GetName() string {
+func (o *ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf) GetName() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -90,7 +90,7 @@ func (o *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) GetName()
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-func (o *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) GetNameOk() (*string, bool) {
+func (o *ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -98,12 +98,12 @@ func (o *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) GetNameOk
 }
 
 // SetName sets field value
-func (o *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) SetName(v string) {
+func (o *ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf) SetName(v string) {
 	o.Name = v
 }
 
 // GetAddress returns the Address field value
-func (o *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) GetAddress() string {
+func (o *ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf) GetAddress() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -114,7 +114,7 @@ func (o *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) GetAddres
 
 // GetAddressOk returns a tuple with the Address field value
 // and a boolean to check if the value has been set.
-func (o *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) GetAddressOk() (*string, bool) {
+func (o *ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf) GetAddressOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -122,14 +122,14 @@ func (o *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) GetAddres
 }
 
 // SetAddress sets field value
-func (o *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) SetAddress(v string) {
+func (o *ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf) SetAddress(v string) {
 	o.Address = v
 }
 
 // GetCoordinates returns the Coordinates field value if set, zero value otherwise.
-func (o *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) GetCoordinates() []CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfCoordinatesInner {
+func (o *ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf) GetCoordinates() []ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOfCoordinatesInner {
 	if o == nil || IsNil(o.Coordinates) {
-		var ret []CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfCoordinatesInner
+		var ret []ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOfCoordinatesInner
 		return ret
 	}
 	return o.Coordinates
@@ -137,7 +137,7 @@ func (o *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) GetCoordi
 
 // GetCoordinatesOk returns a tuple with the Coordinates field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) GetCoordinatesOk() ([]CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfCoordinatesInner, bool) {
+func (o *ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf) GetCoordinatesOk() ([]ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOfCoordinatesInner, bool) {
 	if o == nil || IsNil(o.Coordinates) {
 		return nil, false
 	}
@@ -145,7 +145,7 @@ func (o *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) GetCoordi
 }
 
 // HasCoordinates returns a boolean if a field has been set.
-func (o *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) HasCoordinates() bool {
+func (o *ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf) HasCoordinates() bool {
 	if o != nil && !IsNil(o.Coordinates) {
 		return true
 	}
@@ -153,12 +153,12 @@ func (o *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) HasCoordi
 	return false
 }
 
-// SetCoordinates gets a reference to the given []CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfCoordinatesInner and assigns it to the Coordinates field.
-func (o *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) SetCoordinates(v []CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOfCoordinatesInner) {
+// SetCoordinates gets a reference to the given []ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOfCoordinatesInner and assigns it to the Coordinates field.
+func (o *ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf) SetCoordinates(v []ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOfCoordinatesInner) {
 	o.Coordinates = v
 }
 
-func (o CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) MarshalJSON() ([]byte, error) {
+func (o ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -166,7 +166,7 @@ func (o CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) MarshalJSO
 	return json.Marshal(toSerialize)
 }
 
-func (o CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) ToMap() (map[string]interface{}, error) {
+func (o ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
@@ -177,7 +177,7 @@ func (o CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) ToMap() (m
 	return toSerialize, nil
 }
 
-func (o *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) UnmarshalJSON(data []byte) (err error) {
+func (o *ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -201,53 +201,53 @@ func (o *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) Unmarshal
 		}
 	}
 
-	varCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf := _CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf{}
+	varListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf := _ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf)
+	err = decoder.Decode(&varListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf)
 
 	if err != nil {
 		return err
 	}
 
-	*o = CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf(varCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf)
+	*o = ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf(varListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf)
 
 	return err
 }
 
-type NullableCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf struct {
-	value *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf
+type NullableListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf struct {
+	value *ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf
 	isSet bool
 }
 
-func (v NullableCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) Get() *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf {
+func (v NullableListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf) Get() *ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf {
 	return v.value
 }
 
-func (v *NullableCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) Set(val *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) {
+func (v *NullableListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf) Set(val *ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) IsSet() bool {
+func (v NullableListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) Unset() {
+func (v *NullableListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf(val *CreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) *NullableCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf {
-	return &NullableCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf{value: val, isSet: true}
+func NewNullableListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf(val *ListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf) *NullableListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf {
+	return &NullableListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf{value: val, isSet: true}
 }
 
-func (v NullableCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) MarshalJSON() ([]byte, error) {
+func (v NullableListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableCreateShippingRuleRequestAdditionalParametersAnyOfValueAnyOf) UnmarshalJSON(src []byte) error {
+func (v *NullableListShippingRules200ResponseDataInnerAdditionalParametersValueAnyOf) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

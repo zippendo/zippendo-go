@@ -8443,22 +8443,46 @@ components:
       - name
       - servicePointId
       type: object
-    listShippingRules_200_response_data_inner_additionalParameters_inner:
+    listShippingRules_200_response_data_inner_additionalParameters_value_anyOf_coordinates_inner:
+      anyOf:
+      - type: number
+      - type: number
+    listShippingRules_200_response_data_inner_additionalParameters_value_anyOf:
       additionalProperties: false
       properties:
+        id:
+          description: Identifier of the selected service point.
+          example: sp_pn_4521
+          type: string
         name:
-          description: Carrier parameter key
-          example: returnFunctionality
-          minLength: 1
+          description: Display name of the service point.
+          example: Føtex Nørrebro
           type: string
-        val:
-          description: Parameter value (stringified)
-          example: LABELLESS
+        address:
+          description: Formatted address of the service point.
+          example: "Nørrebrogade 20, 2200 København N"
           type: string
+        coordinates:
+          description: Latitude/longitude of the service point.
+          example:
+          - 55.6987
+          - 12.5501
+          items:
+            $ref: "#/components/schemas/listShippingRules_200_response_data_inner_additionalParameters_value_anyOf_coordinates_inner"
+          maxItems: 2
+          minItems: 2
+          type: array
       required:
+      - address
+      - id
       - name
-      - val
       type: object
+    listShippingRules_200_response_data_inner_additionalParameters_value:
+      anyOf:
+      - type: string
+      - type: number
+      - type: boolean
+      - $ref: "#/components/schemas/listShippingRules_200_response_data_inner_additionalParameters_value_anyOf"
     listShippingRules_200_response_data_inner_conditions_inner_oneOf:
       additionalProperties: false
       properties:
@@ -8772,8 +8796,8 @@ components:
         services:
         - EMAIL_NOTIFICATION
         additionalParameters:
-        - name: returnFunctionality
-          val: LABELLESS
+          returnFunctionality: LABELLESS
+          returnQrEmail: true
         addressId: addr_01HZX9K2QF
         receivingCountries:
         - DK
@@ -8878,17 +8902,14 @@ components:
             type: string
           type: array
         additionalParameters:
-          description: "Carrier-specific extra parameters. DEPRECATED array form `[{\
-            \ name, val }]` where `name` is the carrier parameter `key` (from the\
-            \ product's `additionalParameters[].key`, e.g. `returnFunctionality`)\
-            \ and `val` is the stringified value. This will change to a `{ key: value\
-            \ }` object in a future version — writes already accept either shape."
+          additionalProperties:
+            $ref: "#/components/schemas/listShippingRules_200_response_data_inner_additionalParameters_value"
+          description: "Carrier-specific extra parameters, keyed by the carrier parameter\
+            \ `key` from the product's `additionalParameters[].key`."
           example:
-          - name: returnFunctionality
-            val: LABELLESS
-          items:
-            $ref: "#/components/schemas/listShippingRules_200_response_data_inner_additionalParameters_inner"
-          type: array
+            returnFunctionality: LABELLESS
+            returnQrEmail: true
+          type: object
         addressId:
           description: Sender address ID
           example: addr_01HZX9K2QF
@@ -9063,8 +9084,8 @@ components:
           services:
           - EMAIL_NOTIFICATION
           additionalParameters:
-          - name: returnFunctionality
-            val: LABELLESS
+            returnFunctionality: LABELLESS
+            returnQrEmail: true
           addressId: addr_01HZX9K2QF
           receivingCountries:
           - DK
@@ -9137,8 +9158,8 @@ components:
           services:
           - EMAIL_NOTIFICATION
           additionalParameters:
-          - name: returnFunctionality
-            val: LABELLESS
+            returnFunctionality: LABELLESS
+            returnQrEmail: true
           addressId: addr_01HZX9K2QF
           receivingCountries:
           - DK
@@ -9235,26 +9256,7 @@ components:
       - total
       - totalPages
       type: object
-    createShippingRule_request_additionalParameters_anyOf_inner:
-      properties:
-        name:
-          description: Carrier parameter key
-          example: returnFunctionality
-          minLength: 1
-          type: string
-        val:
-          description: Parameter value (stringified)
-          example: LABELLESS
-          type: string
-      required:
-      - name
-      - val
-      type: object
-    createShippingRule_request_additionalParameters_anyOf_value_anyOf_coordinates_inner:
-      anyOf:
-      - type: number
-      - type: number
-    createShippingRule_request_additionalParameters_anyOf_value_anyOf:
+    createShippingRule_request_additionalParameters_value_anyOf:
       properties:
         id:
           description: Identifier of the selected service point.
@@ -9274,7 +9276,7 @@ components:
           - 55.6987
           - 12.5501
           items:
-            $ref: "#/components/schemas/createShippingRule_request_additionalParameters_anyOf_value_anyOf_coordinates_inner"
+            $ref: "#/components/schemas/listShippingRules_200_response_data_inner_additionalParameters_value_anyOf_coordinates_inner"
           maxItems: 2
           minItems: 2
           type: array
@@ -9283,28 +9285,12 @@ components:
       - id
       - name
       type: object
-    createShippingRule_request_additionalParameters_anyOf_value:
+    createShippingRule_request_additionalParameters_value:
       anyOf:
       - type: string
       - type: number
       - type: boolean
-      - $ref: "#/components/schemas/createShippingRule_request_additionalParameters_anyOf_value_anyOf"
-    createShippingRule_request_additionalParameters:
-      anyOf:
-      - items:
-          $ref: "#/components/schemas/createShippingRule_request_additionalParameters_anyOf_inner"
-        type: array
-      - additionalProperties:
-          $ref: "#/components/schemas/createShippingRule_request_additionalParameters_anyOf_value"
-        type: object
-      default: {}
-      description: "Carrier-specific extra parameters. Accepts EITHER the `{ key:\
-        \ value }` object (preferred) OR the legacy `[{ name, val }]` array, so you\
-        \ can migrate on your own schedule. Each key / `name` is the carrier parameter\
-        \ `key` from the product's `additionalParameters[].key` (e.g. `returnFunctionality`)."
-      example:
-        returnFunctionality: LABELLESS
-        returnQrEmail: true
+      - $ref: "#/components/schemas/createShippingRule_request_additionalParameters_value_anyOf"
     createShippingRule_request_conditions_inner_oneOf:
       properties:
         type:
@@ -9546,7 +9532,15 @@ components:
             type: string
           type: array
         additionalParameters:
-          $ref: "#/components/schemas/createShippingRule_request_additionalParameters"
+          additionalProperties:
+            $ref: "#/components/schemas/createShippingRule_request_additionalParameters_value"
+          default: {}
+          description: "Carrier-specific extra parameters, keyed by the carrier parameter\
+            \ `key` from the product's `additionalParameters[].key` (e.g. `returnFunctionality`)."
+          example:
+            returnFunctionality: LABELLESS
+            returnQrEmail: true
+          type: object
         addressId:
           description: Sender address ID
           example: addr_01HZX9K2QF
@@ -9670,8 +9664,8 @@ components:
         services:
         - EMAIL_NOTIFICATION
         additionalParameters:
-        - name: returnFunctionality
-          val: LABELLESS
+          returnFunctionality: LABELLESS
+          returnQrEmail: true
         addressId: addr_01HZX9K2QF
         receivingCountries:
         - DK
@@ -9739,17 +9733,14 @@ components:
             type: string
           type: array
         additionalParameters:
-          description: "Carrier-specific extra parameters. DEPRECATED array form `[{\
-            \ name, val }]` where `name` is the carrier parameter `key` (from the\
-            \ product's `additionalParameters[].key`, e.g. `returnFunctionality`)\
-            \ and `val` is the stringified value. This will change to a `{ key: value\
-            \ }` object in a future version — writes already accept either shape."
+          additionalProperties:
+            $ref: "#/components/schemas/listShippingRules_200_response_data_inner_additionalParameters_value"
+          description: "Carrier-specific extra parameters, keyed by the carrier parameter\
+            \ `key` from the product's `additionalParameters[].key`."
           example:
-          - name: returnFunctionality
-            val: LABELLESS
-          items:
-            $ref: "#/components/schemas/listShippingRules_200_response_data_inner_additionalParameters_inner"
-          type: array
+            returnFunctionality: LABELLESS
+            returnQrEmail: true
+          type: object
         addressId:
           description: Sender address ID
           example: addr_01HZX9K2QF
@@ -9948,7 +9939,14 @@ components:
             type: string
           type: array
         additionalParameters:
-          $ref: "#/components/schemas/createShippingRule_request_additionalParameters"
+          additionalProperties:
+            $ref: "#/components/schemas/createShippingRule_request_additionalParameters_value"
+          description: "Carrier-specific extra parameters, keyed by the carrier parameter\
+            \ `key` from the product's `additionalParameters[].key`. Omit to leave\
+            \ the rule's parameters unchanged."
+          example:
+            returnFunctionality: LABELLESS
+          type: object
         addressId:
           description: Sender address ID
           example: addr_01HZX9K2QF
@@ -10262,42 +10260,6 @@ components:
       - error
       - message
       type: object
-    listShipments_200_response_data_inner_carrierSettings_additionalParameters_value_anyOf:
-      additionalProperties: false
-      properties:
-        id:
-          description: Identifier of the selected service point.
-          example: sp_pn_4521
-          type: string
-        name:
-          description: Display name of the service point.
-          example: Føtex Nørrebro
-          type: string
-        address:
-          description: Formatted address of the service point.
-          example: "Nørrebrogade 20, 2200 København N"
-          type: string
-        coordinates:
-          description: Latitude/longitude of the service point.
-          example:
-          - 55.6987
-          - 12.5501
-          items:
-            $ref: "#/components/schemas/createShippingRule_request_additionalParameters_anyOf_value_anyOf_coordinates_inner"
-          maxItems: 2
-          minItems: 2
-          type: array
-      required:
-      - address
-      - id
-      - name
-      type: object
-    listShipments_200_response_data_inner_carrierSettings_additionalParameters_value:
-      anyOf:
-      - type: string
-      - type: number
-      - type: boolean
-      - $ref: "#/components/schemas/listShipments_200_response_data_inner_carrierSettings_additionalParameters_value_anyOf"
     listShipments_200_response_data_inner_carrierSettings:
       additionalProperties: false
       example:
@@ -10325,7 +10287,7 @@ components:
           type: array
         additionalParameters:
           additionalProperties:
-            $ref: "#/components/schemas/listShipments_200_response_data_inner_carrierSettings_additionalParameters_value"
+            $ref: "#/components/schemas/listShippingRules_200_response_data_inner_additionalParameters_value"
           description: Carrier-specific extra parameters as key/value pairs.
           example:
             notificationEmail: anna@example.dk
@@ -10772,7 +10734,7 @@ components:
           type: array
         additionalParameters:
           additionalProperties:
-            $ref: "#/components/schemas/createShippingRule_request_additionalParameters_anyOf_value"
+            $ref: "#/components/schemas/createShippingRule_request_additionalParameters_value"
           description: Carrier-specific extra parameters as key/value pairs.
           example:
             notificationEmail: anna@example.dk
@@ -10918,16 +10880,20 @@ components:
           nullable: true
           type: string
         qrCodeDataUri:
-          description: Embeddable `data:` URI of the QR code image for label-free
-            drop-off — base64 image bytes you can drop straight into an <img>/email.
-            Null when the carrier returns a hosted link instead (see `qrCodeUrl`).
+          description: "Embeddable `data:` URI of the QR code image for label-free\
+            \ drop-off — base64 image bytes you can drop straight into an <img>/email.\
+            \ Populated whenever the image bytes are available, including for carriers\
+            \ that host the image (it is fetched and inlined); null if the carrier\
+            \ published no QR code or its image could not be retrieved."
           example: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
           nullable: true
           type: string
         qrCodeUrl:
           description: "Carrier-hosted URL of the QR code image for label-free drop-off,\
             \ returned by carriers (e.g. Bring) that link to the image rather than\
-            \ embedding it. Null when the carrier returns embeddable bytes (see `qrCodeDataUri`)."
+            \ embedding it. Independent of `qrCodeDataUri` — both are set when the\
+            \ hosted image was inlined successfully; null for carriers that only return\
+            \ embedded bytes."
           example: https://qr.bring.com/label-free/AB12CD34.png
           nullable: true
           type: string
@@ -11343,16 +11309,20 @@ components:
           nullable: true
           type: string
         qrCodeDataUri:
-          description: Embeddable `data:` URI of the QR code image for label-free
-            drop-off — base64 image bytes you can drop straight into an <img>/email.
-            Null when the carrier returns a hosted link instead (see `qrCodeUrl`).
+          description: "Embeddable `data:` URI of the QR code image for label-free\
+            \ drop-off — base64 image bytes you can drop straight into an <img>/email.\
+            \ Populated whenever the image bytes are available, including for carriers\
+            \ that host the image (it is fetched and inlined); null if the carrier\
+            \ published no QR code or its image could not be retrieved."
           example: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
           nullable: true
           type: string
         qrCodeUrl:
           description: "Carrier-hosted URL of the QR code image for label-free drop-off,\
             \ returned by carriers (e.g. Bring) that link to the image rather than\
-            \ embedding it. Null when the carrier returns embeddable bytes (see `qrCodeDataUri`)."
+            \ embedding it. Independent of `qrCodeDataUri` — both are set when the\
+            \ hosted image was inlined successfully; null for carriers that only return\
+            \ embedded bytes."
           example: https://qr.bring.com/label-free/AB12CD34.png
           nullable: true
           type: string
@@ -11539,16 +11509,20 @@ components:
           nullable: true
           type: string
         qrCodeDataUri:
-          description: Embeddable `data:` URI of the QR code image for label-free
-            drop-off — base64 image bytes you can drop straight into an <img>/email.
-            Null when the carrier returns a hosted link instead (see `qrCodeUrl`).
+          description: "Embeddable `data:` URI of the QR code image for label-free\
+            \ drop-off — base64 image bytes you can drop straight into an <img>/email.\
+            \ Populated whenever the image bytes are available, including for carriers\
+            \ that host the image (it is fetched and inlined); null if the carrier\
+            \ published no QR code or its image could not be retrieved."
           example: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
           nullable: true
           type: string
         qrCodeUrl:
           description: "Carrier-hosted URL of the QR code image for label-free drop-off,\
             \ returned by carriers (e.g. Bring) that link to the image rather than\
-            \ embedding it. Null when the carrier returns embeddable bytes (see `qrCodeDataUri`)."
+            \ embedding it. Independent of `qrCodeDataUri` — both are set when the\
+            \ hosted image was inlined successfully; null for carriers that only return\
+            \ embedded bytes."
           example: https://qr.bring.com/label-free/AB12CD34.png
           nullable: true
           type: string
@@ -12624,8 +12598,10 @@ components:
             type: string
           type: array
         additionalParameters:
-          additionalProperties: {}
-          description: Carrier-specific parameters for the new shipment.
+          additionalProperties:
+            $ref: "#/components/schemas/createShippingRule_request_additionalParameters_value"
+          description: Carrier-specific parameters for the new shipment. Copied from
+            the original if omitted.
           example:
             notificationEmail: anna@example.dk
           type: object
@@ -13121,8 +13097,10 @@ components:
             type: string
           type: array
         additionalParameters:
-          additionalProperties: {}
-          description: Carrier-specific parameters for all new shipments.
+          additionalProperties:
+            $ref: "#/components/schemas/createShippingRule_request_additionalParameters_value"
+          description: Carrier-specific parameters for all new shipments. Copied from
+            the original if omitted.
           example:
             notificationEmail: anna@example.dk
           type: object

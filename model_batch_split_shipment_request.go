@@ -32,8 +32,8 @@ type BatchSplitShipmentRequest struct {
 	ProductId *string `json:"productId,omitempty"`
 	// Service codes for all new shipments. Copied from the original if omitted.
 	Services []string `json:"services,omitempty"`
-	// Carrier-specific parameters for all new shipments.
-	AdditionalParameters map[string]interface{} `json:"additionalParameters,omitempty"`
+	// Carrier-specific parameters for all new shipments. Copied from the original if omitted.
+	AdditionalParameters map[string]CreateShippingRuleRequestAdditionalParametersValue `json:"additionalParameters,omitempty"`
 }
 
 type _BatchSplitShipmentRequest BatchSplitShipmentRequest
@@ -202,9 +202,9 @@ func (o *BatchSplitShipmentRequest) SetServices(v []string) {
 }
 
 // GetAdditionalParameters returns the AdditionalParameters field value if set, zero value otherwise.
-func (o *BatchSplitShipmentRequest) GetAdditionalParameters() map[string]interface{} {
+func (o *BatchSplitShipmentRequest) GetAdditionalParameters() map[string]CreateShippingRuleRequestAdditionalParametersValue {
 	if o == nil || IsNil(o.AdditionalParameters) {
-		var ret map[string]interface{}
+		var ret map[string]CreateShippingRuleRequestAdditionalParametersValue
 		return ret
 	}
 	return o.AdditionalParameters
@@ -212,9 +212,9 @@ func (o *BatchSplitShipmentRequest) GetAdditionalParameters() map[string]interfa
 
 // GetAdditionalParametersOk returns a tuple with the AdditionalParameters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BatchSplitShipmentRequest) GetAdditionalParametersOk() (map[string]interface{}, bool) {
+func (o *BatchSplitShipmentRequest) GetAdditionalParametersOk() (map[string]CreateShippingRuleRequestAdditionalParametersValue, bool) {
 	if o == nil || IsNil(o.AdditionalParameters) {
-		return map[string]interface{}{}, false
+		return map[string]CreateShippingRuleRequestAdditionalParametersValue{}, false
 	}
 	return o.AdditionalParameters, true
 }
@@ -228,8 +228,8 @@ func (o *BatchSplitShipmentRequest) HasAdditionalParameters() bool {
 	return false
 }
 
-// SetAdditionalParameters gets a reference to the given map[string]interface{} and assigns it to the AdditionalParameters field.
-func (o *BatchSplitShipmentRequest) SetAdditionalParameters(v map[string]interface{}) {
+// SetAdditionalParameters gets a reference to the given map[string]CreateShippingRuleRequestAdditionalParametersValue and assigns it to the AdditionalParameters field.
+func (o *BatchSplitShipmentRequest) SetAdditionalParameters(v map[string]CreateShippingRuleRequestAdditionalParametersValue) {
 	o.AdditionalParameters = v
 }
 

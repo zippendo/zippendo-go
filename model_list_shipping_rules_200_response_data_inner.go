@@ -36,8 +36,8 @@ type ListShippingRules200ResponseDataInner struct {
 	ProductId string `json:"productId"`
 	// List of selected services
 	Services []string `json:"services"`
-	// Carrier-specific extra parameters. DEPRECATED array form `[{ name, val }]` where `name` is the carrier parameter `key` (from the product's `additionalParameters[].key`, e.g. `returnFunctionality`) and `val` is the stringified value. This will change to a `{ key: value }` object in a future version — writes already accept either shape.
-	AdditionalParameters []ListShippingRules200ResponseDataInnerAdditionalParametersInner `json:"additionalParameters"`
+	// Carrier-specific extra parameters, keyed by the carrier parameter `key` from the product's `additionalParameters[].key`.
+	AdditionalParameters map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue `json:"additionalParameters"`
 	// Sender address ID
 	AddressId string `json:"addressId"`
 	// List of supported country codes
@@ -93,7 +93,7 @@ type _ListShippingRules200ResponseDataInner ListShippingRules200ResponseDataInne
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListShippingRules200ResponseDataInner(id string, name string, description NullableString, direction string, carrierId string, productId string, services []string, additionalParameters []ListShippingRules200ResponseDataInnerAdditionalParametersInner, addressId string, receivingCountries []string, emailNotification bool, phoneNotification bool, minWeight NullableFloat32, maxWeight NullableFloat32, minOrderValue NullableFloat32, maxOrderValue NullableFloat32, conditions []ListShippingRules200ResponseDataInnerConditionsInner, generateProformaInvoice bool, generateCommercialInvoice bool, generatePackingList bool, autoPrintLabels bool, autoPrintDocuments bool, labelPrinterId NullableString, documentPrinterId NullableString, returnShippingRuleId NullableString, autoCreateReturnShipment bool, orgId string, createdAt string, updatedAt string, carrier ListShippingRules200ResponseDataInnerCarrier, address ListAddresses200ResponseDataInner) *ListShippingRules200ResponseDataInner {
+func NewListShippingRules200ResponseDataInner(id string, name string, description NullableString, direction string, carrierId string, productId string, services []string, additionalParameters map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue, addressId string, receivingCountries []string, emailNotification bool, phoneNotification bool, minWeight NullableFloat32, maxWeight NullableFloat32, minOrderValue NullableFloat32, maxOrderValue NullableFloat32, conditions []ListShippingRules200ResponseDataInnerConditionsInner, generateProformaInvoice bool, generateCommercialInvoice bool, generatePackingList bool, autoPrintLabels bool, autoPrintDocuments bool, labelPrinterId NullableString, documentPrinterId NullableString, returnShippingRuleId NullableString, autoCreateReturnShipment bool, orgId string, createdAt string, updatedAt string, carrier ListShippingRules200ResponseDataInnerCarrier, address ListAddresses200ResponseDataInner) *ListShippingRules200ResponseDataInner {
 	this := ListShippingRules200ResponseDataInner{}
 	this.Id = id
 	this.Name = name
@@ -326,9 +326,9 @@ func (o *ListShippingRules200ResponseDataInner) SetServices(v []string) {
 }
 
 // GetAdditionalParameters returns the AdditionalParameters field value
-func (o *ListShippingRules200ResponseDataInner) GetAdditionalParameters() []ListShippingRules200ResponseDataInnerAdditionalParametersInner {
+func (o *ListShippingRules200ResponseDataInner) GetAdditionalParameters() map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue {
 	if o == nil {
-		var ret []ListShippingRules200ResponseDataInnerAdditionalParametersInner
+		var ret map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue
 		return ret
 	}
 
@@ -337,15 +337,15 @@ func (o *ListShippingRules200ResponseDataInner) GetAdditionalParameters() []List
 
 // GetAdditionalParametersOk returns a tuple with the AdditionalParameters field value
 // and a boolean to check if the value has been set.
-func (o *ListShippingRules200ResponseDataInner) GetAdditionalParametersOk() ([]ListShippingRules200ResponseDataInnerAdditionalParametersInner, bool) {
+func (o *ListShippingRules200ResponseDataInner) GetAdditionalParametersOk() (map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue, bool) {
 	if o == nil {
-		return nil, false
+		return map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue{}, false
 	}
 	return o.AdditionalParameters, true
 }
 
 // SetAdditionalParameters sets field value
-func (o *ListShippingRules200ResponseDataInner) SetAdditionalParameters(v []ListShippingRules200ResponseDataInnerAdditionalParametersInner) {
+func (o *ListShippingRules200ResponseDataInner) SetAdditionalParameters(v map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue) {
 	o.AdditionalParameters = v
 }
 
