@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Secret** | **string** | Signing secret used to verify webhook payloads | 
 **Events** | **[]string** | Events the webhook is subscribed to | 
 **IsActive** | **bool** | Whether the webhook is active | 
+**BrandId** | **NullableString** | Brand this record belongs to, or null when it is organization-wide | 
 **CreatedAt** | **string** | Creation timestamp (ISO 8601) | 
 **UpdatedAt** | **string** | Last update timestamp (ISO 8601) | 
 
@@ -17,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewCreateOrgWebhook201Response
 
-`func NewCreateOrgWebhook201Response(id string, name string, url string, secret string, events []string, isActive bool, createdAt string, updatedAt string, ) *CreateOrgWebhook201Response`
+`func NewCreateOrgWebhook201Response(id string, name string, url string, secret string, events []string, isActive bool, brandId NullableString, createdAt string, updatedAt string, ) *CreateOrgWebhook201Response`
 
 NewCreateOrgWebhook201Response instantiates a new CreateOrgWebhook201Response object
 This constructor will assign default values to properties that have it defined,
@@ -152,6 +153,36 @@ and a boolean to check if the value has been set.
 SetIsActive sets IsActive field to given value.
 
 
+### GetBrandId
+
+`func (o *CreateOrgWebhook201Response) GetBrandId() string`
+
+GetBrandId returns the BrandId field if non-nil, zero value otherwise.
+
+### GetBrandIdOk
+
+`func (o *CreateOrgWebhook201Response) GetBrandIdOk() (*string, bool)`
+
+GetBrandIdOk returns a tuple with the BrandId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBrandId
+
+`func (o *CreateOrgWebhook201Response) SetBrandId(v string)`
+
+SetBrandId sets BrandId field to given value.
+
+
+### SetBrandIdNil
+
+`func (o *CreateOrgWebhook201Response) SetBrandIdNil(b bool)`
+
+ SetBrandIdNil sets the value for BrandId to be an explicit nil
+
+### UnsetBrandId
+`func (o *CreateOrgWebhook201Response) UnsetBrandId()`
+
+UnsetBrandId ensures that no value is present for BrandId, not even an explicit nil
 ### GetCreatedAt
 
 `func (o *CreateOrgWebhook201Response) GetCreatedAt() string`

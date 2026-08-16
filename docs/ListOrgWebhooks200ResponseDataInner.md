@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Url** | **string** | Webhook endpoint URL | 
 **Events** | **[]string** | Events the webhook is subscribed to | 
 **IsActive** | **bool** | Whether the webhook is active | 
+**BrandId** | **NullableString** | Brand this record belongs to, or null when it is organization-wide | 
 **CreatedAt** | **string** | Creation timestamp (ISO 8601) | 
 **UpdatedAt** | **string** | Last update timestamp (ISO 8601) | 
 
@@ -16,7 +17,7 @@ Name | Type | Description | Notes
 
 ### NewListOrgWebhooks200ResponseDataInner
 
-`func NewListOrgWebhooks200ResponseDataInner(id string, name string, url string, events []string, isActive bool, createdAt string, updatedAt string, ) *ListOrgWebhooks200ResponseDataInner`
+`func NewListOrgWebhooks200ResponseDataInner(id string, name string, url string, events []string, isActive bool, brandId NullableString, createdAt string, updatedAt string, ) *ListOrgWebhooks200ResponseDataInner`
 
 NewListOrgWebhooks200ResponseDataInner instantiates a new ListOrgWebhooks200ResponseDataInner object
 This constructor will assign default values to properties that have it defined,
@@ -131,6 +132,36 @@ and a boolean to check if the value has been set.
 SetIsActive sets IsActive field to given value.
 
 
+### GetBrandId
+
+`func (o *ListOrgWebhooks200ResponseDataInner) GetBrandId() string`
+
+GetBrandId returns the BrandId field if non-nil, zero value otherwise.
+
+### GetBrandIdOk
+
+`func (o *ListOrgWebhooks200ResponseDataInner) GetBrandIdOk() (*string, bool)`
+
+GetBrandIdOk returns a tuple with the BrandId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBrandId
+
+`func (o *ListOrgWebhooks200ResponseDataInner) SetBrandId(v string)`
+
+SetBrandId sets BrandId field to given value.
+
+
+### SetBrandIdNil
+
+`func (o *ListOrgWebhooks200ResponseDataInner) SetBrandIdNil(b bool)`
+
+ SetBrandIdNil sets the value for BrandId to be an explicit nil
+
+### UnsetBrandId
+`func (o *ListOrgWebhooks200ResponseDataInner) UnsetBrandId()`
+
+UnsetBrandId ensures that no value is present for BrandId, not even an explicit nil
 ### GetCreatedAt
 
 `func (o *ListOrgWebhooks200ResponseDataInner) GetCreatedAt() string`

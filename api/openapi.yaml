@@ -26,13 +26,23 @@ info:
     addresses) with a null brand is organization-wide and remains visible inside every brand;
     orders and shipments with a null brand are only visible organization-wide.
 
+    List endpoints additionally take a `?brandScope=own|shared|both` parameter to narrow further
+    within whichever brand context already applies. `own` returns only rows assigned to that brand,
+    and requires a brand context — a brand-bound token, a resolved brand session, or the
+    `X-Zippendo-Brand` header above — otherwise `400`. `shared` returns only the organization-wide
+    rows (equivalent to filtering `brandId=none`). The default, `both`, keeps the existing behaviour:
+    a brand context sees its own rows plus the organization-wide ones. Set `X-Zippendo-Brand-Scope`
+    as a client default to apply the same choice to every request instead of repeating the query
+    parameter on each call — an explicit `brandScope` query parameter always wins over the header,
+    and a blank header value is ignored.
+
     Brands themselves are managed under the **Brands** tag. Retiring a brand is done with
     `POST /orgs/{orgId}/brands/{brandId}/archive` — permanent deletion is a dashboard-only action,
     since it is refused while any order, shipment, member or token still references the brand.
     Brands require a plan that includes them; creating one beyond your plan's limit returns `403`.
   license:
     name: MIT
-  termsOfService: https://zippendo.com/terms
+  termsOfService: https://www.zippendo.com/legal/terms-of-service
   title: Zippendo Public API
   version: 1.0.0
 servers:
@@ -2105,6 +2115,36 @@ paths:
           example: sender
           type: string
         style: form
+      - description: "Filter by brand. Pass a brand ID, or \"none\" for records not\
+          \ assigned to any brand."
+        explode: true
+        in: query
+        name: brandId
+        required: false
+        schema:
+          example: brnd_8f3kd92ld0
+          type: string
+        style: form
+      - description: "How the brand context narrows this list: \"own\" returns only\
+          \ rows assigned to the current brand (requires a brand session, a brand-bound\
+          \ token, or the X-Zippendo-Brand header), \"shared\" returns only unassigned\
+          \ organization-wide rows, \"both\" (default) returns both. The X-Zippendo-Brand-Scope\
+          \ header supplies a default when the parameter is omitted. For strictly\
+          \ brand-owned records (orders, shipments), a brand-scoped request combined\
+          \ with \"shared\" returns no rows, since those records are never visible\
+          \ organization-wide from within a brand context."
+        explode: true
+        in: query
+        name: brandScope
+        required: false
+        schema:
+          enum:
+          - own
+          - shared
+          - both
+          example: own
+          type: string
+        style: form
       - description: Organization ID
         explode: false
         in: path
@@ -2200,6 +2240,12 @@ paths:
                 $ref: "#/components/schemas/listApiTokens_401_response"
           description: Default Response
         "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "404":
           content:
             application/json:
               schema:
@@ -2527,6 +2573,36 @@ paths:
           maximum: 100
           minimum: 1
           type: integer
+        style: form
+      - description: "Filter by brand. Pass a brand ID, or \"none\" for records not\
+          \ assigned to any brand."
+        explode: true
+        in: query
+        name: brandId
+        required: false
+        schema:
+          example: brnd_8f3kd92ld0
+          type: string
+        style: form
+      - description: "How the brand context narrows this list: \"own\" returns only\
+          \ rows assigned to the current brand (requires a brand session, a brand-bound\
+          \ token, or the X-Zippendo-Brand header), \"shared\" returns only unassigned\
+          \ organization-wide rows, \"both\" (default) returns both. The X-Zippendo-Brand-Scope\
+          \ header supplies a default when the parameter is omitted. For strictly\
+          \ brand-owned records (orders, shipments), a brand-scoped request combined\
+          \ with \"shared\" returns no rows, since those records are never visible\
+          \ organization-wide from within a brand context."
+        explode: true
+        in: query
+        name: brandScope
+        required: false
+        schema:
+          enum:
+          - own
+          - shared
+          - both
+          example: own
+          type: string
         style: form
       - description: Organization ID
         explode: false
@@ -3147,6 +3223,36 @@ paths:
           minimum: 1
           type: integer
         style: form
+      - description: "Filter by brand. Pass a brand ID, or \"none\" for records not\
+          \ assigned to any brand."
+        explode: true
+        in: query
+        name: brandId
+        required: false
+        schema:
+          example: brnd_8f3kd92ld0
+          type: string
+        style: form
+      - description: "How the brand context narrows this list: \"own\" returns only\
+          \ rows assigned to the current brand (requires a brand session, a brand-bound\
+          \ token, or the X-Zippendo-Brand header), \"shared\" returns only unassigned\
+          \ organization-wide rows, \"both\" (default) returns both. The X-Zippendo-Brand-Scope\
+          \ header supplies a default when the parameter is omitted. For strictly\
+          \ brand-owned records (orders, shipments), a brand-scoped request combined\
+          \ with \"shared\" returns no rows, since those records are never visible\
+          \ organization-wide from within a brand context."
+        explode: true
+        in: query
+        name: brandScope
+        required: false
+        schema:
+          enum:
+          - own
+          - shared
+          - both
+          example: own
+          type: string
+        style: form
       - description: Organization ID
         explode: false
         in: path
@@ -3243,6 +3349,12 @@ paths:
                 $ref: "#/components/schemas/listApiTokens_401_response"
           description: Default Response
         "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "404":
           content:
             application/json:
               schema:
@@ -3663,6 +3775,26 @@ paths:
         required: false
         schema:
           example: brnd_8f3kd92ld0
+          type: string
+        style: form
+      - description: "How the brand context narrows this list: \"own\" returns only\
+          \ rows assigned to the current brand (requires a brand session, a brand-bound\
+          \ token, or the X-Zippendo-Brand header), \"shared\" returns only unassigned\
+          \ organization-wide rows, \"both\" (default) returns both. The X-Zippendo-Brand-Scope\
+          \ header supplies a default when the parameter is omitted. For strictly\
+          \ brand-owned records (orders, shipments), a brand-scoped request combined\
+          \ with \"shared\" returns no rows, since those records are never visible\
+          \ organization-wide from within a brand context."
+        explode: true
+        in: query
+        name: brandScope
+        required: false
+        schema:
+          enum:
+          - own
+          - shared
+          - both
+          example: own
           type: string
         style: form
       - description: Organization ID
@@ -4850,6 +4982,26 @@ paths:
           example: brnd_8f3kd92ld0
           type: string
         style: form
+      - description: "How the brand context narrows this list: \"own\" returns only\
+          \ rows assigned to the current brand (requires a brand session, a brand-bound\
+          \ token, or the X-Zippendo-Brand header), \"shared\" returns only unassigned\
+          \ organization-wide rows, \"both\" (default) returns both. The X-Zippendo-Brand-Scope\
+          \ header supplies a default when the parameter is omitted. For strictly\
+          \ brand-owned records (orders, shipments), a brand-scoped request combined\
+          \ with \"shared\" returns no rows, since those records are never visible\
+          \ organization-wide from within a brand context."
+        explode: true
+        in: query
+        name: brandScope
+        required: false
+        schema:
+          enum:
+          - own
+          - shared
+          - both
+          example: own
+          type: string
+        style: form
       - description: Order fulfilment status derived from its shipments.
         explode: true
         in: query
@@ -5483,6 +5635,36 @@ paths:
           minimum: 1
           type: integer
         style: form
+      - description: "Filter by brand. Pass a brand ID, or \"none\" for records not\
+          \ assigned to any brand."
+        explode: true
+        in: query
+        name: brandId
+        required: false
+        schema:
+          example: brnd_8f3kd92ld0
+          type: string
+        style: form
+      - description: "How the brand context narrows this list: \"own\" returns only\
+          \ rows assigned to the current brand (requires a brand session, a brand-bound\
+          \ token, or the X-Zippendo-Brand header), \"shared\" returns only unassigned\
+          \ organization-wide rows, \"both\" (default) returns both. The X-Zippendo-Brand-Scope\
+          \ header supplies a default when the parameter is omitted. For strictly\
+          \ brand-owned records (orders, shipments), a brand-scoped request combined\
+          \ with \"shared\" returns no rows, since those records are never visible\
+          \ organization-wide from within a brand context."
+        explode: true
+        in: query
+        name: brandScope
+        required: false
+        schema:
+          enum:
+          - own
+          - shared
+          - both
+          example: own
+          type: string
+        style: form
       - description: Organization ID
         explode: false
         in: path
@@ -5585,6 +5767,12 @@ paths:
                 $ref: "#/components/schemas/listApiTokens_401_response"
           description: Default Response
         "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "404":
           content:
             application/json:
               schema:
@@ -6112,6 +6300,22 @@ components:
       schema:
         type: string
       style: simple
+    ZippendoBrandScopeHeader:
+      description: "Default for the `brandScope` list parameter when a request omits\
+        \ it: \"own\" (only the current brand's rows), \"shared\" (only unassigned\
+        \ rows), or \"both\". Overridden by the query parameter."
+      example: own
+      explode: false
+      in: header
+      name: x-zippendo-brand-scope
+      required: false
+      schema:
+        enum:
+        - own
+        - shared
+        - both
+        type: string
+      style: simple
   schemas:
     healthCheck_200_response:
       additionalProperties: false
@@ -6367,6 +6571,7 @@ components:
           - SUBSCRIPTION_INACTIVE
           - BILLING_MANAGED_BY_SHOPIFY
           - BILLING_CHECKOUT_REQUIRED
+          - ZIPPY_ADDON_REQUIRED
           - SHIPMENT_NOT_FOUND
           - SHIPMENT_DOCUMENT_NOT_FOUND
           - SHIPMENT_ALREADY_SENT
@@ -6438,6 +6643,11 @@ components:
           - MIGRATION_SOURCE_UNREACHABLE
           - MIGRATION_NOT_FOUND
           - MIGRATION_IN_PROGRESS
+          - DATA_EXPORT_NOT_FOUND
+          - DATA_EXPORT_IN_PROGRESS
+          - DATA_EXPORT_NOT_READY
+          - DATA_EXPORT_EXPIRED
+          - DATA_EXPORT_FAILED
           example: CARRIER_GLS_WRONG_ADDRESS
           type: string
         error:
@@ -7492,6 +7702,7 @@ components:
         addressTypes:
         - sender
         orgId: org_01HZX9K2QF
+        brandId: brnd_8f3kd92ld0
         createdAt: 2026-06-22T09:00:00.000Z
         updatedAt: 2026-06-22T09:00:00.000Z
       properties:
@@ -7576,6 +7787,11 @@ components:
           description: Owning organization ID
           example: org_01HZX9K2QF
           type: string
+        brandId:
+          description: "Brand this record belongs to, or null when it is organization-wide"
+          example: brnd_8f3kd92ld0
+          nullable: true
+          type: string
         createdAt:
           description: Creation timestamp (ISO 8601)
           example: 2026-06-22T09:00:00.000Z
@@ -7589,6 +7805,7 @@ components:
       - address2
       - addressTypes
       - attContact
+      - brandId
       - city
       - countryCode
       - createdAt
@@ -7621,6 +7838,7 @@ components:
           addressTypes:
           - sender
           orgId: org_01HZX9K2QF
+          brandId: brnd_8f3kd92ld0
           createdAt: 2026-06-22T09:00:00.000Z
           updatedAt: 2026-06-22T09:00:00.000Z
         - id: addr_01HZX9K2QF
@@ -7639,6 +7857,7 @@ components:
           addressTypes:
           - sender
           orgId: org_01HZX9K2QF
+          brandId: brnd_8f3kd92ld0
           createdAt: 2026-06-22T09:00:00.000Z
           updatedAt: 2026-06-22T09:00:00.000Z
         total: 137
@@ -7757,6 +7976,13 @@ components:
             type: string
           minItems: 1
           type: array
+        brandId:
+          description: Brand this record is assigned to; null (or omitted outside
+            a brand session) keeps it organization-wide
+          example: brnd_8f3kd92ld0
+          minLength: 1
+          nullable: true
+          type: string
       required:
       - address1
       - attContact
@@ -7849,6 +8075,13 @@ components:
             type: string
           minItems: 1
           type: array
+        brandId:
+          description: Brand this record is assigned to; null (or omitted outside
+            a brand session) keeps it organization-wide
+          example: brnd_8f3kd92ld0
+          minLength: 1
+          nullable: true
+          type: string
       type: object
     listCarriers_200_response_data_inner_config_value:
       anyOf:
@@ -7864,6 +8097,7 @@ components:
         config:
           customerNumber: "123456"
         orgId: org_01HZX9K2QF
+        brandId: brnd_8f3kd92ld0
         createdAt: 2026-06-22T09:00:00.000Z
         updatedAt: 2026-06-22T09:00:00.000Z
         logo: https://cdn.zippendo.com/logos/postnord.svg
@@ -7895,6 +8129,11 @@ components:
           description: Owning organization ID
           example: org_01HZX9K2QF
           type: string
+        brandId:
+          description: "Brand this record belongs to, or null when it is organization-wide"
+          example: brnd_8f3kd92ld0
+          nullable: true
+          type: string
         createdAt:
           description: Creation timestamp (ISO 8601)
           example: 2026-06-22T09:00:00.000Z
@@ -7923,6 +8162,7 @@ components:
             Instabox integration.
           type: string
       required:
+      - brandId
       - carrierSlug
       - config
       - createdAt
@@ -7941,6 +8181,7 @@ components:
           config:
             customerNumber: "123456"
           orgId: org_01HZX9K2QF
+          brandId: brnd_8f3kd92ld0
           createdAt: 2026-06-22T09:00:00.000Z
           updatedAt: 2026-06-22T09:00:00.000Z
           logo: https://cdn.zippendo.com/logos/postnord.svg
@@ -7954,6 +8195,7 @@ components:
           config:
             customerNumber: "123456"
           orgId: org_01HZX9K2QF
+          brandId: brnd_8f3kd92ld0
           createdAt: 2026-06-22T09:00:00.000Z
           updatedAt: 2026-06-22T09:00:00.000Z
           logo: https://cdn.zippendo.com/logos/postnord.svg
@@ -8013,6 +8255,13 @@ components:
           example:
             customerNumber: "123456"
           type: object
+        brandId:
+          description: Brand this record is assigned to; null (or omitted outside
+            a brand session) keeps it organization-wide
+          example: brnd_8f3kd92ld0
+          minLength: 1
+          nullable: true
+          type: string
       required:
       - carrierSlug
       - config
@@ -8037,6 +8286,13 @@ components:
           example:
             customerNumber: "123456"
           type: object
+        brandId:
+          description: Brand this record is assigned to; null (or omitted outside
+            a brand session) keeps it organization-wide
+          example: brnd_8f3kd92ld0
+          minLength: 1
+          nullable: true
+          type: string
       type: object
     listCarrierProducts_200_response_inner_services_inner:
       additionalProperties: false
@@ -8703,6 +8959,7 @@ components:
         config:
           customerNumber: "123456"
         orgId: org_01HZX9K2QF
+        brandId: brnd_8f3kd92ld0
         createdAt: 2026-06-22T09:00:00.000Z
         updatedAt: 2026-06-22T09:00:00.000Z
       properties:
@@ -8729,6 +8986,11 @@ components:
           description: Owning organization ID
           example: org_01HZX9K2QF
           type: string
+        brandId:
+          description: "Brand this record belongs to, or null when it is organization-wide"
+          example: brnd_8f3kd92ld0
+          nullable: true
+          type: string
         createdAt:
           description: Creation timestamp (ISO 8601)
           example: 2026-06-22T09:00:00.000Z
@@ -8738,6 +9000,7 @@ components:
           example: 2026-06-22T09:00:00.000Z
           type: string
       required:
+      - brandId
       - carrierSlug
       - config
       - createdAt
@@ -8822,6 +9085,7 @@ components:
         returnShippingRuleId: returnShippingRuleId
         autoCreateReturnShipment: false
         orgId: org_01HZX9K2QF
+        brandId: brnd_8f3kd92ld0
         createdAt: 2026-06-22T09:00:00.000Z
         updatedAt: 2026-06-22T09:00:00.000Z
         carrier:
@@ -8831,6 +9095,7 @@ components:
           config:
             customerNumber: "123456"
           orgId: org_01HZX9K2QF
+          brandId: brnd_8f3kd92ld0
           createdAt: 2026-06-22T09:00:00.000Z
           updatedAt: 2026-06-22T09:00:00.000Z
         address:
@@ -8850,6 +9115,7 @@ components:
           addressTypes:
           - sender
           orgId: org_01HZX9K2QF
+          brandId: brnd_8f3kd92ld0
           createdAt: 2026-06-22T09:00:00.000Z
           updatedAt: 2026-06-22T09:00:00.000Z
         labelPrinter:
@@ -9020,6 +9286,11 @@ components:
           description: Owning organization ID
           example: org_01HZX9K2QF
           type: string
+        brandId:
+          description: "Brand this record belongs to, or null when it is organization-wide"
+          example: brnd_8f3kd92ld0
+          nullable: true
+          type: string
         createdAt:
           description: Creation timestamp (ISO 8601)
           example: 2026-06-22T09:00:00.000Z
@@ -9045,6 +9316,7 @@ components:
       - autoCreateReturnShipment
       - autoPrintDocuments
       - autoPrintLabels
+      - brandId
       - carrier
       - carrierId
       - conditions
@@ -9110,6 +9382,7 @@ components:
           returnShippingRuleId: returnShippingRuleId
           autoCreateReturnShipment: false
           orgId: org_01HZX9K2QF
+          brandId: brnd_8f3kd92ld0
           createdAt: 2026-06-22T09:00:00.000Z
           updatedAt: 2026-06-22T09:00:00.000Z
           carrier:
@@ -9119,6 +9392,7 @@ components:
             config:
               customerNumber: "123456"
             orgId: org_01HZX9K2QF
+            brandId: brnd_8f3kd92ld0
             createdAt: 2026-06-22T09:00:00.000Z
             updatedAt: 2026-06-22T09:00:00.000Z
           address:
@@ -9138,6 +9412,7 @@ components:
             addressTypes:
             - sender
             orgId: org_01HZX9K2QF
+            brandId: brnd_8f3kd92ld0
             createdAt: 2026-06-22T09:00:00.000Z
             updatedAt: 2026-06-22T09:00:00.000Z
           labelPrinter:
@@ -9184,6 +9459,7 @@ components:
           returnShippingRuleId: returnShippingRuleId
           autoCreateReturnShipment: false
           orgId: org_01HZX9K2QF
+          brandId: brnd_8f3kd92ld0
           createdAt: 2026-06-22T09:00:00.000Z
           updatedAt: 2026-06-22T09:00:00.000Z
           carrier:
@@ -9193,6 +9469,7 @@ components:
             config:
               customerNumber: "123456"
             orgId: org_01HZX9K2QF
+            brandId: brnd_8f3kd92ld0
             createdAt: 2026-06-22T09:00:00.000Z
             updatedAt: 2026-06-22T09:00:00.000Z
           address:
@@ -9212,6 +9489,7 @@ components:
             addressTypes:
             - sender
             orgId: org_01HZX9K2QF
+            brandId: brnd_8f3kd92ld0
             createdAt: 2026-06-22T09:00:00.000Z
             updatedAt: 2026-06-22T09:00:00.000Z
           labelPrinter:
@@ -9643,6 +9921,13 @@ components:
           description: Automatically create and send a return shipment on dispatch
           example: false
           type: boolean
+        brandId:
+          description: Brand this record is assigned to; null (or omitted outside
+            a brand session) keeps it organization-wide
+          example: brnd_8f3kd92ld0
+          minLength: 1
+          nullable: true
+          type: string
       required:
       - addressId
       - carrierId
@@ -9690,6 +9975,7 @@ components:
         returnShippingRuleId: returnShippingRuleId
         autoCreateReturnShipment: false
         orgId: org_01HZX9K2QF
+        brandId: brnd_8f3kd92ld0
         createdAt: 2026-06-22T09:00:00.000Z
         updatedAt: 2026-06-22T09:00:00.000Z
       properties:
@@ -9851,6 +10137,11 @@ components:
           description: Owning organization ID
           example: org_01HZX9K2QF
           type: string
+        brandId:
+          description: "Brand this record belongs to, or null when it is organization-wide"
+          example: brnd_8f3kd92ld0
+          nullable: true
+          type: string
         createdAt:
           description: Creation timestamp (ISO 8601)
           example: 2026-06-22T09:00:00.000Z
@@ -9865,6 +10156,7 @@ components:
       - autoCreateReturnShipment
       - autoPrintDocuments
       - autoPrintLabels
+      - brandId
       - carrierId
       - conditions
       - createdAt
@@ -10049,6 +10341,13 @@ components:
           description: Automatically create and send a return shipment on dispatch
           example: false
           type: boolean
+        brandId:
+          description: Brand this record is assigned to; null (or omitted outside
+            a brand session) keeps it organization-wide
+          example: brnd_8f3kd92ld0
+          minLength: 1
+          nullable: true
+          type: string
       type: object
     createShippingQuote_request_destination:
       properties:
@@ -10317,6 +10616,7 @@ components:
         addressTypes:
         - sender
         orgId: org_01HZX9K2QF
+        brandId: brnd_8f3kd92ld0
         createdAt: 2026-06-22T09:00:00.000Z
         updatedAt: 2026-06-22T09:00:00.000Z
       nullable: true
@@ -10402,6 +10702,11 @@ components:
           description: Owning organization ID
           example: org_01HZX9K2QF
           type: string
+        brandId:
+          description: "Brand this record belongs to, or null when it is organization-wide"
+          example: brnd_8f3kd92ld0
+          nullable: true
+          type: string
         createdAt:
           description: Creation timestamp (ISO 8601)
           example: 2026-06-22T09:00:00.000Z
@@ -10415,6 +10720,7 @@ components:
       - address2
       - addressTypes
       - attContact
+      - brandId
       - city
       - countryCode
       - createdAt
@@ -10459,6 +10765,7 @@ components:
           addressTypes:
           - sender
           orgId: org_01HZX9K2QF
+          brandId: brnd_8f3kd92ld0
           createdAt: 2026-06-22T09:00:00.000Z
           updatedAt: 2026-06-22T09:00:00.000Z
         createdAt: 2026-06-22T14:30:00.000Z
@@ -10552,6 +10859,7 @@ components:
             addressTypes:
             - sender
             orgId: org_01HZX9K2QF
+            brandId: brnd_8f3kd92ld0
             createdAt: 2026-06-22T09:00:00.000Z
             updatedAt: 2026-06-22T09:00:00.000Z
           createdAt: 2026-06-22T14:30:00.000Z
@@ -10585,6 +10893,7 @@ components:
             addressTypes:
             - sender
             orgId: org_01HZX9K2QF
+            brandId: brnd_8f3kd92ld0
             createdAt: 2026-06-22T09:00:00.000Z
             updatedAt: 2026-06-22T09:00:00.000Z
           createdAt: 2026-06-22T14:30:00.000Z
@@ -12215,6 +12524,7 @@ components:
           - SUBSCRIPTION_INACTIVE
           - BILLING_MANAGED_BY_SHOPIFY
           - BILLING_CHECKOUT_REQUIRED
+          - ZIPPY_ADDON_REQUIRED
           - SHIPMENT_NOT_FOUND
           - SHIPMENT_DOCUMENT_NOT_FOUND
           - SHIPMENT_ALREADY_SENT
@@ -12286,6 +12596,11 @@ components:
           - MIGRATION_SOURCE_UNREACHABLE
           - MIGRATION_NOT_FOUND
           - MIGRATION_IN_PROGRESS
+          - DATA_EXPORT_NOT_FOUND
+          - DATA_EXPORT_IN_PROGRESS
+          - DATA_EXPORT_NOT_READY
+          - DATA_EXPORT_EXPIRED
+          - DATA_EXPORT_FAILED
           example: CARRIER_GLS_WRONG_ADDRESS
           type: string
         error:
@@ -12409,6 +12724,7 @@ components:
           - SUBSCRIPTION_INACTIVE
           - BILLING_MANAGED_BY_SHOPIFY
           - BILLING_CHECKOUT_REQUIRED
+          - ZIPPY_ADDON_REQUIRED
           - SHIPMENT_NOT_FOUND
           - SHIPMENT_DOCUMENT_NOT_FOUND
           - SHIPMENT_ALREADY_SENT
@@ -12480,6 +12796,11 @@ components:
           - MIGRATION_SOURCE_UNREACHABLE
           - MIGRATION_NOT_FOUND
           - MIGRATION_IN_PROGRESS
+          - DATA_EXPORT_NOT_FOUND
+          - DATA_EXPORT_IN_PROGRESS
+          - DATA_EXPORT_NOT_READY
+          - DATA_EXPORT_EXPIRED
+          - DATA_EXPORT_FAILED
           example: CARRIER_ERROR
           type: string
         message:
@@ -15772,6 +16093,7 @@ components:
           enum:
           - extra_carrier
           - extra_channel
+          - zippy
           example: extra_carrier
           type: string
         quantity:
@@ -15791,6 +16113,26 @@ components:
       - totalPrice
       - type
       - unitPrice
+      type: object
+    getBillingUsage_200_response_zippyMessages:
+      additionalProperties: false
+      description: Zippy AI message usage this period (present when Zippy access is
+        enabled)
+      example:
+        used: 42
+        charges: 4158
+      properties:
+        used:
+          description: Zippy messages used this period
+          example: 42
+          type: number
+        charges:
+          description: "Zippy message charges so far, in øre"
+          example: 4158
+          type: number
+      required:
+      - charges
+      - used
       type: object
     getBillingUsage_200_response:
       additionalProperties: false
@@ -15826,6 +16168,9 @@ components:
             used: 3
             limit: 5
         addOns: []
+        zippyMessages:
+          used: 42
+          charges: 4158
       properties:
         currentPeriod:
           $ref: "#/components/schemas/getBillingUsage_200_response_currentPeriod"
@@ -15839,6 +16184,8 @@ components:
           items:
             $ref: "#/components/schemas/getBillingUsage_200_response_addOns_inner"
           type: array
+        zippyMessages:
+          $ref: "#/components/schemas/getBillingUsage_200_response_zippyMessages"
       required:
       - addOns
       - currentPeriod
@@ -15854,6 +16201,7 @@ components:
         events:
         - shipment.created
         isActive: true
+        brandId: brnd_8f3kd92ld0
         createdAt: 2026-06-01T09:30:00.000Z
         updatedAt: 2026-06-10T11:15:00.000Z
       properties:
@@ -15882,6 +16230,11 @@ components:
           description: Whether the webhook is active
           example: true
           type: boolean
+        brandId:
+          description: "Brand this record belongs to, or null when it is organization-wide"
+          example: brnd_8f3kd92ld0
+          nullable: true
+          type: string
         createdAt:
           description: Creation timestamp (ISO 8601)
           example: 2026-06-01T09:30:00.000Z
@@ -15891,6 +16244,7 @@ components:
           example: 2026-06-10T11:15:00.000Z
           type: string
       required:
+      - brandId
       - createdAt
       - events
       - id
@@ -15909,6 +16263,7 @@ components:
           events:
           - shipment.created
           isActive: true
+          brandId: brnd_8f3kd92ld0
           createdAt: 2026-06-01T09:30:00.000Z
           updatedAt: 2026-06-10T11:15:00.000Z
         - id: wh_clx1a2b3c4
@@ -15917,6 +16272,7 @@ components:
           events:
           - shipment.created
           isActive: true
+          brandId: brnd_8f3kd92ld0
           createdAt: 2026-06-01T09:30:00.000Z
           updatedAt: 2026-06-10T11:15:00.000Z
         total: 137
@@ -15991,6 +16347,13 @@ components:
           description: Whether the webhook is active
           example: true
           type: boolean
+        brandId:
+          description: Brand this record is assigned to; null (or omitted outside
+            a brand session) keeps it organization-wide
+          example: brnd_8f3kd92ld0
+          minLength: 1
+          nullable: true
+          type: string
       required:
       - events
       - name
@@ -16006,6 +16369,7 @@ components:
         events:
         - shipment.created
         isActive: true
+        brandId: brnd_8f3kd92ld0
         createdAt: 2026-06-01T09:30:00.000Z
         updatedAt: 2026-06-10T11:15:00.000Z
       properties:
@@ -16038,6 +16402,11 @@ components:
           description: Whether the webhook is active
           example: true
           type: boolean
+        brandId:
+          description: "Brand this record belongs to, or null when it is organization-wide"
+          example: brnd_8f3kd92ld0
+          nullable: true
+          type: string
         createdAt:
           description: Creation timestamp (ISO 8601)
           example: 2026-06-01T09:30:00.000Z
@@ -16047,6 +16416,7 @@ components:
           example: 2026-06-10T11:15:00.000Z
           type: string
       required:
+      - brandId
       - createdAt
       - events
       - id
@@ -16105,6 +16475,13 @@ components:
           description: Whether the webhook is active
           example: true
           type: boolean
+        brandId:
+          description: Brand this record is assigned to; null (or omitted outside
+            a brand session) keeps it organization-wide
+          example: brnd_8f3kd92ld0
+          minLength: 1
+          nullable: true
+          type: string
       type: object
     testOrgWebhook_200_response:
       additionalProperties: false

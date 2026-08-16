@@ -1,7 +1,7 @@
 /*
 Zippendo Public API
 
-Public API documentation for Zippendo. Authenticate using your API token (Bearer token prefixed with zipp_).  **Brands (sub-accounts).** An organization can be split into brands, each keeping its own orders, shipments and configuration separate. There are two ways to scope requests to one brand, and NEITHER changes any request body:  1. **Bind the token.** Create an API token with a `brandId` and every request it makes is confined    to that brand — reads filtered, writes stamped. This is the recommended way to give a single    brand's team its own credential. 2. **Send the `X-Zippendo-Brand` header.** An organization-wide token can scope an individual    request by sending the brand's id or slug in this header. Most SDKs let you set it once on the    client so every call inherits it.  A brand-bound token that receives an `X-Zippendo-Brand` header naming a different brand is rejected with `403 BRAND_ACCESS_DENIED` — the binding is never widened. Omit both and requests cover the whole organization, which is the behaviour of every existing token.  Records that belong to no brand carry `brandId: null`. Configuration (carriers, shipping rules, addresses) with a null brand is organization-wide and remains visible inside every brand; orders and shipments with a null brand are only visible organization-wide.  Brands themselves are managed under the **Brands** tag. Retiring a brand is done with `POST /orgs/{orgId}/brands/{brandId}/archive` — permanent deletion is a dashboard-only action, since it is refused while any order, shipment, member or token still references the brand. Brands require a plan that includes them; creating one beyond your plan's limit returns `403`.
+Public API documentation for Zippendo. Authenticate using your API token (Bearer token prefixed with zipp_).  **Brands (sub-accounts).** An organization can be split into brands, each keeping its own orders, shipments and configuration separate. There are two ways to scope requests to one brand, and NEITHER changes any request body:  1. **Bind the token.** Create an API token with a `brandId` and every request it makes is confined    to that brand — reads filtered, writes stamped. This is the recommended way to give a single    brand's team its own credential. 2. **Send the `X-Zippendo-Brand` header.** An organization-wide token can scope an individual    request by sending the brand's id or slug in this header. Most SDKs let you set it once on the    client so every call inherits it.  A brand-bound token that receives an `X-Zippendo-Brand` header naming a different brand is rejected with `403 BRAND_ACCESS_DENIED` — the binding is never widened. Omit both and requests cover the whole organization, which is the behaviour of every existing token.  Records that belong to no brand carry `brandId: null`. Configuration (carriers, shipping rules, addresses) with a null brand is organization-wide and remains visible inside every brand; orders and shipments with a null brand are only visible organization-wide.  List endpoints additionally take a `?brandScope=own|shared|both` parameter to narrow further within whichever brand context already applies. `own` returns only rows assigned to that brand, and requires a brand context — a brand-bound token, a resolved brand session, or the `X-Zippendo-Brand` header above — otherwise `400`. `shared` returns only the organization-wide rows (equivalent to filtering `brandId=none`). The default, `both`, keeps the existing behaviour: a brand context sees its own rows plus the organization-wide ones. Set `X-Zippendo-Brand-Scope` as a client default to apply the same choice to every request instead of repeating the query parameter on each call — an explicit `brandScope` query parameter always wins over the header, and a blank header value is ignored.  Brands themselves are managed under the **Brands** tag. Retiring a brand is done with `POST /orgs/{orgId}/brands/{brandId}/archive` — permanent deletion is a dashboard-only action, since it is refused while any order, shipment, member or token still references the brand. Brands require a plan that includes them; creating one beyond your plan's limit returns `403`.
 
 API version: 1.0.0
 Contact: support@zippendo.com
@@ -32,6 +32,8 @@ type ListCarriers200ResponseDataInner struct {
 	Config map[string]ListCarriers200ResponseDataInnerConfigValue `json:"config"`
 	// Owning organization ID
 	OrgId string `json:"orgId"`
+	// Brand this record belongs to, or null when it is organization-wide
+	BrandId NullableString `json:"brandId"`
 	// Creation timestamp (ISO 8601)
 	CreatedAt string `json:"createdAt"`
 	// Last update timestamp (ISO 8601)
@@ -52,13 +54,14 @@ type _ListCarriers200ResponseDataInner ListCarriers200ResponseDataInner
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListCarriers200ResponseDataInner(id string, name string, carrierSlug string, config map[string]ListCarriers200ResponseDataInnerConfigValue, orgId string, createdAt string, updatedAt string) *ListCarriers200ResponseDataInner {
+func NewListCarriers200ResponseDataInner(id string, name string, carrierSlug string, config map[string]ListCarriers200ResponseDataInnerConfigValue, orgId string, brandId NullableString, createdAt string, updatedAt string) *ListCarriers200ResponseDataInner {
 	this := ListCarriers200ResponseDataInner{}
 	this.Id = id
 	this.Name = name
 	this.CarrierSlug = carrierSlug
 	this.Config = config
 	this.OrgId = orgId
+	this.BrandId = brandId
 	this.CreatedAt = createdAt
 	this.UpdatedAt = updatedAt
 	return &this
@@ -190,6 +193,32 @@ func (o *ListCarriers200ResponseDataInner) GetOrgIdOk() (*string, bool) {
 // SetOrgId sets field value
 func (o *ListCarriers200ResponseDataInner) SetOrgId(v string) {
 	o.OrgId = v
+}
+
+// GetBrandId returns the BrandId field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *ListCarriers200ResponseDataInner) GetBrandId() string {
+	if o == nil || o.BrandId.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.BrandId.Get()
+}
+
+// GetBrandIdOk returns a tuple with the BrandId field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListCarriers200ResponseDataInner) GetBrandIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.BrandId.Get(), o.BrandId.IsSet()
+}
+
+// SetBrandId sets field value
+func (o *ListCarriers200ResponseDataInner) SetBrandId(v string) {
+	o.BrandId.Set(&v)
 }
 
 // GetCreatedAt returns the CreatedAt field value
@@ -383,6 +412,7 @@ func (o ListCarriers200ResponseDataInner) ToMap() (map[string]interface{}, error
 	toSerialize["carrierSlug"] = o.CarrierSlug
 	toSerialize["config"] = o.Config
 	toSerialize["orgId"] = o.OrgId
+	toSerialize["brandId"] = o.BrandId.Get()
 	toSerialize["createdAt"] = o.CreatedAt
 	toSerialize["updatedAt"] = o.UpdatedAt
 	if !IsNil(o.Logo) {
@@ -410,6 +440,7 @@ func (o *ListCarriers200ResponseDataInner) UnmarshalJSON(data []byte) (err error
 		"carrierSlug",
 		"config",
 		"orgId",
+		"brandId",
 		"createdAt",
 		"updatedAt",
 	}

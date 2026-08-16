@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **CarrierSlug** | **string** | Carrier slug identifier | 
 **Config** | [**map[string]ListCarriers200ResponseDataInnerConfigValue**](ListCarriers200ResponseDataInnerConfigValue.md) | Carrier configuration (required and optional fields) | 
 **OrgId** | **string** | Owning organization ID | 
+**BrandId** | **NullableString** | Brand this record belongs to, or null when it is organization-wide | 
 **CreatedAt** | **string** | Creation timestamp (ISO 8601) | 
 **UpdatedAt** | **string** | Last update timestamp (ISO 8601) | 
 **Logo** | Pointer to **string** | Carrier logo URL | [optional] 
@@ -20,7 +21,7 @@ Name | Type | Description | Notes
 
 ### NewListCarriers200ResponseDataInner
 
-`func NewListCarriers200ResponseDataInner(id string, name string, carrierSlug string, config map[string]ListCarriers200ResponseDataInnerConfigValue, orgId string, createdAt string, updatedAt string, ) *ListCarriers200ResponseDataInner`
+`func NewListCarriers200ResponseDataInner(id string, name string, carrierSlug string, config map[string]ListCarriers200ResponseDataInnerConfigValue, orgId string, brandId NullableString, createdAt string, updatedAt string, ) *ListCarriers200ResponseDataInner`
 
 NewListCarriers200ResponseDataInner instantiates a new ListCarriers200ResponseDataInner object
 This constructor will assign default values to properties that have it defined,
@@ -135,6 +136,36 @@ and a boolean to check if the value has been set.
 SetOrgId sets OrgId field to given value.
 
 
+### GetBrandId
+
+`func (o *ListCarriers200ResponseDataInner) GetBrandId() string`
+
+GetBrandId returns the BrandId field if non-nil, zero value otherwise.
+
+### GetBrandIdOk
+
+`func (o *ListCarriers200ResponseDataInner) GetBrandIdOk() (*string, bool)`
+
+GetBrandIdOk returns a tuple with the BrandId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBrandId
+
+`func (o *ListCarriers200ResponseDataInner) SetBrandId(v string)`
+
+SetBrandId sets BrandId field to given value.
+
+
+### SetBrandIdNil
+
+`func (o *ListCarriers200ResponseDataInner) SetBrandIdNil(b bool)`
+
+ SetBrandIdNil sets the value for BrandId to be an explicit nil
+
+### UnsetBrandId
+`func (o *ListCarriers200ResponseDataInner) UnsetBrandId()`
+
+UnsetBrandId ensures that no value is present for BrandId, not even an explicit nil
 ### GetCreatedAt
 
 `func (o *ListCarriers200ResponseDataInner) GetCreatedAt() string`

@@ -17,60 +17,87 @@ import (
 	"fmt"
 )
 
-// checks if the DeleteOrgWebhook200Response type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &DeleteOrgWebhook200Response{}
+// checks if the GetBillingUsage200ResponseZippyMessages type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GetBillingUsage200ResponseZippyMessages{}
 
-// DeleteOrgWebhook200Response struct for DeleteOrgWebhook200Response
-type DeleteOrgWebhook200Response struct {
-	// Result message
-	Message string `json:"message"`
+// GetBillingUsage200ResponseZippyMessages Zippy AI message usage this period (present when Zippy access is enabled)
+type GetBillingUsage200ResponseZippyMessages struct {
+	// Zippy messages used this period
+	Used float32 `json:"used"`
+	// Zippy message charges so far, in øre
+	Charges float32 `json:"charges"`
 }
 
-type _DeleteOrgWebhook200Response DeleteOrgWebhook200Response
+type _GetBillingUsage200ResponseZippyMessages GetBillingUsage200ResponseZippyMessages
 
-// NewDeleteOrgWebhook200Response instantiates a new DeleteOrgWebhook200Response object
+// NewGetBillingUsage200ResponseZippyMessages instantiates a new GetBillingUsage200ResponseZippyMessages object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeleteOrgWebhook200Response(message string) *DeleteOrgWebhook200Response {
-	this := DeleteOrgWebhook200Response{}
-	this.Message = message
+func NewGetBillingUsage200ResponseZippyMessages(used float32, charges float32) *GetBillingUsage200ResponseZippyMessages {
+	this := GetBillingUsage200ResponseZippyMessages{}
+	this.Used = used
+	this.Charges = charges
 	return &this
 }
 
-// NewDeleteOrgWebhook200ResponseWithDefaults instantiates a new DeleteOrgWebhook200Response object
+// NewGetBillingUsage200ResponseZippyMessagesWithDefaults instantiates a new GetBillingUsage200ResponseZippyMessages object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewDeleteOrgWebhook200ResponseWithDefaults() *DeleteOrgWebhook200Response {
-	this := DeleteOrgWebhook200Response{}
+func NewGetBillingUsage200ResponseZippyMessagesWithDefaults() *GetBillingUsage200ResponseZippyMessages {
+	this := GetBillingUsage200ResponseZippyMessages{}
 	return &this
 }
 
-// GetMessage returns the Message field value
-func (o *DeleteOrgWebhook200Response) GetMessage() string {
+// GetUsed returns the Used field value
+func (o *GetBillingUsage200ResponseZippyMessages) GetUsed() float32 {
 	if o == nil {
-		var ret string
+		var ret float32
 		return ret
 	}
 
-	return o.Message
+	return o.Used
 }
 
-// GetMessageOk returns a tuple with the Message field value
+// GetUsedOk returns a tuple with the Used field value
 // and a boolean to check if the value has been set.
-func (o *DeleteOrgWebhook200Response) GetMessageOk() (*string, bool) {
+func (o *GetBillingUsage200ResponseZippyMessages) GetUsedOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Message, true
+	return &o.Used, true
 }
 
-// SetMessage sets field value
-func (o *DeleteOrgWebhook200Response) SetMessage(v string) {
-	o.Message = v
+// SetUsed sets field value
+func (o *GetBillingUsage200ResponseZippyMessages) SetUsed(v float32) {
+	o.Used = v
 }
 
-func (o DeleteOrgWebhook200Response) MarshalJSON() ([]byte, error) {
+// GetCharges returns the Charges field value
+func (o *GetBillingUsage200ResponseZippyMessages) GetCharges() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.Charges
+}
+
+// GetChargesOk returns a tuple with the Charges field value
+// and a boolean to check if the value has been set.
+func (o *GetBillingUsage200ResponseZippyMessages) GetChargesOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Charges, true
+}
+
+// SetCharges sets field value
+func (o *GetBillingUsage200ResponseZippyMessages) SetCharges(v float32) {
+	o.Charges = v
+}
+
+func (o GetBillingUsage200ResponseZippyMessages) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -78,18 +105,20 @@ func (o DeleteOrgWebhook200Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o DeleteOrgWebhook200Response) ToMap() (map[string]interface{}, error) {
+func (o GetBillingUsage200ResponseZippyMessages) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["message"] = o.Message
+	toSerialize["used"] = o.Used
+	toSerialize["charges"] = o.Charges
 	return toSerialize, nil
 }
 
-func (o *DeleteOrgWebhook200Response) UnmarshalJSON(data []byte) (err error) {
+func (o *GetBillingUsage200ResponseZippyMessages) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"message",
+		"used",
+		"charges",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -106,53 +135,53 @@ func (o *DeleteOrgWebhook200Response) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varDeleteOrgWebhook200Response := _DeleteOrgWebhook200Response{}
+	varGetBillingUsage200ResponseZippyMessages := _GetBillingUsage200ResponseZippyMessages{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varDeleteOrgWebhook200Response)
+	err = decoder.Decode(&varGetBillingUsage200ResponseZippyMessages)
 
 	if err != nil {
 		return err
 	}
 
-	*o = DeleteOrgWebhook200Response(varDeleteOrgWebhook200Response)
+	*o = GetBillingUsage200ResponseZippyMessages(varGetBillingUsage200ResponseZippyMessages)
 
 	return err
 }
 
-type NullableDeleteOrgWebhook200Response struct {
-	value *DeleteOrgWebhook200Response
+type NullableGetBillingUsage200ResponseZippyMessages struct {
+	value *GetBillingUsage200ResponseZippyMessages
 	isSet bool
 }
 
-func (v NullableDeleteOrgWebhook200Response) Get() *DeleteOrgWebhook200Response {
+func (v NullableGetBillingUsage200ResponseZippyMessages) Get() *GetBillingUsage200ResponseZippyMessages {
 	return v.value
 }
 
-func (v *NullableDeleteOrgWebhook200Response) Set(val *DeleteOrgWebhook200Response) {
+func (v *NullableGetBillingUsage200ResponseZippyMessages) Set(val *GetBillingUsage200ResponseZippyMessages) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableDeleteOrgWebhook200Response) IsSet() bool {
+func (v NullableGetBillingUsage200ResponseZippyMessages) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableDeleteOrgWebhook200Response) Unset() {
+func (v *NullableGetBillingUsage200ResponseZippyMessages) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableDeleteOrgWebhook200Response(val *DeleteOrgWebhook200Response) *NullableDeleteOrgWebhook200Response {
-	return &NullableDeleteOrgWebhook200Response{value: val, isSet: true}
+func NewNullableGetBillingUsage200ResponseZippyMessages(val *GetBillingUsage200ResponseZippyMessages) *NullableGetBillingUsage200ResponseZippyMessages {
+	return &NullableGetBillingUsage200ResponseZippyMessages{value: val, isSet: true}
 }
 
-func (v NullableDeleteOrgWebhook200Response) MarshalJSON() ([]byte, error) {
+func (v NullableGetBillingUsage200ResponseZippyMessages) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableDeleteOrgWebhook200Response) UnmarshalJSON(src []byte) error {
+func (v *NullableGetBillingUsage200ResponseZippyMessages) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

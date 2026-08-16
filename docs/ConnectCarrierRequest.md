@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Name** | **string** | Carrier display name | 
 **CarrierSlug** | **string** | Carrier slug identifier | 
 **Config** | [**map[string]ListCarriers200ResponseDataInnerConfigValue**](ListCarriers200ResponseDataInnerConfigValue.md) | Carrier configuration (required and optional fields) | 
+**BrandId** | Pointer to **NullableString** | Brand this record is assigned to; null (or omitted outside a brand session) keeps it organization-wide | [optional] 
 
 ## Methods
 
@@ -87,6 +88,41 @@ and a boolean to check if the value has been set.
 SetConfig sets Config field to given value.
 
 
+### GetBrandId
+
+`func (o *ConnectCarrierRequest) GetBrandId() string`
+
+GetBrandId returns the BrandId field if non-nil, zero value otherwise.
+
+### GetBrandIdOk
+
+`func (o *ConnectCarrierRequest) GetBrandIdOk() (*string, bool)`
+
+GetBrandIdOk returns a tuple with the BrandId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBrandId
+
+`func (o *ConnectCarrierRequest) SetBrandId(v string)`
+
+SetBrandId sets BrandId field to given value.
+
+### HasBrandId
+
+`func (o *ConnectCarrierRequest) HasBrandId() bool`
+
+HasBrandId returns a boolean if a field has been set.
+
+### SetBrandIdNil
+
+`func (o *ConnectCarrierRequest) SetBrandIdNil(b bool)`
+
+ SetBrandIdNil sets the value for BrandId to be an explicit nil
+
+### UnsetBrandId
+`func (o *ConnectCarrierRequest) UnsetBrandId()`
+
+UnsetBrandId ensures that no value is present for BrandId, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

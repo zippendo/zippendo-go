@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **Email** | Pointer to **string** | Email address | [optional] 
 **Customs** | Pointer to **map[string]string** | Customs identifiers | [optional] 
 **AddressTypes** | Pointer to **[]string** | Address types (sender, pickup, return) | [optional] 
+**BrandId** | Pointer to **NullableString** | Brand this record is assigned to; null (or omitted outside a brand session) keeps it organization-wide | [optional] 
 
 ## Methods
 
@@ -336,6 +337,41 @@ SetAddressTypes sets AddressTypes field to given value.
 
 HasAddressTypes returns a boolean if a field has been set.
 
+### GetBrandId
+
+`func (o *UpdateAddressRequest) GetBrandId() string`
+
+GetBrandId returns the BrandId field if non-nil, zero value otherwise.
+
+### GetBrandIdOk
+
+`func (o *UpdateAddressRequest) GetBrandIdOk() (*string, bool)`
+
+GetBrandIdOk returns a tuple with the BrandId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBrandId
+
+`func (o *UpdateAddressRequest) SetBrandId(v string)`
+
+SetBrandId sets BrandId field to given value.
+
+### HasBrandId
+
+`func (o *UpdateAddressRequest) HasBrandId() bool`
+
+HasBrandId returns a boolean if a field has been set.
+
+### SetBrandIdNil
+
+`func (o *UpdateAddressRequest) SetBrandIdNil(b bool)`
+
+ SetBrandIdNil sets the value for BrandId to be an explicit nil
+
+### UnsetBrandId
+`func (o *UpdateAddressRequest) UnsetBrandId()`
+
+UnsetBrandId ensures that no value is present for BrandId, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

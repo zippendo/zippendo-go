@@ -29,6 +29,7 @@ Name | Type | Description | Notes
 **DocumentPrinterId** | Pointer to **NullableString** | ID of the document printer | [optional] 
 **ReturnShippingRuleId** | Pointer to **NullableString** | ID of the return shipping rule | [optional] 
 **AutoCreateReturnShipment** | Pointer to **bool** | Automatically create and send a return shipment on dispatch | [optional] [default to false]
+**BrandId** | Pointer to **NullableString** | Brand this record is assigned to; null (or omitted outside a brand session) keeps it organization-wide | [optional] 
 
 ## Methods
 
@@ -709,6 +710,41 @@ SetAutoCreateReturnShipment sets AutoCreateReturnShipment field to given value.
 
 HasAutoCreateReturnShipment returns a boolean if a field has been set.
 
+### GetBrandId
+
+`func (o *CreateShippingRuleRequest) GetBrandId() string`
+
+GetBrandId returns the BrandId field if non-nil, zero value otherwise.
+
+### GetBrandIdOk
+
+`func (o *CreateShippingRuleRequest) GetBrandIdOk() (*string, bool)`
+
+GetBrandIdOk returns a tuple with the BrandId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBrandId
+
+`func (o *CreateShippingRuleRequest) SetBrandId(v string)`
+
+SetBrandId sets BrandId field to given value.
+
+### HasBrandId
+
+`func (o *CreateShippingRuleRequest) HasBrandId() bool`
+
+HasBrandId returns a boolean if a field has been set.
+
+### SetBrandIdNil
+
+`func (o *CreateShippingRuleRequest) SetBrandIdNil(b bool)`
+
+ SetBrandIdNil sets the value for BrandId to be an explicit nil
+
+### UnsetBrandId
+`func (o *CreateShippingRuleRequest) UnsetBrandId()`
+
+UnsetBrandId ensures that no value is present for BrandId, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

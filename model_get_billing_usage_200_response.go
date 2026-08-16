@@ -1,7 +1,7 @@
 /*
 Zippendo Public API
 
-Public API documentation for Zippendo. Authenticate using your API token (Bearer token prefixed with zipp_).  **Brands (sub-accounts).** An organization can be split into brands, each keeping its own orders, shipments and configuration separate. There are two ways to scope requests to one brand, and NEITHER changes any request body:  1. **Bind the token.** Create an API token with a `brandId` and every request it makes is confined    to that brand — reads filtered, writes stamped. This is the recommended way to give a single    brand's team its own credential. 2. **Send the `X-Zippendo-Brand` header.** An organization-wide token can scope an individual    request by sending the brand's id or slug in this header. Most SDKs let you set it once on the    client so every call inherits it.  A brand-bound token that receives an `X-Zippendo-Brand` header naming a different brand is rejected with `403 BRAND_ACCESS_DENIED` — the binding is never widened. Omit both and requests cover the whole organization, which is the behaviour of every existing token.  Records that belong to no brand carry `brandId: null`. Configuration (carriers, shipping rules, addresses) with a null brand is organization-wide and remains visible inside every brand; orders and shipments with a null brand are only visible organization-wide.  Brands themselves are managed under the **Brands** tag. Retiring a brand is done with `POST /orgs/{orgId}/brands/{brandId}/archive` — permanent deletion is a dashboard-only action, since it is refused while any order, shipment, member or token still references the brand. Brands require a plan that includes them; creating one beyond your plan's limit returns `403`.
+Public API documentation for Zippendo. Authenticate using your API token (Bearer token prefixed with zipp_).  **Brands (sub-accounts).** An organization can be split into brands, each keeping its own orders, shipments and configuration separate. There are two ways to scope requests to one brand, and NEITHER changes any request body:  1. **Bind the token.** Create an API token with a `brandId` and every request it makes is confined    to that brand — reads filtered, writes stamped. This is the recommended way to give a single    brand's team its own credential. 2. **Send the `X-Zippendo-Brand` header.** An organization-wide token can scope an individual    request by sending the brand's id or slug in this header. Most SDKs let you set it once on the    client so every call inherits it.  A brand-bound token that receives an `X-Zippendo-Brand` header naming a different brand is rejected with `403 BRAND_ACCESS_DENIED` — the binding is never widened. Omit both and requests cover the whole organization, which is the behaviour of every existing token.  Records that belong to no brand carry `brandId: null`. Configuration (carriers, shipping rules, addresses) with a null brand is organization-wide and remains visible inside every brand; orders and shipments with a null brand are only visible organization-wide.  List endpoints additionally take a `?brandScope=own|shared|both` parameter to narrow further within whichever brand context already applies. `own` returns only rows assigned to that brand, and requires a brand context — a brand-bound token, a resolved brand session, or the `X-Zippendo-Brand` header above — otherwise `400`. `shared` returns only the organization-wide rows (equivalent to filtering `brandId=none`). The default, `both`, keeps the existing behaviour: a brand context sees its own rows plus the organization-wide ones. Set `X-Zippendo-Brand-Scope` as a client default to apply the same choice to every request instead of repeating the query parameter on each call — an explicit `brandScope` query parameter always wins over the header, and a blank header value is ignored.  Brands themselves are managed under the **Brands** tag. Retiring a brand is done with `POST /orgs/{orgId}/brands/{brandId}/archive` — permanent deletion is a dashboard-only action, since it is refused while any order, shipment, member or token still references the brand. Brands require a plan that includes them; creating one beyond your plan's limit returns `403`.
 
 API version: 1.0.0
 Contact: support@zippendo.com
@@ -27,6 +27,7 @@ type GetBillingUsage200Response struct {
 	Limits GetBillingUsage200ResponseLimits `json:"limits"`
 	// Active add-ons on the subscription
 	AddOns []GetBillingUsage200ResponseAddOnsInner `json:"addOns"`
+	ZippyMessages *GetBillingUsage200ResponseZippyMessages `json:"zippyMessages,omitempty"`
 }
 
 type _GetBillingUsage200Response GetBillingUsage200Response
@@ -148,6 +149,38 @@ func (o *GetBillingUsage200Response) SetAddOns(v []GetBillingUsage200ResponseAdd
 	o.AddOns = v
 }
 
+// GetZippyMessages returns the ZippyMessages field value if set, zero value otherwise.
+func (o *GetBillingUsage200Response) GetZippyMessages() GetBillingUsage200ResponseZippyMessages {
+	if o == nil || IsNil(o.ZippyMessages) {
+		var ret GetBillingUsage200ResponseZippyMessages
+		return ret
+	}
+	return *o.ZippyMessages
+}
+
+// GetZippyMessagesOk returns a tuple with the ZippyMessages field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetBillingUsage200Response) GetZippyMessagesOk() (*GetBillingUsage200ResponseZippyMessages, bool) {
+	if o == nil || IsNil(o.ZippyMessages) {
+		return nil, false
+	}
+	return o.ZippyMessages, true
+}
+
+// HasZippyMessages returns a boolean if a field has been set.
+func (o *GetBillingUsage200Response) HasZippyMessages() bool {
+	if o != nil && !IsNil(o.ZippyMessages) {
+		return true
+	}
+
+	return false
+}
+
+// SetZippyMessages gets a reference to the given GetBillingUsage200ResponseZippyMessages and assigns it to the ZippyMessages field.
+func (o *GetBillingUsage200Response) SetZippyMessages(v GetBillingUsage200ResponseZippyMessages) {
+	o.ZippyMessages = &v
+}
+
 func (o GetBillingUsage200Response) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -162,6 +195,9 @@ func (o GetBillingUsage200Response) ToMap() (map[string]interface{}, error) {
 	toSerialize["shipments"] = o.Shipments
 	toSerialize["limits"] = o.Limits
 	toSerialize["addOns"] = o.AddOns
+	if !IsNil(o.ZippyMessages) {
+		toSerialize["zippyMessages"] = o.ZippyMessages
+	}
 	return toSerialize, nil
 }
 

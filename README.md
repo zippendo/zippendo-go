@@ -69,6 +69,17 @@ all. Sending `X-Zippendo-Brand` naming a *different* brand on such a token is re
 `403 BRAND_ACCESS_DENIED`; the binding is never widened. A brand that does not exist in the
 organization gives `404 BRAND_NOT_FOUND`.
 
+List operations also take a `brandScope` query parameter (`"own"` / `"shared"` / `"both"`) to narrow
+further within whichever brand context already applies: `"own"` returns only that brand's rows and
+needs a brand context (otherwise `400`); `"shared"` returns only the unassigned rows (equivalent to
+`brandId=none`). Set `X-Zippendo-Brand-Scope` as a default header the same way to cover every call:
+
+```go
+cfg.AddDefaultHeader("X-Zippendo-Brand-Scope", "own")
+```
+
+An explicit `brandScope` parameter passed to a call still wins over the header.
+
 ### Managing brands
 
 Brands are managed with `BrandsAPI`. Use a client without the brand default header — you are
