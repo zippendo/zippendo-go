@@ -6548,6 +6548,7 @@ components:
           - BRAND_HAS_RECORDS
           - USER_NOT_FOUND
           - USER_EXISTS
+          - TERMS_NOT_ACCEPTED
           - MEMBER_NOT_FOUND
           - MEMBER_SELF_BRAND_RESTRICTION
           - ROLE_NOT_FOUND
@@ -7047,6 +7048,13 @@ components:
           description: Allow shipments beyond plan limit (overage charges apply)
           example: false
           type: boolean
+        phone:
+          description: Billing/contact phone number
+          example: +45 50 47 02 20
+          maxLength: 32
+          nullable: true
+          pattern: "^\\+?[\\d\\s()-]{4,31}$"
+          type: string
         billingEmail:
           description: Billing email for invoices
           example: billing@nordic-logistics.dk
@@ -12501,6 +12509,7 @@ components:
           - BRAND_HAS_RECORDS
           - USER_NOT_FOUND
           - USER_EXISTS
+          - TERMS_NOT_ACCEPTED
           - MEMBER_NOT_FOUND
           - MEMBER_SELF_BRAND_RESTRICTION
           - ROLE_NOT_FOUND
@@ -12701,6 +12710,7 @@ components:
           - BRAND_HAS_RECORDS
           - USER_NOT_FOUND
           - USER_EXISTS
+          - TERMS_NOT_ACCEPTED
           - MEMBER_NOT_FOUND
           - MEMBER_SELF_BRAND_RESTRICTION
           - ROLE_NOT_FOUND

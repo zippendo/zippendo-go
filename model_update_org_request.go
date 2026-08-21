@@ -32,6 +32,8 @@ type UpdateOrgRequest struct {
 	VatNumber NullableString `json:"vatNumber,omitempty"`
 	// Allow shipments beyond plan limit (overage charges apply)
 	OverageEnabled *bool `json:"overageEnabled,omitempty"`
+	// Billing/contact phone number
+	Phone NullableString `json:"phone,omitempty" validate:"regexp=^\\+?[\\d\\s()-]{4\\,31}$"`
 	// Billing email for invoices
 	BillingEmail NullableString `json:"billingEmail,omitempty" validate:"regexp=^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2\\,}$"`
 	// Legal company name
@@ -267,6 +269,48 @@ func (o *UpdateOrgRequest) HasOverageEnabled() bool {
 // SetOverageEnabled gets a reference to the given bool and assigns it to the OverageEnabled field.
 func (o *UpdateOrgRequest) SetOverageEnabled(v bool) {
 	o.OverageEnabled = &v
+}
+
+// GetPhone returns the Phone field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UpdateOrgRequest) GetPhone() string {
+	if o == nil || IsNil(o.Phone.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Phone.Get()
+}
+
+// GetPhoneOk returns a tuple with the Phone field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UpdateOrgRequest) GetPhoneOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Phone.Get(), o.Phone.IsSet()
+}
+
+// HasPhone returns a boolean if a field has been set.
+func (o *UpdateOrgRequest) HasPhone() bool {
+	if o != nil && o.Phone.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetPhone gets a reference to the given NullableString and assigns it to the Phone field.
+func (o *UpdateOrgRequest) SetPhone(v string) {
+	o.Phone.Set(&v)
+}
+// SetPhoneNil sets the value for Phone to be an explicit nil
+func (o *UpdateOrgRequest) SetPhoneNil() {
+	o.Phone.Set(nil)
+}
+
+// UnsetPhone ensures that no value is present for Phone, not even an explicit nil
+func (o *UpdateOrgRequest) UnsetPhone() {
+	o.Phone.Unset()
 }
 
 // GetBillingEmail returns the BillingEmail field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -623,6 +667,9 @@ func (o UpdateOrgRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.OverageEnabled) {
 		toSerialize["overageEnabled"] = o.OverageEnabled
+	}
+	if o.Phone.IsSet() {
+		toSerialize["phone"] = o.Phone.Get()
 	}
 	if o.BillingEmail.IsSet() {
 		toSerialize["billingEmail"] = o.BillingEmail.Get()

@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Currency** | Pointer to **string** | Billing currency (ISO 4217 code) | [optional] 
 **VatNumber** | Pointer to **NullableString** | Company VAT/tax ID for invoices | [optional] 
 **OverageEnabled** | Pointer to **bool** | Allow shipments beyond plan limit (overage charges apply) | [optional] 
+**Phone** | Pointer to **NullableString** | Billing/contact phone number | [optional] 
 **BillingEmail** | Pointer to **NullableString** | Billing email for invoices | [optional] 
 **CompanyName** | Pointer to **NullableString** | Legal company name | [optional] 
 **AddressLine1** | Pointer to **NullableString** | Address line 1 | [optional] 
@@ -198,6 +199,41 @@ SetOverageEnabled sets OverageEnabled field to given value.
 
 HasOverageEnabled returns a boolean if a field has been set.
 
+### GetPhone
+
+`func (o *UpdateOrgRequest) GetPhone() string`
+
+GetPhone returns the Phone field if non-nil, zero value otherwise.
+
+### GetPhoneOk
+
+`func (o *UpdateOrgRequest) GetPhoneOk() (*string, bool)`
+
+GetPhoneOk returns a tuple with the Phone field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPhone
+
+`func (o *UpdateOrgRequest) SetPhone(v string)`
+
+SetPhone sets Phone field to given value.
+
+### HasPhone
+
+`func (o *UpdateOrgRequest) HasPhone() bool`
+
+HasPhone returns a boolean if a field has been set.
+
+### SetPhoneNil
+
+`func (o *UpdateOrgRequest) SetPhoneNil(b bool)`
+
+ SetPhoneNil sets the value for Phone to be an explicit nil
+
+### UnsetPhone
+`func (o *UpdateOrgRequest) UnsetPhone()`
+
+UnsetPhone ensures that no value is present for Phone, not even an explicit nil
 ### GetBillingEmail
 
 `func (o *UpdateOrgRequest) GetBillingEmail() string`
