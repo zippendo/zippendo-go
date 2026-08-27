@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **ServicePointId** | Pointer to **NullableString** | Selected carrier service point identifier. | [optional] 
 **Parties** | Pointer to [**[]CreateShipmentRequestPartiesInner**](CreateShipmentRequestPartiesInner.md) | Parties involved in the shipment. Optional when orderId is provided. | [optional] 
 **Type** | Pointer to **string** | Direction of the shipment relative to the organization. | [optional] 
-**CarrierSettings** | Pointer to [**CreateShipmentRequestCarrierSettings**](CreateShipmentRequestCarrierSettings.md) |  | [optional] 
+**CarrierSettings** | Pointer to [**UpdateShipmentRequestCarrierSettings**](UpdateShipmentRequestCarrierSettings.md) |  | [optional] 
 **Parcels** | Pointer to [**[]CreateShipmentRequestParcelsInner**](CreateShipmentRequestParcelsInner.md) | Parcels to include. Optional when orderId is provided. | [optional] 
 **PickupDetails** | Pointer to [**NullableCreateShipmentRequestPickupDetails**](CreateShipmentRequestPickupDetails.md) |  | [optional] 
 **TermOfTrade** | Pointer to **string** | Incoterm governing the shipment. | [optional] [default to "DAP"]
@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **LabelPrinterId** | Pointer to **NullableString** | Printer to assign for labels. | [optional] 
 **DocumentPrinterId** | Pointer to **NullableString** | Printer to assign for documents. | [optional] 
 **ShippingRuleId** | Pointer to **NullableString** | Shipping rule to apply to the shipment. Pass null to clear. | [optional] 
+**Droppoint** | Pointer to [**UpdateShipmentRequestDroppoint**](UpdateShipmentRequestDroppoint.md) |  | [optional] 
 
 ## Methods
 
@@ -185,20 +186,20 @@ HasType returns a boolean if a field has been set.
 
 ### GetCarrierSettings
 
-`func (o *UpdateShipmentRequest) GetCarrierSettings() CreateShipmentRequestCarrierSettings`
+`func (o *UpdateShipmentRequest) GetCarrierSettings() UpdateShipmentRequestCarrierSettings`
 
 GetCarrierSettings returns the CarrierSettings field if non-nil, zero value otherwise.
 
 ### GetCarrierSettingsOk
 
-`func (o *UpdateShipmentRequest) GetCarrierSettingsOk() (*CreateShipmentRequestCarrierSettings, bool)`
+`func (o *UpdateShipmentRequest) GetCarrierSettingsOk() (*UpdateShipmentRequestCarrierSettings, bool)`
 
 GetCarrierSettingsOk returns a tuple with the CarrierSettings field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCarrierSettings
 
-`func (o *UpdateShipmentRequest) SetCarrierSettings(v CreateShipmentRequestCarrierSettings)`
+`func (o *UpdateShipmentRequest) SetCarrierSettings(v UpdateShipmentRequestCarrierSettings)`
 
 SetCarrierSettings sets CarrierSettings field to given value.
 
@@ -458,6 +459,31 @@ HasShippingRuleId returns a boolean if a field has been set.
 `func (o *UpdateShipmentRequest) UnsetShippingRuleId()`
 
 UnsetShippingRuleId ensures that no value is present for ShippingRuleId, not even an explicit nil
+### GetDroppoint
+
+`func (o *UpdateShipmentRequest) GetDroppoint() UpdateShipmentRequestDroppoint`
+
+GetDroppoint returns the Droppoint field if non-nil, zero value otherwise.
+
+### GetDroppointOk
+
+`func (o *UpdateShipmentRequest) GetDroppointOk() (*UpdateShipmentRequestDroppoint, bool)`
+
+GetDroppointOk returns a tuple with the Droppoint field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDroppoint
+
+`func (o *UpdateShipmentRequest) SetDroppoint(v UpdateShipmentRequestDroppoint)`
+
+SetDroppoint sets Droppoint field to given value.
+
+### HasDroppoint
+
+`func (o *UpdateShipmentRequest) HasDroppoint() bool`
+
+HasDroppoint returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

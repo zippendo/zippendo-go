@@ -262,7 +262,7 @@ import (
 
 func main() {
 	orgId := "org_8f3kd92ld0" // string | Organization ID
-	createShipmentRequest := *openapiclient.NewCreateShipmentRequest("outbound", *openapiclient.NewCreateShipmentRequestCarrierSettings("car_pn_001", "prod_mypack_home", []string{"Services_example"}, map[string]CreateShippingRuleRequestAdditionalParametersValue{"key": *openapiclient.NewCreateShippingRuleRequestAdditionalParametersValue("sp_pn_4521", "Føtex Nørrebro", "Nørrebrogade 20, 2200 København N")})) // CreateShipmentRequest | 
+	createShipmentRequest := *openapiclient.NewCreateShipmentRequest("outbound") // CreateShipmentRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

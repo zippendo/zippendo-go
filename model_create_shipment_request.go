@@ -32,7 +32,7 @@ type CreateShipmentRequest struct {
 	Parties []CreateShipmentRequestPartiesInner `json:"parties,omitempty"`
 	// Direction of the shipment relative to the organization.
 	Type string `json:"type"`
-	CarrierSettings CreateShipmentRequestCarrierSettings `json:"carrierSettings"`
+	CarrierSettings *CreateShipmentRequestCarrierSettings `json:"carrierSettings,omitempty"`
 	// Parcels to include. Optional when orderId is provided.
 	Parcels []CreateShipmentRequestParcelsInner `json:"parcels,omitempty"`
 	PickupDetails NullableCreateShipmentRequestPickupDetails `json:"pickupDetails,omitempty"`
@@ -46,6 +46,9 @@ type CreateShipmentRequest struct {
 	LabelPrinterId NullableString `json:"labelPrinterId,omitempty"`
 	// Printer to assign for documents.
 	DocumentPrinterId NullableString `json:"documentPrinterId,omitempty"`
+	// Create the shipment from this shipping rule: carrier settings and the sender address derive from the rule (explicit carrierSettings and addressId are then ignored).
+	ShippingRuleId *string `json:"shippingRuleId,omitempty"`
+	Droppoint *CreateShipmentRequestDroppoint `json:"droppoint,omitempty"`
 }
 
 type _CreateShipmentRequest CreateShipmentRequest
@@ -54,10 +57,9 @@ type _CreateShipmentRequest CreateShipmentRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateShipmentRequest(type_ string, carrierSettings CreateShipmentRequestCarrierSettings) *CreateShipmentRequest {
+func NewCreateShipmentRequest(type_ string) *CreateShipmentRequest {
 	this := CreateShipmentRequest{}
 	this.Type = type_
-	this.CarrierSettings = carrierSettings
 	var termOfTrade string = "DAP"
 	this.TermOfTrade = &termOfTrade
 	var status string = "pending"
@@ -249,28 +251,36 @@ func (o *CreateShipmentRequest) SetType(v string) {
 	o.Type = v
 }
 
-// GetCarrierSettings returns the CarrierSettings field value
+// GetCarrierSettings returns the CarrierSettings field value if set, zero value otherwise.
 func (o *CreateShipmentRequest) GetCarrierSettings() CreateShipmentRequestCarrierSettings {
-	if o == nil {
+	if o == nil || IsNil(o.CarrierSettings) {
 		var ret CreateShipmentRequestCarrierSettings
 		return ret
 	}
-
-	return o.CarrierSettings
+	return *o.CarrierSettings
 }
 
-// GetCarrierSettingsOk returns a tuple with the CarrierSettings field value
+// GetCarrierSettingsOk returns a tuple with the CarrierSettings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateShipmentRequest) GetCarrierSettingsOk() (*CreateShipmentRequestCarrierSettings, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CarrierSettings) {
 		return nil, false
 	}
-	return &o.CarrierSettings, true
+	return o.CarrierSettings, true
 }
 
-// SetCarrierSettings sets field value
+// HasCarrierSettings returns a boolean if a field has been set.
+func (o *CreateShipmentRequest) HasCarrierSettings() bool {
+	if o != nil && !IsNil(o.CarrierSettings) {
+		return true
+	}
+
+	return false
+}
+
+// SetCarrierSettings gets a reference to the given CreateShipmentRequestCarrierSettings and assigns it to the CarrierSettings field.
 func (o *CreateShipmentRequest) SetCarrierSettings(v CreateShipmentRequestCarrierSettings) {
-	o.CarrierSettings = v
+	o.CarrierSettings = &v
 }
 
 // GetParcels returns the Parcels field value if set, zero value otherwise.
@@ -537,6 +547,70 @@ func (o *CreateShipmentRequest) UnsetDocumentPrinterId() {
 	o.DocumentPrinterId.Unset()
 }
 
+// GetShippingRuleId returns the ShippingRuleId field value if set, zero value otherwise.
+func (o *CreateShipmentRequest) GetShippingRuleId() string {
+	if o == nil || IsNil(o.ShippingRuleId) {
+		var ret string
+		return ret
+	}
+	return *o.ShippingRuleId
+}
+
+// GetShippingRuleIdOk returns a tuple with the ShippingRuleId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateShipmentRequest) GetShippingRuleIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ShippingRuleId) {
+		return nil, false
+	}
+	return o.ShippingRuleId, true
+}
+
+// HasShippingRuleId returns a boolean if a field has been set.
+func (o *CreateShipmentRequest) HasShippingRuleId() bool {
+	if o != nil && !IsNil(o.ShippingRuleId) {
+		return true
+	}
+
+	return false
+}
+
+// SetShippingRuleId gets a reference to the given string and assigns it to the ShippingRuleId field.
+func (o *CreateShipmentRequest) SetShippingRuleId(v string) {
+	o.ShippingRuleId = &v
+}
+
+// GetDroppoint returns the Droppoint field value if set, zero value otherwise.
+func (o *CreateShipmentRequest) GetDroppoint() CreateShipmentRequestDroppoint {
+	if o == nil || IsNil(o.Droppoint) {
+		var ret CreateShipmentRequestDroppoint
+		return ret
+	}
+	return *o.Droppoint
+}
+
+// GetDroppointOk returns a tuple with the Droppoint field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateShipmentRequest) GetDroppointOk() (*CreateShipmentRequestDroppoint, bool) {
+	if o == nil || IsNil(o.Droppoint) {
+		return nil, false
+	}
+	return o.Droppoint, true
+}
+
+// HasDroppoint returns a boolean if a field has been set.
+func (o *CreateShipmentRequest) HasDroppoint() bool {
+	if o != nil && !IsNil(o.Droppoint) {
+		return true
+	}
+
+	return false
+}
+
+// SetDroppoint gets a reference to the given CreateShipmentRequestDroppoint and assigns it to the Droppoint field.
+func (o *CreateShipmentRequest) SetDroppoint(v CreateShipmentRequestDroppoint) {
+	o.Droppoint = &v
+}
+
 func (o CreateShipmentRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -560,7 +634,9 @@ func (o CreateShipmentRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["parties"] = o.Parties
 	}
 	toSerialize["type"] = o.Type
-	toSerialize["carrierSettings"] = o.CarrierSettings
+	if !IsNil(o.CarrierSettings) {
+		toSerialize["carrierSettings"] = o.CarrierSettings
+	}
 	if !IsNil(o.Parcels) {
 		toSerialize["parcels"] = o.Parcels
 	}
@@ -582,6 +658,12 @@ func (o CreateShipmentRequest) ToMap() (map[string]interface{}, error) {
 	if o.DocumentPrinterId.IsSet() {
 		toSerialize["documentPrinterId"] = o.DocumentPrinterId.Get()
 	}
+	if !IsNil(o.ShippingRuleId) {
+		toSerialize["shippingRuleId"] = o.ShippingRuleId
+	}
+	if !IsNil(o.Droppoint) {
+		toSerialize["droppoint"] = o.Droppoint
+	}
 	return toSerialize, nil
 }
 
@@ -591,7 +673,6 @@ func (o *CreateShipmentRequest) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"type",
-		"carrierSettings",
 	}
 
 	allProperties := make(map[string]interface{})

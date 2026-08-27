@@ -30,7 +30,7 @@ type UpdateShipmentRequest struct {
 	Parties []CreateShipmentRequestPartiesInner `json:"parties,omitempty"`
 	// Direction of the shipment relative to the organization.
 	Type *string `json:"type,omitempty"`
-	CarrierSettings *CreateShipmentRequestCarrierSettings `json:"carrierSettings,omitempty"`
+	CarrierSettings *UpdateShipmentRequestCarrierSettings `json:"carrierSettings,omitempty"`
 	// Parcels to include. Optional when orderId is provided.
 	Parcels []CreateShipmentRequestParcelsInner `json:"parcels,omitempty"`
 	PickupDetails NullableCreateShipmentRequestPickupDetails `json:"pickupDetails,omitempty"`
@@ -46,6 +46,7 @@ type UpdateShipmentRequest struct {
 	DocumentPrinterId NullableString `json:"documentPrinterId,omitempty"`
 	// Shipping rule to apply to the shipment. Pass null to clear.
 	ShippingRuleId NullableString `json:"shippingRuleId,omitempty"`
+	Droppoint *UpdateShipmentRequestDroppoint `json:"droppoint,omitempty"`
 }
 
 // NewUpdateShipmentRequest instantiates a new UpdateShipmentRequest object
@@ -254,9 +255,9 @@ func (o *UpdateShipmentRequest) SetType(v string) {
 }
 
 // GetCarrierSettings returns the CarrierSettings field value if set, zero value otherwise.
-func (o *UpdateShipmentRequest) GetCarrierSettings() CreateShipmentRequestCarrierSettings {
+func (o *UpdateShipmentRequest) GetCarrierSettings() UpdateShipmentRequestCarrierSettings {
 	if o == nil || IsNil(o.CarrierSettings) {
-		var ret CreateShipmentRequestCarrierSettings
+		var ret UpdateShipmentRequestCarrierSettings
 		return ret
 	}
 	return *o.CarrierSettings
@@ -264,7 +265,7 @@ func (o *UpdateShipmentRequest) GetCarrierSettings() CreateShipmentRequestCarrie
 
 // GetCarrierSettingsOk returns a tuple with the CarrierSettings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateShipmentRequest) GetCarrierSettingsOk() (*CreateShipmentRequestCarrierSettings, bool) {
+func (o *UpdateShipmentRequest) GetCarrierSettingsOk() (*UpdateShipmentRequestCarrierSettings, bool) {
 	if o == nil || IsNil(o.CarrierSettings) {
 		return nil, false
 	}
@@ -280,8 +281,8 @@ func (o *UpdateShipmentRequest) HasCarrierSettings() bool {
 	return false
 }
 
-// SetCarrierSettings gets a reference to the given CreateShipmentRequestCarrierSettings and assigns it to the CarrierSettings field.
-func (o *UpdateShipmentRequest) SetCarrierSettings(v CreateShipmentRequestCarrierSettings) {
+// SetCarrierSettings gets a reference to the given UpdateShipmentRequestCarrierSettings and assigns it to the CarrierSettings field.
+func (o *UpdateShipmentRequest) SetCarrierSettings(v UpdateShipmentRequestCarrierSettings) {
 	o.CarrierSettings = &v
 }
 
@@ -591,6 +592,38 @@ func (o *UpdateShipmentRequest) UnsetShippingRuleId() {
 	o.ShippingRuleId.Unset()
 }
 
+// GetDroppoint returns the Droppoint field value if set, zero value otherwise.
+func (o *UpdateShipmentRequest) GetDroppoint() UpdateShipmentRequestDroppoint {
+	if o == nil || IsNil(o.Droppoint) {
+		var ret UpdateShipmentRequestDroppoint
+		return ret
+	}
+	return *o.Droppoint
+}
+
+// GetDroppointOk returns a tuple with the Droppoint field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateShipmentRequest) GetDroppointOk() (*UpdateShipmentRequestDroppoint, bool) {
+	if o == nil || IsNil(o.Droppoint) {
+		return nil, false
+	}
+	return o.Droppoint, true
+}
+
+// HasDroppoint returns a boolean if a field has been set.
+func (o *UpdateShipmentRequest) HasDroppoint() bool {
+	if o != nil && !IsNil(o.Droppoint) {
+		return true
+	}
+
+	return false
+}
+
+// SetDroppoint gets a reference to the given UpdateShipmentRequestDroppoint and assigns it to the Droppoint field.
+func (o *UpdateShipmentRequest) SetDroppoint(v UpdateShipmentRequestDroppoint) {
+	o.Droppoint = &v
+}
+
 func (o UpdateShipmentRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -642,6 +675,9 @@ func (o UpdateShipmentRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if o.ShippingRuleId.IsSet() {
 		toSerialize["shippingRuleId"] = o.ShippingRuleId.Get()
+	}
+	if !IsNil(o.Droppoint) {
+		toSerialize["droppoint"] = o.Droppoint
 	}
 	return toSerialize, nil
 }

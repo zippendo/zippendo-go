@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Type** | **string** | Direction of the shipment relative to the organization. | 
 **Tracking** | Pointer to [**NullableCreateShipment201ResponseTracking**](CreateShipment201ResponseTracking.md) |  | [optional] 
 **CarrierSettings** | [**ListShipments200ResponseDataInnerCarrierSettings**](ListShipments200ResponseDataInnerCarrierSettings.md) |  | 
+**ServicePointId** | Pointer to **NullableString** | Selected carrier service point identifier. | [optional] 
 **CreatedAt** | **string** | Timestamp when the shipment was created. | 
 **UpdatedAt** | **string** | Timestamp when the shipment was last updated. | 
 **ShippingRuleId** | Pointer to **NullableString** | ID of the shipping rule used for this shipment. | [optional] 
@@ -169,6 +170,41 @@ and a boolean to check if the value has been set.
 SetCarrierSettings sets CarrierSettings field to given value.
 
 
+### GetServicePointId
+
+`func (o *GetOrder200ResponseShipmentsInner) GetServicePointId() string`
+
+GetServicePointId returns the ServicePointId field if non-nil, zero value otherwise.
+
+### GetServicePointIdOk
+
+`func (o *GetOrder200ResponseShipmentsInner) GetServicePointIdOk() (*string, bool)`
+
+GetServicePointIdOk returns a tuple with the ServicePointId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetServicePointId
+
+`func (o *GetOrder200ResponseShipmentsInner) SetServicePointId(v string)`
+
+SetServicePointId sets ServicePointId field to given value.
+
+### HasServicePointId
+
+`func (o *GetOrder200ResponseShipmentsInner) HasServicePointId() bool`
+
+HasServicePointId returns a boolean if a field has been set.
+
+### SetServicePointIdNil
+
+`func (o *GetOrder200ResponseShipmentsInner) SetServicePointIdNil(b bool)`
+
+ SetServicePointIdNil sets the value for ServicePointId to be an explicit nil
+
+### UnsetServicePointId
+`func (o *GetOrder200ResponseShipmentsInner) UnsetServicePointId()`
+
+UnsetServicePointId ensures that no value is present for ServicePointId, not even an explicit nil
 ### GetCreatedAt
 
 `func (o *GetOrder200ResponseShipmentsInner) GetCreatedAt() string`

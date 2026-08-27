@@ -32,6 +32,8 @@ type GetOrder200ResponseShipmentsInner struct {
 	Type string `json:"type"`
 	Tracking NullableCreateShipment201ResponseTracking `json:"tracking,omitempty"`
 	CarrierSettings ListShipments200ResponseDataInnerCarrierSettings `json:"carrierSettings"`
+	// Selected carrier service point identifier.
+	ServicePointId NullableString `json:"servicePointId,omitempty"`
 	// Timestamp when the shipment was created.
 	CreatedAt string `json:"createdAt"`
 	// Timestamp when the shipment was last updated.
@@ -230,6 +232,48 @@ func (o *GetOrder200ResponseShipmentsInner) SetCarrierSettings(v ListShipments20
 	o.CarrierSettings = v
 }
 
+// GetServicePointId returns the ServicePointId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *GetOrder200ResponseShipmentsInner) GetServicePointId() string {
+	if o == nil || IsNil(o.ServicePointId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.ServicePointId.Get()
+}
+
+// GetServicePointIdOk returns a tuple with the ServicePointId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GetOrder200ResponseShipmentsInner) GetServicePointIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ServicePointId.Get(), o.ServicePointId.IsSet()
+}
+
+// HasServicePointId returns a boolean if a field has been set.
+func (o *GetOrder200ResponseShipmentsInner) HasServicePointId() bool {
+	if o != nil && o.ServicePointId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetServicePointId gets a reference to the given NullableString and assigns it to the ServicePointId field.
+func (o *GetOrder200ResponseShipmentsInner) SetServicePointId(v string) {
+	o.ServicePointId.Set(&v)
+}
+// SetServicePointIdNil sets the value for ServicePointId to be an explicit nil
+func (o *GetOrder200ResponseShipmentsInner) SetServicePointIdNil() {
+	o.ServicePointId.Set(nil)
+}
+
+// UnsetServicePointId ensures that no value is present for ServicePointId, not even an explicit nil
+func (o *GetOrder200ResponseShipmentsInner) UnsetServicePointId() {
+	o.ServicePointId.Unset()
+}
+
 // GetCreatedAt returns the CreatedAt field value
 func (o *GetOrder200ResponseShipmentsInner) GetCreatedAt() string {
 	if o == nil {
@@ -370,6 +414,9 @@ func (o GetOrder200ResponseShipmentsInner) ToMap() (map[string]interface{}, erro
 		toSerialize["tracking"] = o.Tracking.Get()
 	}
 	toSerialize["carrierSettings"] = o.CarrierSettings
+	if o.ServicePointId.IsSet() {
+		toSerialize["servicePointId"] = o.ServicePointId.Get()
+	}
 	toSerialize["createdAt"] = o.CreatedAt
 	toSerialize["updatedAt"] = o.UpdatedAt
 	if o.ShippingRuleId.IsSet() {

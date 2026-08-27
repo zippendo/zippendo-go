@@ -3867,7 +3867,8 @@ paths:
           result = Zippendo::ShipmentsApi.new.list_shipments("...")
     post:
       description: "Create a new shipment for an organization. When orderId is provided,\
-        \ parties and parcels are derived from the order."
+        \ parties and parcels are derived from the order. When shippingRuleId is provided,\
+        \ carrier settings and the sender address derive from the rule."
       operationId: createShipment
       parameters:
       - description: Organization ID
@@ -6577,6 +6578,7 @@ components:
           - SHIPMENT_DOCUMENT_NOT_FOUND
           - SHIPMENT_ALREADY_SENT
           - SHIPMENT_INVALID_STATE
+          - SHIPMENT_SERVICE_POINT_REQUIRED
           - PARCEL_NOT_FOUND
           - PARCEL_INVALID_SPLIT
           - PICKUP_NOT_FOUND
@@ -11033,6 +11035,8 @@ components:
       - type
       type: object
     createShipment_request_carrierSettings:
+      description: Carrier configuration for the shipment. Optional when shippingRuleId
+        is provided.
       properties:
         carrierId:
           description: Identifier of the carrier to use.
@@ -11091,9 +11095,11 @@ components:
           example: ol_9c1d2e3f
           type: string
         sku:
-          description: Stock keeping unit of the product.
+          description: Stock keeping unit of the product. Optional — not every webshop
+            assigns SKUs.
           example: SKU-1024
           minLength: 1
+          nullable: true
           type: string
         quantity:
           description: Number of units in this order line.
@@ -11144,7 +11150,6 @@ components:
           type: string
       required:
       - quantity
-      - sku
       type: object
     createShipment_request_parcels_inner:
       properties:
@@ -11244,6 +11249,41 @@ components:
       - from
       - to
       type: object
+    createShipment_request_droppoint:
+      description: "Display details of the selected service point, stored alongside\
+        \ `servicePointId`. Used with a service-point shipping rule."
+      example:
+        id: SP-1234
+        name: Brugsen Vesterbro
+        address: "Vesterbrogade 12, 1620 København"
+      properties:
+        id:
+          description: Identifier of the selected service point.
+          example: sp_pn_4521
+          type: string
+        name:
+          description: Display name of the service point.
+          example: Føtex Nørrebro
+          type: string
+        address:
+          description: Formatted address of the service point.
+          example: "Nørrebrogade 20, 2200 København N"
+          type: string
+        coordinates:
+          description: Latitude/longitude of the service point.
+          example:
+          - 55.6987
+          - 12.5501
+          items:
+            $ref: "#/components/schemas/listShippingRules_200_response_data_inner_additionalParameters_value_anyOf_coordinates_inner"
+          maxItems: 2
+          minItems: 2
+          type: array
+      required:
+      - address
+      - id
+      - name
+      type: object
     createShipment_request:
       properties:
         reference:
@@ -11319,8 +11359,15 @@ components:
           example: prn_doc_01
           nullable: true
           type: string
+        shippingRuleId:
+          description: "Create the shipment from this shipping rule: carrier settings\
+            \ and the sender address derive from the rule (explicit carrierSettings\
+            \ and addressId are then ignored)."
+          example: rule_3c4d5e6f
+          type: string
+        droppoint:
+          $ref: "#/components/schemas/createShipment_request_droppoint"
       required:
-      - carrierSettings
       - type
       type: object
     createShipment_201_response_parties_inner_attributes_inner:
@@ -11484,9 +11531,11 @@ components:
           example: ol_9c1d2e3f
           type: string
         sku:
-          description: Stock keeping unit of the product.
+          description: Stock keeping unit of the product. Optional — not every webshop
+            assigns SKUs.
           example: SKU-1024
           minLength: 1
+          nullable: true
           type: string
         quantity:
           description: Number of units in this order line.
@@ -11537,7 +11586,6 @@ components:
           type: string
       required:
       - quantity
-      - sku
       type: object
     createShipment_201_response_parcels_inner:
       additionalProperties: false
@@ -12361,6 +12409,72 @@ components:
       - type
       - updatedAt
       type: object
+    updateShipment_request_carrierSettings:
+      properties:
+        carrierId:
+          description: Identifier of the carrier to use.
+          example: car_pn_001
+          type: string
+        productId:
+          description: Identifier of the carrier product/service.
+          example: prod_mypack_home
+          type: string
+        services:
+          description: Additional service codes requested from the carrier.
+          example:
+          - A7
+          items:
+            type: string
+          type: array
+        additionalParameters:
+          additionalProperties:
+            $ref: "#/components/schemas/createShippingRule_request_additionalParameters_value"
+          description: Carrier-specific extra parameters as key/value pairs.
+          example:
+            notificationEmail: anna@example.dk
+          type: object
+      required:
+      - additionalParameters
+      - carrierId
+      - productId
+      - services
+      type: object
+    updateShipment_request_droppoint:
+      description: "Display details of the selected service point, stored alongside\
+        \ `servicePointId`. Used when applying a service-point shipping rule (whose\
+        \ parameters otherwise replace the stored droppoint)."
+      example:
+        id: SP-1234
+        name: Brugsen Vesterbro
+        address: "Vesterbrogade 12, 1620 København"
+      properties:
+        id:
+          description: Identifier of the selected service point.
+          example: sp_pn_4521
+          type: string
+        name:
+          description: Display name of the service point.
+          example: Føtex Nørrebro
+          type: string
+        address:
+          description: Formatted address of the service point.
+          example: "Nørrebrogade 20, 2200 København N"
+          type: string
+        coordinates:
+          description: Latitude/longitude of the service point.
+          example:
+          - 55.6987
+          - 12.5501
+          items:
+            $ref: "#/components/schemas/listShippingRules_200_response_data_inner_additionalParameters_value_anyOf_coordinates_inner"
+          maxItems: 2
+          minItems: 2
+          type: array
+      required:
+      - address
+      - id
+      - name
+      type: object
     updateShipment_request:
       properties:
         reference:
@@ -12393,7 +12507,7 @@ components:
           example: outbound
           type: string
         carrierSettings:
-          $ref: "#/components/schemas/createShipment_request_carrierSettings"
+          $ref: "#/components/schemas/updateShipment_request_carrierSettings"
         parcels:
           description: Parcels to include. Optional when orderId is provided.
           items:
@@ -12441,6 +12555,8 @@ components:
           example: rule_3c4d5e6f
           nullable: true
           type: string
+        droppoint:
+          $ref: "#/components/schemas/updateShipment_request_droppoint"
       type: object
     sendShipment_422_response_errors_inner:
       additionalProperties: false
@@ -12538,6 +12654,7 @@ components:
           - SHIPMENT_DOCUMENT_NOT_FOUND
           - SHIPMENT_ALREADY_SENT
           - SHIPMENT_INVALID_STATE
+          - SHIPMENT_SERVICE_POINT_REQUIRED
           - PARCEL_NOT_FOUND
           - PARCEL_INVALID_SPLIT
           - PICKUP_NOT_FOUND
@@ -12739,6 +12856,7 @@ components:
           - SHIPMENT_DOCUMENT_NOT_FOUND
           - SHIPMENT_ALREADY_SENT
           - SHIPMENT_INVALID_STATE
+          - SHIPMENT_SERVICE_POINT_REQUIRED
           - PARCEL_NOT_FOUND
           - PARCEL_INVALID_SPLIT
           - PICKUP_NOT_FOUND
@@ -15384,6 +15502,7 @@ components:
           - A7
           additionalParameters:
             notificationEmail: anna@example.dk
+        servicePointId: sp_pn_4521
         createdAt: 2026-06-22T14:30:00.000Z
         updatedAt: 2026-06-22T14:30:00.000Z
         shippingRuleId: clz9k2f0a0002abcd5678ijkl
@@ -15437,6 +15556,11 @@ components:
           $ref: "#/components/schemas/createShipment_201_response_tracking"
         carrierSettings:
           $ref: "#/components/schemas/listShipments_200_response_data_inner_carrierSettings"
+        servicePointId:
+          description: Selected carrier service point identifier.
+          example: sp_pn_4521
+          nullable: true
+          type: string
         createdAt:
           description: Timestamp when the shipment was created.
           example: 2026-06-22T14:30:00.000Z
@@ -15574,6 +15698,7 @@ components:
             - A7
             additionalParameters:
               notificationEmail: anna@example.dk
+          servicePointId: sp_pn_4521
           createdAt: 2026-06-22T14:30:00.000Z
           updatedAt: 2026-06-22T14:30:00.000Z
           shippingRuleId: clz9k2f0a0002abcd5678ijkl
@@ -15612,6 +15737,7 @@ components:
             - A7
             additionalParameters:
               notificationEmail: anna@example.dk
+          servicePointId: sp_pn_4521
           createdAt: 2026-06-22T14:30:00.000Z
           updatedAt: 2026-06-22T14:30:00.000Z
           shippingRuleId: clz9k2f0a0002abcd5678ijkl

@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **ServicePointId** | Pointer to **NullableString** | Selected carrier service point identifier. | [optional] 
 **Parties** | Pointer to [**[]CreateShipmentRequestPartiesInner**](CreateShipmentRequestPartiesInner.md) | Parties involved in the shipment. Optional when orderId is provided. | [optional] 
 **Type** | **string** | Direction of the shipment relative to the organization. | 
-**CarrierSettings** | [**CreateShipmentRequestCarrierSettings**](CreateShipmentRequestCarrierSettings.md) |  | 
+**CarrierSettings** | Pointer to [**CreateShipmentRequestCarrierSettings**](CreateShipmentRequestCarrierSettings.md) |  | [optional] 
 **Parcels** | Pointer to [**[]CreateShipmentRequestParcelsInner**](CreateShipmentRequestParcelsInner.md) | Parcels to include. Optional when orderId is provided. | [optional] 
 **PickupDetails** | Pointer to [**NullableCreateShipmentRequestPickupDetails**](CreateShipmentRequestPickupDetails.md) |  | [optional] 
 **TermOfTrade** | Pointer to **string** | Incoterm governing the shipment. | [optional] [default to "DAP"]
@@ -17,12 +17,14 @@ Name | Type | Description | Notes
 **OrderId** | Pointer to **NullableString** | Order to derive parties and parcels from. | [optional] 
 **LabelPrinterId** | Pointer to **NullableString** | Printer to assign for labels. | [optional] 
 **DocumentPrinterId** | Pointer to **NullableString** | Printer to assign for documents. | [optional] 
+**ShippingRuleId** | Pointer to **string** | Create the shipment from this shipping rule: carrier settings and the sender address derive from the rule (explicit carrierSettings and addressId are then ignored). | [optional] 
+**Droppoint** | Pointer to [**CreateShipmentRequestDroppoint**](CreateShipmentRequestDroppoint.md) |  | [optional] 
 
 ## Methods
 
 ### NewCreateShipmentRequest
 
-`func NewCreateShipmentRequest(type_ string, carrierSettings CreateShipmentRequestCarrierSettings, ) *CreateShipmentRequest`
+`func NewCreateShipmentRequest(type_ string, ) *CreateShipmentRequest`
 
 NewCreateShipmentRequest instantiates a new CreateShipmentRequest object
 This constructor will assign default values to properties that have it defined,
@@ -196,6 +198,11 @@ and a boolean to check if the value has been set.
 
 SetCarrierSettings sets CarrierSettings field to given value.
 
+### HasCarrierSettings
+
+`func (o *CreateShipmentRequest) HasCarrierSettings() bool`
+
+HasCarrierSettings returns a boolean if a field has been set.
 
 ### GetParcels
 
@@ -412,6 +419,56 @@ HasDocumentPrinterId returns a boolean if a field has been set.
 `func (o *CreateShipmentRequest) UnsetDocumentPrinterId()`
 
 UnsetDocumentPrinterId ensures that no value is present for DocumentPrinterId, not even an explicit nil
+### GetShippingRuleId
+
+`func (o *CreateShipmentRequest) GetShippingRuleId() string`
+
+GetShippingRuleId returns the ShippingRuleId field if non-nil, zero value otherwise.
+
+### GetShippingRuleIdOk
+
+`func (o *CreateShipmentRequest) GetShippingRuleIdOk() (*string, bool)`
+
+GetShippingRuleIdOk returns a tuple with the ShippingRuleId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetShippingRuleId
+
+`func (o *CreateShipmentRequest) SetShippingRuleId(v string)`
+
+SetShippingRuleId sets ShippingRuleId field to given value.
+
+### HasShippingRuleId
+
+`func (o *CreateShipmentRequest) HasShippingRuleId() bool`
+
+HasShippingRuleId returns a boolean if a field has been set.
+
+### GetDroppoint
+
+`func (o *CreateShipmentRequest) GetDroppoint() CreateShipmentRequestDroppoint`
+
+GetDroppoint returns the Droppoint field if non-nil, zero value otherwise.
+
+### GetDroppointOk
+
+`func (o *CreateShipmentRequest) GetDroppointOk() (*CreateShipmentRequestDroppoint, bool)`
+
+GetDroppointOk returns a tuple with the Droppoint field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDroppoint
+
+`func (o *CreateShipmentRequest) SetDroppoint(v CreateShipmentRequestDroppoint)`
+
+SetDroppoint sets Droppoint field to given value.
+
+### HasDroppoint
+
+`func (o *CreateShipmentRequest) HasDroppoint() bool`
+
+HasDroppoint returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

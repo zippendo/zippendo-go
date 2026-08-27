@@ -467,7 +467,7 @@ func (r ApiCreateShipmentRequest) Execute() (*CreateShipment201Response, *http.R
 /*
 CreateShipment Create shipment
 
-Create a new shipment for an organization. When orderId is provided, parties and parcels are derived from the order.
+Create a new shipment for an organization. When orderId is provided, parties and parcels are derived from the order. When shippingRuleId is provided, carrier settings and the sender address derive from the rule.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param orgId Organization ID

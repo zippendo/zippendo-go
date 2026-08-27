@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** | Unique order line identifier. | [optional] 
-**Sku** | **string** | Stock keeping unit of the product. | 
+**Sku** | Pointer to **NullableString** | Stock keeping unit of the product. Optional — not every webshop assigns SKUs. | [optional] 
 **Quantity** | **int32** | Number of units in this order line. | 
 **Description** | Pointer to **NullableString** | Human-readable product description. | [optional] 
 **UnitPrice** | Pointer to **NullableFloat32** | Price per unit in the order line currency. | [optional] 
@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 
 ### NewCreateShipmentRequestParcelsInnerOrderLinesInner
 
-`func NewCreateShipmentRequestParcelsInnerOrderLinesInner(sku string, quantity int32, ) *CreateShipmentRequestParcelsInnerOrderLinesInner`
+`func NewCreateShipmentRequestParcelsInnerOrderLinesInner(quantity int32, ) *CreateShipmentRequestParcelsInnerOrderLinesInner`
 
 NewCreateShipmentRequestParcelsInnerOrderLinesInner instantiates a new CreateShipmentRequestParcelsInnerOrderLinesInner object
 This constructor will assign default values to properties that have it defined,
@@ -78,7 +78,22 @@ and a boolean to check if the value has been set.
 
 SetSku sets Sku field to given value.
 
+### HasSku
 
+`func (o *CreateShipmentRequestParcelsInnerOrderLinesInner) HasSku() bool`
+
+HasSku returns a boolean if a field has been set.
+
+### SetSkuNil
+
+`func (o *CreateShipmentRequestParcelsInnerOrderLinesInner) SetSkuNil(b bool)`
+
+ SetSkuNil sets the value for Sku to be an explicit nil
+
+### UnsetSku
+`func (o *CreateShipmentRequestParcelsInnerOrderLinesInner) UnsetSku()`
+
+UnsetSku ensures that no value is present for Sku, not even an explicit nil
 ### GetQuantity
 
 `func (o *CreateShipmentRequestParcelsInnerOrderLinesInner) GetQuantity() int32`

@@ -17,11 +17,11 @@ import (
 	"fmt"
 )
 
-// checks if the CreateShipmentRequestCarrierSettings type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &CreateShipmentRequestCarrierSettings{}
+// checks if the UpdateShipmentRequestCarrierSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UpdateShipmentRequestCarrierSettings{}
 
-// CreateShipmentRequestCarrierSettings Carrier configuration for the shipment. Optional when shippingRuleId is provided.
-type CreateShipmentRequestCarrierSettings struct {
+// UpdateShipmentRequestCarrierSettings struct for UpdateShipmentRequestCarrierSettings
+type UpdateShipmentRequestCarrierSettings struct {
 	// Identifier of the carrier to use.
 	CarrierId string `json:"carrierId"`
 	// Identifier of the carrier product/service.
@@ -32,14 +32,14 @@ type CreateShipmentRequestCarrierSettings struct {
 	AdditionalParameters map[string]CreateShippingRuleRequestAdditionalParametersValue `json:"additionalParameters"`
 }
 
-type _CreateShipmentRequestCarrierSettings CreateShipmentRequestCarrierSettings
+type _UpdateShipmentRequestCarrierSettings UpdateShipmentRequestCarrierSettings
 
-// NewCreateShipmentRequestCarrierSettings instantiates a new CreateShipmentRequestCarrierSettings object
+// NewUpdateShipmentRequestCarrierSettings instantiates a new UpdateShipmentRequestCarrierSettings object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateShipmentRequestCarrierSettings(carrierId string, productId string, services []string, additionalParameters map[string]CreateShippingRuleRequestAdditionalParametersValue) *CreateShipmentRequestCarrierSettings {
-	this := CreateShipmentRequestCarrierSettings{}
+func NewUpdateShipmentRequestCarrierSettings(carrierId string, productId string, services []string, additionalParameters map[string]CreateShippingRuleRequestAdditionalParametersValue) *UpdateShipmentRequestCarrierSettings {
+	this := UpdateShipmentRequestCarrierSettings{}
 	this.CarrierId = carrierId
 	this.ProductId = productId
 	this.Services = services
@@ -47,16 +47,16 @@ func NewCreateShipmentRequestCarrierSettings(carrierId string, productId string,
 	return &this
 }
 
-// NewCreateShipmentRequestCarrierSettingsWithDefaults instantiates a new CreateShipmentRequestCarrierSettings object
+// NewUpdateShipmentRequestCarrierSettingsWithDefaults instantiates a new UpdateShipmentRequestCarrierSettings object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewCreateShipmentRequestCarrierSettingsWithDefaults() *CreateShipmentRequestCarrierSettings {
-	this := CreateShipmentRequestCarrierSettings{}
+func NewUpdateShipmentRequestCarrierSettingsWithDefaults() *UpdateShipmentRequestCarrierSettings {
+	this := UpdateShipmentRequestCarrierSettings{}
 	return &this
 }
 
 // GetCarrierId returns the CarrierId field value
-func (o *CreateShipmentRequestCarrierSettings) GetCarrierId() string {
+func (o *UpdateShipmentRequestCarrierSettings) GetCarrierId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -67,7 +67,7 @@ func (o *CreateShipmentRequestCarrierSettings) GetCarrierId() string {
 
 // GetCarrierIdOk returns a tuple with the CarrierId field value
 // and a boolean to check if the value has been set.
-func (o *CreateShipmentRequestCarrierSettings) GetCarrierIdOk() (*string, bool) {
+func (o *UpdateShipmentRequestCarrierSettings) GetCarrierIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -75,12 +75,12 @@ func (o *CreateShipmentRequestCarrierSettings) GetCarrierIdOk() (*string, bool) 
 }
 
 // SetCarrierId sets field value
-func (o *CreateShipmentRequestCarrierSettings) SetCarrierId(v string) {
+func (o *UpdateShipmentRequestCarrierSettings) SetCarrierId(v string) {
 	o.CarrierId = v
 }
 
 // GetProductId returns the ProductId field value
-func (o *CreateShipmentRequestCarrierSettings) GetProductId() string {
+func (o *UpdateShipmentRequestCarrierSettings) GetProductId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -91,7 +91,7 @@ func (o *CreateShipmentRequestCarrierSettings) GetProductId() string {
 
 // GetProductIdOk returns a tuple with the ProductId field value
 // and a boolean to check if the value has been set.
-func (o *CreateShipmentRequestCarrierSettings) GetProductIdOk() (*string, bool) {
+func (o *UpdateShipmentRequestCarrierSettings) GetProductIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -99,12 +99,12 @@ func (o *CreateShipmentRequestCarrierSettings) GetProductIdOk() (*string, bool) 
 }
 
 // SetProductId sets field value
-func (o *CreateShipmentRequestCarrierSettings) SetProductId(v string) {
+func (o *UpdateShipmentRequestCarrierSettings) SetProductId(v string) {
 	o.ProductId = v
 }
 
 // GetServices returns the Services field value
-func (o *CreateShipmentRequestCarrierSettings) GetServices() []string {
+func (o *UpdateShipmentRequestCarrierSettings) GetServices() []string {
 	if o == nil {
 		var ret []string
 		return ret
@@ -115,7 +115,7 @@ func (o *CreateShipmentRequestCarrierSettings) GetServices() []string {
 
 // GetServicesOk returns a tuple with the Services field value
 // and a boolean to check if the value has been set.
-func (o *CreateShipmentRequestCarrierSettings) GetServicesOk() ([]string, bool) {
+func (o *UpdateShipmentRequestCarrierSettings) GetServicesOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -123,12 +123,12 @@ func (o *CreateShipmentRequestCarrierSettings) GetServicesOk() ([]string, bool) 
 }
 
 // SetServices sets field value
-func (o *CreateShipmentRequestCarrierSettings) SetServices(v []string) {
+func (o *UpdateShipmentRequestCarrierSettings) SetServices(v []string) {
 	o.Services = v
 }
 
 // GetAdditionalParameters returns the AdditionalParameters field value
-func (o *CreateShipmentRequestCarrierSettings) GetAdditionalParameters() map[string]CreateShippingRuleRequestAdditionalParametersValue {
+func (o *UpdateShipmentRequestCarrierSettings) GetAdditionalParameters() map[string]CreateShippingRuleRequestAdditionalParametersValue {
 	if o == nil {
 		var ret map[string]CreateShippingRuleRequestAdditionalParametersValue
 		return ret
@@ -139,7 +139,7 @@ func (o *CreateShipmentRequestCarrierSettings) GetAdditionalParameters() map[str
 
 // GetAdditionalParametersOk returns a tuple with the AdditionalParameters field value
 // and a boolean to check if the value has been set.
-func (o *CreateShipmentRequestCarrierSettings) GetAdditionalParametersOk() (map[string]CreateShippingRuleRequestAdditionalParametersValue, bool) {
+func (o *UpdateShipmentRequestCarrierSettings) GetAdditionalParametersOk() (map[string]CreateShippingRuleRequestAdditionalParametersValue, bool) {
 	if o == nil {
 		return map[string]CreateShippingRuleRequestAdditionalParametersValue{}, false
 	}
@@ -147,11 +147,11 @@ func (o *CreateShipmentRequestCarrierSettings) GetAdditionalParametersOk() (map[
 }
 
 // SetAdditionalParameters sets field value
-func (o *CreateShipmentRequestCarrierSettings) SetAdditionalParameters(v map[string]CreateShippingRuleRequestAdditionalParametersValue) {
+func (o *UpdateShipmentRequestCarrierSettings) SetAdditionalParameters(v map[string]CreateShippingRuleRequestAdditionalParametersValue) {
 	o.AdditionalParameters = v
 }
 
-func (o CreateShipmentRequestCarrierSettings) MarshalJSON() ([]byte, error) {
+func (o UpdateShipmentRequestCarrierSettings) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -159,7 +159,7 @@ func (o CreateShipmentRequestCarrierSettings) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o CreateShipmentRequestCarrierSettings) ToMap() (map[string]interface{}, error) {
+func (o UpdateShipmentRequestCarrierSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["carrierId"] = o.CarrierId
 	toSerialize["productId"] = o.ProductId
@@ -168,7 +168,7 @@ func (o CreateShipmentRequestCarrierSettings) ToMap() (map[string]interface{}, e
 	return toSerialize, nil
 }
 
-func (o *CreateShipmentRequestCarrierSettings) UnmarshalJSON(data []byte) (err error) {
+func (o *UpdateShipmentRequestCarrierSettings) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -193,53 +193,53 @@ func (o *CreateShipmentRequestCarrierSettings) UnmarshalJSON(data []byte) (err e
 		}
 	}
 
-	varCreateShipmentRequestCarrierSettings := _CreateShipmentRequestCarrierSettings{}
+	varUpdateShipmentRequestCarrierSettings := _UpdateShipmentRequestCarrierSettings{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateShipmentRequestCarrierSettings)
+	err = decoder.Decode(&varUpdateShipmentRequestCarrierSettings)
 
 	if err != nil {
 		return err
 	}
 
-	*o = CreateShipmentRequestCarrierSettings(varCreateShipmentRequestCarrierSettings)
+	*o = UpdateShipmentRequestCarrierSettings(varUpdateShipmentRequestCarrierSettings)
 
 	return err
 }
 
-type NullableCreateShipmentRequestCarrierSettings struct {
-	value *CreateShipmentRequestCarrierSettings
+type NullableUpdateShipmentRequestCarrierSettings struct {
+	value *UpdateShipmentRequestCarrierSettings
 	isSet bool
 }
 
-func (v NullableCreateShipmentRequestCarrierSettings) Get() *CreateShipmentRequestCarrierSettings {
+func (v NullableUpdateShipmentRequestCarrierSettings) Get() *UpdateShipmentRequestCarrierSettings {
 	return v.value
 }
 
-func (v *NullableCreateShipmentRequestCarrierSettings) Set(val *CreateShipmentRequestCarrierSettings) {
+func (v *NullableUpdateShipmentRequestCarrierSettings) Set(val *UpdateShipmentRequestCarrierSettings) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableCreateShipmentRequestCarrierSettings) IsSet() bool {
+func (v NullableUpdateShipmentRequestCarrierSettings) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableCreateShipmentRequestCarrierSettings) Unset() {
+func (v *NullableUpdateShipmentRequestCarrierSettings) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableCreateShipmentRequestCarrierSettings(val *CreateShipmentRequestCarrierSettings) *NullableCreateShipmentRequestCarrierSettings {
-	return &NullableCreateShipmentRequestCarrierSettings{value: val, isSet: true}
+func NewNullableUpdateShipmentRequestCarrierSettings(val *UpdateShipmentRequestCarrierSettings) *NullableUpdateShipmentRequestCarrierSettings {
+	return &NullableUpdateShipmentRequestCarrierSettings{value: val, isSet: true}
 }
 
-func (v NullableCreateShipmentRequestCarrierSettings) MarshalJSON() ([]byte, error) {
+func (v NullableUpdateShipmentRequestCarrierSettings) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableCreateShipmentRequestCarrierSettings) UnmarshalJSON(src []byte) error {
+func (v *NullableUpdateShipmentRequestCarrierSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

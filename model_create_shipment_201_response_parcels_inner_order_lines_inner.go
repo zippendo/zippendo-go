@@ -24,8 +24,8 @@ var _ MappedNullable = &CreateShipment201ResponseParcelsInnerOrderLinesInner{}
 type CreateShipment201ResponseParcelsInnerOrderLinesInner struct {
 	// Unique order line identifier.
 	Id *string `json:"id,omitempty"`
-	// Stock keeping unit of the product.
-	Sku string `json:"sku"`
+	// Stock keeping unit of the product. Optional — not every webshop assigns SKUs.
+	Sku NullableString `json:"sku,omitempty"`
 	// Number of units in this order line.
 	Quantity int32 `json:"quantity"`
 	// Human-readable product description.
@@ -50,9 +50,8 @@ type _CreateShipment201ResponseParcelsInnerOrderLinesInner CreateShipment201Resp
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateShipment201ResponseParcelsInnerOrderLinesInner(sku string, quantity int32) *CreateShipment201ResponseParcelsInnerOrderLinesInner {
+func NewCreateShipment201ResponseParcelsInnerOrderLinesInner(quantity int32) *CreateShipment201ResponseParcelsInnerOrderLinesInner {
 	this := CreateShipment201ResponseParcelsInnerOrderLinesInner{}
-	this.Sku = sku
 	this.Quantity = quantity
 	return &this
 }
@@ -97,28 +96,46 @@ func (o *CreateShipment201ResponseParcelsInnerOrderLinesInner) SetId(v string) {
 	o.Id = &v
 }
 
-// GetSku returns the Sku field value
+// GetSku returns the Sku field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateShipment201ResponseParcelsInnerOrderLinesInner) GetSku() string {
-	if o == nil {
+	if o == nil || IsNil(o.Sku.Get()) {
 		var ret string
 		return ret
 	}
-
-	return o.Sku
+	return *o.Sku.Get()
 }
 
-// GetSkuOk returns a tuple with the Sku field value
+// GetSkuOk returns a tuple with the Sku field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateShipment201ResponseParcelsInnerOrderLinesInner) GetSkuOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Sku, true
+	return o.Sku.Get(), o.Sku.IsSet()
 }
 
-// SetSku sets field value
+// HasSku returns a boolean if a field has been set.
+func (o *CreateShipment201ResponseParcelsInnerOrderLinesInner) HasSku() bool {
+	if o != nil && o.Sku.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetSku gets a reference to the given NullableString and assigns it to the Sku field.
 func (o *CreateShipment201ResponseParcelsInnerOrderLinesInner) SetSku(v string) {
-	o.Sku = v
+	o.Sku.Set(&v)
+}
+// SetSkuNil sets the value for Sku to be an explicit nil
+func (o *CreateShipment201ResponseParcelsInnerOrderLinesInner) SetSkuNil() {
+	o.Sku.Set(nil)
+}
+
+// UnsetSku ensures that no value is present for Sku, not even an explicit nil
+func (o *CreateShipment201ResponseParcelsInnerOrderLinesInner) UnsetSku() {
+	o.Sku.Unset()
 }
 
 // GetQuantity returns the Quantity field value
@@ -442,7 +459,9 @@ func (o CreateShipment201ResponseParcelsInnerOrderLinesInner) ToMap() (map[strin
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	toSerialize["sku"] = o.Sku
+	if o.Sku.IsSet() {
+		toSerialize["sku"] = o.Sku.Get()
+	}
 	toSerialize["quantity"] = o.Quantity
 	if o.Description.IsSet() {
 		toSerialize["description"] = o.Description.Get()
@@ -473,7 +492,6 @@ func (o *CreateShipment201ResponseParcelsInnerOrderLinesInner) UnmarshalJSON(dat
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"sku",
 		"quantity",
 	}
 
