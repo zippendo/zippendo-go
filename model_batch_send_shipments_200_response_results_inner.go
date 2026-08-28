@@ -24,11 +24,11 @@ var _ MappedNullable = &BatchSendShipments200ResponseResultsInner{}
 type BatchSendShipments200ResponseResultsInner struct {
 	// The shipment this result refers to.
 	ShipmentId string `json:"shipmentId"`
-	// Whether this shipment was successfully booked with its carrier.
+	// `sent` when the carrier booked it, `failed` when the carrier or Zippendo rejected it, and `skipped` when the batch ran out of time before reaching it. A `skipped` shipment was never sent to the carrier and is safe to submit again.
 	Status string `json:"status"`
-	// Canonical machine-readable error code, present when `status` is `failed`.
+	// Canonical machine-readable error code, present when `status` is `failed` or `skipped`.
 	Code *string `json:"code,omitempty"`
-	// Human-readable failure detail, present when `status` is `failed`.
+	// Human-readable detail, present when `status` is `failed` or `skipped`.
 	Message *string `json:"message,omitempty"`
 	// Carrier-specific errors, present when the carrier rejected the booking.
 	Errors []SendShipment422ResponseErrorsInner `json:"errors,omitempty"`

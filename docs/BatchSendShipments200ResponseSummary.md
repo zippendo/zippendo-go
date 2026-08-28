@@ -4,15 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Total** | **int32** | Number of unique shipments processed. | 
+**Total** | **int32** | Number of unique shipments requested. | 
 **Sent** | **int32** | How many were successfully booked. | 
-**Failed** | **int32** | How many failed. | 
+**Failed** | **int32** | How many the carrier or Zippendo rejected. | 
+**Skipped** | **int32** | How many the batch ran out of time to attempt. Submit these again. | 
 
 ## Methods
 
 ### NewBatchSendShipments200ResponseSummary
 
-`func NewBatchSendShipments200ResponseSummary(total int32, sent int32, failed int32, ) *BatchSendShipments200ResponseSummary`
+`func NewBatchSendShipments200ResponseSummary(total int32, sent int32, failed int32, skipped int32, ) *BatchSendShipments200ResponseSummary`
 
 NewBatchSendShipments200ResponseSummary instantiates a new BatchSendShipments200ResponseSummary object
 This constructor will assign default values to properties that have it defined,
@@ -85,6 +86,26 @@ and a boolean to check if the value has been set.
 `func (o *BatchSendShipments200ResponseSummary) SetFailed(v int32)`
 
 SetFailed sets Failed field to given value.
+
+
+### GetSkipped
+
+`func (o *BatchSendShipments200ResponseSummary) GetSkipped() int32`
+
+GetSkipped returns the Skipped field if non-nil, zero value otherwise.
+
+### GetSkippedOk
+
+`func (o *BatchSendShipments200ResponseSummary) GetSkippedOk() (*int32, bool)`
+
+GetSkippedOk returns a tuple with the Skipped field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSkipped
+
+`func (o *BatchSendShipments200ResponseSummary) SetSkipped(v int32)`
+
+SetSkipped sets Skipped field to given value.
 
 
 

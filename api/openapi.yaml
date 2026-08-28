@@ -6579,6 +6579,7 @@ components:
           - SHIPMENT_ALREADY_SENT
           - SHIPMENT_INVALID_STATE
           - SHIPMENT_SERVICE_POINT_REQUIRED
+          - SHIPMENT_SEND_NOT_ATTEMPTED
           - PARCEL_NOT_FOUND
           - PARCEL_INVALID_SPLIT
           - PICKUP_NOT_FOUND
@@ -12655,6 +12656,7 @@ components:
           - SHIPMENT_ALREADY_SENT
           - SHIPMENT_INVALID_STATE
           - SHIPMENT_SERVICE_POINT_REQUIRED
+          - SHIPMENT_SEND_NOT_ATTEMPTED
           - PARCEL_NOT_FOUND
           - PARCEL_INVALID_SPLIT
           - PICKUP_NOT_FOUND
@@ -12782,15 +12784,19 @@ components:
           example: shp_01H8XABC123
           type: string
         status:
-          description: Whether this shipment was successfully booked with its carrier.
+          description: "`sent` when the carrier booked it, `failed` when the carrier\
+            \ or Zippendo rejected it, and `skipped` when the batch ran out of time\
+            \ before reaching it. A `skipped` shipment was never sent to the carrier\
+            \ and is safe to submit again."
           enum:
           - sent
           - failed
+          - skipped
           example: sent
           type: string
         code:
           description: "Canonical machine-readable error code, present when `status`\
-            \ is `failed`."
+            \ is `failed` or `skipped`."
           enum:
           - INTERNAL_ERROR
           - BAD_REQUEST
@@ -12857,6 +12863,7 @@ components:
           - SHIPMENT_ALREADY_SENT
           - SHIPMENT_INVALID_STATE
           - SHIPMENT_SERVICE_POINT_REQUIRED
+          - SHIPMENT_SEND_NOT_ATTEMPTED
           - PARCEL_NOT_FOUND
           - PARCEL_INVALID_SPLIT
           - PICKUP_NOT_FOUND
@@ -12932,7 +12939,8 @@ components:
           example: CARRIER_ERROR
           type: string
         message:
-          description: "Human-readable failure detail, present when `status` is `failed`."
+          description: "Human-readable detail, present when `status` is `failed` or\
+            \ `skipped`."
           example: Shipment must be in pending or error status to be sent
           type: string
         errors:
@@ -12952,9 +12960,10 @@ components:
         total: 3
         sent: 2
         failed: 1
+        skipped: 0
       properties:
         total:
-          description: Number of unique shipments processed.
+          description: Number of unique shipments requested.
           example: 3
           maximum: 9007199254740991
           minimum: -9007199254740991
@@ -12966,14 +12975,22 @@ components:
           minimum: -9007199254740991
           type: integer
         failed:
-          description: How many failed.
+          description: How many the carrier or Zippendo rejected.
           example: 1
+          maximum: 9007199254740991
+          minimum: -9007199254740991
+          type: integer
+        skipped:
+          description: How many the batch ran out of time to attempt. Submit these
+            again.
+          example: 0
           maximum: 9007199254740991
           minimum: -9007199254740991
           type: integer
       required:
       - failed
       - sent
+      - skipped
       - total
       type: object
     batchSendShipments_200_response:
@@ -13002,6 +13019,7 @@ components:
           total: 3
           sent: 2
           failed: 1
+          skipped: 0
       properties:
         results:
           description: Per-shipment outcome (one entry per unique requested shipment

@@ -22,12 +22,14 @@ var _ MappedNullable = &BatchSendShipments200ResponseSummary{}
 
 // BatchSendShipments200ResponseSummary Aggregate counts for the batch.
 type BatchSendShipments200ResponseSummary struct {
-	// Number of unique shipments processed.
+	// Number of unique shipments requested.
 	Total int32 `json:"total"`
 	// How many were successfully booked.
 	Sent int32 `json:"sent"`
-	// How many failed.
+	// How many the carrier or Zippendo rejected.
 	Failed int32 `json:"failed"`
+	// How many the batch ran out of time to attempt. Submit these again.
+	Skipped int32 `json:"skipped"`
 }
 
 type _BatchSendShipments200ResponseSummary BatchSendShipments200ResponseSummary
@@ -36,11 +38,12 @@ type _BatchSendShipments200ResponseSummary BatchSendShipments200ResponseSummary
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBatchSendShipments200ResponseSummary(total int32, sent int32, failed int32) *BatchSendShipments200ResponseSummary {
+func NewBatchSendShipments200ResponseSummary(total int32, sent int32, failed int32, skipped int32) *BatchSendShipments200ResponseSummary {
 	this := BatchSendShipments200ResponseSummary{}
 	this.Total = total
 	this.Sent = sent
 	this.Failed = failed
+	this.Skipped = skipped
 	return &this
 }
 
@@ -124,6 +127,30 @@ func (o *BatchSendShipments200ResponseSummary) SetFailed(v int32) {
 	o.Failed = v
 }
 
+// GetSkipped returns the Skipped field value
+func (o *BatchSendShipments200ResponseSummary) GetSkipped() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.Skipped
+}
+
+// GetSkippedOk returns a tuple with the Skipped field value
+// and a boolean to check if the value has been set.
+func (o *BatchSendShipments200ResponseSummary) GetSkippedOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Skipped, true
+}
+
+// SetSkipped sets field value
+func (o *BatchSendShipments200ResponseSummary) SetSkipped(v int32) {
+	o.Skipped = v
+}
+
 func (o BatchSendShipments200ResponseSummary) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -137,6 +164,7 @@ func (o BatchSendShipments200ResponseSummary) ToMap() (map[string]interface{}, e
 	toSerialize["total"] = o.Total
 	toSerialize["sent"] = o.Sent
 	toSerialize["failed"] = o.Failed
+	toSerialize["skipped"] = o.Skipped
 	return toSerialize, nil
 }
 
@@ -148,6 +176,7 @@ func (o *BatchSendShipments200ResponseSummary) UnmarshalJSON(data []byte) (err e
 		"total",
 		"sent",
 		"failed",
+		"skipped",
 	}
 
 	allProperties := make(map[string]interface{})
