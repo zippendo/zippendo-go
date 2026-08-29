@@ -26,6 +26,8 @@ type GetBillingUsage200ResponseZippyMessages struct {
 	Used float32 `json:"used"`
 	// Zippy message charges so far, in øre
 	Charges float32 `json:"charges"`
+	// Maximum Zippy messages per month (-1 for unlimited)
+	Limit float32 `json:"limit"`
 }
 
 type _GetBillingUsage200ResponseZippyMessages GetBillingUsage200ResponseZippyMessages
@@ -34,10 +36,11 @@ type _GetBillingUsage200ResponseZippyMessages GetBillingUsage200ResponseZippyMes
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetBillingUsage200ResponseZippyMessages(used float32, charges float32) *GetBillingUsage200ResponseZippyMessages {
+func NewGetBillingUsage200ResponseZippyMessages(used float32, charges float32, limit float32) *GetBillingUsage200ResponseZippyMessages {
 	this := GetBillingUsage200ResponseZippyMessages{}
 	this.Used = used
 	this.Charges = charges
+	this.Limit = limit
 	return &this
 }
 
@@ -97,6 +100,30 @@ func (o *GetBillingUsage200ResponseZippyMessages) SetCharges(v float32) {
 	o.Charges = v
 }
 
+// GetLimit returns the Limit field value
+func (o *GetBillingUsage200ResponseZippyMessages) GetLimit() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.Limit
+}
+
+// GetLimitOk returns a tuple with the Limit field value
+// and a boolean to check if the value has been set.
+func (o *GetBillingUsage200ResponseZippyMessages) GetLimitOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Limit, true
+}
+
+// SetLimit sets field value
+func (o *GetBillingUsage200ResponseZippyMessages) SetLimit(v float32) {
+	o.Limit = v
+}
+
 func (o GetBillingUsage200ResponseZippyMessages) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -109,6 +136,7 @@ func (o GetBillingUsage200ResponseZippyMessages) ToMap() (map[string]interface{}
 	toSerialize := map[string]interface{}{}
 	toSerialize["used"] = o.Used
 	toSerialize["charges"] = o.Charges
+	toSerialize["limit"] = o.Limit
 	return toSerialize, nil
 }
 
@@ -119,6 +147,7 @@ func (o *GetBillingUsage200ResponseZippyMessages) UnmarshalJSON(data []byte) (er
 	requiredProperties := []string{
 		"used",
 		"charges",
+		"limit",
 	}
 
 	allProperties := make(map[string]interface{})

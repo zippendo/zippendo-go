@@ -6574,6 +6574,7 @@ components:
           - BILLING_MANAGED_BY_SHOPIFY
           - BILLING_CHECKOUT_REQUIRED
           - ZIPPY_ADDON_REQUIRED
+          - ZIPPY_MESSAGE_LIMIT_REACHED
           - SHIPMENT_NOT_FOUND
           - SHIPMENT_DOCUMENT_NOT_FOUND
           - SHIPMENT_ALREADY_SENT
@@ -12651,6 +12652,7 @@ components:
           - BILLING_MANAGED_BY_SHOPIFY
           - BILLING_CHECKOUT_REQUIRED
           - ZIPPY_ADDON_REQUIRED
+          - ZIPPY_MESSAGE_LIMIT_REACHED
           - SHIPMENT_NOT_FOUND
           - SHIPMENT_DOCUMENT_NOT_FOUND
           - SHIPMENT_ALREADY_SENT
@@ -12858,6 +12860,7 @@ components:
           - BILLING_MANAGED_BY_SHOPIFY
           - BILLING_CHECKOUT_REQUIRED
           - ZIPPY_ADDON_REQUIRED
+          - ZIPPY_MESSAGE_LIMIT_REACHED
           - SHIPMENT_NOT_FOUND
           - SHIPMENT_DOCUMENT_NOT_FOUND
           - SHIPMENT_ALREADY_SENT
@@ -16275,6 +16278,7 @@ components:
       example:
         used: 42
         charges: 4158
+        limit: -1
       properties:
         used:
           description: Zippy messages used this period
@@ -16284,8 +16288,13 @@ components:
           description: "Zippy message charges so far, in øre"
           example: 4158
           type: number
+        limit:
+          description: Maximum Zippy messages per month (-1 for unlimited)
+          example: -1
+          type: number
       required:
       - charges
+      - limit
       - used
       type: object
     getBillingUsage_200_response:
@@ -16325,6 +16334,7 @@ components:
         zippyMessages:
           used: 42
           charges: 4158
+          limit: -1
       properties:
         currentPeriod:
           $ref: "#/components/schemas/getBillingUsage_200_response_currentPeriod"
