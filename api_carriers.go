@@ -705,6 +705,8 @@ type ApiListCarriersRequest struct {
 	limit *int32
 	brandId *string
 	brandScope *string
+	carrierSlug *string
+	search *string
 }
 
 // Page number (1-based)
@@ -728,6 +730,18 @@ func (r ApiListCarriersRequest) BrandId(brandId string) ApiListCarriersRequest {
 // How the brand context narrows this list: \&quot;own\&quot; returns only rows assigned to the current brand (requires a brand session, a brand-bound token, or the X-Zippendo-Brand header), \&quot;shared\&quot; returns only unassigned organization-wide rows, \&quot;both\&quot; (default) returns both. The X-Zippendo-Brand-Scope header supplies a default when the parameter is omitted. For strictly brand-owned records (orders, shipments), a brand-scoped request combined with \&quot;shared\&quot; returns no rows, since those records are never visible organization-wide from within a brand context.
 func (r ApiListCarriersRequest) BrandScope(brandScope string) ApiListCarriersRequest {
 	r.brandScope = &brandScope
+	return r
+}
+
+// Filter by carrier slug.
+func (r ApiListCarriersRequest) CarrierSlug(carrierSlug string) ApiListCarriersRequest {
+	r.carrierSlug = &carrierSlug
+	return r
+}
+
+// Search by carrier name.
+func (r ApiListCarriersRequest) Search(search string) ApiListCarriersRequest {
+	r.search = &search
 	return r
 }
 
@@ -793,6 +807,12 @@ func (a *CarriersAPIService) ListCarriersExecute(r ApiListCarriersRequest) (*Lis
 	}
 	if r.brandScope != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "brandScope", r.brandScope, "form", "")
+	}
+	if r.carrierSlug != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "carrierSlug", r.carrierSlug, "form", "")
+	}
+	if r.search != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

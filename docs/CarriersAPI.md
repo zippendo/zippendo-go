@@ -385,7 +385,7 @@ Name | Type | Description  | Notes
 
 ## ListCarriers
 
-> ListCarriers200Response ListCarriers(ctx, orgId).Page(page).Limit(limit).BrandId(brandId).BrandScope(brandScope).Execute()
+> ListCarriers200Response ListCarriers(ctx, orgId).Page(page).Limit(limit).BrandId(brandId).BrandScope(brandScope).CarrierSlug(carrierSlug).Search(search).Execute()
 
 List carriers
 
@@ -409,10 +409,12 @@ func main() {
 	limit := int32(20) // int32 | Items per page (max 100) (optional) (default to 20)
 	brandId := "brnd_8f3kd92ld0" // string | Filter by brand. Pass a brand ID, or \"none\" for records not assigned to any brand. (optional)
 	brandScope := "own" // string | How the brand context narrows this list: \"own\" returns only rows assigned to the current brand (requires a brand session, a brand-bound token, or the X-Zippendo-Brand header), \"shared\" returns only unassigned organization-wide rows, \"both\" (default) returns both. The X-Zippendo-Brand-Scope header supplies a default when the parameter is omitted. For strictly brand-owned records (orders, shipments), a brand-scoped request combined with \"shared\" returns no rows, since those records are never visible organization-wide from within a brand context. (optional)
+	carrierSlug := "gls" // string | Filter by carrier slug. (optional)
+	search := "PostNord" // string | Search by carrier name. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CarriersAPI.ListCarriers(context.Background(), orgId).Page(page).Limit(limit).BrandId(brandId).BrandScope(brandScope).Execute()
+	resp, r, err := apiClient.CarriersAPI.ListCarriers(context.Background(), orgId).Page(page).Limit(limit).BrandId(brandId).BrandScope(brandScope).CarrierSlug(carrierSlug).Search(search).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CarriersAPI.ListCarriers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -442,6 +444,8 @@ Name | Type | Description  | Notes
  **limit** | **int32** | Items per page (max 100) | [default to 20]
  **brandId** | **string** | Filter by brand. Pass a brand ID, or \&quot;none\&quot; for records not assigned to any brand. | 
  **brandScope** | **string** | How the brand context narrows this list: \&quot;own\&quot; returns only rows assigned to the current brand (requires a brand session, a brand-bound token, or the X-Zippendo-Brand header), \&quot;shared\&quot; returns only unassigned organization-wide rows, \&quot;both\&quot; (default) returns both. The X-Zippendo-Brand-Scope header supplies a default when the parameter is omitted. For strictly brand-owned records (orders, shipments), a brand-scoped request combined with \&quot;shared\&quot; returns no rows, since those records are never visible organization-wide from within a brand context. | 
+ **carrierSlug** | **string** | Filter by carrier slug. | 
+ **search** | **string** | Search by carrier name. | 
 
 ### Return type
 

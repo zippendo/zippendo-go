@@ -623,6 +623,8 @@ type ApiListOrgWebhooksRequest struct {
 	limit *int32
 	brandId *string
 	brandScope *string
+	isActive *string
+	search *string
 }
 
 // Page number (1-based)
@@ -646,6 +648,18 @@ func (r ApiListOrgWebhooksRequest) BrandId(brandId string) ApiListOrgWebhooksReq
 // How the brand context narrows this list: \&quot;own\&quot; returns only rows assigned to the current brand (requires a brand session, a brand-bound token, or the X-Zippendo-Brand header), \&quot;shared\&quot; returns only unassigned organization-wide rows, \&quot;both\&quot; (default) returns both. The X-Zippendo-Brand-Scope header supplies a default when the parameter is omitted. For strictly brand-owned records (orders, shipments), a brand-scoped request combined with \&quot;shared\&quot; returns no rows, since those records are never visible organization-wide from within a brand context.
 func (r ApiListOrgWebhooksRequest) BrandScope(brandScope string) ApiListOrgWebhooksRequest {
 	r.brandScope = &brandScope
+	return r
+}
+
+// Filter by active state.
+func (r ApiListOrgWebhooksRequest) IsActive(isActive string) ApiListOrgWebhooksRequest {
+	r.isActive = &isActive
+	return r
+}
+
+// Search by webhook name or URL.
+func (r ApiListOrgWebhooksRequest) Search(search string) ApiListOrgWebhooksRequest {
+	r.search = &search
 	return r
 }
 
@@ -711,6 +725,12 @@ func (a *WebhooksAPIService) ListOrgWebhooksExecute(r ApiListOrgWebhooksRequest)
 	}
 	if r.brandScope != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "brandScope", r.brandScope, "form", "")
+	}
+	if r.isActive != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "isActive", r.isActive, "form", "")
+	}
+	if r.search != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

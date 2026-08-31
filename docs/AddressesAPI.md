@@ -232,7 +232,7 @@ Name | Type | Description  | Notes
 
 ## ListAddresses
 
-> ListAddresses200Response ListAddresses(ctx, orgId).Page(page).Limit(limit).Type_(type_).BrandId(brandId).BrandScope(brandScope).Execute()
+> ListAddresses200Response ListAddresses(ctx, orgId).Page(page).Limit(limit).Type_(type_).CountryCode(countryCode).Search(search).BrandId(brandId).BrandScope(brandScope).Execute()
 
 List addresses
 
@@ -255,12 +255,14 @@ func main() {
 	page := int32(1) // int32 | Page number (1-based) (optional) (default to 1)
 	limit := int32(20) // int32 | Items per page (max 100) (optional) (default to 20)
 	type_ := "sender" // string | Filter by address type (sender, pickup, return) (optional)
+	countryCode := "DK" // string | Filter by ISO 3166-1 alpha-2 country code. (optional)
+	search := "Copenhagen" // string | Search by address name, contact or city. (optional)
 	brandId := "brnd_8f3kd92ld0" // string | Filter by brand. Pass a brand ID, or \"none\" for records not assigned to any brand. (optional)
 	brandScope := "own" // string | How the brand context narrows this list: \"own\" returns only rows assigned to the current brand (requires a brand session, a brand-bound token, or the X-Zippendo-Brand header), \"shared\" returns only unassigned organization-wide rows, \"both\" (default) returns both. The X-Zippendo-Brand-Scope header supplies a default when the parameter is omitted. For strictly brand-owned records (orders, shipments), a brand-scoped request combined with \"shared\" returns no rows, since those records are never visible organization-wide from within a brand context. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AddressesAPI.ListAddresses(context.Background(), orgId).Page(page).Limit(limit).Type_(type_).BrandId(brandId).BrandScope(brandScope).Execute()
+	resp, r, err := apiClient.AddressesAPI.ListAddresses(context.Background(), orgId).Page(page).Limit(limit).Type_(type_).CountryCode(countryCode).Search(search).BrandId(brandId).BrandScope(brandScope).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AddressesAPI.ListAddresses``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -289,6 +291,8 @@ Name | Type | Description  | Notes
  **page** | **int32** | Page number (1-based) | [default to 1]
  **limit** | **int32** | Items per page (max 100) | [default to 20]
  **type_** | **string** | Filter by address type (sender, pickup, return) | 
+ **countryCode** | **string** | Filter by ISO 3166-1 alpha-2 country code. | 
+ **search** | **string** | Search by address name, contact or city. | 
  **brandId** | **string** | Filter by brand. Pass a brand ID, or \&quot;none\&quot; for records not assigned to any brand. | 
  **brandScope** | **string** | How the brand context narrows this list: \&quot;own\&quot; returns only rows assigned to the current brand (requires a brand session, a brand-bound token, or the X-Zippendo-Brand header), \&quot;shared\&quot; returns only unassigned organization-wide rows, \&quot;both\&quot; (default) returns both. The X-Zippendo-Brand-Scope header supplies a default when the parameter is omitted. For strictly brand-owned records (orders, shipments), a brand-scoped request combined with \&quot;shared\&quot; returns no rows, since those records are never visible organization-wide from within a brand context. | 
 

@@ -433,6 +433,8 @@ type ApiListAddressesRequest struct {
 	page *int32
 	limit *int32
 	type_ *string
+	countryCode *string
+	search *string
 	brandId *string
 	brandScope *string
 }
@@ -452,6 +454,18 @@ func (r ApiListAddressesRequest) Limit(limit int32) ApiListAddressesRequest {
 // Filter by address type (sender, pickup, return)
 func (r ApiListAddressesRequest) Type_(type_ string) ApiListAddressesRequest {
 	r.type_ = &type_
+	return r
+}
+
+// Filter by ISO 3166-1 alpha-2 country code.
+func (r ApiListAddressesRequest) CountryCode(countryCode string) ApiListAddressesRequest {
+	r.countryCode = &countryCode
+	return r
+}
+
+// Search by address name, contact or city.
+func (r ApiListAddressesRequest) Search(search string) ApiListAddressesRequest {
+	r.search = &search
 	return r
 }
 
@@ -526,6 +540,12 @@ func (a *AddressesAPIService) ListAddressesExecute(r ApiListAddressesRequest) (*
 	}
 	if r.type_ != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "type", r.type_, "form", "")
+	}
+	if r.countryCode != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "countryCode", r.countryCode, "form", "")
+	}
+	if r.search != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
 	}
 	if r.brandId != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "brandId", r.brandId, "form", "")

@@ -993,6 +993,9 @@ type ApiListShipmentsRequest struct {
 	limit *int32
 	brandId *string
 	brandScope *string
+	status *string
+	type_ *string
+	search *string
 }
 
 // Page number (1-based)
@@ -1016,6 +1019,24 @@ func (r ApiListShipmentsRequest) BrandId(brandId string) ApiListShipmentsRequest
 // How the brand context narrows this list: \&quot;own\&quot; returns only rows assigned to the current brand (requires a brand session, a brand-bound token, or the X-Zippendo-Brand header), \&quot;shared\&quot; returns only unassigned organization-wide rows, \&quot;both\&quot; (default) returns both. The X-Zippendo-Brand-Scope header supplies a default when the parameter is omitted. For strictly brand-owned records (orders, shipments), a brand-scoped request combined with \&quot;shared\&quot; returns no rows, since those records are never visible organization-wide from within a brand context.
 func (r ApiListShipmentsRequest) BrandScope(brandScope string) ApiListShipmentsRequest {
 	r.brandScope = &brandScope
+	return r
+}
+
+// Filter by shipment status.
+func (r ApiListShipmentsRequest) Status(status string) ApiListShipmentsRequest {
+	r.status = &status
+	return r
+}
+
+// Filter by direction.
+func (r ApiListShipmentsRequest) Type_(type_ string) ApiListShipmentsRequest {
+	r.type_ = &type_
+	return r
+}
+
+// Search by shipment reference or parcel tracking number.
+func (r ApiListShipmentsRequest) Search(search string) ApiListShipmentsRequest {
+	r.search = &search
 	return r
 }
 
@@ -1081,6 +1102,15 @@ func (a *ShipmentsAPIService) ListShipmentsExecute(r ApiListShipmentsRequest) (*
 	}
 	if r.brandScope != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "brandScope", r.brandScope, "form", "")
+	}
+	if r.status != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "form", "")
+	}
+	if r.type_ != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "type", r.type_, "form", "")
+	}
+	if r.search != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

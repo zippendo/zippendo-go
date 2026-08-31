@@ -2115,6 +2115,26 @@ paths:
           example: sender
           type: string
         style: form
+      - description: Filter by ISO 3166-1 alpha-2 country code.
+        explode: true
+        in: query
+        name: countryCode
+        required: false
+        schema:
+          example: DK
+          maxLength: 2
+          minLength: 2
+          type: string
+        style: form
+      - description: "Search by address name, contact or city."
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          example: Copenhagen
+          type: string
+        style: form
       - description: "Filter by brand. Pass a brand ID, or \"none\" for records not\
           \ assigned to any brand."
         explode: true
@@ -2602,6 +2622,24 @@ paths:
           - shared
           - both
           example: own
+          type: string
+        style: form
+      - description: Filter by carrier slug.
+        explode: true
+        in: query
+        name: carrierSlug
+        required: false
+        schema:
+          example: gls
+          type: string
+        style: form
+      - description: Search by carrier name.
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          example: PostNord
           type: string
         style: form
       - description: Organization ID
@@ -3253,6 +3291,24 @@ paths:
           example: own
           type: string
         style: form
+      - description: Filter by carrier.
+        explode: true
+        in: query
+        name: carrierId
+        required: false
+        schema:
+          example: carr_01HZX9K2QF
+          type: string
+        style: form
+      - description: Search by rule name.
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          example: Home delivery
+          type: string
+        style: form
       - description: Organization ID
         explode: false
         in: path
@@ -3795,6 +3851,45 @@ paths:
           - shared
           - both
           example: own
+          type: string
+        style: form
+      - description: Filter by shipment status.
+        explode: true
+        in: query
+        name: status
+        required: false
+        schema:
+          enum:
+          - draft
+          - pending
+          - processing
+          - dispatched
+          - partly_dispatched
+          - error
+          - cancelled
+          - on_hold
+          example: dispatched
+          type: string
+        style: form
+      - description: Filter by direction.
+        explode: true
+        in: query
+        name: type
+        required: false
+        schema:
+          enum:
+          - outbound
+          - inbound
+          example: outbound
+          type: string
+        style: form
+      - description: Search by shipment reference or parcel tracking number.
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          example: SHIP-1042
           type: string
         style: form
       - description: Organization ID
@@ -5664,6 +5759,24 @@ paths:
           - shared
           - both
           example: own
+          type: string
+        style: form
+      - description: Filter by active state.
+        explode: true
+        in: query
+        name: isActive
+        required: false
+        schema:
+          example: "true"
+          type: string
+        style: form
+      - description: Search by webhook name or URL.
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          example: fulfilment
           type: string
         style: form
       - description: Organization ID
