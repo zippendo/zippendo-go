@@ -8230,6 +8230,8 @@ components:
         deprecated: true
         deprecationMessage: The standalone Instabox API is deprecated. Migrate to
           the Instabee-powered Instabox integration.
+        generatesCustomsDocuments: true
+        generatesCommercialInvoice: true
       properties:
         id:
           description: Unique carrier identifier
@@ -8286,6 +8288,16 @@ components:
           example: The standalone Instabox API is deprecated. Migrate to the Instabee-powered
             Instabox integration.
           type: string
+        generatesCustomsDocuments:
+          description: Whether the carrier produces the customs declaration (CN22/CN23)
+            itself and returns it with the label.
+          example: true
+          type: boolean
+        generatesCommercialInvoice:
+          description: "Whether the carrier produces the commercial invoice itself\
+            \ and returns it with the label, e.g. via electronic trade documents."
+          example: true
+          type: boolean
       required:
       - brandId
       - carrierSlug
@@ -8314,6 +8326,8 @@ components:
           deprecated: true
           deprecationMessage: The standalone Instabox API is deprecated. Migrate to
             the Instabee-powered Instabox integration.
+          generatesCustomsDocuments: true
+          generatesCommercialInvoice: true
         - id: carr_01HZX9K2QF
           name: PostNord
           carrierSlug: postnord
@@ -8328,6 +8342,8 @@ components:
           deprecated: true
           deprecationMessage: The standalone Instabox API is deprecated. Migrate to
             the Instabee-powered Instabox integration.
+          generatesCustomsDocuments: true
+          generatesCommercialInvoice: true
         total: 137
         page: 1
         limit: 20
@@ -16187,6 +16203,8 @@ components:
         deprecated: true
         deprecationMessage: The standalone Instabox API is deprecated. Migrate to
           the Instabee-powered Instabox integration.
+        generatesCustomsDocuments: true
+        generatesCommercialInvoice: true
       properties:
         name:
           description: Display name of the carrier
@@ -16237,6 +16255,16 @@ components:
           example: The standalone Instabox API is deprecated. Migrate to the Instabee-powered
             Instabox integration.
           type: string
+        generatesCustomsDocuments:
+          description: Whether the carrier produces the customs declaration (CN22/CN23)
+            itself and returns it with the label.
+          example: true
+          type: boolean
+        generatesCommercialInvoice:
+          description: "Whether the carrier produces the commercial invoice itself\
+            \ and returns it with the label, e.g. via electronic trade documents."
+          example: true
+          type: boolean
       required:
       - name
       - slug

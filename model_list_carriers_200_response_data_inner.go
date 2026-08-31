@@ -46,6 +46,10 @@ type ListCarriers200ResponseDataInner struct {
 	Deprecated *bool `json:"deprecated,omitempty"`
 	// Guidance shown alongside the deprecated tag (e.g. what to migrate to)
 	DeprecationMessage *string `json:"deprecationMessage,omitempty"`
+	// Whether the carrier produces the customs declaration (CN22/CN23) itself and returns it with the label.
+	GeneratesCustomsDocuments *bool `json:"generatesCustomsDocuments,omitempty"`
+	// Whether the carrier produces the commercial invoice itself and returns it with the label, e.g. via electronic trade documents.
+	GeneratesCommercialInvoice *bool `json:"generatesCommercialInvoice,omitempty"`
 }
 
 type _ListCarriers200ResponseDataInner ListCarriers200ResponseDataInner
@@ -397,6 +401,70 @@ func (o *ListCarriers200ResponseDataInner) SetDeprecationMessage(v string) {
 	o.DeprecationMessage = &v
 }
 
+// GetGeneratesCustomsDocuments returns the GeneratesCustomsDocuments field value if set, zero value otherwise.
+func (o *ListCarriers200ResponseDataInner) GetGeneratesCustomsDocuments() bool {
+	if o == nil || IsNil(o.GeneratesCustomsDocuments) {
+		var ret bool
+		return ret
+	}
+	return *o.GeneratesCustomsDocuments
+}
+
+// GetGeneratesCustomsDocumentsOk returns a tuple with the GeneratesCustomsDocuments field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ListCarriers200ResponseDataInner) GetGeneratesCustomsDocumentsOk() (*bool, bool) {
+	if o == nil || IsNil(o.GeneratesCustomsDocuments) {
+		return nil, false
+	}
+	return o.GeneratesCustomsDocuments, true
+}
+
+// HasGeneratesCustomsDocuments returns a boolean if a field has been set.
+func (o *ListCarriers200ResponseDataInner) HasGeneratesCustomsDocuments() bool {
+	if o != nil && !IsNil(o.GeneratesCustomsDocuments) {
+		return true
+	}
+
+	return false
+}
+
+// SetGeneratesCustomsDocuments gets a reference to the given bool and assigns it to the GeneratesCustomsDocuments field.
+func (o *ListCarriers200ResponseDataInner) SetGeneratesCustomsDocuments(v bool) {
+	o.GeneratesCustomsDocuments = &v
+}
+
+// GetGeneratesCommercialInvoice returns the GeneratesCommercialInvoice field value if set, zero value otherwise.
+func (o *ListCarriers200ResponseDataInner) GetGeneratesCommercialInvoice() bool {
+	if o == nil || IsNil(o.GeneratesCommercialInvoice) {
+		var ret bool
+		return ret
+	}
+	return *o.GeneratesCommercialInvoice
+}
+
+// GetGeneratesCommercialInvoiceOk returns a tuple with the GeneratesCommercialInvoice field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ListCarriers200ResponseDataInner) GetGeneratesCommercialInvoiceOk() (*bool, bool) {
+	if o == nil || IsNil(o.GeneratesCommercialInvoice) {
+		return nil, false
+	}
+	return o.GeneratesCommercialInvoice, true
+}
+
+// HasGeneratesCommercialInvoice returns a boolean if a field has been set.
+func (o *ListCarriers200ResponseDataInner) HasGeneratesCommercialInvoice() bool {
+	if o != nil && !IsNil(o.GeneratesCommercialInvoice) {
+		return true
+	}
+
+	return false
+}
+
+// SetGeneratesCommercialInvoice gets a reference to the given bool and assigns it to the GeneratesCommercialInvoice field.
+func (o *ListCarriers200ResponseDataInner) SetGeneratesCommercialInvoice(v bool) {
+	o.GeneratesCommercialInvoice = &v
+}
+
 func (o ListCarriers200ResponseDataInner) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -426,6 +494,12 @@ func (o ListCarriers200ResponseDataInner) ToMap() (map[string]interface{}, error
 	}
 	if !IsNil(o.DeprecationMessage) {
 		toSerialize["deprecationMessage"] = o.DeprecationMessage
+	}
+	if !IsNil(o.GeneratesCustomsDocuments) {
+		toSerialize["generatesCustomsDocuments"] = o.GeneratesCustomsDocuments
+	}
+	if !IsNil(o.GeneratesCommercialInvoice) {
+		toSerialize["generatesCommercialInvoice"] = o.GeneratesCommercialInvoice
 	}
 	return toSerialize, nil
 }

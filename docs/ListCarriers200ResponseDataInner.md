@@ -16,6 +16,8 @@ Name | Type | Description | Notes
 **BrandColor** | Pointer to **string** | Carrier brand color (hex) | [optional] 
 **Deprecated** | Pointer to **bool** | Whether this carrier integration is deprecated (still works, but discouraged) | [optional] 
 **DeprecationMessage** | Pointer to **string** | Guidance shown alongside the deprecated tag (e.g. what to migrate to) | [optional] 
+**GeneratesCustomsDocuments** | Pointer to **bool** | Whether the carrier produces the customs declaration (CN22/CN23) itself and returns it with the label. | [optional] 
+**GeneratesCommercialInvoice** | Pointer to **bool** | Whether the carrier produces the commercial invoice itself and returns it with the label, e.g. via electronic trade documents. | [optional] 
 
 ## Methods
 
@@ -305,6 +307,56 @@ SetDeprecationMessage sets DeprecationMessage field to given value.
 `func (o *ListCarriers200ResponseDataInner) HasDeprecationMessage() bool`
 
 HasDeprecationMessage returns a boolean if a field has been set.
+
+### GetGeneratesCustomsDocuments
+
+`func (o *ListCarriers200ResponseDataInner) GetGeneratesCustomsDocuments() bool`
+
+GetGeneratesCustomsDocuments returns the GeneratesCustomsDocuments field if non-nil, zero value otherwise.
+
+### GetGeneratesCustomsDocumentsOk
+
+`func (o *ListCarriers200ResponseDataInner) GetGeneratesCustomsDocumentsOk() (*bool, bool)`
+
+GetGeneratesCustomsDocumentsOk returns a tuple with the GeneratesCustomsDocuments field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGeneratesCustomsDocuments
+
+`func (o *ListCarriers200ResponseDataInner) SetGeneratesCustomsDocuments(v bool)`
+
+SetGeneratesCustomsDocuments sets GeneratesCustomsDocuments field to given value.
+
+### HasGeneratesCustomsDocuments
+
+`func (o *ListCarriers200ResponseDataInner) HasGeneratesCustomsDocuments() bool`
+
+HasGeneratesCustomsDocuments returns a boolean if a field has been set.
+
+### GetGeneratesCommercialInvoice
+
+`func (o *ListCarriers200ResponseDataInner) GetGeneratesCommercialInvoice() bool`
+
+GetGeneratesCommercialInvoice returns the GeneratesCommercialInvoice field if non-nil, zero value otherwise.
+
+### GetGeneratesCommercialInvoiceOk
+
+`func (o *ListCarriers200ResponseDataInner) GetGeneratesCommercialInvoiceOk() (*bool, bool)`
+
+GetGeneratesCommercialInvoiceOk returns a tuple with the GeneratesCommercialInvoice field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGeneratesCommercialInvoice
+
+`func (o *ListCarriers200ResponseDataInner) SetGeneratesCommercialInvoice(v bool)`
+
+SetGeneratesCommercialInvoice sets GeneratesCommercialInvoice field to given value.
+
+### HasGeneratesCommercialInvoice
+
+`func (o *ListCarriers200ResponseDataInner) HasGeneratesCommercialInvoice() bool`
+
+HasGeneratesCommercialInvoice returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
