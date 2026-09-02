@@ -15,6 +15,8 @@ Name | Type | Description | Notes
 **TotalAmount** | Pointer to **NullableFloat32** | Order grand total. | [optional] 
 **Currency** | Pointer to **NullableString** | ISO 4217 currency code. | [optional] 
 **Notes** | Pointer to **NullableString** | Free-form internal notes. | [optional] 
+**ShippingRuleId** | Pointer to **NullableString** | Shipping rule to ship this order with. When set, a shipment is created immediately (and dispatched if the channel has autoShipOnCreate enabled). | [optional] 
+**ShippingMethodTitle** | Pointer to **NullableString** | Shipping-method title from the source checkout; matched against the order channel&#39;s shipping-method mappings to pick a shipping rule. | [optional] 
 **ExternalData** | Pointer to **map[string]interface{}** | Raw platform-specific payload for reference. | [optional] 
 
 ## Methods
@@ -376,6 +378,76 @@ HasNotes returns a boolean if a field has been set.
 `func (o *CreateOrderRequest) UnsetNotes()`
 
 UnsetNotes ensures that no value is present for Notes, not even an explicit nil
+### GetShippingRuleId
+
+`func (o *CreateOrderRequest) GetShippingRuleId() string`
+
+GetShippingRuleId returns the ShippingRuleId field if non-nil, zero value otherwise.
+
+### GetShippingRuleIdOk
+
+`func (o *CreateOrderRequest) GetShippingRuleIdOk() (*string, bool)`
+
+GetShippingRuleIdOk returns a tuple with the ShippingRuleId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetShippingRuleId
+
+`func (o *CreateOrderRequest) SetShippingRuleId(v string)`
+
+SetShippingRuleId sets ShippingRuleId field to given value.
+
+### HasShippingRuleId
+
+`func (o *CreateOrderRequest) HasShippingRuleId() bool`
+
+HasShippingRuleId returns a boolean if a field has been set.
+
+### SetShippingRuleIdNil
+
+`func (o *CreateOrderRequest) SetShippingRuleIdNil(b bool)`
+
+ SetShippingRuleIdNil sets the value for ShippingRuleId to be an explicit nil
+
+### UnsetShippingRuleId
+`func (o *CreateOrderRequest) UnsetShippingRuleId()`
+
+UnsetShippingRuleId ensures that no value is present for ShippingRuleId, not even an explicit nil
+### GetShippingMethodTitle
+
+`func (o *CreateOrderRequest) GetShippingMethodTitle() string`
+
+GetShippingMethodTitle returns the ShippingMethodTitle field if non-nil, zero value otherwise.
+
+### GetShippingMethodTitleOk
+
+`func (o *CreateOrderRequest) GetShippingMethodTitleOk() (*string, bool)`
+
+GetShippingMethodTitleOk returns a tuple with the ShippingMethodTitle field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetShippingMethodTitle
+
+`func (o *CreateOrderRequest) SetShippingMethodTitle(v string)`
+
+SetShippingMethodTitle sets ShippingMethodTitle field to given value.
+
+### HasShippingMethodTitle
+
+`func (o *CreateOrderRequest) HasShippingMethodTitle() bool`
+
+HasShippingMethodTitle returns a boolean if a field has been set.
+
+### SetShippingMethodTitleNil
+
+`func (o *CreateOrderRequest) SetShippingMethodTitleNil(b bool)`
+
+ SetShippingMethodTitleNil sets the value for ShippingMethodTitle to be an explicit nil
+
+### UnsetShippingMethodTitle
+`func (o *CreateOrderRequest) UnsetShippingMethodTitle()`
+
+UnsetShippingMethodTitle ensures that no value is present for ShippingMethodTitle, not even an explicit nil
 ### GetExternalData
 
 `func (o *CreateOrderRequest) GetExternalData() map[string]interface{}`

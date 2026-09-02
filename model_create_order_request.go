@@ -43,6 +43,10 @@ type CreateOrderRequest struct {
 	Currency NullableString `json:"currency,omitempty"`
 	// Free-form internal notes.
 	Notes NullableString `json:"notes,omitempty"`
+	// Shipping rule to ship this order with. When set, a shipment is created immediately (and dispatched if the channel has autoShipOnCreate enabled).
+	ShippingRuleId NullableString `json:"shippingRuleId,omitempty"`
+	// Shipping-method title from the source checkout; matched against the order channel's shipping-method mappings to pick a shipping rule.
+	ShippingMethodTitle NullableString `json:"shippingMethodTitle,omitempty"`
 	// Raw platform-specific payload for reference.
 	ExternalData map[string]interface{} `json:"externalData,omitempty"`
 }
@@ -477,6 +481,90 @@ func (o *CreateOrderRequest) UnsetNotes() {
 	o.Notes.Unset()
 }
 
+// GetShippingRuleId returns the ShippingRuleId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateOrderRequest) GetShippingRuleId() string {
+	if o == nil || IsNil(o.ShippingRuleId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.ShippingRuleId.Get()
+}
+
+// GetShippingRuleIdOk returns a tuple with the ShippingRuleId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateOrderRequest) GetShippingRuleIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ShippingRuleId.Get(), o.ShippingRuleId.IsSet()
+}
+
+// HasShippingRuleId returns a boolean if a field has been set.
+func (o *CreateOrderRequest) HasShippingRuleId() bool {
+	if o != nil && o.ShippingRuleId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetShippingRuleId gets a reference to the given NullableString and assigns it to the ShippingRuleId field.
+func (o *CreateOrderRequest) SetShippingRuleId(v string) {
+	o.ShippingRuleId.Set(&v)
+}
+// SetShippingRuleIdNil sets the value for ShippingRuleId to be an explicit nil
+func (o *CreateOrderRequest) SetShippingRuleIdNil() {
+	o.ShippingRuleId.Set(nil)
+}
+
+// UnsetShippingRuleId ensures that no value is present for ShippingRuleId, not even an explicit nil
+func (o *CreateOrderRequest) UnsetShippingRuleId() {
+	o.ShippingRuleId.Unset()
+}
+
+// GetShippingMethodTitle returns the ShippingMethodTitle field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateOrderRequest) GetShippingMethodTitle() string {
+	if o == nil || IsNil(o.ShippingMethodTitle.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.ShippingMethodTitle.Get()
+}
+
+// GetShippingMethodTitleOk returns a tuple with the ShippingMethodTitle field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateOrderRequest) GetShippingMethodTitleOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ShippingMethodTitle.Get(), o.ShippingMethodTitle.IsSet()
+}
+
+// HasShippingMethodTitle returns a boolean if a field has been set.
+func (o *CreateOrderRequest) HasShippingMethodTitle() bool {
+	if o != nil && o.ShippingMethodTitle.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetShippingMethodTitle gets a reference to the given NullableString and assigns it to the ShippingMethodTitle field.
+func (o *CreateOrderRequest) SetShippingMethodTitle(v string) {
+	o.ShippingMethodTitle.Set(&v)
+}
+// SetShippingMethodTitleNil sets the value for ShippingMethodTitle to be an explicit nil
+func (o *CreateOrderRequest) SetShippingMethodTitleNil() {
+	o.ShippingMethodTitle.Set(nil)
+}
+
+// UnsetShippingMethodTitle ensures that no value is present for ShippingMethodTitle, not even an explicit nil
+func (o *CreateOrderRequest) UnsetShippingMethodTitle() {
+	o.ShippingMethodTitle.Unset()
+}
+
 // GetExternalData returns the ExternalData field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateOrderRequest) GetExternalData() map[string]interface{} {
 	if o == nil {
@@ -546,6 +634,12 @@ func (o CreateOrderRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if o.Notes.IsSet() {
 		toSerialize["notes"] = o.Notes.Get()
+	}
+	if o.ShippingRuleId.IsSet() {
+		toSerialize["shippingRuleId"] = o.ShippingRuleId.Get()
+	}
+	if o.ShippingMethodTitle.IsSet() {
+		toSerialize["shippingMethodTitle"] = o.ShippingMethodTitle.Get()
 	}
 	if o.ExternalData != nil {
 		toSerialize["externalData"] = o.ExternalData

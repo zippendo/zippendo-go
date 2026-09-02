@@ -5244,6 +5244,12 @@ paths:
               schema:
                 $ref: "#/components/schemas/listApiTokens_401_response"
           description: Default Response
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
       summary: Create order
       tags:
       - Orders
@@ -5547,6 +5553,773 @@ paths:
 
           Zippendo.configure { |c| c.access_token = ENV["ZIPPENDO_API_TOKEN"] }
           result = Zippendo::OrdersApi.new.update_order("...", "...", Zippendo::UpdateOrderRequest.new)
+  /orgs/{orgId}/order-channels:
+    get:
+      description: Returns a paginated list of order channels for an organization.
+      operationId: listOrderChannels
+      parameters:
+      - description: Page number (1-based)
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 1
+          example: 1
+          maximum: 9007199254740991
+          minimum: 1
+          type: integer
+        style: form
+      - description: Items per page (max 100)
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 20
+          example: 20
+          maximum: 100
+          minimum: 1
+          type: integer
+        style: form
+      - description: "Filter by brand. Pass a brand ID, or \"none\" for records not\
+          \ assigned to any brand."
+        explode: true
+        in: query
+        name: brandId
+        required: false
+        schema:
+          example: brnd_8f3kd92ld0
+          type: string
+        style: form
+      - description: "How the brand context narrows this list: \"own\" returns only\
+          \ rows assigned to the current brand (requires a brand session, a brand-bound\
+          \ token, or the X-Zippendo-Brand header), \"shared\" returns only unassigned\
+          \ organization-wide rows, \"both\" (default) returns both. The X-Zippendo-Brand-Scope\
+          \ header supplies a default when the parameter is omitted. For strictly\
+          \ brand-owned records (orders, shipments), a brand-scoped request combined\
+          \ with \"shared\" returns no rows, since those records are never visible\
+          \ organization-wide from within a brand context."
+        explode: true
+        in: query
+        name: brandScope
+        required: false
+        schema:
+          enum:
+          - own
+          - shared
+          - both
+          example: own
+          type: string
+        style: form
+      - description: Filter by channel type.
+        explode: true
+        in: query
+        name: type
+        required: false
+        schema:
+          enum:
+          - shopify
+          - woocommerce
+          - manual
+          - custom
+          example: shopify
+          type: string
+        style: form
+      - description: Filter by enabled state.
+        explode: true
+        in: query
+        name: enabled
+        required: false
+        schema:
+          example: "true"
+          type: string
+        style: form
+      - description: Search by channel name.
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          example: Anna's Shopify Store
+          type: string
+        style: form
+      - description: Organization ID
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          example: org_8f3kd92ld0
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listOrderChannels_200_response"
+          description: Default Response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+      summary: List order channels
+      tags:
+      - Order Channels
+      x-codeSamples:
+      - lang: typescript
+        label: TypeScript
+        source: |-
+          import { Configuration, OrderChannelsApi } from "@zippendo/sdk"
+
+          const api = new OrderChannelsApi(new Configuration({ accessToken: process.env.ZIPPENDO_API_TOKEN }))
+          const result = await api.listOrderChannels({ orgId: "..." })
+      - lang: python
+        label: Python
+        source: |-
+          import os
+          import zippendo
+
+          config = zippendo.Configuration(access_token=os.environ["ZIPPENDO_API_TOKEN"])
+          with zippendo.ApiClient(config) as client:
+              result = zippendo.OrderChannelsApi(client).list_order_channels("...")
+      - lang: php
+        label: PHP
+        source: |-
+          <?php
+          $config = Zippendo\Sdk\Configuration::getDefaultConfiguration()->setAccessToken(getenv("ZIPPENDO_API_TOKEN"));
+          $api = new Zippendo\Sdk\Api\OrderChannelsApi(new GuzzleHttp\Client(), $config);
+          $result = $api->listOrderChannels("...");
+      - lang: go
+        label: Go
+        source: |-
+          client := zippendo.NewAPIClient(zippendo.NewConfiguration())
+          ctx := context.WithValue(context.Background(), zippendo.ContextAccessToken, os.Getenv("ZIPPENDO_API_TOKEN"))
+          result, _, err := client.OrderChannelsAPI.ListOrderChannels(ctx, "...").Execute()
+      - lang: ruby
+        label: Ruby
+        source: |-
+          require "zippendo"
+
+          Zippendo.configure { |c| c.access_token = ENV["ZIPPENDO_API_TOKEN"] }
+          result = Zippendo::OrderChannelsApi.new.list_order_channels("...")
+    post:
+      description: Creates a new order channel for an organization.
+      operationId: createOrderChannel
+      parameters:
+      - description: Organization ID
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          example: org_8f3kd92ld0
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createOrderChannel_request"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listOrderChannels_200_response_data_inner"
+          description: Default Response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+      summary: Create order channel
+      tags:
+      - Order Channels
+      x-codeSamples:
+      - lang: typescript
+        label: TypeScript
+        source: |-
+          import { Configuration, OrderChannelsApi } from "@zippendo/sdk"
+
+          const api = new OrderChannelsApi(new Configuration({ accessToken: process.env.ZIPPENDO_API_TOKEN }))
+          const result = await api.createOrderChannel({ orgId: "...", createOrderChannelRequest: { /* ... */ } })
+      - lang: python
+        label: Python
+        source: |-
+          import os
+          import zippendo
+
+          config = zippendo.Configuration(access_token=os.environ["ZIPPENDO_API_TOKEN"])
+          with zippendo.ApiClient(config) as client:
+              result = zippendo.OrderChannelsApi(client).create_order_channel("...", zippendo.CreateOrderChannelRequest())
+      - lang: php
+        label: PHP
+        source: |-
+          <?php
+          $config = Zippendo\Sdk\Configuration::getDefaultConfiguration()->setAccessToken(getenv("ZIPPENDO_API_TOKEN"));
+          $api = new Zippendo\Sdk\Api\OrderChannelsApi(new GuzzleHttp\Client(), $config);
+          $result = $api->createOrderChannel("...", new \Zippendo\Sdk\Model\CreateOrderChannelRequest([]));
+      - lang: go
+        label: Go
+        source: |-
+          client := zippendo.NewAPIClient(zippendo.NewConfiguration())
+          ctx := context.WithValue(context.Background(), zippendo.ContextAccessToken, os.Getenv("ZIPPENDO_API_TOKEN"))
+          result, _, err := client.OrderChannelsAPI.CreateOrderChannel(ctx, "...").CreateOrderChannelRequest(*zippendo.NewCreateOrderChannelRequest()).Execute()
+      - lang: ruby
+        label: Ruby
+        source: |-
+          require "zippendo"
+
+          Zippendo.configure { |c| c.access_token = ENV["ZIPPENDO_API_TOKEN"] }
+          result = Zippendo::OrderChannelsApi.new.create_order_channel("...", Zippendo::CreateOrderChannelRequest.new)
+  /orgs/{orgId}/order-channels/{channelId}:
+    delete:
+      description: Deletes an order channel and cascades deletion of its orders.
+      operationId: deleteOrderChannel
+      parameters:
+      - description: Organization ID.
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          example: clz9k2f0a0000abcd0000zzzz
+          type: string
+        style: simple
+      - description: Order channel ID.
+        explode: false
+        in: path
+        name: channelId
+        required: true
+        schema:
+          example: clz9k2f0a0001abcd1234efgh
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/revokeApiToken_200_response"
+          description: Default Response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+      summary: Delete order channel
+      tags:
+      - Order Channels
+      x-codeSamples:
+      - lang: typescript
+        label: TypeScript
+        source: |-
+          import { Configuration, OrderChannelsApi } from "@zippendo/sdk"
+
+          const api = new OrderChannelsApi(new Configuration({ accessToken: process.env.ZIPPENDO_API_TOKEN }))
+          const result = await api.deleteOrderChannel({ orgId: "...", channelId: "..." })
+      - lang: python
+        label: Python
+        source: |-
+          import os
+          import zippendo
+
+          config = zippendo.Configuration(access_token=os.environ["ZIPPENDO_API_TOKEN"])
+          with zippendo.ApiClient(config) as client:
+              result = zippendo.OrderChannelsApi(client).delete_order_channel("...", "...")
+      - lang: php
+        label: PHP
+        source: |-
+          <?php
+          $config = Zippendo\Sdk\Configuration::getDefaultConfiguration()->setAccessToken(getenv("ZIPPENDO_API_TOKEN"));
+          $api = new Zippendo\Sdk\Api\OrderChannelsApi(new GuzzleHttp\Client(), $config);
+          $result = $api->deleteOrderChannel("...", "...");
+      - lang: go
+        label: Go
+        source: |-
+          client := zippendo.NewAPIClient(zippendo.NewConfiguration())
+          ctx := context.WithValue(context.Background(), zippendo.ContextAccessToken, os.Getenv("ZIPPENDO_API_TOKEN"))
+          result, _, err := client.OrderChannelsAPI.DeleteOrderChannel(ctx, "...", "...").Execute()
+      - lang: ruby
+        label: Ruby
+        source: |-
+          require "zippendo"
+
+          Zippendo.configure { |c| c.access_token = ENV["ZIPPENDO_API_TOKEN"] }
+          result = Zippendo::OrderChannelsApi.new.delete_order_channel("...", "...")
+    get:
+      description: "Returns a single order channel by ID, including its linked shipping\
+        \ rules."
+      operationId: getOrderChannel
+      parameters:
+      - description: Organization ID.
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          example: clz9k2f0a0000abcd0000zzzz
+          type: string
+        style: simple
+      - description: Order channel ID.
+        explode: false
+        in: path
+        name: channelId
+        required: true
+        schema:
+          example: clz9k2f0a0001abcd1234efgh
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listOrderChannels_200_response_data_inner"
+          description: Default Response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+      summary: Get order channel
+      tags:
+      - Order Channels
+      x-codeSamples:
+      - lang: typescript
+        label: TypeScript
+        source: |-
+          import { Configuration, OrderChannelsApi } from "@zippendo/sdk"
+
+          const api = new OrderChannelsApi(new Configuration({ accessToken: process.env.ZIPPENDO_API_TOKEN }))
+          const result = await api.getOrderChannel({ orgId: "...", channelId: "..." })
+      - lang: python
+        label: Python
+        source: |-
+          import os
+          import zippendo
+
+          config = zippendo.Configuration(access_token=os.environ["ZIPPENDO_API_TOKEN"])
+          with zippendo.ApiClient(config) as client:
+              result = zippendo.OrderChannelsApi(client).get_order_channel("...", "...")
+      - lang: php
+        label: PHP
+        source: |-
+          <?php
+          $config = Zippendo\Sdk\Configuration::getDefaultConfiguration()->setAccessToken(getenv("ZIPPENDO_API_TOKEN"));
+          $api = new Zippendo\Sdk\Api\OrderChannelsApi(new GuzzleHttp\Client(), $config);
+          $result = $api->getOrderChannel("...", "...");
+      - lang: go
+        label: Go
+        source: |-
+          client := zippendo.NewAPIClient(zippendo.NewConfiguration())
+          ctx := context.WithValue(context.Background(), zippendo.ContextAccessToken, os.Getenv("ZIPPENDO_API_TOKEN"))
+          result, _, err := client.OrderChannelsAPI.GetOrderChannel(ctx, "...", "...").Execute()
+      - lang: ruby
+        label: Ruby
+        source: |-
+          require "zippendo"
+
+          Zippendo.configure { |c| c.access_token = ENV["ZIPPENDO_API_TOKEN"] }
+          result = Zippendo::OrderChannelsApi.new.get_order_channel("...", "...")
+    patch:
+      description: Updates an order channel and its linked shipping rules.
+      operationId: updateOrderChannel
+      parameters:
+      - description: Organization ID.
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          example: clz9k2f0a0000abcd0000zzzz
+          type: string
+        style: simple
+      - description: Order channel ID.
+        explode: false
+        in: path
+        name: channelId
+        required: true
+        schema:
+          example: clz9k2f0a0001abcd1234efgh
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/updateOrderChannel_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listOrderChannels_200_response_data_inner"
+          description: Default Response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+      summary: Update order channel
+      tags:
+      - Order Channels
+      x-codeSamples:
+      - lang: typescript
+        label: TypeScript
+        source: |-
+          import { Configuration, OrderChannelsApi } from "@zippendo/sdk"
+
+          const api = new OrderChannelsApi(new Configuration({ accessToken: process.env.ZIPPENDO_API_TOKEN }))
+          const result = await api.updateOrderChannel({ orgId: "...", channelId: "...", updateOrderChannelRequest: { /* ... */ } })
+      - lang: python
+        label: Python
+        source: |-
+          import os
+          import zippendo
+
+          config = zippendo.Configuration(access_token=os.environ["ZIPPENDO_API_TOKEN"])
+          with zippendo.ApiClient(config) as client:
+              result = zippendo.OrderChannelsApi(client).update_order_channel("...", "...", zippendo.UpdateOrderChannelRequest())
+      - lang: php
+        label: PHP
+        source: |-
+          <?php
+          $config = Zippendo\Sdk\Configuration::getDefaultConfiguration()->setAccessToken(getenv("ZIPPENDO_API_TOKEN"));
+          $api = new Zippendo\Sdk\Api\OrderChannelsApi(new GuzzleHttp\Client(), $config);
+          $result = $api->updateOrderChannel("...", "...", new \Zippendo\Sdk\Model\UpdateOrderChannelRequest([]));
+      - lang: go
+        label: Go
+        source: |-
+          client := zippendo.NewAPIClient(zippendo.NewConfiguration())
+          ctx := context.WithValue(context.Background(), zippendo.ContextAccessToken, os.Getenv("ZIPPENDO_API_TOKEN"))
+          result, _, err := client.OrderChannelsAPI.UpdateOrderChannel(ctx, "...", "...").UpdateOrderChannelRequest(*zippendo.NewUpdateOrderChannelRequest()).Execute()
+      - lang: ruby
+        label: Ruby
+        source: |-
+          require "zippendo"
+
+          Zippendo.configure { |c| c.access_token = ENV["ZIPPENDO_API_TOKEN"] }
+          result = Zippendo::OrderChannelsApi.new.update_order_channel("...", "...", Zippendo::UpdateOrderChannelRequest.new)
+  /orgs/{orgId}/order-channels/{channelId}/webhooks:
+    get:
+      description: Returns whether webhooks are enabled and lists the webhooks registered
+        with the platform.
+      operationId: getOrderChannelWebhookStatus
+      parameters:
+      - description: Organization ID.
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          example: clz9k2f0a0000abcd0000zzzz
+          type: string
+        style: simple
+      - description: Order channel ID.
+        explode: false
+        in: path
+        name: channelId
+        required: true
+        schema:
+          example: clz9k2f0a0001abcd1234efgh
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/getOrderChannelWebhookStatus_200_response"
+          description: Default Response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+      summary: Get channel webhook status
+      tags:
+      - Order Channels
+      x-codeSamples:
+      - lang: typescript
+        label: TypeScript
+        source: |-
+          import { Configuration, OrderChannelsApi } from "@zippendo/sdk"
+
+          const api = new OrderChannelsApi(new Configuration({ accessToken: process.env.ZIPPENDO_API_TOKEN }))
+          const result = await api.getOrderChannelWebhookStatus({ orgId: "...", channelId: "..." })
+      - lang: python
+        label: Python
+        source: |-
+          import os
+          import zippendo
+
+          config = zippendo.Configuration(access_token=os.environ["ZIPPENDO_API_TOKEN"])
+          with zippendo.ApiClient(config) as client:
+              result = zippendo.OrderChannelsApi(client).get_order_channel_webhook_status("...", "...")
+      - lang: php
+        label: PHP
+        source: |-
+          <?php
+          $config = Zippendo\Sdk\Configuration::getDefaultConfiguration()->setAccessToken(getenv("ZIPPENDO_API_TOKEN"));
+          $api = new Zippendo\Sdk\Api\OrderChannelsApi(new GuzzleHttp\Client(), $config);
+          $result = $api->getOrderChannelWebhookStatus("...", "...");
+      - lang: go
+        label: Go
+        source: |-
+          client := zippendo.NewAPIClient(zippendo.NewConfiguration())
+          ctx := context.WithValue(context.Background(), zippendo.ContextAccessToken, os.Getenv("ZIPPENDO_API_TOKEN"))
+          result, _, err := client.OrderChannelsAPI.GetOrderChannelWebhookStatus(ctx, "...", "...").Execute()
+      - lang: ruby
+        label: Ruby
+        source: |-
+          require "zippendo"
+
+          Zippendo.configure { |c| c.access_token = ENV["ZIPPENDO_API_TOKEN"] }
+          result = Zippendo::OrderChannelsApi.new.get_order_channel_webhook_status("...", "...")
+  /orgs/{orgId}/order-channels/{channelId}/webhook-secret:
+    delete:
+      description: Revokes the custom channel's webhook signing secret. All subsequent
+        pushes to the ingest URL are rejected until a new secret is generated.
+      operationId: revokeOrderChannelWebhookSecret
+      parameters:
+      - description: Organization ID.
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          example: clz9k2f0a0000abcd0000zzzz
+          type: string
+        style: simple
+      - description: Order channel ID.
+        explode: false
+        in: path
+        name: channelId
+        required: true
+        schema:
+          example: clz9k2f0a0001abcd1234efgh
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/revokeOrderChannelWebhookSecret_200_response"
+          description: Default Response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+      summary: Revoke webhook signing secret
+      tags:
+      - Order Channels
+      x-codeSamples:
+      - lang: typescript
+        label: TypeScript
+        source: |-
+          import { Configuration, OrderChannelsApi } from "@zippendo/sdk"
+
+          const api = new OrderChannelsApi(new Configuration({ accessToken: process.env.ZIPPENDO_API_TOKEN }))
+          const result = await api.revokeOrderChannelWebhookSecret({ orgId: "...", channelId: "..." })
+      - lang: python
+        label: Python
+        source: |-
+          import os
+          import zippendo
+
+          config = zippendo.Configuration(access_token=os.environ["ZIPPENDO_API_TOKEN"])
+          with zippendo.ApiClient(config) as client:
+              result = zippendo.OrderChannelsApi(client).revoke_order_channel_webhook_secret("...", "...")
+      - lang: php
+        label: PHP
+        source: |-
+          <?php
+          $config = Zippendo\Sdk\Configuration::getDefaultConfiguration()->setAccessToken(getenv("ZIPPENDO_API_TOKEN"));
+          $api = new Zippendo\Sdk\Api\OrderChannelsApi(new GuzzleHttp\Client(), $config);
+          $result = $api->revokeOrderChannelWebhookSecret("...", "...");
+      - lang: go
+        label: Go
+        source: |-
+          client := zippendo.NewAPIClient(zippendo.NewConfiguration())
+          ctx := context.WithValue(context.Background(), zippendo.ContextAccessToken, os.Getenv("ZIPPENDO_API_TOKEN"))
+          result, _, err := client.OrderChannelsAPI.RevokeOrderChannelWebhookSecret(ctx, "...", "...").Execute()
+      - lang: ruby
+        label: Ruby
+        source: |-
+          require "zippendo"
+
+          Zippendo.configure { |c| c.access_token = ENV["ZIPPENDO_API_TOKEN"] }
+          result = Zippendo::OrderChannelsApi.new.revoke_order_channel_webhook_secret("...", "...")
+    post:
+      description: Generates (or rotates) the custom channel's webhook signing secret
+        used to authenticate order pushes to the ingest URL. The secret is returned
+        only once. Rotating invalidates the previous secret immediately.
+      operationId: createOrderChannelWebhookSecret
+      parameters:
+      - description: Organization ID.
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          example: clz9k2f0a0000abcd0000zzzz
+          type: string
+        style: simple
+      - description: Order channel ID.
+        explode: false
+        in: path
+        name: channelId
+        required: true
+        schema:
+          example: clz9k2f0a0001abcd1234efgh
+          type: string
+        style: simple
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/createOrderChannelWebhookSecret_201_response"
+          description: Default Response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+      summary: Create or rotate webhook signing secret
+      tags:
+      - Order Channels
+      x-codeSamples:
+      - lang: typescript
+        label: TypeScript
+        source: |-
+          import { Configuration, OrderChannelsApi } from "@zippendo/sdk"
+
+          const api = new OrderChannelsApi(new Configuration({ accessToken: process.env.ZIPPENDO_API_TOKEN }))
+          const result = await api.createOrderChannelWebhookSecret({ orgId: "...", channelId: "..." })
+      - lang: python
+        label: Python
+        source: |-
+          import os
+          import zippendo
+
+          config = zippendo.Configuration(access_token=os.environ["ZIPPENDO_API_TOKEN"])
+          with zippendo.ApiClient(config) as client:
+              result = zippendo.OrderChannelsApi(client).create_order_channel_webhook_secret("...", "...")
+      - lang: php
+        label: PHP
+        source: |-
+          <?php
+          $config = Zippendo\Sdk\Configuration::getDefaultConfiguration()->setAccessToken(getenv("ZIPPENDO_API_TOKEN"));
+          $api = new Zippendo\Sdk\Api\OrderChannelsApi(new GuzzleHttp\Client(), $config);
+          $result = $api->createOrderChannelWebhookSecret("...", "...");
+      - lang: go
+        label: Go
+        source: |-
+          client := zippendo.NewAPIClient(zippendo.NewConfiguration())
+          ctx := context.WithValue(context.Background(), zippendo.ContextAccessToken, os.Getenv("ZIPPENDO_API_TOKEN"))
+          result, _, err := client.OrderChannelsAPI.CreateOrderChannelWebhookSecret(ctx, "...", "...").Execute()
+      - lang: ruby
+        label: Ruby
+        source: |-
+          require "zippendo"
+
+          Zippendo.configure { |c| c.access_token = ENV["ZIPPENDO_API_TOKEN"] }
+          result = Zippendo::OrderChannelsApi.new.create_order_channel_webhook_secret("...", "...")
   /orgs/{orgId}/available-carriers:
     get:
       description: "Returns the carriers available to connect, as supported by the\
@@ -6722,6 +7495,7 @@ components:
           - SHIPPING_RULE_INVALID
           - ADDRESS_NOT_FOUND
           - ORDER_NOT_FOUND
+          - ORDER_EXISTS
           - ORDER_CHANNEL_NOT_FOUND
           - ORDER_CHANNEL_CONFIG_INVALID
           - INTEGRATION_NOT_CONFIGURED
@@ -12816,6 +13590,7 @@ components:
           - SHIPPING_RULE_INVALID
           - ADDRESS_NOT_FOUND
           - ORDER_NOT_FOUND
+          - ORDER_EXISTS
           - ORDER_CHANNEL_NOT_FOUND
           - ORDER_CHANNEL_CONFIG_INVALID
           - INTEGRATION_NOT_CONFIGURED
@@ -13024,6 +13799,7 @@ components:
           - SHIPPING_RULE_INVALID
           - ADDRESS_NOT_FOUND
           - ORDER_NOT_FOUND
+          - ORDER_EXISTS
           - ORDER_CHANNEL_NOT_FOUND
           - ORDER_CHANNEL_CONFIG_INVALID
           - INTEGRATION_NOT_CONFIGURED
@@ -14710,6 +15486,7 @@ components:
           - shopify
           - woocommerce
           - manual
+          - custom
           example: shopify
           type: string
       required:
@@ -15136,6 +15913,19 @@ components:
         notes:
           description: Free-form internal notes.
           example: Leave at front desk
+          nullable: true
+          type: string
+        shippingRuleId:
+          description: "Shipping rule to ship this order with. When set, a shipment\
+            \ is created immediately (and dispatched if the channel has autoShipOnCreate\
+            \ enabled)."
+          example: clz9k2f0a0007abcd2468qrst
+          nullable: true
+          type: string
+        shippingMethodTitle:
+          description: Shipping-method title from the source checkout; matched against
+            the order channel's shipping-method mappings to pick a shipping rule.
+          example: GLS Hjemmelevering
           nullable: true
           type: string
         externalData:
@@ -16084,6 +16874,809 @@ components:
           example: clz9k2f0a0002abcd5678ijkl
           nullable: true
           type: string
+      type: object
+    listOrderChannels_200_response_data_inner_settings_shippingMethodMappings_inner:
+      additionalProperties: false
+      properties:
+        match:
+          description: "Shipping-method title to match against imported orders (trimmed,\
+            \ case-insensitive, exact)."
+          example: GLS Hjemmelevering
+          minLength: 1
+          type: string
+        shippingRuleId:
+          description: Shipping rule applied to orders whose shipping-method title
+            matches.
+          example: clz9k2f0a0007abcd2468qrst
+          minLength: 1
+          type: string
+        servicePointSelection:
+          description: "For rules whose product delivers to a service point: 'nearest'\
+            \ auto-selects the closest point to the recipient address; 'manual' keeps\
+            \ the shipment in draft for manual selection."
+          enum:
+          - nearest
+          - manual
+          example: nearest
+          type: string
+      required:
+      - match
+      - shippingRuleId
+      type: object
+    listOrderChannels_200_response_data_inner_settings:
+      additionalProperties: false
+      description: Channel settings (webhook secret and checkout token hash omitted).
+      example:
+        useWebhooks: true
+        webhookId: gid://shopify/WebhookSubscription/12345
+        webhookIds:
+        - 12
+        - 13
+        - 14
+        webhookSecretCreatedAt: 2026-06-22T14:30:00Z
+        siteUrl: https://butik.dk
+        autoFulfill: true
+        checkoutTokenCreatedAt: 2026-06-22T14:30:00Z
+        autoSync: false
+        syncIntervalMinutes: 15
+        autoShipOnCreate: false
+        defaultCarrierId: clz9k2f0a0006abcd1357yzab
+        defaultProductId: postnord-home-delivery
+        defaultAddressId: clz9k2f0a0005abcd7890uvwx
+        shippingMethodMappings:
+        - match: GLS Hjemmelevering
+          shippingRuleId: clz9k2f0a0007abcd2468qrst
+        syncOnlyUnfulfilled: true
+        syncOrdersSince: 2026-05-22T00:00:00Z
+        servicePointCount: 6
+      properties:
+        useWebhooks:
+          default: true
+          description: Use webhooks for real-time order sync.
+          example: true
+          type: boolean
+        webhookId:
+          description: External webhook identifier for management.
+          example: gid://shopify/WebhookSubscription/12345
+          nullable: true
+          type: string
+        webhookIds:
+          description: Registered WooCommerce webhook ids.
+          example:
+          - 12
+          - 13
+          - 14
+          items:
+            maximum: 9007199254740991
+            minimum: -9007199254740991
+            type: integer
+          type: array
+        webhookSecretCreatedAt:
+          description: When the custom channel's webhook signing secret was issued.
+            A non-secret signal so clients can show that a secret exists; the secret
+            itself is never returned after creation.
+          example: 2026-06-22T14:30:00Z
+          format: date-time
+          nullable: true
+          pattern: "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\\
+            d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\\
+            d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\\
+            d(?:\\.\\d+)?)?(?:Z))$"
+          type: string
+        siteUrl:
+          description: WooCommerce store URL.
+          example: https://butik.dk
+          format: uri
+          type: string
+        autoFulfill:
+          description: Push tracking back to the platform when a shipment is dispatched.
+            Enabled by default (opt-out) — set to false to disable write-back; an
+            unset value still syncs.
+          example: true
+          type: boolean
+        checkoutTokenCreatedAt:
+          description: When the checkout token was issued (internal; never exposed
+            in API responses).
+          example: 2026-06-22T14:30:00Z
+          format: date-time
+          nullable: true
+          pattern: "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\\
+            d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\\
+            d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\\
+            d(?:\\.\\d+)?)?(?:Z))$"
+          type: string
+        autoSync:
+          default: false
+          description: Periodically poll the channel for new orders.
+          example: false
+          type: boolean
+        syncIntervalMinutes:
+          default: 15
+          description: Polling interval in minutes (5-1440).
+          example: 15
+          maximum: 1440
+          minimum: 5
+          type: integer
+        autoShipOnCreate:
+          default: false
+          description: Create a shipment automatically when an order arrives.
+          example: false
+          type: boolean
+        defaultCarrierId:
+          description: Default carrier ID for auto-shipping.
+          example: clz9k2f0a0006abcd1357yzab
+          nullable: true
+          type: string
+        defaultProductId:
+          description: Default carrier product ID for auto-shipping.
+          example: postnord-home-delivery
+          nullable: true
+          type: string
+        defaultAddressId:
+          description: Default sender address ID for auto-shipping.
+          example: clz9k2f0a0005abcd7890uvwx
+          nullable: true
+          type: string
+        shippingMethodMappings:
+          description: "Map imported shipping-method titles to shipping rules, for\
+            \ channels without checkout rate integration."
+          example:
+          - match: GLS Hjemmelevering
+            shippingRuleId: clz9k2f0a0007abcd2468qrst
+          items:
+            $ref: "#/components/schemas/listOrderChannels_200_response_data_inner_settings_shippingMethodMappings_inner"
+          type: array
+        syncOnlyUnfulfilled:
+          default: true
+          description: Only import orders that are not yet fulfilled.
+          example: true
+          type: boolean
+        syncOrdersSince:
+          description: Only sync orders placed at or after this timestamp.
+          example: 2026-05-22T00:00:00Z
+          format: date-time
+          nullable: true
+          pattern: "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\\
+            d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\\
+            d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\\
+            d(?:\\.\\d+)?)?(?:Z))$"
+          type: string
+        servicePointCount:
+          default: 6
+          description: Number of service points to show at checkout (1-20).
+          example: 6
+          maximum: 20
+          minimum: 1
+          type: integer
+      required:
+      - autoShipOnCreate
+      - autoSync
+      - servicePointCount
+      - syncIntervalMinutes
+      - syncOnlyUnfulfilled
+      - useWebhooks
+      type: object
+    listOrderChannels_200_response_data_inner:
+      additionalProperties: false
+      example:
+        id: clz9k2f0a0001abcd1234efgh
+        name: Anna's Shopify Store
+        type: shopify
+        enabled: true
+        brandId: brnd_8f3kd92ld0
+        hasCredentials: true
+        settings:
+          useWebhooks: true
+          webhookId: gid://shopify/WebhookSubscription/12345
+          webhookIds:
+          - 12
+          - 13
+          - 14
+          webhookSecretCreatedAt: 2026-06-22T14:30:00Z
+          siteUrl: https://butik.dk
+          autoFulfill: true
+          checkoutTokenCreatedAt: 2026-06-22T14:30:00Z
+          autoSync: false
+          syncIntervalMinutes: 15
+          autoShipOnCreate: false
+          defaultCarrierId: clz9k2f0a0006abcd1357yzab
+          defaultProductId: postnord-home-delivery
+          defaultAddressId: clz9k2f0a0005abcd7890uvwx
+          shippingMethodMappings:
+          - match: GLS Hjemmelevering
+            shippingRuleId: clz9k2f0a0007abcd2468qrst
+          syncOnlyUnfulfilled: true
+          syncOrdersSince: 2026-05-22T00:00:00Z
+          servicePointCount: 6
+        webhooksEnabled: true
+        lastSyncAt: 2026-06-22T14:30:00Z
+        lastSyncError: Invalid API credentials
+        shippingRuleIds:
+        - clz9k2f0a0002abcd5678ijkl
+        orgId: clz9k2f0a0000abcd0000zzzz
+        createdAt: 2026-06-22T14:30:00.000Z
+        updatedAt: 2026-06-22T14:30:00.000Z
+      properties:
+        id:
+          description: Unique order channel ID.
+          example: clz9k2f0a0001abcd1234efgh
+          type: string
+        name:
+          description: Display name of the channel.
+          example: Anna's Shopify Store
+          type: string
+        type:
+          description: Type of the order channel (sales platform).
+          enum:
+          - shopify
+          - woocommerce
+          - manual
+          - custom
+          example: shopify
+          type: string
+        enabled:
+          description: Whether the channel is active.
+          example: true
+          type: boolean
+        brandId:
+          description: "Brand this channel belongs to, or null for organization-wide.\
+            \ Orders synced from this channel inherit it, and so do the shipments\
+            \ and documents made from them."
+          example: brnd_8f3kd92ld0
+          nullable: true
+          type: string
+        hasCredentials:
+          description: Whether credentials are configured (values are never exposed).
+          example: true
+          type: boolean
+        settings:
+          $ref: "#/components/schemas/listOrderChannels_200_response_data_inner_settings"
+        webhooksEnabled:
+          description: Whether real-time webhooks are enabled.
+          example: true
+          type: boolean
+        lastSyncAt:
+          description: Timestamp of the last successful sync.
+          example: 2026-06-22T14:30:00Z
+          format: date-time
+          nullable: true
+          pattern: "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\\
+            d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\\
+            d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\\
+            d(?:\\.\\d+)?)?(?:Z))$"
+          type: string
+        lastSyncError:
+          description: Error message from the last failed sync.
+          example: Invalid API credentials
+          nullable: true
+          type: string
+        shippingRuleIds:
+          description: IDs of shipping rules linked to this channel.
+          example:
+          - clz9k2f0a0002abcd5678ijkl
+          items:
+            type: string
+          type: array
+        orgId:
+          description: Owning organization ID.
+          example: clz9k2f0a0000abcd0000zzzz
+          type: string
+        createdAt:
+          description: Creation timestamp (ISO 8601).
+          example: 2026-06-22T14:30:00.000Z
+          type: string
+        updatedAt:
+          description: Last update timestamp (ISO 8601).
+          example: 2026-06-22T14:30:00.000Z
+          type: string
+      required:
+      - brandId
+      - createdAt
+      - enabled
+      - hasCredentials
+      - id
+      - name
+      - orgId
+      - settings
+      - type
+      - updatedAt
+      type: object
+    listOrderChannels_200_response:
+      additionalProperties: false
+      example:
+        data:
+        - id: clz9k2f0a0001abcd1234efgh
+          name: Anna's Shopify Store
+          type: shopify
+          enabled: true
+          brandId: brnd_8f3kd92ld0
+          hasCredentials: true
+          settings:
+            useWebhooks: true
+            webhookId: gid://shopify/WebhookSubscription/12345
+            webhookIds:
+            - 12
+            - 13
+            - 14
+            webhookSecretCreatedAt: 2026-06-22T14:30:00Z
+            siteUrl: https://butik.dk
+            autoFulfill: true
+            checkoutTokenCreatedAt: 2026-06-22T14:30:00Z
+            autoSync: false
+            syncIntervalMinutes: 15
+            autoShipOnCreate: false
+            defaultCarrierId: clz9k2f0a0006abcd1357yzab
+            defaultProductId: postnord-home-delivery
+            defaultAddressId: clz9k2f0a0005abcd7890uvwx
+            shippingMethodMappings:
+            - match: GLS Hjemmelevering
+              shippingRuleId: clz9k2f0a0007abcd2468qrst
+            syncOnlyUnfulfilled: true
+            syncOrdersSince: 2026-05-22T00:00:00Z
+            servicePointCount: 6
+          webhooksEnabled: true
+          lastSyncAt: 2026-06-22T14:30:00Z
+          lastSyncError: Invalid API credentials
+          shippingRuleIds:
+          - clz9k2f0a0002abcd5678ijkl
+          orgId: clz9k2f0a0000abcd0000zzzz
+          createdAt: 2026-06-22T14:30:00.000Z
+          updatedAt: 2026-06-22T14:30:00.000Z
+        - id: clz9k2f0a0001abcd1234efgh
+          name: Anna's Shopify Store
+          type: shopify
+          enabled: true
+          brandId: brnd_8f3kd92ld0
+          hasCredentials: true
+          settings:
+            useWebhooks: true
+            webhookId: gid://shopify/WebhookSubscription/12345
+            webhookIds:
+            - 12
+            - 13
+            - 14
+            webhookSecretCreatedAt: 2026-06-22T14:30:00Z
+            siteUrl: https://butik.dk
+            autoFulfill: true
+            checkoutTokenCreatedAt: 2026-06-22T14:30:00Z
+            autoSync: false
+            syncIntervalMinutes: 15
+            autoShipOnCreate: false
+            defaultCarrierId: clz9k2f0a0006abcd1357yzab
+            defaultProductId: postnord-home-delivery
+            defaultAddressId: clz9k2f0a0005abcd7890uvwx
+            shippingMethodMappings:
+            - match: GLS Hjemmelevering
+              shippingRuleId: clz9k2f0a0007abcd2468qrst
+            syncOnlyUnfulfilled: true
+            syncOrdersSince: 2026-05-22T00:00:00Z
+            servicePointCount: 6
+          webhooksEnabled: true
+          lastSyncAt: 2026-06-22T14:30:00Z
+          lastSyncError: Invalid API credentials
+          shippingRuleIds:
+          - clz9k2f0a0002abcd5678ijkl
+          orgId: clz9k2f0a0000abcd0000zzzz
+          createdAt: 2026-06-22T14:30:00.000Z
+          updatedAt: 2026-06-22T14:30:00.000Z
+        total: 137
+        page: 1
+        limit: 20
+        totalPages: 7
+      properties:
+        data:
+          description: Page of results
+          items:
+            $ref: "#/components/schemas/listOrderChannels_200_response_data_inner"
+          type: array
+        total:
+          description: Total matching items across all pages
+          example: 137
+          type: number
+        page:
+          description: Current page number (1-based)
+          example: 1
+          type: number
+        limit:
+          description: Items per page
+          example: 20
+          type: number
+        totalPages:
+          description: Total number of pages
+          example: 7
+          type: number
+      required:
+      - data
+      - limit
+      - page
+      - total
+      - totalPages
+      type: object
+    createOrderChannel_request_settings_shippingMethodMappings_inner:
+      properties:
+        match:
+          description: "Shipping-method title to match against imported orders (trimmed,\
+            \ case-insensitive, exact)."
+          example: GLS Hjemmelevering
+          minLength: 1
+          type: string
+        shippingRuleId:
+          description: Shipping rule applied to orders whose shipping-method title
+            matches.
+          example: clz9k2f0a0007abcd2468qrst
+          minLength: 1
+          type: string
+        servicePointSelection:
+          description: "For rules whose product delivers to a service point: 'nearest'\
+            \ auto-selects the closest point to the recipient address; 'manual' keeps\
+            \ the shipment in draft for manual selection."
+          enum:
+          - nearest
+          - manual
+          example: nearest
+          type: string
+      required:
+      - match
+      - shippingRuleId
+      type: object
+    createOrderChannel_request_settings:
+      default:
+        useWebhooks: true
+        autoSync: false
+        syncIntervalMinutes: 15
+        autoShipOnCreate: false
+        syncOnlyUnfulfilled: true
+        servicePointCount: 6
+      properties:
+        useWebhooks:
+          default: true
+          description: Use webhooks for real-time order sync.
+          example: true
+          type: boolean
+        siteUrl:
+          description: WooCommerce store URL.
+          example: https://butik.dk
+          format: uri
+          type: string
+        autoFulfill:
+          description: Push tracking back to the platform when a shipment is dispatched.
+            Enabled by default (opt-out) — set to false to disable write-back; an
+            unset value still syncs.
+          example: true
+          type: boolean
+        autoSync:
+          default: false
+          description: Periodically poll the channel for new orders.
+          example: false
+          type: boolean
+        syncIntervalMinutes:
+          default: 15
+          description: Polling interval in minutes (5-1440).
+          example: 15
+          maximum: 1440
+          minimum: 5
+          type: integer
+        autoShipOnCreate:
+          default: false
+          description: Create a shipment automatically when an order arrives.
+          example: false
+          type: boolean
+        defaultCarrierId:
+          description: Default carrier ID for auto-shipping.
+          example: clz9k2f0a0006abcd1357yzab
+          nullable: true
+          type: string
+        defaultProductId:
+          description: Default carrier product ID for auto-shipping.
+          example: postnord-home-delivery
+          nullable: true
+          type: string
+        defaultAddressId:
+          description: Default sender address ID for auto-shipping.
+          example: clz9k2f0a0005abcd7890uvwx
+          nullable: true
+          type: string
+        shippingMethodMappings:
+          description: "Map imported shipping-method titles to shipping rules, for\
+            \ channels without checkout rate integration."
+          example:
+          - match: GLS Hjemmelevering
+            shippingRuleId: clz9k2f0a0007abcd2468qrst
+          items:
+            $ref: "#/components/schemas/createOrderChannel_request_settings_shippingMethodMappings_inner"
+          type: array
+        syncOnlyUnfulfilled:
+          default: true
+          description: Only import orders that are not yet fulfilled.
+          example: true
+          type: boolean
+        syncOrdersSince:
+          description: Only sync orders placed at or after this timestamp.
+          example: 2026-05-22T00:00:00Z
+          format: date-time
+          nullable: true
+          pattern: "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\\
+            d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\\
+            d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\\
+            d(?:\\.\\d+)?)?(?:Z))$"
+          type: string
+        servicePointCount:
+          default: 6
+          description: Number of service points to show at checkout (1-20).
+          example: 6
+          maximum: 20
+          minimum: 1
+          type: integer
+      type: object
+    createOrderChannel_request:
+      properties:
+        name:
+          description: Display name for the channel.
+          example: Anna's webshop
+          maxLength: 100
+          minLength: 1
+          type: string
+        type:
+          description: "Type of the order channel. Platform channels (Shopify, WooCommerce)\
+            \ are created via their connect flows."
+          enum:
+          - manual
+          - custom
+          example: custom
+          type: string
+        brandId:
+          description: Brand this channel belongs to; null for organization-wide
+          example: brnd_8f3kd92ld0
+          nullable: true
+          type: string
+        enabled:
+          default: true
+          description: Whether the channel is active.
+          example: true
+          type: boolean
+        settings:
+          $ref: "#/components/schemas/createOrderChannel_request_settings"
+      required:
+      - name
+      - type
+      type: object
+    updateOrderChannel_request_settings:
+      description: "Partial channel settings to merge into existing settings. Server-managed\
+        \ fields (webhook secret/ids, checkout token) cannot be set here."
+      properties:
+        useWebhooks:
+          default: true
+          description: Use webhooks for real-time order sync.
+          example: true
+          type: boolean
+        siteUrl:
+          description: WooCommerce store URL.
+          example: https://butik.dk
+          format: uri
+          type: string
+        autoFulfill:
+          description: Push tracking back to the platform when a shipment is dispatched.
+            Enabled by default (opt-out) — set to false to disable write-back; an
+            unset value still syncs.
+          example: true
+          type: boolean
+        autoSync:
+          default: false
+          description: Periodically poll the channel for new orders.
+          example: false
+          type: boolean
+        syncIntervalMinutes:
+          default: 15
+          description: Polling interval in minutes (5-1440).
+          example: 15
+          maximum: 1440
+          minimum: 5
+          type: integer
+        autoShipOnCreate:
+          default: false
+          description: Create a shipment automatically when an order arrives.
+          example: false
+          type: boolean
+        defaultCarrierId:
+          description: Default carrier ID for auto-shipping.
+          example: clz9k2f0a0006abcd1357yzab
+          nullable: true
+          type: string
+        defaultProductId:
+          description: Default carrier product ID for auto-shipping.
+          example: postnord-home-delivery
+          nullable: true
+          type: string
+        defaultAddressId:
+          description: Default sender address ID for auto-shipping.
+          example: clz9k2f0a0005abcd7890uvwx
+          nullable: true
+          type: string
+        shippingMethodMappings:
+          description: "Map imported shipping-method titles to shipping rules, for\
+            \ channels without checkout rate integration."
+          example:
+          - match: GLS Hjemmelevering
+            shippingRuleId: clz9k2f0a0007abcd2468qrst
+          items:
+            $ref: "#/components/schemas/createOrderChannel_request_settings_shippingMethodMappings_inner"
+          type: array
+        syncOnlyUnfulfilled:
+          default: true
+          description: Only import orders that are not yet fulfilled.
+          example: true
+          type: boolean
+        syncOrdersSince:
+          description: Only sync orders placed at or after this timestamp.
+          example: 2026-05-22T00:00:00Z
+          format: date-time
+          nullable: true
+          pattern: "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\\
+            d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\\
+            d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\\
+            d(?:\\.\\d+)?)?(?:Z))$"
+          type: string
+        servicePointCount:
+          default: 6
+          description: Number of service points to show at checkout (1-20).
+          example: 6
+          maximum: 20
+          minimum: 1
+          type: integer
+      type: object
+    updateOrderChannel_request:
+      properties:
+        brandId:
+          description: Brand this channel belongs to; null for organization-wide
+          example: brnd_8f3kd92ld0
+          nullable: true
+          type: string
+        name:
+          description: Display name for the channel.
+          example: Anna's Shopify Store
+          maxLength: 100
+          minLength: 1
+          type: string
+        enabled:
+          description: Whether the channel is active.
+          example: true
+          type: boolean
+        credentials:
+          additionalProperties: {}
+          description: Type-specific platform credentials.
+          nullable: true
+          type: object
+        settings:
+          $ref: "#/components/schemas/updateOrderChannel_request_settings"
+        shippingRuleIds:
+          description: IDs of shipping rules linked to this channel.
+          example:
+          - clz9k2f0a0002abcd5678ijkl
+          items:
+            type: string
+          type: array
+      type: object
+    getOrderChannelWebhookStatus_200_response_webhooks_inner:
+      additionalProperties: false
+      example:
+        id: 1234567890
+        topic: ORDERS_CREATE
+        address: https://api.zippendo.dk/webhooks/order-channels/clz9k2f0a0001abcd1234efgh
+        createdAt: 2026-06-22T14:30:00.000Z
+        deliveryUrl: https://api.zippendo.dk/webhooks/order-channels/clz9k2f0a0001abcd1234efgh
+        status: active
+      properties:
+        id:
+          description: Platform webhook ID.
+          example: 1234567890
+          type: number
+        topic:
+          description: Webhook event topic.
+          example: ORDERS_CREATE
+          type: string
+        address:
+          description: Registered callback address.
+          example: https://api.zippendo.dk/webhooks/order-channels/clz9k2f0a0001abcd1234efgh
+          type: string
+        createdAt:
+          description: Webhook creation timestamp.
+          example: 2026-06-22T14:30:00.000Z
+          type: string
+        deliveryUrl:
+          description: WooCommerce delivery URL (same as `address`; present for WooCommerce
+            channels).
+          example: https://api.zippendo.dk/webhooks/order-channels/clz9k2f0a0001abcd1234efgh
+          type: string
+        status:
+          description: WooCommerce webhook status. A value other than `active` means
+            WooCommerce disabled the webhook (e.g. after repeated delivery failures).
+          example: active
+          type: string
+      required:
+      - address
+      - createdAt
+      - id
+      - topic
+      type: object
+    getOrderChannelWebhookStatus_200_response:
+      additionalProperties: false
+      example:
+        enabled: true
+        webhookUrl: https://api.zippendo.dk/webhooks/order-channels/clz9k2f0a0001abcd1234efgh
+        webhooks:
+        - id: 1234567890
+          topic: ORDERS_CREATE
+          address: https://api.zippendo.dk/webhooks/order-channels/clz9k2f0a0001abcd1234efgh
+          createdAt: 2026-06-22T14:30:00.000Z
+          deliveryUrl: https://api.zippendo.dk/webhooks/order-channels/clz9k2f0a0001abcd1234efgh
+          status: active
+        - id: 1234567890
+          topic: ORDERS_CREATE
+          address: https://api.zippendo.dk/webhooks/order-channels/clz9k2f0a0001abcd1234efgh
+          createdAt: 2026-06-22T14:30:00.000Z
+          deliveryUrl: https://api.zippendo.dk/webhooks/order-channels/clz9k2f0a0001abcd1234efgh
+          status: active
+      properties:
+        enabled:
+          description: Whether webhooks are enabled for the channel.
+          example: true
+          type: boolean
+        webhookUrl:
+          description: Expected callback URL for this channel.
+          example: https://api.zippendo.dk/webhooks/order-channels/clz9k2f0a0001abcd1234efgh
+          type: string
+        webhooks:
+          description: Webhooks registered for this channel's callback URL.
+          items:
+            $ref: "#/components/schemas/getOrderChannelWebhookStatus_200_response_webhooks_inner"
+          type: array
+      required:
+      - enabled
+      - webhookUrl
+      - webhooks
+      type: object
+    createOrderChannelWebhookSecret_201_response:
+      additionalProperties: false
+      example:
+        secret: zwhs_XeVJ1n8vJZbJ0N3mYQ2fV0dK9cA5tR7uW4pL6sH8gB0
+        webhookUrl: https://api.zippendo.com/webhooks/order-channels/clz9k2f0a0001abcd1234efgh
+        createdAt: 2026-09-02T14:30:00Z
+      properties:
+        secret:
+          description: The webhook signing secret. Returned only once — store it in
+            your system; every push to the ingest URL must carry an HMAC-SHA256 hex
+            signature of the raw body computed with it.
+          example: zwhs_XeVJ1n8vJZbJ0N3mYQ2fV0dK9cA5tR7uW4pL6sH8gB0
+          type: string
+        webhookUrl:
+          description: The ingest URL your system pushes signed order events to.
+          example: https://api.zippendo.com/webhooks/order-channels/clz9k2f0a0001abcd1234efgh
+          type: string
+        createdAt:
+          description: When this secret was issued (ISO 8601).
+          example: 2026-09-02T14:30:00Z
+          format: date-time
+          pattern: "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\\
+            d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\\
+            d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\\
+            d(?:\\.\\d+)?)?(?:Z))$"
+          type: string
+      required:
+      - createdAt
+      - secret
+      - webhookUrl
+      type: object
+    revokeOrderChannelWebhookSecret_200_response:
+      additionalProperties: false
+      example:
+        revoked: true
+      properties:
+        revoked:
+          description: Whether the signing secret was revoked.
+          example: true
+          type: boolean
+      required:
+      - revoked
       type: object
     listAvailableCarriers_200_response_inner_requiredFields_inner:
       additionalProperties: false

@@ -21,36 +21,36 @@ import (
 )
 
 
-// OrdersAPIService OrdersAPI service
-type OrdersAPIService service
+// OrderChannelsAPIService OrderChannelsAPI service
+type OrderChannelsAPIService service
 
-type ApiCreateOrderRequest struct {
+type ApiCreateOrderChannelRequest struct {
 	ctx context.Context
-	ApiService *OrdersAPIService
+	ApiService *OrderChannelsAPIService
 	orgId string
-	createOrderRequest *CreateOrderRequest
+	createOrderChannelRequest *CreateOrderChannelRequest
 }
 
-func (r ApiCreateOrderRequest) CreateOrderRequest(createOrderRequest CreateOrderRequest) ApiCreateOrderRequest {
-	r.createOrderRequest = &createOrderRequest
+func (r ApiCreateOrderChannelRequest) CreateOrderChannelRequest(createOrderChannelRequest CreateOrderChannelRequest) ApiCreateOrderChannelRequest {
+	r.createOrderChannelRequest = &createOrderChannelRequest
 	return r
 }
 
-func (r ApiCreateOrderRequest) Execute() (*CreateOrder201Response, *http.Response, error) {
-	return r.ApiService.CreateOrderExecute(r)
+func (r ApiCreateOrderChannelRequest) Execute() (*ListOrderChannels200ResponseDataInner, *http.Response, error) {
+	return r.ApiService.CreateOrderChannelExecute(r)
 }
 
 /*
-CreateOrder Create order
+CreateOrderChannel Create order channel
 
-Creates a new order under an existing order channel for the organization.
+Creates a new order channel for an organization.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param orgId Organization ID
- @return ApiCreateOrderRequest
+ @return ApiCreateOrderChannelRequest
 */
-func (a *OrdersAPIService) CreateOrder(ctx context.Context, orgId string) ApiCreateOrderRequest {
-	return ApiCreateOrderRequest{
+func (a *OrderChannelsAPIService) CreateOrderChannel(ctx context.Context, orgId string) ApiCreateOrderChannelRequest {
+	return ApiCreateOrderChannelRequest{
 		ApiService: a,
 		ctx: ctx,
 		orgId: orgId,
@@ -58,28 +58,28 @@ func (a *OrdersAPIService) CreateOrder(ctx context.Context, orgId string) ApiCre
 }
 
 // Execute executes the request
-//  @return CreateOrder201Response
-func (a *OrdersAPIService) CreateOrderExecute(r ApiCreateOrderRequest) (*CreateOrder201Response, *http.Response, error) {
+//  @return ListOrderChannels200ResponseDataInner
+func (a *OrderChannelsAPIService) CreateOrderChannelExecute(r ApiCreateOrderChannelRequest) (*ListOrderChannels200ResponseDataInner, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *CreateOrder201Response
+		localVarReturnValue  *ListOrderChannels200ResponseDataInner
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrdersAPIService.CreateOrder")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrderChannelsAPIService.CreateOrderChannel")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/orgs/{orgId}/orders"
+	localVarPath := localBasePath + "/orgs/{orgId}/order-channels"
 	localVarPath = strings.Replace(localVarPath, "{"+"orgId"+"}", url.PathEscape(parameterValueToString(r.orgId, "orgId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.createOrderRequest == nil {
-		return localVarReturnValue, nil, reportError("createOrderRequest is required and must be specified")
+	if r.createOrderChannelRequest == nil {
+		return localVarReturnValue, nil, reportError("createOrderChannelRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -100,7 +100,135 @@ func (a *OrdersAPIService) CreateOrderExecute(r ApiCreateOrderRequest) (*CreateO
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.createOrderRequest
+	localVarPostBody = r.createOrderChannelRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ListApiTokens401Response
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ListApiTokens401Response
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiCreateOrderChannelWebhookSecretRequest struct {
+	ctx context.Context
+	ApiService *OrderChannelsAPIService
+	orgId string
+	channelId string
+}
+
+func (r ApiCreateOrderChannelWebhookSecretRequest) Execute() (*CreateOrderChannelWebhookSecret201Response, *http.Response, error) {
+	return r.ApiService.CreateOrderChannelWebhookSecretExecute(r)
+}
+
+/*
+CreateOrderChannelWebhookSecret Create or rotate webhook signing secret
+
+Generates (or rotates) the custom channel's webhook signing secret used to authenticate order pushes to the ingest URL. The secret is returned only once. Rotating invalidates the previous secret immediately.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param orgId Organization ID.
+ @param channelId Order channel ID.
+ @return ApiCreateOrderChannelWebhookSecretRequest
+*/
+func (a *OrderChannelsAPIService) CreateOrderChannelWebhookSecret(ctx context.Context, orgId string, channelId string) ApiCreateOrderChannelWebhookSecretRequest {
+	return ApiCreateOrderChannelWebhookSecretRequest{
+		ApiService: a,
+		ctx: ctx,
+		orgId: orgId,
+		channelId: channelId,
+	}
+}
+
+// Execute executes the request
+//  @return CreateOrderChannelWebhookSecret201Response
+func (a *OrderChannelsAPIService) CreateOrderChannelWebhookSecretExecute(r ApiCreateOrderChannelWebhookSecretRequest) (*CreateOrderChannelWebhookSecret201Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *CreateOrderChannelWebhookSecret201Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrderChannelsAPIService.CreateOrderChannelWebhookSecret")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/orgs/{orgId}/order-channels/{channelId}/webhook-secret"
+	localVarPath = strings.Replace(localVarPath, "{"+"orgId"+"}", url.PathEscape(parameterValueToString(r.orgId, "orgId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterValueToString(r.channelId, "channelId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -154,17 +282,6 @@ func (a *OrdersAPIService) CreateOrderExecute(r ApiCreateOrderRequest) (*CreateO
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ListApiTokens401Response
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -181,39 +298,39 @@ func (a *OrdersAPIService) CreateOrderExecute(r ApiCreateOrderRequest) (*CreateO
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiDeleteOrderRequest struct {
+type ApiDeleteOrderChannelRequest struct {
 	ctx context.Context
-	ApiService *OrdersAPIService
+	ApiService *OrderChannelsAPIService
 	orgId string
-	orderId string
+	channelId string
 }
 
-func (r ApiDeleteOrderRequest) Execute() (*RevokeApiToken200Response, *http.Response, error) {
-	return r.ApiService.DeleteOrderExecute(r)
+func (r ApiDeleteOrderChannelRequest) Execute() (*RevokeApiToken200Response, *http.Response, error) {
+	return r.ApiService.DeleteOrderChannelExecute(r)
 }
 
 /*
-DeleteOrder Delete order
+DeleteOrderChannel Delete order channel
 
-Deletes an order. Fails if the order has associated shipments.
+Deletes an order channel and cascades deletion of its orders.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param orgId Organization ID.
- @param orderId Order ID.
- @return ApiDeleteOrderRequest
+ @param channelId Order channel ID.
+ @return ApiDeleteOrderChannelRequest
 */
-func (a *OrdersAPIService) DeleteOrder(ctx context.Context, orgId string, orderId string) ApiDeleteOrderRequest {
-	return ApiDeleteOrderRequest{
+func (a *OrderChannelsAPIService) DeleteOrderChannel(ctx context.Context, orgId string, channelId string) ApiDeleteOrderChannelRequest {
+	return ApiDeleteOrderChannelRequest{
 		ApiService: a,
 		ctx: ctx,
 		orgId: orgId,
-		orderId: orderId,
+		channelId: channelId,
 	}
 }
 
 // Execute executes the request
 //  @return RevokeApiToken200Response
-func (a *OrdersAPIService) DeleteOrderExecute(r ApiDeleteOrderRequest) (*RevokeApiToken200Response, *http.Response, error) {
+func (a *OrderChannelsAPIService) DeleteOrderChannelExecute(r ApiDeleteOrderChannelRequest) (*RevokeApiToken200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
@@ -221,14 +338,14 @@ func (a *OrdersAPIService) DeleteOrderExecute(r ApiDeleteOrderRequest) (*RevokeA
 		localVarReturnValue  *RevokeApiToken200Response
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrdersAPIService.DeleteOrder")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrderChannelsAPIService.DeleteOrderChannel")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/orgs/{orgId}/orders/{orderId}"
+	localVarPath := localBasePath + "/orgs/{orgId}/order-channels/{channelId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"orgId"+"}", url.PathEscape(parameterValueToString(r.orgId, "orgId")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"orderId"+"}", url.PathEscape(parameterValueToString(r.orderId, "orderId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterValueToString(r.channelId, "channelId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -320,54 +437,54 @@ func (a *OrdersAPIService) DeleteOrderExecute(r ApiDeleteOrderRequest) (*RevokeA
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetOrderRequest struct {
+type ApiGetOrderChannelRequest struct {
 	ctx context.Context
-	ApiService *OrdersAPIService
+	ApiService *OrderChannelsAPIService
 	orgId string
-	orderId string
+	channelId string
 }
 
-func (r ApiGetOrderRequest) Execute() (*GetOrder200Response, *http.Response, error) {
-	return r.ApiService.GetOrderExecute(r)
+func (r ApiGetOrderChannelRequest) Execute() (*ListOrderChannels200ResponseDataInner, *http.Response, error) {
+	return r.ApiService.GetOrderChannelExecute(r)
 }
 
 /*
-GetOrder Get order
+GetOrderChannel Get order channel
 
-Returns a single order with its channel, shipping rule, shipments, and documents.
+Returns a single order channel by ID, including its linked shipping rules.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param orgId Organization ID.
- @param orderId Order ID.
- @return ApiGetOrderRequest
+ @param channelId Order channel ID.
+ @return ApiGetOrderChannelRequest
 */
-func (a *OrdersAPIService) GetOrder(ctx context.Context, orgId string, orderId string) ApiGetOrderRequest {
-	return ApiGetOrderRequest{
+func (a *OrderChannelsAPIService) GetOrderChannel(ctx context.Context, orgId string, channelId string) ApiGetOrderChannelRequest {
+	return ApiGetOrderChannelRequest{
 		ApiService: a,
 		ctx: ctx,
 		orgId: orgId,
-		orderId: orderId,
+		channelId: channelId,
 	}
 }
 
 // Execute executes the request
-//  @return GetOrder200Response
-func (a *OrdersAPIService) GetOrderExecute(r ApiGetOrderRequest) (*GetOrder200Response, *http.Response, error) {
+//  @return ListOrderChannels200ResponseDataInner
+func (a *OrderChannelsAPIService) GetOrderChannelExecute(r ApiGetOrderChannelRequest) (*ListOrderChannels200ResponseDataInner, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *GetOrder200Response
+		localVarReturnValue  *ListOrderChannels200ResponseDataInner
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrdersAPIService.GetOrder")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrderChannelsAPIService.GetOrderChannel")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/orgs/{orgId}/orders/{orderId}"
+	localVarPath := localBasePath + "/orgs/{orgId}/order-channels/{channelId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"orgId"+"}", url.PathEscape(parameterValueToString(r.orgId, "orgId")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"orderId"+"}", url.PathEscape(parameterValueToString(r.orderId, "orderId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterValueToString(r.channelId, "channelId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -448,76 +565,215 @@ func (a *OrdersAPIService) GetOrderExecute(r ApiGetOrderRequest) (*GetOrder200Re
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListOrdersRequest struct {
+type ApiGetOrderChannelWebhookStatusRequest struct {
 	ctx context.Context
-	ApiService *OrdersAPIService
+	ApiService *OrderChannelsAPIService
+	orgId string
+	channelId string
+}
+
+func (r ApiGetOrderChannelWebhookStatusRequest) Execute() (*GetOrderChannelWebhookStatus200Response, *http.Response, error) {
+	return r.ApiService.GetOrderChannelWebhookStatusExecute(r)
+}
+
+/*
+GetOrderChannelWebhookStatus Get channel webhook status
+
+Returns whether webhooks are enabled and lists the webhooks registered with the platform.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param orgId Organization ID.
+ @param channelId Order channel ID.
+ @return ApiGetOrderChannelWebhookStatusRequest
+*/
+func (a *OrderChannelsAPIService) GetOrderChannelWebhookStatus(ctx context.Context, orgId string, channelId string) ApiGetOrderChannelWebhookStatusRequest {
+	return ApiGetOrderChannelWebhookStatusRequest{
+		ApiService: a,
+		ctx: ctx,
+		orgId: orgId,
+		channelId: channelId,
+	}
+}
+
+// Execute executes the request
+//  @return GetOrderChannelWebhookStatus200Response
+func (a *OrderChannelsAPIService) GetOrderChannelWebhookStatusExecute(r ApiGetOrderChannelWebhookStatusRequest) (*GetOrderChannelWebhookStatus200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *GetOrderChannelWebhookStatus200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrderChannelsAPIService.GetOrderChannelWebhookStatus")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/orgs/{orgId}/order-channels/{channelId}/webhooks"
+	localVarPath = strings.Replace(localVarPath, "{"+"orgId"+"}", url.PathEscape(parameterValueToString(r.orgId, "orgId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterValueToString(r.channelId, "channelId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ListApiTokens401Response
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ListApiTokens401Response
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ListApiTokens401Response
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiListOrderChannelsRequest struct {
+	ctx context.Context
+	ApiService *OrderChannelsAPIService
 	orgId string
 	page *int32
 	limit *int32
 	brandId *string
 	brandScope *string
-	status *string
-	orderChannelId *string
+	type_ *string
+	enabled *string
 	search *string
 }
 
 // Page number (1-based)
-func (r ApiListOrdersRequest) Page(page int32) ApiListOrdersRequest {
+func (r ApiListOrderChannelsRequest) Page(page int32) ApiListOrderChannelsRequest {
 	r.page = &page
 	return r
 }
 
 // Items per page (max 100)
-func (r ApiListOrdersRequest) Limit(limit int32) ApiListOrdersRequest {
+func (r ApiListOrderChannelsRequest) Limit(limit int32) ApiListOrderChannelsRequest {
 	r.limit = &limit
 	return r
 }
 
 // Filter by brand. Pass a brand ID, or \&quot;none\&quot; for records not assigned to any brand.
-func (r ApiListOrdersRequest) BrandId(brandId string) ApiListOrdersRequest {
+func (r ApiListOrderChannelsRequest) BrandId(brandId string) ApiListOrderChannelsRequest {
 	r.brandId = &brandId
 	return r
 }
 
 // How the brand context narrows this list: \&quot;own\&quot; returns only rows assigned to the current brand (requires a brand session, a brand-bound token, or the X-Zippendo-Brand header), \&quot;shared\&quot; returns only unassigned organization-wide rows, \&quot;both\&quot; (default) returns both. The X-Zippendo-Brand-Scope header supplies a default when the parameter is omitted. For strictly brand-owned records (orders, shipments), a brand-scoped request combined with \&quot;shared\&quot; returns no rows, since those records are never visible organization-wide from within a brand context.
-func (r ApiListOrdersRequest) BrandScope(brandScope string) ApiListOrdersRequest {
+func (r ApiListOrderChannelsRequest) BrandScope(brandScope string) ApiListOrderChannelsRequest {
 	r.brandScope = &brandScope
 	return r
 }
 
-// Order fulfilment status derived from its shipments.
-func (r ApiListOrdersRequest) Status(status string) ApiListOrdersRequest {
-	r.status = &status
+// Filter by channel type.
+func (r ApiListOrderChannelsRequest) Type_(type_ string) ApiListOrderChannelsRequest {
+	r.type_ = &type_
 	return r
 }
 
-// Filter by order channel ID.
-func (r ApiListOrdersRequest) OrderChannelId(orderChannelId string) ApiListOrdersRequest {
-	r.orderChannelId = &orderChannelId
+// Filter by enabled state.
+func (r ApiListOrderChannelsRequest) Enabled(enabled string) ApiListOrderChannelsRequest {
+	r.enabled = &enabled
 	return r
 }
 
-// Search by order number or customer name/email.
-func (r ApiListOrdersRequest) Search(search string) ApiListOrdersRequest {
+// Search by channel name.
+func (r ApiListOrderChannelsRequest) Search(search string) ApiListOrderChannelsRequest {
 	r.search = &search
 	return r
 }
 
-func (r ApiListOrdersRequest) Execute() (*ListOrders200Response, *http.Response, error) {
-	return r.ApiService.ListOrdersExecute(r)
+func (r ApiListOrderChannelsRequest) Execute() (*ListOrderChannels200Response, *http.Response, error) {
+	return r.ApiService.ListOrderChannelsExecute(r)
 }
 
 /*
-ListOrders List orders
+ListOrderChannels List order channels
 
-Returns a paginated list of orders for an organization, filterable by status, channel, and search term.
+Returns a paginated list of order channels for an organization.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param orgId Organization ID
- @return ApiListOrdersRequest
+ @return ApiListOrderChannelsRequest
 */
-func (a *OrdersAPIService) ListOrders(ctx context.Context, orgId string) ApiListOrdersRequest {
-	return ApiListOrdersRequest{
+func (a *OrderChannelsAPIService) ListOrderChannels(ctx context.Context, orgId string) ApiListOrderChannelsRequest {
+	return ApiListOrderChannelsRequest{
 		ApiService: a,
 		ctx: ctx,
 		orgId: orgId,
@@ -525,21 +781,21 @@ func (a *OrdersAPIService) ListOrders(ctx context.Context, orgId string) ApiList
 }
 
 // Execute executes the request
-//  @return ListOrders200Response
-func (a *OrdersAPIService) ListOrdersExecute(r ApiListOrdersRequest) (*ListOrders200Response, *http.Response, error) {
+//  @return ListOrderChannels200Response
+func (a *OrderChannelsAPIService) ListOrderChannelsExecute(r ApiListOrderChannelsRequest) (*ListOrderChannels200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ListOrders200Response
+		localVarReturnValue  *ListOrderChannels200Response
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrdersAPIService.ListOrders")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrderChannelsAPIService.ListOrderChannels")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/orgs/{orgId}/orders"
+	localVarPath := localBasePath + "/orgs/{orgId}/order-channels"
 	localVarPath = strings.Replace(localVarPath, "{"+"orgId"+"}", url.PathEscape(parameterValueToString(r.orgId, "orgId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -566,11 +822,11 @@ func (a *OrdersAPIService) ListOrdersExecute(r ApiListOrdersRequest) (*ListOrder
 	if r.brandScope != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "brandScope", r.brandScope, "form", "")
 	}
-	if r.status != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "form", "")
+	if r.type_ != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "type", r.type_, "form", "")
 	}
-	if r.orderChannelId != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "orderChannelId", r.orderChannelId, "form", "")
+	if r.enabled != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "enabled", r.enabled, "form", "")
 	}
 	if r.search != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
@@ -650,66 +906,205 @@ func (a *OrdersAPIService) ListOrdersExecute(r ApiListOrdersRequest) (*ListOrder
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateOrderRequest struct {
+type ApiRevokeOrderChannelWebhookSecretRequest struct {
 	ctx context.Context
-	ApiService *OrdersAPIService
+	ApiService *OrderChannelsAPIService
 	orgId string
-	orderId string
-	updateOrderRequest *UpdateOrderRequest
+	channelId string
 }
 
-func (r ApiUpdateOrderRequest) UpdateOrderRequest(updateOrderRequest UpdateOrderRequest) ApiUpdateOrderRequest {
-	r.updateOrderRequest = &updateOrderRequest
-	return r
-}
-
-func (r ApiUpdateOrderRequest) Execute() (*CreateOrder201Response, *http.Response, error) {
-	return r.ApiService.UpdateOrderExecute(r)
+func (r ApiRevokeOrderChannelWebhookSecretRequest) Execute() (*RevokeOrderChannelWebhookSecret200Response, *http.Response, error) {
+	return r.ApiService.RevokeOrderChannelWebhookSecretExecute(r)
 }
 
 /*
-UpdateOrder Update order
+RevokeOrderChannelWebhookSecret Revoke webhook signing secret
 
-Updates an order that is not yet fulfilled or cancelled.
+Revokes the custom channel's webhook signing secret. All subsequent pushes to the ingest URL are rejected until a new secret is generated.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param orgId Organization ID.
- @param orderId Order ID.
- @return ApiUpdateOrderRequest
+ @param channelId Order channel ID.
+ @return ApiRevokeOrderChannelWebhookSecretRequest
 */
-func (a *OrdersAPIService) UpdateOrder(ctx context.Context, orgId string, orderId string) ApiUpdateOrderRequest {
-	return ApiUpdateOrderRequest{
+func (a *OrderChannelsAPIService) RevokeOrderChannelWebhookSecret(ctx context.Context, orgId string, channelId string) ApiRevokeOrderChannelWebhookSecretRequest {
+	return ApiRevokeOrderChannelWebhookSecretRequest{
 		ApiService: a,
 		ctx: ctx,
 		orgId: orgId,
-		orderId: orderId,
+		channelId: channelId,
 	}
 }
 
 // Execute executes the request
-//  @return CreateOrder201Response
-func (a *OrdersAPIService) UpdateOrderExecute(r ApiUpdateOrderRequest) (*CreateOrder201Response, *http.Response, error) {
+//  @return RevokeOrderChannelWebhookSecret200Response
+func (a *OrderChannelsAPIService) RevokeOrderChannelWebhookSecretExecute(r ApiRevokeOrderChannelWebhookSecretRequest) (*RevokeOrderChannelWebhookSecret200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPatch
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *CreateOrder201Response
+		localVarReturnValue  *RevokeOrderChannelWebhookSecret200Response
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrdersAPIService.UpdateOrder")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrderChannelsAPIService.RevokeOrderChannelWebhookSecret")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/orgs/{orgId}/orders/{orderId}"
+	localVarPath := localBasePath + "/orgs/{orgId}/order-channels/{channelId}/webhook-secret"
 	localVarPath = strings.Replace(localVarPath, "{"+"orgId"+"}", url.PathEscape(parameterValueToString(r.orgId, "orgId")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"orderId"+"}", url.PathEscape(parameterValueToString(r.orderId, "orderId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterValueToString(r.channelId, "channelId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.updateOrderRequest == nil {
-		return localVarReturnValue, nil, reportError("updateOrderRequest is required and must be specified")
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ListApiTokens401Response
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ListApiTokens401Response
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ListApiTokens401Response
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiUpdateOrderChannelRequest struct {
+	ctx context.Context
+	ApiService *OrderChannelsAPIService
+	orgId string
+	channelId string
+	updateOrderChannelRequest *UpdateOrderChannelRequest
+}
+
+func (r ApiUpdateOrderChannelRequest) UpdateOrderChannelRequest(updateOrderChannelRequest UpdateOrderChannelRequest) ApiUpdateOrderChannelRequest {
+	r.updateOrderChannelRequest = &updateOrderChannelRequest
+	return r
+}
+
+func (r ApiUpdateOrderChannelRequest) Execute() (*ListOrderChannels200ResponseDataInner, *http.Response, error) {
+	return r.ApiService.UpdateOrderChannelExecute(r)
+}
+
+/*
+UpdateOrderChannel Update order channel
+
+Updates an order channel and its linked shipping rules.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param orgId Organization ID.
+ @param channelId Order channel ID.
+ @return ApiUpdateOrderChannelRequest
+*/
+func (a *OrderChannelsAPIService) UpdateOrderChannel(ctx context.Context, orgId string, channelId string) ApiUpdateOrderChannelRequest {
+	return ApiUpdateOrderChannelRequest{
+		ApiService: a,
+		ctx: ctx,
+		orgId: orgId,
+		channelId: channelId,
+	}
+}
+
+// Execute executes the request
+//  @return ListOrderChannels200ResponseDataInner
+func (a *OrderChannelsAPIService) UpdateOrderChannelExecute(r ApiUpdateOrderChannelRequest) (*ListOrderChannels200ResponseDataInner, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPatch
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ListOrderChannels200ResponseDataInner
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrderChannelsAPIService.UpdateOrderChannel")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/orgs/{orgId}/order-channels/{channelId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"orgId"+"}", url.PathEscape(parameterValueToString(r.orgId, "orgId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"channelId"+"}", url.PathEscape(parameterValueToString(r.channelId, "channelId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.updateOrderChannelRequest == nil {
+		return localVarReturnValue, nil, reportError("updateOrderChannelRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -730,7 +1125,7 @@ func (a *OrdersAPIService) UpdateOrderExecute(r ApiUpdateOrderRequest) (*CreateO
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.updateOrderRequest
+	localVarPostBody = r.updateOrderChannelRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
