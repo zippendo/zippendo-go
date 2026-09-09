@@ -30,8 +30,6 @@ type UpdateOrgRequest struct {
 	Currency *string `json:"currency,omitempty"`
 	// Company VAT/tax ID for invoices
 	VatNumber NullableString `json:"vatNumber,omitempty"`
-	// Allow shipments beyond plan limit (overage charges apply)
-	OverageEnabled *bool `json:"overageEnabled,omitempty"`
 	// Billing/contact phone number
 	Phone NullableString `json:"phone,omitempty" validate:"regexp=^\\+?[\\d\\s()-]{4\\,31}$"`
 	// Billing email for invoices
@@ -237,38 +235,6 @@ func (o *UpdateOrgRequest) SetVatNumberNil() {
 // UnsetVatNumber ensures that no value is present for VatNumber, not even an explicit nil
 func (o *UpdateOrgRequest) UnsetVatNumber() {
 	o.VatNumber.Unset()
-}
-
-// GetOverageEnabled returns the OverageEnabled field value if set, zero value otherwise.
-func (o *UpdateOrgRequest) GetOverageEnabled() bool {
-	if o == nil || IsNil(o.OverageEnabled) {
-		var ret bool
-		return ret
-	}
-	return *o.OverageEnabled
-}
-
-// GetOverageEnabledOk returns a tuple with the OverageEnabled field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UpdateOrgRequest) GetOverageEnabledOk() (*bool, bool) {
-	if o == nil || IsNil(o.OverageEnabled) {
-		return nil, false
-	}
-	return o.OverageEnabled, true
-}
-
-// HasOverageEnabled returns a boolean if a field has been set.
-func (o *UpdateOrgRequest) HasOverageEnabled() bool {
-	if o != nil && !IsNil(o.OverageEnabled) {
-		return true
-	}
-
-	return false
-}
-
-// SetOverageEnabled gets a reference to the given bool and assigns it to the OverageEnabled field.
-func (o *UpdateOrgRequest) SetOverageEnabled(v bool) {
-	o.OverageEnabled = &v
 }
 
 // GetPhone returns the Phone field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -664,9 +630,6 @@ func (o UpdateOrgRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if o.VatNumber.IsSet() {
 		toSerialize["vatNumber"] = o.VatNumber.Get()
-	}
-	if !IsNil(o.OverageEnabled) {
-		toSerialize["overageEnabled"] = o.OverageEnabled
 	}
 	if o.Phone.IsSet() {
 		toSerialize["phone"] = o.Phone.Get()

@@ -7423,6 +7423,9 @@ components:
           - AUTH_MFA_REQUIRED
           - AUTH_MFA_INVALID_CODE
           - AUTH_MFA_ALREADY_ENABLED
+          - CAPTCHA_FAILED
+          - EMAIL_DOMAIN_BLOCKED
+          - VAT_INVALID
           - AUTH_MFA_NOT_ENABLED
           - SESSION_REQUIRED
           - ORG_NOT_FOUND
@@ -7935,10 +7938,6 @@ components:
           example: DK12345678
           nullable: true
           type: string
-        overageEnabled:
-          description: Allow shipments beyond plan limit (overage charges apply)
-          example: false
-          type: boolean
         phone:
           description: Billing/contact phone number
           example: +45 50 47 02 20
@@ -13518,6 +13517,9 @@ components:
           - AUTH_MFA_REQUIRED
           - AUTH_MFA_INVALID_CODE
           - AUTH_MFA_ALREADY_ENABLED
+          - CAPTCHA_FAILED
+          - EMAIL_DOMAIN_BLOCKED
+          - VAT_INVALID
           - AUTH_MFA_NOT_ENABLED
           - SESSION_REQUIRED
           - ORG_NOT_FOUND
@@ -13727,6 +13729,9 @@ components:
           - AUTH_MFA_REQUIRED
           - AUTH_MFA_INVALID_CODE
           - AUTH_MFA_ALREADY_ENABLED
+          - CAPTCHA_FAILED
+          - EMAIL_DOMAIN_BLOCKED
+          - VAT_INVALID
           - AUTH_MFA_NOT_ENABLED
           - SESSION_REQUIRED
           - ORG_NOT_FOUND

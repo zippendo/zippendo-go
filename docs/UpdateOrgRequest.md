@@ -9,7 +9,6 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | Organization description | [optional] 
 **Currency** | Pointer to **string** | Billing currency (ISO 4217 code) | [optional] 
 **VatNumber** | Pointer to **NullableString** | Company VAT/tax ID for invoices | [optional] 
-**OverageEnabled** | Pointer to **bool** | Allow shipments beyond plan limit (overage charges apply) | [optional] 
 **Phone** | Pointer to **NullableString** | Billing/contact phone number | [optional] 
 **BillingEmail** | Pointer to **NullableString** | Billing email for invoices | [optional] 
 **CompanyName** | Pointer to **NullableString** | Legal company name | [optional] 
@@ -174,31 +173,6 @@ HasVatNumber returns a boolean if a field has been set.
 `func (o *UpdateOrgRequest) UnsetVatNumber()`
 
 UnsetVatNumber ensures that no value is present for VatNumber, not even an explicit nil
-### GetOverageEnabled
-
-`func (o *UpdateOrgRequest) GetOverageEnabled() bool`
-
-GetOverageEnabled returns the OverageEnabled field if non-nil, zero value otherwise.
-
-### GetOverageEnabledOk
-
-`func (o *UpdateOrgRequest) GetOverageEnabledOk() (*bool, bool)`
-
-GetOverageEnabledOk returns a tuple with the OverageEnabled field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetOverageEnabled
-
-`func (o *UpdateOrgRequest) SetOverageEnabled(v bool)`
-
-SetOverageEnabled sets OverageEnabled field to given value.
-
-### HasOverageEnabled
-
-`func (o *UpdateOrgRequest) HasOverageEnabled() bool`
-
-HasOverageEnabled returns a boolean if a field has been set.
-
 ### GetPhone
 
 `func (o *UpdateOrgRequest) GetPhone() string`
