@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **CustomerName** | Pointer to **NullableString** | Customer full name. | [optional] 
 **CustomerEmail** | Pointer to **NullableString** | Customer email address. | [optional] 
 **ShippingAddress** | Pointer to [**NullableCreateOrder201ResponseShippingAddress**](CreateOrder201ResponseShippingAddress.md) |  | [optional] 
-**OrderLines** | [**[]CreateOrder201ResponseOrderLinesInner**](CreateOrder201ResponseOrderLinesInner.md) | Line items in the order. | 
+**OrderLines** | [**[]GetOrder200ResponseOrderLinesInner**](GetOrder200ResponseOrderLinesInner.md) | Sold line items with quantity already allocated to outbound shipments. | 
 **SubtotalAmount** | Pointer to **NullableFloat32** | Order subtotal before shipping and tax. | [optional] 
 **TotalAmount** | Pointer to **NullableFloat32** | Order grand total. | [optional] 
 **Currency** | Pointer to **NullableString** | ISO 4217 currency code. | [optional] 
@@ -30,7 +30,7 @@ Name | Type | Description | Notes
 
 ### NewGetOrder200Response
 
-`func NewGetOrder200Response(id string, orderNumber string, orderLines []CreateOrder201ResponseOrderLinesInner, status string, orderChannelId string, orgId string, createdAt string, updatedAt string, orderChannel ListOrders200ResponseDataInnerOrderChannel, shipments []GetOrder200ResponseShipmentsInner, ) *GetOrder200Response`
+`func NewGetOrder200Response(id string, orderNumber string, orderLines []GetOrder200ResponseOrderLinesInner, status string, orderChannelId string, orgId string, createdAt string, updatedAt string, orderChannel ListOrders200ResponseDataInnerOrderChannel, shipments []GetOrder200ResponseShipmentsInner, ) *GetOrder200Response`
 
 NewGetOrder200Response instantiates a new GetOrder200Response object
 This constructor will assign default values to properties that have it defined,
@@ -227,20 +227,20 @@ HasShippingAddress returns a boolean if a field has been set.
 UnsetShippingAddress ensures that no value is present for ShippingAddress, not even an explicit nil
 ### GetOrderLines
 
-`func (o *GetOrder200Response) GetOrderLines() []CreateOrder201ResponseOrderLinesInner`
+`func (o *GetOrder200Response) GetOrderLines() []GetOrder200ResponseOrderLinesInner`
 
 GetOrderLines returns the OrderLines field if non-nil, zero value otherwise.
 
 ### GetOrderLinesOk
 
-`func (o *GetOrder200Response) GetOrderLinesOk() (*[]CreateOrder201ResponseOrderLinesInner, bool)`
+`func (o *GetOrder200Response) GetOrderLinesOk() (*[]GetOrder200ResponseOrderLinesInner, bool)`
 
 GetOrderLinesOk returns a tuple with the OrderLines field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOrderLines
 
-`func (o *GetOrder200Response) SetOrderLines(v []CreateOrder201ResponseOrderLinesInner)`
+`func (o *GetOrder200Response) SetOrderLines(v []GetOrder200ResponseOrderLinesInner)`
 
 SetOrderLines sets OrderLines field to given value.
 

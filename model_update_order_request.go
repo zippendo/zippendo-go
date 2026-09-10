@@ -41,6 +41,8 @@ type UpdateOrderRequest struct {
 	Status *string `json:"status,omitempty"`
 	// ID of the shipping rule to apply.
 	ShippingRuleId NullableString `json:"shippingRuleId,omitempty"`
+	// Service point (parcel shop) ID to apply to unsent outbound shipments.
+	ServicePointId NullableString `json:"servicePointId,omitempty"`
 }
 
 // NewUpdateOrderRequest instantiates a new UpdateOrderRequest object
@@ -492,6 +494,48 @@ func (o *UpdateOrderRequest) UnsetShippingRuleId() {
 	o.ShippingRuleId.Unset()
 }
 
+// GetServicePointId returns the ServicePointId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UpdateOrderRequest) GetServicePointId() string {
+	if o == nil || IsNil(o.ServicePointId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.ServicePointId.Get()
+}
+
+// GetServicePointIdOk returns a tuple with the ServicePointId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UpdateOrderRequest) GetServicePointIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ServicePointId.Get(), o.ServicePointId.IsSet()
+}
+
+// HasServicePointId returns a boolean if a field has been set.
+func (o *UpdateOrderRequest) HasServicePointId() bool {
+	if o != nil && o.ServicePointId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetServicePointId gets a reference to the given NullableString and assigns it to the ServicePointId field.
+func (o *UpdateOrderRequest) SetServicePointId(v string) {
+	o.ServicePointId.Set(&v)
+}
+// SetServicePointIdNil sets the value for ServicePointId to be an explicit nil
+func (o *UpdateOrderRequest) SetServicePointIdNil() {
+	o.ServicePointId.Set(nil)
+}
+
+// UnsetServicePointId ensures that no value is present for ServicePointId, not even an explicit nil
+func (o *UpdateOrderRequest) UnsetServicePointId() {
+	o.ServicePointId.Unset()
+}
+
 func (o UpdateOrderRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -534,6 +578,9 @@ func (o UpdateOrderRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if o.ShippingRuleId.IsSet() {
 		toSerialize["shippingRuleId"] = o.ShippingRuleId.Get()
+	}
+	if o.ServicePointId.IsSet() {
+		toSerialize["servicePointId"] = o.ServicePointId.Get()
 	}
 	return toSerialize, nil
 }

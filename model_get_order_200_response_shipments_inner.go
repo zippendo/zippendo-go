@@ -42,6 +42,8 @@ type GetOrder200ResponseShipmentsInner struct {
 	ShippingRuleId NullableString `json:"shippingRuleId,omitempty"`
 	// Documents (labels, customs forms) for this shipment.
 	Documents []CreateShipment201ResponseDocumentsInner `json:"documents,omitempty"`
+	// Compact parcels for the order fulfillment workspace (no QR/label payloads).
+	Parcels []GetOrder200ResponseShipmentsInnerParcelsInner `json:"parcels"`
 }
 
 type _GetOrder200ResponseShipmentsInner GetOrder200ResponseShipmentsInner
@@ -50,7 +52,7 @@ type _GetOrder200ResponseShipmentsInner GetOrder200ResponseShipmentsInner
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetOrder200ResponseShipmentsInner(id string, reference string, status string, type_ string, carrierSettings ListShipments200ResponseDataInnerCarrierSettings, createdAt string, updatedAt string) *GetOrder200ResponseShipmentsInner {
+func NewGetOrder200ResponseShipmentsInner(id string, reference string, status string, type_ string, carrierSettings ListShipments200ResponseDataInnerCarrierSettings, createdAt string, updatedAt string, parcels []GetOrder200ResponseShipmentsInnerParcelsInner) *GetOrder200ResponseShipmentsInner {
 	this := GetOrder200ResponseShipmentsInner{}
 	this.Id = id
 	this.Reference = reference
@@ -59,6 +61,7 @@ func NewGetOrder200ResponseShipmentsInner(id string, reference string, status st
 	this.CarrierSettings = carrierSettings
 	this.CreatedAt = createdAt
 	this.UpdatedAt = updatedAt
+	this.Parcels = parcels
 	return &this
 }
 
@@ -396,6 +399,30 @@ func (o *GetOrder200ResponseShipmentsInner) SetDocuments(v []CreateShipment201Re
 	o.Documents = v
 }
 
+// GetParcels returns the Parcels field value
+func (o *GetOrder200ResponseShipmentsInner) GetParcels() []GetOrder200ResponseShipmentsInnerParcelsInner {
+	if o == nil {
+		var ret []GetOrder200ResponseShipmentsInnerParcelsInner
+		return ret
+	}
+
+	return o.Parcels
+}
+
+// GetParcelsOk returns a tuple with the Parcels field value
+// and a boolean to check if the value has been set.
+func (o *GetOrder200ResponseShipmentsInner) GetParcelsOk() ([]GetOrder200ResponseShipmentsInnerParcelsInner, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Parcels, true
+}
+
+// SetParcels sets field value
+func (o *GetOrder200ResponseShipmentsInner) SetParcels(v []GetOrder200ResponseShipmentsInnerParcelsInner) {
+	o.Parcels = v
+}
+
 func (o GetOrder200ResponseShipmentsInner) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -425,6 +452,7 @@ func (o GetOrder200ResponseShipmentsInner) ToMap() (map[string]interface{}, erro
 	if !IsNil(o.Documents) {
 		toSerialize["documents"] = o.Documents
 	}
+	toSerialize["parcels"] = o.Parcels
 	return toSerialize, nil
 }
 
@@ -440,6 +468,7 @@ func (o *GetOrder200ResponseShipmentsInner) UnmarshalJSON(data []byte) (err erro
 		"carrierSettings",
 		"createdAt",
 		"updatedAt",
+		"parcels",
 	}
 
 	allProperties := make(map[string]interface{})

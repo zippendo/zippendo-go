@@ -7478,6 +7478,7 @@ components:
           - CARRIER_AUTH_FAILED
           - CARRIER_NOT_FOUND
           - CARRIER_PRODUCT_NOT_FOUND
+          - CARRIER_PRODUCT_ROUTE_UNSUPPORTED
           - CARRIER_CONFIG_INVALID
           - CARRIER_PARAMETER_INVALID
           - CARRIER_SERVER_UNAVAILABLE
@@ -13572,6 +13573,7 @@ components:
           - CARRIER_AUTH_FAILED
           - CARRIER_NOT_FOUND
           - CARRIER_PRODUCT_NOT_FOUND
+          - CARRIER_PRODUCT_ROUTE_UNSUPPORTED
           - CARRIER_CONFIG_INVALID
           - CARRIER_PARAMETER_INVALID
           - CARRIER_SERVER_UNAVAILABLE
@@ -13784,6 +13786,7 @@ components:
           - CARRIER_AUTH_FAILED
           - CARRIER_NOT_FOUND
           - CARRIER_PRODUCT_NOT_FOUND
+          - CARRIER_PRODUCT_ROUTE_UNSUPPORTED
           - CARRIER_CONFIG_INVALID
           - CARRIER_PARAMETER_INVALID
           - CARRIER_SERVER_UNAVAILABLE
@@ -15965,7 +15968,6 @@ components:
         name:
           description: Recipient full name.
           example: Anna Jensen
-          minLength: 1
           type: string
         attention:
           description: Attention / care-of line.
@@ -15980,7 +15982,6 @@ components:
         address1:
           description: Street address line 1.
           example: Nørregade 12
-          minLength: 1
           type: string
         address2:
           description: Street address line 2.
@@ -15990,7 +15991,6 @@ components:
         city:
           description: City name.
           example: København
-          minLength: 1
           type: string
         province:
           description: Province or region name.
@@ -16005,7 +16005,6 @@ components:
         postalCode:
           description: Postal code.
           example: "1165"
-          minLength: 1
           type: string
         country:
           description: Country name.
@@ -16015,8 +16014,6 @@ components:
         countryCode:
           description: ISO 3166-1 alpha-2 country code.
           example: DK
-          maxLength: 2
-          minLength: 2
           type: string
         phone:
           description: Recipient phone number.
@@ -16069,12 +16066,10 @@ components:
         name:
           description: Product name.
           example: Wool Sweater
-          minLength: 1
           type: string
         quantity:
           description: Quantity ordered.
           example: 2
-          exclusiveMinimum: true
           maximum: 9007199254740991
           minimum: 0
           type: integer
@@ -16126,7 +16121,6 @@ components:
         imageUrl:
           description: Product image URL.
           example: https://cdn.example.dk/products/sweater.jpg
-          format: uri
           nullable: true
           type: string
         hsCode:
@@ -16346,6 +16340,148 @@ components:
       - status
       - updatedAt
       type: object
+    getOrder_200_response_orderLines_inner:
+      additionalProperties: false
+      example:
+        sku: SKU-1042-BLK
+        name: Wool Sweater
+        quantity: 2
+        unitPrice: 499
+        totalPrice: 998
+        currency: DKK
+        weight: 0.5
+        weightUnit: kg
+        variantId: "44218900291"
+        productId: "8123456789"
+        imageUrl: https://cdn.example.dk/products/sweater.jpg
+        hsCode: "611020"
+        countryOfOrigin: DK
+        provinceOfOrigin: DK-84
+        barcode: "5712345678901"
+        requiresShipping: true
+        taxable: true
+        giftCard: false
+        vendor: Norse Knits
+        packedQuantity: 1
+      properties:
+        sku:
+          description: Stock keeping unit identifier.
+          example: SKU-1042-BLK
+          nullable: true
+          type: string
+        name:
+          description: Product name.
+          example: Wool Sweater
+          type: string
+        quantity:
+          description: Quantity ordered.
+          example: 2
+          maximum: 9007199254740991
+          minimum: 0
+          type: integer
+        unitPrice:
+          description: Price per unit.
+          example: 499
+          minimum: 0
+          nullable: true
+          type: number
+        totalPrice:
+          description: Total price for the line.
+          example: 998
+          minimum: 0
+          nullable: true
+          type: number
+        currency:
+          description: ISO 4217 currency code.
+          example: DKK
+          maxLength: 3
+          minLength: 3
+          nullable: true
+          type: string
+        weight:
+          description: Item weight in the given unit.
+          example: 0.5
+          minimum: 0
+          nullable: true
+          type: number
+        weightUnit:
+          description: Unit of the weight value.
+          enum:
+          - kg
+          - g
+          - lb
+          - oz
+          example: kg
+          nullable: true
+          type: string
+        variantId:
+          description: Platform variant identifier.
+          example: "44218900291"
+          nullable: true
+          type: string
+        productId:
+          description: Platform product identifier.
+          example: "8123456789"
+          nullable: true
+          type: string
+        imageUrl:
+          description: Product image URL.
+          example: https://cdn.example.dk/products/sweater.jpg
+          nullable: true
+          type: string
+        hsCode:
+          description: Harmonized System customs code (6-13 digits).
+          example: "611020"
+          nullable: true
+          type: string
+        countryOfOrigin:
+          description: ISO 3166-1 alpha-2 country of origin.
+          example: DK
+          maxLength: 2
+          minLength: 2
+          nullable: true
+          type: string
+        provinceOfOrigin:
+          description: ISO 3166-2 province of origin.
+          example: DK-84
+          nullable: true
+          type: string
+        barcode:
+          description: Item barcode (EAN/UPC).
+          example: "5712345678901"
+          nullable: true
+          type: string
+        requiresShipping:
+          description: Whether the item requires shipping.
+          example: true
+          nullable: true
+          type: boolean
+        taxable:
+          description: Whether the item is taxable.
+          example: true
+          nullable: true
+          type: boolean
+        giftCard:
+          description: Whether the item is a gift card.
+          example: false
+          nullable: true
+          type: boolean
+        vendor:
+          description: Vendor or brand name.
+          example: Norse Knits
+          nullable: true
+          type: string
+        packedQuantity:
+          description: Quantity already allocated to outbound shipments.
+          example: 1
+          maximum: 9007199254740991
+          minimum: 0
+          type: integer
+      required:
+      - name
+      - packedQuantity
+      - quantity
+      type: object
     getOrder_200_response_shippingRule:
       additionalProperties: false
       example:
@@ -16426,6 +16562,91 @@ components:
       - productId
       - services
       type: object
+    getOrder_200_response_shipments_inner_parcels_inner_orderLines_inner:
+      additionalProperties: false
+      example:
+        id: ol_9c1d2e3f
+        sku: SKU-1042-BLK
+        quantity: 2
+        description: Wool Sweater
+      properties:
+        id:
+          description: Parcel content line ID.
+          example: ol_9c1d2e3f
+          type: string
+        sku:
+          description: SKU of the packed item.
+          example: SKU-1042-BLK
+          nullable: true
+          type: string
+        quantity:
+          description: Quantity packed in this parcel.
+          example: 2
+          exclusiveMinimum: true
+          maximum: 9007199254740991
+          minimum: 0
+          type: integer
+        description:
+          description: Product description.
+          example: Wool Sweater
+          nullable: true
+          type: string
+      required:
+      - id
+      - quantity
+      type: object
+    getOrder_200_response_shipments_inner_parcels_inner:
+      additionalProperties: false
+      example:
+        id: prc_5a6b7c8d
+        weight: 2.5
+        weightUnit: kg
+        dimensions:
+          length: 30
+          width: 20
+          height: 15
+        orderLines:
+        - id: ol_9c1d2e3f
+          sku: SKU-1042-BLK
+          quantity: 2
+          description: Wool Sweater
+        - id: ol_9c1d2e3f
+          sku: SKU-1042-BLK
+          quantity: 2
+          description: Wool Sweater
+      properties:
+        id:
+          description: Parcel ID.
+          example: prc_5a6b7c8d
+          type: string
+        weight:
+          description: Parcel weight in the given unit.
+          example: 2.5
+          minimum: 0
+          type: number
+        weightUnit:
+          description: Unit of measurement for parcel weight.
+          enum:
+          - kg
+          - g
+          - lb
+          - oz
+          example: kg
+          type: string
+        dimensions:
+          $ref: "#/components/schemas/createShipment_201_response_parcels_inner_dimensions"
+        orderLines:
+          description: Contents of this parcel.
+          items:
+            $ref: "#/components/schemas/getOrder_200_response_shipments_inner_parcels_inner_orderLines_inner"
+          type: array
+      required:
+      - dimensions
+      - id
+      - orderLines
+      - weight
+      - weightUnit
+      type: object
     getOrder_200_response_shipments_inner:
       additionalProperties: false
       example:
@@ -16468,6 +16689,39 @@ components:
           size: 100X150
           createdAt: 2026-06-22T14:30:00.000Z
           updatedAt: 2026-06-22T14:30:00.000Z
+        parcels:
+        - id: prc_5a6b7c8d
+          weight: 2.5
+          weightUnit: kg
+          dimensions:
+            length: 30
+            width: 20
+            height: 15
+          orderLines:
+          - id: ol_9c1d2e3f
+            sku: SKU-1042-BLK
+            quantity: 2
+            description: Wool Sweater
+          - id: ol_9c1d2e3f
+            sku: SKU-1042-BLK
+            quantity: 2
+            description: Wool Sweater
+        - id: prc_5a6b7c8d
+          weight: 2.5
+          weightUnit: kg
+          dimensions:
+            length: 30
+            width: 20
+            height: 15
+          orderLines:
+          - id: ol_9c1d2e3f
+            sku: SKU-1042-BLK
+            quantity: 2
+            description: Wool Sweater
+          - id: ol_9c1d2e3f
+            sku: SKU-1042-BLK
+            quantity: 2
+            description: Wool Sweater
       properties:
         id:
           description: Unique shipment identifier.
@@ -16524,10 +16778,18 @@ components:
           items:
             $ref: "#/components/schemas/createShipment_201_response_documents_inner"
           type: array
+        parcels:
+          default: []
+          description: Compact parcels for the order fulfillment workspace (no QR/label
+            payloads).
+          items:
+            $ref: "#/components/schemas/getOrder_200_response_shipments_inner_parcels_inner"
+          type: array
       required:
       - carrierSettings
       - createdAt
       - id
+      - parcels
       - reference
       - status
       - type
@@ -16575,6 +16837,7 @@ components:
           taxable: true
           giftCard: false
           vendor: Norse Knits
+          packedQuantity: 1
         - sku: SKU-1042-BLK
           name: Wool Sweater
           quantity: 2
@@ -16594,6 +16857,7 @@ components:
           taxable: true
           giftCard: false
           vendor: Norse Knits
+          packedQuantity: 1
         subtotalAmount: 998
         totalAmount: 1047
         currency: DKK
@@ -16664,6 +16928,39 @@ components:
             size: 100X150
             createdAt: 2026-06-22T14:30:00.000Z
             updatedAt: 2026-06-22T14:30:00.000Z
+          parcels:
+          - id: prc_5a6b7c8d
+            weight: 2.5
+            weightUnit: kg
+            dimensions:
+              length: 30
+              width: 20
+              height: 15
+            orderLines:
+            - id: ol_9c1d2e3f
+              sku: SKU-1042-BLK
+              quantity: 2
+              description: Wool Sweater
+            - id: ol_9c1d2e3f
+              sku: SKU-1042-BLK
+              quantity: 2
+              description: Wool Sweater
+          - id: prc_5a6b7c8d
+            weight: 2.5
+            weightUnit: kg
+            dimensions:
+              length: 30
+              width: 20
+              height: 15
+            orderLines:
+            - id: ol_9c1d2e3f
+              sku: SKU-1042-BLK
+              quantity: 2
+              description: Wool Sweater
+            - id: ol_9c1d2e3f
+              sku: SKU-1042-BLK
+              quantity: 2
+              description: Wool Sweater
         - id: shp_4d9e7a2f
           reference: ORDER-1042
           status: pending
@@ -16703,6 +17000,39 @@ components:
             size: 100X150
             createdAt: 2026-06-22T14:30:00.000Z
             updatedAt: 2026-06-22T14:30:00.000Z
+          parcels:
+          - id: prc_5a6b7c8d
+            weight: 2.5
+            weightUnit: kg
+            dimensions:
+              length: 30
+              width: 20
+              height: 15
+            orderLines:
+            - id: ol_9c1d2e3f
+              sku: SKU-1042-BLK
+              quantity: 2
+              description: Wool Sweater
+            - id: ol_9c1d2e3f
+              sku: SKU-1042-BLK
+              quantity: 2
+              description: Wool Sweater
+          - id: prc_5a6b7c8d
+            weight: 2.5
+            weightUnit: kg
+            dimensions:
+              length: 30
+              width: 20
+              height: 15
+            orderLines:
+            - id: ol_9c1d2e3f
+              sku: SKU-1042-BLK
+              quantity: 2
+              description: Wool Sweater
+            - id: ol_9c1d2e3f
+              sku: SKU-1042-BLK
+              quantity: 2
+              description: Wool Sweater
       properties:
         id:
           description: Unique order ID.
@@ -16730,9 +17060,10 @@ components:
         shippingAddress:
           $ref: "#/components/schemas/createOrder_201_response_shippingAddress"
         orderLines:
-          description: Line items in the order.
+          description: Sold line items with quantity already allocated to outbound
+            shipments.
           items:
-            $ref: "#/components/schemas/createOrder_201_response_orderLines_inner"
+            $ref: "#/components/schemas/getOrder_200_response_orderLines_inner"
           type: array
         subtotalAmount:
           description: Order subtotal before shipping and tax.
@@ -16877,6 +17208,12 @@ components:
         shippingRuleId:
           description: ID of the shipping rule to apply.
           example: clz9k2f0a0002abcd5678ijkl
+          nullable: true
+          type: string
+        servicePointId:
+          description: Service point (parcel shop) ID to apply to unsent outbound
+            shipments.
+          example: SP-1234
           nullable: true
           type: string
       type: object

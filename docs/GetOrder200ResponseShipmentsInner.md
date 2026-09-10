@@ -15,12 +15,13 @@ Name | Type | Description | Notes
 **UpdatedAt** | **string** | Timestamp when the shipment was last updated. | 
 **ShippingRuleId** | Pointer to **NullableString** | ID of the shipping rule used for this shipment. | [optional] 
 **Documents** | Pointer to [**[]CreateShipment201ResponseDocumentsInner**](CreateShipment201ResponseDocumentsInner.md) | Documents (labels, customs forms) for this shipment. | [optional] 
+**Parcels** | [**[]GetOrder200ResponseShipmentsInnerParcelsInner**](GetOrder200ResponseShipmentsInnerParcelsInner.md) | Compact parcels for the order fulfillment workspace (no QR/label payloads). | [default to {}]
 
 ## Methods
 
 ### NewGetOrder200ResponseShipmentsInner
 
-`func NewGetOrder200ResponseShipmentsInner(id string, reference string, status string, type_ string, carrierSettings ListShipments200ResponseDataInnerCarrierSettings, createdAt string, updatedAt string, ) *GetOrder200ResponseShipmentsInner`
+`func NewGetOrder200ResponseShipmentsInner(id string, reference string, status string, type_ string, carrierSettings ListShipments200ResponseDataInnerCarrierSettings, createdAt string, updatedAt string, parcels []GetOrder200ResponseShipmentsInnerParcelsInner, ) *GetOrder200ResponseShipmentsInner`
 
 NewGetOrder200ResponseShipmentsInner instantiates a new GetOrder200ResponseShipmentsInner object
 This constructor will assign default values to properties that have it defined,
@@ -304,6 +305,26 @@ SetDocuments sets Documents field to given value.
 `func (o *GetOrder200ResponseShipmentsInner) HasDocuments() bool`
 
 HasDocuments returns a boolean if a field has been set.
+
+### GetParcels
+
+`func (o *GetOrder200ResponseShipmentsInner) GetParcels() []GetOrder200ResponseShipmentsInnerParcelsInner`
+
+GetParcels returns the Parcels field if non-nil, zero value otherwise.
+
+### GetParcelsOk
+
+`func (o *GetOrder200ResponseShipmentsInner) GetParcelsOk() (*[]GetOrder200ResponseShipmentsInnerParcelsInner, bool)`
+
+GetParcelsOk returns a tuple with the Parcels field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetParcels
+
+`func (o *GetOrder200ResponseShipmentsInner) SetParcels(v []GetOrder200ResponseShipmentsInnerParcelsInner)`
+
+SetParcels sets Parcels field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

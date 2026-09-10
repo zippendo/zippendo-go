@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **Notes** | Pointer to **NullableString** | Free-form internal notes. | [optional] 
 **Status** | Pointer to **string** | Order fulfilment status derived from its shipments. | [optional] 
 **ShippingRuleId** | Pointer to **NullableString** | ID of the shipping rule to apply. | [optional] 
+**ServicePointId** | Pointer to **NullableString** | Service point (parcel shop) ID to apply to unsent outbound shipments. | [optional] 
 
 ## Methods
 
@@ -390,6 +391,41 @@ HasShippingRuleId returns a boolean if a field has been set.
 `func (o *UpdateOrderRequest) UnsetShippingRuleId()`
 
 UnsetShippingRuleId ensures that no value is present for ShippingRuleId, not even an explicit nil
+### GetServicePointId
+
+`func (o *UpdateOrderRequest) GetServicePointId() string`
+
+GetServicePointId returns the ServicePointId field if non-nil, zero value otherwise.
+
+### GetServicePointIdOk
+
+`func (o *UpdateOrderRequest) GetServicePointIdOk() (*string, bool)`
+
+GetServicePointIdOk returns a tuple with the ServicePointId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetServicePointId
+
+`func (o *UpdateOrderRequest) SetServicePointId(v string)`
+
+SetServicePointId sets ServicePointId field to given value.
+
+### HasServicePointId
+
+`func (o *UpdateOrderRequest) HasServicePointId() bool`
+
+HasServicePointId returns a boolean if a field has been set.
+
+### SetServicePointIdNil
+
+`func (o *UpdateOrderRequest) SetServicePointIdNil(b bool)`
+
+ SetServicePointIdNil sets the value for ServicePointId to be an explicit nil
+
+### UnsetServicePointId
+`func (o *UpdateOrderRequest) UnsetServicePointId()`
+
+UnsetServicePointId ensures that no value is present for ServicePointId, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

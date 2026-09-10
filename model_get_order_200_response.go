@@ -33,8 +33,8 @@ type GetOrder200Response struct {
 	// Customer email address.
 	CustomerEmail NullableString `json:"customerEmail,omitempty"`
 	ShippingAddress NullableCreateOrder201ResponseShippingAddress `json:"shippingAddress,omitempty"`
-	// Line items in the order.
-	OrderLines []CreateOrder201ResponseOrderLinesInner `json:"orderLines"`
+	// Sold line items with quantity already allocated to outbound shipments.
+	OrderLines []GetOrder200ResponseOrderLinesInner `json:"orderLines"`
 	// Order subtotal before shipping and tax.
 	SubtotalAmount NullableFloat32 `json:"subtotalAmount,omitempty"`
 	// Order grand total.
@@ -68,7 +68,7 @@ type _GetOrder200Response GetOrder200Response
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetOrder200Response(id string, orderNumber string, orderLines []CreateOrder201ResponseOrderLinesInner, status string, orderChannelId string, orgId string, createdAt string, updatedAt string, orderChannel ListOrders200ResponseDataInnerOrderChannel, shipments []GetOrder200ResponseShipmentsInner) *GetOrder200Response {
+func NewGetOrder200Response(id string, orderNumber string, orderLines []GetOrder200ResponseOrderLinesInner, status string, orderChannelId string, orgId string, createdAt string, updatedAt string, orderChannel ListOrders200ResponseDataInnerOrderChannel, shipments []GetOrder200ResponseShipmentsInner) *GetOrder200Response {
 	this := GetOrder200Response{}
 	this.Id = id
 	this.OrderNumber = orderNumber
@@ -308,9 +308,9 @@ func (o *GetOrder200Response) UnsetShippingAddress() {
 }
 
 // GetOrderLines returns the OrderLines field value
-func (o *GetOrder200Response) GetOrderLines() []CreateOrder201ResponseOrderLinesInner {
+func (o *GetOrder200Response) GetOrderLines() []GetOrder200ResponseOrderLinesInner {
 	if o == nil {
-		var ret []CreateOrder201ResponseOrderLinesInner
+		var ret []GetOrder200ResponseOrderLinesInner
 		return ret
 	}
 
@@ -319,7 +319,7 @@ func (o *GetOrder200Response) GetOrderLines() []CreateOrder201ResponseOrderLines
 
 // GetOrderLinesOk returns a tuple with the OrderLines field value
 // and a boolean to check if the value has been set.
-func (o *GetOrder200Response) GetOrderLinesOk() ([]CreateOrder201ResponseOrderLinesInner, bool) {
+func (o *GetOrder200Response) GetOrderLinesOk() ([]GetOrder200ResponseOrderLinesInner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -327,7 +327,7 @@ func (o *GetOrder200Response) GetOrderLinesOk() ([]CreateOrder201ResponseOrderLi
 }
 
 // SetOrderLines sets field value
-func (o *GetOrder200Response) SetOrderLines(v []CreateOrder201ResponseOrderLinesInner) {
+func (o *GetOrder200Response) SetOrderLines(v []GetOrder200ResponseOrderLinesInner) {
 	o.OrderLines = v
 }
 
