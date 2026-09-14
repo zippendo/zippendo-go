@@ -60,6 +60,8 @@ type CreateOrder201ResponseOrderLinesInner struct {
 	GiftCard NullableBool `json:"giftCard,omitempty"`
 	// Vendor or brand name.
 	Vendor NullableString `json:"vendor,omitempty"`
+	// Order line ID. Present once the line is a row. Absent for jsonb-only lines during the dual-write window — do not synthesise one, or an edit would re-point packed lines.
+	Id *string `json:"id,omitempty"`
 }
 
 type _CreateOrder201ResponseOrderLinesInner CreateOrder201ResponseOrderLinesInner
@@ -845,6 +847,38 @@ func (o *CreateOrder201ResponseOrderLinesInner) UnsetVendor() {
 	o.Vendor.Unset()
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *CreateOrder201ResponseOrderLinesInner) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateOrder201ResponseOrderLinesInner) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *CreateOrder201ResponseOrderLinesInner) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *CreateOrder201ResponseOrderLinesInner) SetId(v string) {
+	o.Id = &v
+}
+
 func (o CreateOrder201ResponseOrderLinesInner) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -907,6 +941,9 @@ func (o CreateOrder201ResponseOrderLinesInner) ToMap() (map[string]interface{}, 
 	}
 	if o.Vendor.IsSet() {
 		toSerialize["vendor"] = o.Vendor.Get()
+	}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
 	}
 	return toSerialize, nil
 }

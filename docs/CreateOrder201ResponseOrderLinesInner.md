@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **Taxable** | Pointer to **NullableBool** | Whether the item is taxable. | [optional] 
 **GiftCard** | Pointer to **NullableBool** | Whether the item is a gift card. | [optional] 
 **Vendor** | Pointer to **NullableString** | Vendor or brand name. | [optional] 
+**Id** | Pointer to **string** | Order line ID. Present once the line is a row. Absent for jsonb-only lines during the dual-write window — do not synthesise one, or an edit would re-point packed lines. | [optional] 
 
 ## Methods
 
@@ -678,6 +679,31 @@ HasVendor returns a boolean if a field has been set.
 `func (o *CreateOrder201ResponseOrderLinesInner) UnsetVendor()`
 
 UnsetVendor ensures that no value is present for Vendor, not even an explicit nil
+### GetId
+
+`func (o *CreateOrder201ResponseOrderLinesInner) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *CreateOrder201ResponseOrderLinesInner) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *CreateOrder201ResponseOrderLinesInner) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *CreateOrder201ResponseOrderLinesInner) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

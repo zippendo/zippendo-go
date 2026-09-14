@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** | Unique order line identifier. | [optional] 
+**OrderLineId** | Pointer to **NullableString** | ID of the order line this packed line came from. Null when the item did not originate from an order line, such as a free gift or a replacement part. | [optional] 
 **Sku** | Pointer to **NullableString** | Stock keeping unit of the product. Optional — not every webshop assigns SKUs. | [optional] 
 **Quantity** | **int32** | Number of units in this order line. | 
 **Description** | Pointer to **NullableString** | Human-readable product description. | [optional] 
@@ -13,7 +14,8 @@ Name | Type | Description | Notes
 **VatPercent** | Pointer to **NullableFloat32** | VAT percentage applied to the unit price. | [optional] 
 **Location** | Pointer to **NullableString** | Warehouse picking location. | [optional] 
 **CountryOfOrigin** | Pointer to **string** | ISO 3166-1 alpha-2 country of origin. | [optional] 
-**TarrifNumber** | Pointer to **NullableString** | Customs tariff (HS) code. | [optional] 
+**HsCode** | Pointer to **NullableString** | Harmonized System customs code. | [optional] 
+**TarrifNumber** | Pointer to **NullableString** | Deprecated misspelling of &#x60;hsCode&#x60;, kept for backwards compatibility. | [optional] 
 
 ## Methods
 
@@ -59,6 +61,41 @@ SetId sets Id field to given value.
 
 HasId returns a boolean if a field has been set.
 
+### GetOrderLineId
+
+`func (o *CreateShipment201ResponseParcelsInnerOrderLinesInner) GetOrderLineId() string`
+
+GetOrderLineId returns the OrderLineId field if non-nil, zero value otherwise.
+
+### GetOrderLineIdOk
+
+`func (o *CreateShipment201ResponseParcelsInnerOrderLinesInner) GetOrderLineIdOk() (*string, bool)`
+
+GetOrderLineIdOk returns a tuple with the OrderLineId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOrderLineId
+
+`func (o *CreateShipment201ResponseParcelsInnerOrderLinesInner) SetOrderLineId(v string)`
+
+SetOrderLineId sets OrderLineId field to given value.
+
+### HasOrderLineId
+
+`func (o *CreateShipment201ResponseParcelsInnerOrderLinesInner) HasOrderLineId() bool`
+
+HasOrderLineId returns a boolean if a field has been set.
+
+### SetOrderLineIdNil
+
+`func (o *CreateShipment201ResponseParcelsInnerOrderLinesInner) SetOrderLineIdNil(b bool)`
+
+ SetOrderLineIdNil sets the value for OrderLineId to be an explicit nil
+
+### UnsetOrderLineId
+`func (o *CreateShipment201ResponseParcelsInnerOrderLinesInner) UnsetOrderLineId()`
+
+UnsetOrderLineId ensures that no value is present for OrderLineId, not even an explicit nil
 ### GetSku
 
 `func (o *CreateShipment201ResponseParcelsInnerOrderLinesInner) GetSku() string`
@@ -314,6 +351,41 @@ SetCountryOfOrigin sets CountryOfOrigin field to given value.
 
 HasCountryOfOrigin returns a boolean if a field has been set.
 
+### GetHsCode
+
+`func (o *CreateShipment201ResponseParcelsInnerOrderLinesInner) GetHsCode() string`
+
+GetHsCode returns the HsCode field if non-nil, zero value otherwise.
+
+### GetHsCodeOk
+
+`func (o *CreateShipment201ResponseParcelsInnerOrderLinesInner) GetHsCodeOk() (*string, bool)`
+
+GetHsCodeOk returns a tuple with the HsCode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHsCode
+
+`func (o *CreateShipment201ResponseParcelsInnerOrderLinesInner) SetHsCode(v string)`
+
+SetHsCode sets HsCode field to given value.
+
+### HasHsCode
+
+`func (o *CreateShipment201ResponseParcelsInnerOrderLinesInner) HasHsCode() bool`
+
+HasHsCode returns a boolean if a field has been set.
+
+### SetHsCodeNil
+
+`func (o *CreateShipment201ResponseParcelsInnerOrderLinesInner) SetHsCodeNil(b bool)`
+
+ SetHsCodeNil sets the value for HsCode to be an explicit nil
+
+### UnsetHsCode
+`func (o *CreateShipment201ResponseParcelsInnerOrderLinesInner) UnsetHsCode()`
+
+UnsetHsCode ensures that no value is present for HsCode, not even an explicit nil
 ### GetTarrifNumber
 
 `func (o *CreateShipment201ResponseParcelsInnerOrderLinesInner) GetTarrifNumber() string`

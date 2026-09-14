@@ -11999,6 +11999,13 @@ components:
           description: Unique order line identifier.
           example: ol_9c1d2e3f
           type: string
+        orderLineId:
+          description: "ID of the order line this packed line came from. Null when\
+            \ the item did not originate from an order line, such as a free gift or\
+            \ a replacement part."
+          example: clz9k2f0a0004abcd3456qrst
+          nullable: true
+          type: string
         sku:
           description: Stock keeping unit of the product. Optional — not every webshop
             assigns SKUs.
@@ -12048,8 +12055,13 @@ components:
           maxLength: 2
           minLength: 2
           type: string
+        hsCode:
+          description: Harmonized System customs code.
+          example: "61101100"
+          nullable: true
+          type: string
         tarrifNumber:
-          description: Customs tariff (HS) code.
+          description: "Deprecated misspelling of `hsCode`, kept for backwards compatibility."
           example: "61101100"
           nullable: true
           type: string
@@ -12421,6 +12433,7 @@ components:
       additionalProperties: false
       example:
         id: ol_9c1d2e3f
+        orderLineId: clz9k2f0a0004abcd3456qrst
         sku: SKU-1024
         quantity: 2
         description: "Wool sweater, navy"
@@ -12429,11 +12442,19 @@ components:
         vatPercent: 25
         location: A-12-3
         countryOfOrigin: DK
+        hsCode: "61101100"
         tarrifNumber: "61101100"
       properties:
         id:
           description: Unique order line identifier.
           example: ol_9c1d2e3f
+          type: string
+        orderLineId:
+          description: "ID of the order line this packed line came from. Null when\
+            \ the item did not originate from an order line, such as a free gift or\
+            \ a replacement part."
+          example: clz9k2f0a0004abcd3456qrst
+          nullable: true
           type: string
         sku:
           description: Stock keeping unit of the product. Optional — not every webshop
@@ -12484,8 +12505,13 @@ components:
           maxLength: 2
           minLength: 2
           type: string
+        hsCode:
+          description: Harmonized System customs code.
+          example: "61101100"
+          nullable: true
+          type: string
         tarrifNumber:
-          description: Customs tariff (HS) code.
+          description: "Deprecated misspelling of `hsCode`, kept for backwards compatibility."
           example: "61101100"
           nullable: true
           type: string
@@ -12504,6 +12530,7 @@ components:
           height: 15
         orderLines:
         - id: ol_9c1d2e3f
+          orderLineId: clz9k2f0a0004abcd3456qrst
           sku: SKU-1024
           quantity: 2
           description: "Wool sweater, navy"
@@ -12512,8 +12539,10 @@ components:
           vatPercent: 25
           location: A-12-3
           countryOfOrigin: DK
+          hsCode: "61101100"
           tarrifNumber: "61101100"
         - id: ol_9c1d2e3f
+          orderLineId: clz9k2f0a0004abcd3456qrst
           sku: SKU-1024
           quantity: 2
           description: "Wool sweater, navy"
@@ -12522,6 +12551,7 @@ components:
           vatPercent: 25
           location: A-12-3
           countryOfOrigin: DK
+          hsCode: "61101100"
           tarrifNumber: "61101100"
         trackingNumber: "00370724710000012345"
         trackingUrl: https://tracking.postnord.com/00370724710000012345
@@ -13031,6 +13061,7 @@ components:
             height: 15
           orderLines:
           - id: ol_9c1d2e3f
+            orderLineId: clz9k2f0a0004abcd3456qrst
             sku: SKU-1024
             quantity: 2
             description: "Wool sweater, navy"
@@ -13039,8 +13070,10 @@ components:
             vatPercent: 25
             location: A-12-3
             countryOfOrigin: DK
+            hsCode: "61101100"
             tarrifNumber: "61101100"
           - id: ol_9c1d2e3f
+            orderLineId: clz9k2f0a0004abcd3456qrst
             sku: SKU-1024
             quantity: 2
             description: "Wool sweater, navy"
@@ -13049,6 +13082,7 @@ components:
             vatPercent: 25
             location: A-12-3
             countryOfOrigin: DK
+            hsCode: "61101100"
             tarrifNumber: "61101100"
           trackingNumber: "00370724710000012345"
           trackingUrl: https://tracking.postnord.com/00370724710000012345
@@ -13065,6 +13099,7 @@ components:
             height: 15
           orderLines:
           - id: ol_9c1d2e3f
+            orderLineId: clz9k2f0a0004abcd3456qrst
             sku: SKU-1024
             quantity: 2
             description: "Wool sweater, navy"
@@ -13073,8 +13108,10 @@ components:
             vatPercent: 25
             location: A-12-3
             countryOfOrigin: DK
+            hsCode: "61101100"
             tarrifNumber: "61101100"
           - id: ol_9c1d2e3f
+            orderLineId: clz9k2f0a0004abcd3456qrst
             sku: SKU-1024
             quantity: 2
             description: "Wool sweater, navy"
@@ -13083,6 +13120,7 @@ components:
             vatPercent: 25
             location: A-12-3
             countryOfOrigin: DK
+            hsCode: "61101100"
             tarrifNumber: "61101100"
           trackingNumber: "00370724710000012345"
           trackingUrl: https://tracking.postnord.com/00370724710000012345
@@ -14053,6 +14091,7 @@ components:
               height: 15
             orderLines:
             - id: ol_9c1d2e3f
+              orderLineId: clz9k2f0a0004abcd3456qrst
               sku: SKU-1024
               quantity: 2
               description: "Wool sweater, navy"
@@ -14061,8 +14100,10 @@ components:
               vatPercent: 25
               location: A-12-3
               countryOfOrigin: DK
+              hsCode: "61101100"
               tarrifNumber: "61101100"
             - id: ol_9c1d2e3f
+              orderLineId: clz9k2f0a0004abcd3456qrst
               sku: SKU-1024
               quantity: 2
               description: "Wool sweater, navy"
@@ -14071,6 +14112,7 @@ components:
               vatPercent: 25
               location: A-12-3
               countryOfOrigin: DK
+              hsCode: "61101100"
               tarrifNumber: "61101100"
             trackingNumber: "00370724710000012345"
             trackingUrl: https://tracking.postnord.com/00370724710000012345
@@ -14087,6 +14129,7 @@ components:
               height: 15
             orderLines:
             - id: ol_9c1d2e3f
+              orderLineId: clz9k2f0a0004abcd3456qrst
               sku: SKU-1024
               quantity: 2
               description: "Wool sweater, navy"
@@ -14095,8 +14138,10 @@ components:
               vatPercent: 25
               location: A-12-3
               countryOfOrigin: DK
+              hsCode: "61101100"
               tarrifNumber: "61101100"
             - id: ol_9c1d2e3f
+              orderLineId: clz9k2f0a0004abcd3456qrst
               sku: SKU-1024
               quantity: 2
               description: "Wool sweater, navy"
@@ -14105,6 +14150,7 @@ components:
               vatPercent: 25
               location: A-12-3
               countryOfOrigin: DK
+              hsCode: "61101100"
               tarrifNumber: "61101100"
             trackingNumber: "00370724710000012345"
             trackingUrl: https://tracking.postnord.com/00370724710000012345
@@ -14257,6 +14303,7 @@ components:
               height: 15
             orderLines:
             - id: ol_9c1d2e3f
+              orderLineId: clz9k2f0a0004abcd3456qrst
               sku: SKU-1024
               quantity: 2
               description: "Wool sweater, navy"
@@ -14265,8 +14312,10 @@ components:
               vatPercent: 25
               location: A-12-3
               countryOfOrigin: DK
+              hsCode: "61101100"
               tarrifNumber: "61101100"
             - id: ol_9c1d2e3f
+              orderLineId: clz9k2f0a0004abcd3456qrst
               sku: SKU-1024
               quantity: 2
               description: "Wool sweater, navy"
@@ -14275,6 +14324,7 @@ components:
               vatPercent: 25
               location: A-12-3
               countryOfOrigin: DK
+              hsCode: "61101100"
               tarrifNumber: "61101100"
             trackingNumber: "00370724710000012345"
             trackingUrl: https://tracking.postnord.com/00370724710000012345
@@ -14291,6 +14341,7 @@ components:
               height: 15
             orderLines:
             - id: ol_9c1d2e3f
+              orderLineId: clz9k2f0a0004abcd3456qrst
               sku: SKU-1024
               quantity: 2
               description: "Wool sweater, navy"
@@ -14299,8 +14350,10 @@ components:
               vatPercent: 25
               location: A-12-3
               countryOfOrigin: DK
+              hsCode: "61101100"
               tarrifNumber: "61101100"
             - id: ol_9c1d2e3f
+              orderLineId: clz9k2f0a0004abcd3456qrst
               sku: SKU-1024
               quantity: 2
               description: "Wool sweater, navy"
@@ -14309,6 +14362,7 @@ components:
               vatPercent: 25
               location: A-12-3
               countryOfOrigin: DK
+              hsCode: "61101100"
               tarrifNumber: "61101100"
             trackingNumber: "00370724710000012345"
             trackingUrl: https://tracking.postnord.com/00370724710000012345
@@ -14548,6 +14602,7 @@ components:
               height: 15
             orderLines:
             - id: ol_9c1d2e3f
+              orderLineId: clz9k2f0a0004abcd3456qrst
               sku: SKU-1024
               quantity: 2
               description: "Wool sweater, navy"
@@ -14556,8 +14611,10 @@ components:
               vatPercent: 25
               location: A-12-3
               countryOfOrigin: DK
+              hsCode: "61101100"
               tarrifNumber: "61101100"
             - id: ol_9c1d2e3f
+              orderLineId: clz9k2f0a0004abcd3456qrst
               sku: SKU-1024
               quantity: 2
               description: "Wool sweater, navy"
@@ -14566,6 +14623,7 @@ components:
               vatPercent: 25
               location: A-12-3
               countryOfOrigin: DK
+              hsCode: "61101100"
               tarrifNumber: "61101100"
             trackingNumber: "00370724710000012345"
             trackingUrl: https://tracking.postnord.com/00370724710000012345
@@ -14582,6 +14640,7 @@ components:
               height: 15
             orderLines:
             - id: ol_9c1d2e3f
+              orderLineId: clz9k2f0a0004abcd3456qrst
               sku: SKU-1024
               quantity: 2
               description: "Wool sweater, navy"
@@ -14590,8 +14649,10 @@ components:
               vatPercent: 25
               location: A-12-3
               countryOfOrigin: DK
+              hsCode: "61101100"
               tarrifNumber: "61101100"
             - id: ol_9c1d2e3f
+              orderLineId: clz9k2f0a0004abcd3456qrst
               sku: SKU-1024
               quantity: 2
               description: "Wool sweater, navy"
@@ -14600,6 +14661,7 @@ components:
               vatPercent: 25
               location: A-12-3
               countryOfOrigin: DK
+              hsCode: "61101100"
               tarrifNumber: "61101100"
             trackingNumber: "00370724710000012345"
             trackingUrl: https://tracking.postnord.com/00370724710000012345
@@ -14752,6 +14814,7 @@ components:
               height: 15
             orderLines:
             - id: ol_9c1d2e3f
+              orderLineId: clz9k2f0a0004abcd3456qrst
               sku: SKU-1024
               quantity: 2
               description: "Wool sweater, navy"
@@ -14760,8 +14823,10 @@ components:
               vatPercent: 25
               location: A-12-3
               countryOfOrigin: DK
+              hsCode: "61101100"
               tarrifNumber: "61101100"
             - id: ol_9c1d2e3f
+              orderLineId: clz9k2f0a0004abcd3456qrst
               sku: SKU-1024
               quantity: 2
               description: "Wool sweater, navy"
@@ -14770,6 +14835,7 @@ components:
               vatPercent: 25
               location: A-12-3
               countryOfOrigin: DK
+              hsCode: "61101100"
               tarrifNumber: "61101100"
             trackingNumber: "00370724710000012345"
             trackingUrl: https://tracking.postnord.com/00370724710000012345
@@ -14786,6 +14852,7 @@ components:
               height: 15
             orderLines:
             - id: ol_9c1d2e3f
+              orderLineId: clz9k2f0a0004abcd3456qrst
               sku: SKU-1024
               quantity: 2
               description: "Wool sweater, navy"
@@ -14794,8 +14861,10 @@ components:
               vatPercent: 25
               location: A-12-3
               countryOfOrigin: DK
+              hsCode: "61101100"
               tarrifNumber: "61101100"
             - id: ol_9c1d2e3f
+              orderLineId: clz9k2f0a0004abcd3456qrst
               sku: SKU-1024
               quantity: 2
               description: "Wool sweater, navy"
@@ -14804,6 +14873,7 @@ components:
               vatPercent: 25
               location: A-12-3
               countryOfOrigin: DK
+              hsCode: "61101100"
               tarrifNumber: "61101100"
             trackingNumber: "00370724710000012345"
             trackingUrl: https://tracking.postnord.com/00370724710000012345
@@ -14955,6 +15025,7 @@ components:
               height: 15
             orderLines:
             - id: ol_9c1d2e3f
+              orderLineId: clz9k2f0a0004abcd3456qrst
               sku: SKU-1024
               quantity: 2
               description: "Wool sweater, navy"
@@ -14963,8 +15034,10 @@ components:
               vatPercent: 25
               location: A-12-3
               countryOfOrigin: DK
+              hsCode: "61101100"
               tarrifNumber: "61101100"
             - id: ol_9c1d2e3f
+              orderLineId: clz9k2f0a0004abcd3456qrst
               sku: SKU-1024
               quantity: 2
               description: "Wool sweater, navy"
@@ -14973,6 +15046,7 @@ components:
               vatPercent: 25
               location: A-12-3
               countryOfOrigin: DK
+              hsCode: "61101100"
               tarrifNumber: "61101100"
             trackingNumber: "00370724710000012345"
             trackingUrl: https://tracking.postnord.com/00370724710000012345
@@ -14989,6 +15063,7 @@ components:
               height: 15
             orderLines:
             - id: ol_9c1d2e3f
+              orderLineId: clz9k2f0a0004abcd3456qrst
               sku: SKU-1024
               quantity: 2
               description: "Wool sweater, navy"
@@ -14997,8 +15072,10 @@ components:
               vatPercent: 25
               location: A-12-3
               countryOfOrigin: DK
+              hsCode: "61101100"
               tarrifNumber: "61101100"
             - id: ol_9c1d2e3f
+              orderLineId: clz9k2f0a0004abcd3456qrst
               sku: SKU-1024
               quantity: 2
               description: "Wool sweater, navy"
@@ -15007,6 +15084,7 @@ components:
               vatPercent: 25
               location: A-12-3
               countryOfOrigin: DK
+              hsCode: "61101100"
               tarrifNumber: "61101100"
             trackingNumber: "00370724710000012345"
             trackingUrl: https://tracking.postnord.com/00370724710000012345
@@ -15200,6 +15278,7 @@ components:
               height: 15
             orderLines:
             - id: ol_9c1d2e3f
+              orderLineId: clz9k2f0a0004abcd3456qrst
               sku: SKU-1024
               quantity: 2
               description: "Wool sweater, navy"
@@ -15208,8 +15287,10 @@ components:
               vatPercent: 25
               location: A-12-3
               countryOfOrigin: DK
+              hsCode: "61101100"
               tarrifNumber: "61101100"
             - id: ol_9c1d2e3f
+              orderLineId: clz9k2f0a0004abcd3456qrst
               sku: SKU-1024
               quantity: 2
               description: "Wool sweater, navy"
@@ -15218,6 +15299,7 @@ components:
               vatPercent: 25
               location: A-12-3
               countryOfOrigin: DK
+              hsCode: "61101100"
               tarrifNumber: "61101100"
             trackingNumber: "00370724710000012345"
             trackingUrl: https://tracking.postnord.com/00370724710000012345
@@ -15234,6 +15316,7 @@ components:
               height: 15
             orderLines:
             - id: ol_9c1d2e3f
+              orderLineId: clz9k2f0a0004abcd3456qrst
               sku: SKU-1024
               quantity: 2
               description: "Wool sweater, navy"
@@ -15242,8 +15325,10 @@ components:
               vatPercent: 25
               location: A-12-3
               countryOfOrigin: DK
+              hsCode: "61101100"
               tarrifNumber: "61101100"
             - id: ol_9c1d2e3f
+              orderLineId: clz9k2f0a0004abcd3456qrst
               sku: SKU-1024
               quantity: 2
               description: "Wool sweater, navy"
@@ -15252,6 +15337,7 @@ components:
               vatPercent: 25
               location: A-12-3
               countryOfOrigin: DK
+              hsCode: "61101100"
               tarrifNumber: "61101100"
             trackingNumber: "00370724710000012345"
             trackingUrl: https://tracking.postnord.com/00370724710000012345
@@ -15858,6 +15944,11 @@ components:
           example: Norse Knits
           nullable: true
           type: string
+        id:
+          description: ID of the existing order line this entry edits. Omit to add
+            a new line.
+          example: clz9k2f0a0004abcd3456qrst
+          type: string
       required:
       - name
       - quantity
@@ -16057,6 +16148,7 @@ components:
         taxable: true
         giftCard: false
         vendor: Norse Knits
+        id: clz9k2f0a0004abcd3456qrst
       properties:
         sku:
           description: Stock keeping unit identifier.
@@ -16165,6 +16257,12 @@ components:
           example: Norse Knits
           nullable: true
           type: string
+        id:
+          description: "Order line ID. Present once the line is a row. Absent for\
+            \ jsonb-only lines during the dual-write window — do not synthesise one,\
+            \ or an edit would re-point packed lines."
+          example: clz9k2f0a0004abcd3456qrst
+          type: string
       required:
       - name
       - quantity
@@ -16211,6 +16309,7 @@ components:
           taxable: true
           giftCard: false
           vendor: Norse Knits
+          id: clz9k2f0a0004abcd3456qrst
         - sku: SKU-1042-BLK
           name: Wool Sweater
           quantity: 2
@@ -16230,6 +16329,7 @@ components:
           taxable: true
           giftCard: false
           vendor: Norse Knits
+          id: clz9k2f0a0004abcd3456qrst
         subtotalAmount: 998
         totalAmount: 1047
         currency: DKK
@@ -16362,6 +16462,7 @@ components:
         taxable: true
         giftCard: false
         vendor: Norse Knits
+        id: clz9k2f0a0004abcd3456qrst
         packedQuantity: 1
       properties:
         sku:
@@ -16470,6 +16571,12 @@ components:
           description: Vendor or brand name.
           example: Norse Knits
           nullable: true
+          type: string
+        id:
+          description: "Order line ID. Present once the line is a row. Absent for\
+            \ jsonb-only lines during the dual-write window — do not synthesise one,\
+            \ or an edit would re-point packed lines."
+          example: clz9k2f0a0004abcd3456qrst
           type: string
         packedQuantity:
           description: Quantity already allocated to outbound shipments.
@@ -16837,6 +16944,7 @@ components:
           taxable: true
           giftCard: false
           vendor: Norse Knits
+          id: clz9k2f0a0004abcd3456qrst
           packedQuantity: 1
         - sku: SKU-1042-BLK
           name: Wool Sweater
@@ -16857,6 +16965,7 @@ components:
           taxable: true
           giftCard: false
           vendor: Norse Knits
+          id: clz9k2f0a0004abcd3456qrst
           packedQuantity: 1
         subtotalAmount: 998
         totalAmount: 1047

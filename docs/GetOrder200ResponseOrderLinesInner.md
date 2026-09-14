@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **Taxable** | Pointer to **NullableBool** | Whether the item is taxable. | [optional] 
 **GiftCard** | Pointer to **NullableBool** | Whether the item is a gift card. | [optional] 
 **Vendor** | Pointer to **NullableString** | Vendor or brand name. | [optional] 
+**Id** | Pointer to **string** | Order line ID. Present once the line is a row. Absent for jsonb-only lines during the dual-write window — do not synthesise one, or an edit would re-point packed lines. | [optional] 
 **PackedQuantity** | **int32** | Quantity already allocated to outbound shipments. | 
 
 ## Methods
@@ -679,6 +680,31 @@ HasVendor returns a boolean if a field has been set.
 `func (o *GetOrder200ResponseOrderLinesInner) UnsetVendor()`
 
 UnsetVendor ensures that no value is present for Vendor, not even an explicit nil
+### GetId
+
+`func (o *GetOrder200ResponseOrderLinesInner) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *GetOrder200ResponseOrderLinesInner) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *GetOrder200ResponseOrderLinesInner) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *GetOrder200ResponseOrderLinesInner) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
 ### GetPackedQuantity
 
 `func (o *GetOrder200ResponseOrderLinesInner) GetPackedQuantity() int32`

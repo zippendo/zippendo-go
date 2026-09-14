@@ -24,6 +24,8 @@ var _ MappedNullable = &CreateShipmentRequestParcelsInnerOrderLinesInner{}
 type CreateShipmentRequestParcelsInnerOrderLinesInner struct {
 	// Unique order line identifier.
 	Id *string `json:"id,omitempty"`
+	// ID of the order line this packed line came from. Null when the item did not originate from an order line, such as a free gift or a replacement part.
+	OrderLineId NullableString `json:"orderLineId,omitempty"`
 	// Stock keeping unit of the product. Optional — not every webshop assigns SKUs.
 	Sku NullableString `json:"sku,omitempty"`
 	// Number of units in this order line.
@@ -40,7 +42,9 @@ type CreateShipmentRequestParcelsInnerOrderLinesInner struct {
 	Location NullableString `json:"location,omitempty"`
 	// ISO 3166-1 alpha-2 country of origin.
 	CountryOfOrigin *string `json:"countryOfOrigin,omitempty"`
-	// Customs tariff (HS) code.
+	// Harmonized System customs code.
+	HsCode NullableString `json:"hsCode,omitempty"`
+	// Deprecated misspelling of `hsCode`, kept for backwards compatibility.
 	TarrifNumber NullableString `json:"tarrifNumber,omitempty"`
 }
 
@@ -94,6 +98,48 @@ func (o *CreateShipmentRequestParcelsInnerOrderLinesInner) HasId() bool {
 // SetId gets a reference to the given string and assigns it to the Id field.
 func (o *CreateShipmentRequestParcelsInnerOrderLinesInner) SetId(v string) {
 	o.Id = &v
+}
+
+// GetOrderLineId returns the OrderLineId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateShipmentRequestParcelsInnerOrderLinesInner) GetOrderLineId() string {
+	if o == nil || IsNil(o.OrderLineId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.OrderLineId.Get()
+}
+
+// GetOrderLineIdOk returns a tuple with the OrderLineId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateShipmentRequestParcelsInnerOrderLinesInner) GetOrderLineIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.OrderLineId.Get(), o.OrderLineId.IsSet()
+}
+
+// HasOrderLineId returns a boolean if a field has been set.
+func (o *CreateShipmentRequestParcelsInnerOrderLinesInner) HasOrderLineId() bool {
+	if o != nil && o.OrderLineId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetOrderLineId gets a reference to the given NullableString and assigns it to the OrderLineId field.
+func (o *CreateShipmentRequestParcelsInnerOrderLinesInner) SetOrderLineId(v string) {
+	o.OrderLineId.Set(&v)
+}
+// SetOrderLineIdNil sets the value for OrderLineId to be an explicit nil
+func (o *CreateShipmentRequestParcelsInnerOrderLinesInner) SetOrderLineIdNil() {
+	o.OrderLineId.Set(nil)
+}
+
+// UnsetOrderLineId ensures that no value is present for OrderLineId, not even an explicit nil
+func (o *CreateShipmentRequestParcelsInnerOrderLinesInner) UnsetOrderLineId() {
+	o.OrderLineId.Unset()
 }
 
 // GetSku returns the Sku field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -404,6 +450,48 @@ func (o *CreateShipmentRequestParcelsInnerOrderLinesInner) SetCountryOfOrigin(v 
 	o.CountryOfOrigin = &v
 }
 
+// GetHsCode returns the HsCode field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateShipmentRequestParcelsInnerOrderLinesInner) GetHsCode() string {
+	if o == nil || IsNil(o.HsCode.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.HsCode.Get()
+}
+
+// GetHsCodeOk returns a tuple with the HsCode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateShipmentRequestParcelsInnerOrderLinesInner) GetHsCodeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.HsCode.Get(), o.HsCode.IsSet()
+}
+
+// HasHsCode returns a boolean if a field has been set.
+func (o *CreateShipmentRequestParcelsInnerOrderLinesInner) HasHsCode() bool {
+	if o != nil && o.HsCode.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetHsCode gets a reference to the given NullableString and assigns it to the HsCode field.
+func (o *CreateShipmentRequestParcelsInnerOrderLinesInner) SetHsCode(v string) {
+	o.HsCode.Set(&v)
+}
+// SetHsCodeNil sets the value for HsCode to be an explicit nil
+func (o *CreateShipmentRequestParcelsInnerOrderLinesInner) SetHsCodeNil() {
+	o.HsCode.Set(nil)
+}
+
+// UnsetHsCode ensures that no value is present for HsCode, not even an explicit nil
+func (o *CreateShipmentRequestParcelsInnerOrderLinesInner) UnsetHsCode() {
+	o.HsCode.Unset()
+}
+
 // GetTarrifNumber returns the TarrifNumber field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateShipmentRequestParcelsInnerOrderLinesInner) GetTarrifNumber() string {
 	if o == nil || IsNil(o.TarrifNumber.Get()) {
@@ -459,6 +547,9 @@ func (o CreateShipmentRequestParcelsInnerOrderLinesInner) ToMap() (map[string]in
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
+	if o.OrderLineId.IsSet() {
+		toSerialize["orderLineId"] = o.OrderLineId.Get()
+	}
 	if o.Sku.IsSet() {
 		toSerialize["sku"] = o.Sku.Get()
 	}
@@ -480,6 +571,9 @@ func (o CreateShipmentRequestParcelsInnerOrderLinesInner) ToMap() (map[string]in
 	}
 	if !IsNil(o.CountryOfOrigin) {
 		toSerialize["countryOfOrigin"] = o.CountryOfOrigin
+	}
+	if o.HsCode.IsSet() {
+		toSerialize["hsCode"] = o.HsCode.Get()
 	}
 	if o.TarrifNumber.IsSet() {
 		toSerialize["tarrifNumber"] = o.TarrifNumber.Get()
