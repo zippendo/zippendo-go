@@ -31,6 +31,8 @@ type ListOrderChannels200ResponseDataInner struct {
 	Type string `json:"type"`
 	// Whether the channel is active.
 	Enabled bool `json:"enabled"`
+	// What Zippendo is used for on this channel. `orders_and_rates` (default) imports orders and serves checkout rates. `rates_only` serves checkout rates and service-point selection ONLY — orders are owned by an external system such as a WMS, nothing is imported, and no fulfilment or tracking is pushed back to the platform.
+	Role string `json:"role"`
 	// Brand this channel belongs to, or null for organization-wide. Orders synced from this channel inherit it, and so do the shipments and documents made from them.
 	BrandId NullableString `json:"brandId"`
 	// Whether credentials are configured (values are never exposed).
@@ -58,12 +60,13 @@ type _ListOrderChannels200ResponseDataInner ListOrderChannels200ResponseDataInne
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListOrderChannels200ResponseDataInner(id string, name string, type_ string, enabled bool, brandId NullableString, hasCredentials bool, settings ListOrderChannels200ResponseDataInnerSettings, orgId string, createdAt string, updatedAt string) *ListOrderChannels200ResponseDataInner {
+func NewListOrderChannels200ResponseDataInner(id string, name string, type_ string, enabled bool, role string, brandId NullableString, hasCredentials bool, settings ListOrderChannels200ResponseDataInnerSettings, orgId string, createdAt string, updatedAt string) *ListOrderChannels200ResponseDataInner {
 	this := ListOrderChannels200ResponseDataInner{}
 	this.Id = id
 	this.Name = name
 	this.Type = type_
 	this.Enabled = enabled
+	this.Role = role
 	this.BrandId = brandId
 	this.HasCredentials = hasCredentials
 	this.Settings = settings
@@ -175,6 +178,30 @@ func (o *ListOrderChannels200ResponseDataInner) GetEnabledOk() (*bool, bool) {
 // SetEnabled sets field value
 func (o *ListOrderChannels200ResponseDataInner) SetEnabled(v bool) {
 	o.Enabled = v
+}
+
+// GetRole returns the Role field value
+func (o *ListOrderChannels200ResponseDataInner) GetRole() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Role
+}
+
+// GetRoleOk returns a tuple with the Role field value
+// and a boolean to check if the value has been set.
+func (o *ListOrderChannels200ResponseDataInner) GetRoleOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Role, true
+}
+
+// SetRole sets field value
+func (o *ListOrderChannels200ResponseDataInner) SetRole(v string) {
+	o.Role = v
 }
 
 // GetBrandId returns the BrandId field value
@@ -485,6 +512,7 @@ func (o ListOrderChannels200ResponseDataInner) ToMap() (map[string]interface{}, 
 	toSerialize["name"] = o.Name
 	toSerialize["type"] = o.Type
 	toSerialize["enabled"] = o.Enabled
+	toSerialize["role"] = o.Role
 	toSerialize["brandId"] = o.BrandId.Get()
 	toSerialize["hasCredentials"] = o.HasCredentials
 	toSerialize["settings"] = o.Settings
@@ -515,6 +543,7 @@ func (o *ListOrderChannels200ResponseDataInner) UnmarshalJSON(data []byte) (err 
 		"name",
 		"type",
 		"enabled",
+		"role",
 		"brandId",
 		"hasCredentials",
 		"settings",

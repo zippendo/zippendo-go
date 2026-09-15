@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Name** | **string** | Display name of the channel. | 
 **Type** | **string** | Type of the order channel (sales platform). | 
 **Enabled** | **bool** | Whether the channel is active. | 
+**Role** | **string** | What Zippendo is used for on this channel. &#x60;orders_and_rates&#x60; (default) imports orders and serves checkout rates. &#x60;rates_only&#x60; serves checkout rates and service-point selection ONLY — orders are owned by an external system such as a WMS, nothing is imported, and no fulfilment or tracking is pushed back to the platform. | 
 **BrandId** | **NullableString** | Brand this channel belongs to, or null for organization-wide. Orders synced from this channel inherit it, and so do the shipments and documents made from them. | 
 **HasCredentials** | **bool** | Whether credentials are configured (values are never exposed). | 
 **Settings** | [**ListOrderChannels200ResponseDataInnerSettings**](ListOrderChannels200ResponseDataInnerSettings.md) |  | 
@@ -23,7 +24,7 @@ Name | Type | Description | Notes
 
 ### NewListOrderChannels200ResponseDataInner
 
-`func NewListOrderChannels200ResponseDataInner(id string, name string, type_ string, enabled bool, brandId NullableString, hasCredentials bool, settings ListOrderChannels200ResponseDataInnerSettings, orgId string, createdAt string, updatedAt string, ) *ListOrderChannels200ResponseDataInner`
+`func NewListOrderChannels200ResponseDataInner(id string, name string, type_ string, enabled bool, role string, brandId NullableString, hasCredentials bool, settings ListOrderChannels200ResponseDataInnerSettings, orgId string, createdAt string, updatedAt string, ) *ListOrderChannels200ResponseDataInner`
 
 NewListOrderChannels200ResponseDataInner instantiates a new ListOrderChannels200ResponseDataInner object
 This constructor will assign default values to properties that have it defined,
@@ -116,6 +117,26 @@ and a boolean to check if the value has been set.
 `func (o *ListOrderChannels200ResponseDataInner) SetEnabled(v bool)`
 
 SetEnabled sets Enabled field to given value.
+
+
+### GetRole
+
+`func (o *ListOrderChannels200ResponseDataInner) GetRole() string`
+
+GetRole returns the Role field if non-nil, zero value otherwise.
+
+### GetRoleOk
+
+`func (o *ListOrderChannels200ResponseDataInner) GetRoleOk() (*string, bool)`
+
+GetRoleOk returns a tuple with the Role field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRole
+
+`func (o *ListOrderChannels200ResponseDataInner) SetRole(v string)`
+
+SetRole sets Role field to given value.
 
 
 ### GetBrandId

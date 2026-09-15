@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Type** | **string** | Type of the order channel. Platform channels (Shopify, WooCommerce) are created via their connect flows. | 
 **BrandId** | Pointer to **NullableString** | Brand this channel belongs to; null for organization-wide | [optional] 
 **Enabled** | Pointer to **bool** | Whether the channel is active. | [optional] [default to true]
+**Role** | Pointer to **string** | What Zippendo is used for on this channel. &#x60;orders_and_rates&#x60; (default) imports orders and serves checkout rates. &#x60;rates_only&#x60; serves checkout rates and service-point selection ONLY — orders are owned by an external system such as a WMS, nothing is imported, and no fulfilment or tracking is pushed back to the platform. | [optional] [default to "orders_and_rates"]
 **Settings** | Pointer to [**CreateOrderChannelRequestSettings**](CreateOrderChannelRequestSettings.md) |  | [optional] [default to {"useWebhooks":true,"autoSync":false,"syncIntervalMinutes":15,"autoShipOnCreate":false,"syncOnlyUnfulfilled":true,"servicePointCount":6}]
 
 ## Methods
@@ -128,6 +129,31 @@ SetEnabled sets Enabled field to given value.
 `func (o *CreateOrderChannelRequest) HasEnabled() bool`
 
 HasEnabled returns a boolean if a field has been set.
+
+### GetRole
+
+`func (o *CreateOrderChannelRequest) GetRole() string`
+
+GetRole returns the Role field if non-nil, zero value otherwise.
+
+### GetRoleOk
+
+`func (o *CreateOrderChannelRequest) GetRoleOk() (*string, bool)`
+
+GetRoleOk returns a tuple with the Role field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRole
+
+`func (o *CreateOrderChannelRequest) SetRole(v string)`
+
+SetRole sets Role field to given value.
+
+### HasRole
+
+`func (o *CreateOrderChannelRequest) HasRole() bool`
+
+HasRole returns a boolean if a field has been set.
 
 ### GetSettings
 

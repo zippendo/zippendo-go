@@ -7502,6 +7502,7 @@ components:
           - ORDER_EXISTS
           - ORDER_CHANNEL_NOT_FOUND
           - ORDER_CHANNEL_CONFIG_INVALID
+          - ORDER_CHANNEL_RATES_ONLY
           - INTEGRATION_NOT_CONFIGURED
           - INSTALLATION_NOT_FOUND
           - WEBHOOK_SIGNATURE_INVALID
@@ -7539,6 +7540,16 @@ components:
           - MIGRATION_SOURCE_UNREACHABLE
           - MIGRATION_NOT_FOUND
           - MIGRATION_IN_PROGRESS
+          - WMS_CONNECTION_NOT_FOUND
+          - WMS_CONNECTION_CONFIG_INVALID
+          - WMS_CONNECTION_DISABLED
+          - WMS_ACCOUNT_MISMATCH
+          - WMS_HOST_ID_UNMAPPED
+          - WMS_SERVICE_POINT_REQUIRED
+          - WMS_DANGEROUS_GOODS_UNSUPPORTED
+          - WMS_LABEL_IN_PROGRESS
+          - WMS_LABEL_ALREADY_BOOKED
+          - WMS_LABEL_COUNT_MISMATCH
           - DATA_EXPORT_NOT_FOUND
           - DATA_EXPORT_IN_PROGRESS
           - DATA_EXPORT_NOT_READY
@@ -13635,6 +13646,7 @@ components:
           - ORDER_EXISTS
           - ORDER_CHANNEL_NOT_FOUND
           - ORDER_CHANNEL_CONFIG_INVALID
+          - ORDER_CHANNEL_RATES_ONLY
           - INTEGRATION_NOT_CONFIGURED
           - INSTALLATION_NOT_FOUND
           - WEBHOOK_SIGNATURE_INVALID
@@ -13672,6 +13684,16 @@ components:
           - MIGRATION_SOURCE_UNREACHABLE
           - MIGRATION_NOT_FOUND
           - MIGRATION_IN_PROGRESS
+          - WMS_CONNECTION_NOT_FOUND
+          - WMS_CONNECTION_CONFIG_INVALID
+          - WMS_CONNECTION_DISABLED
+          - WMS_ACCOUNT_MISMATCH
+          - WMS_HOST_ID_UNMAPPED
+          - WMS_SERVICE_POINT_REQUIRED
+          - WMS_DANGEROUS_GOODS_UNSUPPORTED
+          - WMS_LABEL_IN_PROGRESS
+          - WMS_LABEL_ALREADY_BOOKED
+          - WMS_LABEL_COUNT_MISMATCH
           - DATA_EXPORT_NOT_FOUND
           - DATA_EXPORT_IN_PROGRESS
           - DATA_EXPORT_NOT_READY
@@ -13848,6 +13870,7 @@ components:
           - ORDER_EXISTS
           - ORDER_CHANNEL_NOT_FOUND
           - ORDER_CHANNEL_CONFIG_INVALID
+          - ORDER_CHANNEL_RATES_ONLY
           - INTEGRATION_NOT_CONFIGURED
           - INSTALLATION_NOT_FOUND
           - WEBHOOK_SIGNATURE_INVALID
@@ -13885,6 +13908,16 @@ components:
           - MIGRATION_SOURCE_UNREACHABLE
           - MIGRATION_NOT_FOUND
           - MIGRATION_IN_PROGRESS
+          - WMS_CONNECTION_NOT_FOUND
+          - WMS_CONNECTION_CONFIG_INVALID
+          - WMS_CONNECTION_DISABLED
+          - WMS_ACCOUNT_MISMATCH
+          - WMS_HOST_ID_UNMAPPED
+          - WMS_SERVICE_POINT_REQUIRED
+          - WMS_DANGEROUS_GOODS_UNSUPPORTED
+          - WMS_LABEL_IN_PROGRESS
+          - WMS_LABEL_ALREADY_BOOKED
+          - WMS_LABEL_COUNT_MISMATCH
           - DATA_EXPORT_NOT_FOUND
           - DATA_EXPORT_IN_PROGRESS
           - DATA_EXPORT_NOT_READY
@@ -17514,6 +17547,7 @@ components:
         name: Anna's Shopify Store
         type: shopify
         enabled: true
+        role: orders_and_rates
         brandId: brnd_8f3kd92ld0
         hasCredentials: true
         settings:
@@ -17569,6 +17603,17 @@ components:
           description: Whether the channel is active.
           example: true
           type: boolean
+        role:
+          description: "What Zippendo is used for on this channel. `orders_and_rates`\
+            \ (default) imports orders and serves checkout rates. `rates_only` serves\
+            \ checkout rates and service-point selection ONLY — orders are owned by\
+            \ an external system such as a WMS, nothing is imported, and no fulfilment\
+            \ or tracking is pushed back to the platform."
+          enum:
+          - orders_and_rates
+          - rates_only
+          example: orders_and_rates
+          type: string
         brandId:
           description: "Brand this channel belongs to, or null for organization-wide.\
             \ Orders synced from this channel inherit it, and so do the shipments\
@@ -17628,6 +17673,7 @@ components:
       - id
       - name
       - orgId
+      - role
       - settings
       - type
       - updatedAt
@@ -17640,6 +17686,7 @@ components:
           name: Anna's Shopify Store
           type: shopify
           enabled: true
+          role: orders_and_rates
           brandId: brnd_8f3kd92ld0
           hasCredentials: true
           settings:
@@ -17677,6 +17724,7 @@ components:
           name: Anna's Shopify Store
           type: shopify
           enabled: true
+          role: orders_and_rates
           brandId: brnd_8f3kd92ld0
           hasCredentials: true
           settings:
@@ -17885,6 +17933,18 @@ components:
           description: Whether the channel is active.
           example: true
           type: boolean
+        role:
+          default: orders_and_rates
+          description: "What Zippendo is used for on this channel. `orders_and_rates`\
+            \ (default) imports orders and serves checkout rates. `rates_only` serves\
+            \ checkout rates and service-point selection ONLY — orders are owned by\
+            \ an external system such as a WMS, nothing is imported, and no fulfilment\
+            \ or tracking is pushed back to the platform."
+          enum:
+          - orders_and_rates
+          - rates_only
+          example: orders_and_rates
+          type: string
         settings:
           $ref: "#/components/schemas/createOrderChannel_request_settings"
       required:
@@ -17992,6 +18052,17 @@ components:
           description: Whether the channel is active.
           example: true
           type: boolean
+        role:
+          description: "What Zippendo is used for on this channel. `orders_and_rates`\
+            \ (default) imports orders and serves checkout rates. `rates_only` serves\
+            \ checkout rates and service-point selection ONLY — orders are owned by\
+            \ an external system such as a WMS, nothing is imported, and no fulfilment\
+            \ or tracking is pushed back to the platform."
+          enum:
+          - orders_and_rates
+          - rates_only
+          example: orders_and_rates
+          type: string
         credentials:
           additionalProperties: {}
           description: Type-specific platform credentials.

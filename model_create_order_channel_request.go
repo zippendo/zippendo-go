@@ -30,6 +30,8 @@ type CreateOrderChannelRequest struct {
 	BrandId NullableString `json:"brandId,omitempty"`
 	// Whether the channel is active.
 	Enabled *bool `json:"enabled,omitempty"`
+	// What Zippendo is used for on this channel. `orders_and_rates` (default) imports orders and serves checkout rates. `rates_only` serves checkout rates and service-point selection ONLY — orders are owned by an external system such as a WMS, nothing is imported, and no fulfilment or tracking is pushed back to the platform.
+	Role *string `json:"role,omitempty"`
 	Settings *CreateOrderChannelRequestSettings `json:"settings,omitempty"`
 }
 
@@ -45,6 +47,8 @@ func NewCreateOrderChannelRequest(name string, type_ string) *CreateOrderChannel
 	this.Type = type_
 	var enabled bool = true
 	this.Enabled = &enabled
+	var role string = "orders_and_rates"
+	this.Role = &role
 	var settings CreateOrderChannelRequestSettings = {"useWebhooks":true,"autoSync":false,"syncIntervalMinutes":15,"autoShipOnCreate":false,"syncOnlyUnfulfilled":true,"servicePointCount":6}
 	this.Settings = &settings
 	return &this
@@ -57,6 +61,8 @@ func NewCreateOrderChannelRequestWithDefaults() *CreateOrderChannelRequest {
 	this := CreateOrderChannelRequest{}
 	var enabled bool = true
 	this.Enabled = &enabled
+	var role string = "orders_and_rates"
+	this.Role = &role
 	var settings CreateOrderChannelRequestSettings = {"useWebhooks":true,"autoSync":false,"syncIntervalMinutes":15,"autoShipOnCreate":false,"syncOnlyUnfulfilled":true,"servicePointCount":6}
 	this.Settings = &settings
 	return &this
@@ -184,6 +190,38 @@ func (o *CreateOrderChannelRequest) SetEnabled(v bool) {
 	o.Enabled = &v
 }
 
+// GetRole returns the Role field value if set, zero value otherwise.
+func (o *CreateOrderChannelRequest) GetRole() string {
+	if o == nil || IsNil(o.Role) {
+		var ret string
+		return ret
+	}
+	return *o.Role
+}
+
+// GetRoleOk returns a tuple with the Role field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateOrderChannelRequest) GetRoleOk() (*string, bool) {
+	if o == nil || IsNil(o.Role) {
+		return nil, false
+	}
+	return o.Role, true
+}
+
+// HasRole returns a boolean if a field has been set.
+func (o *CreateOrderChannelRequest) HasRole() bool {
+	if o != nil && !IsNil(o.Role) {
+		return true
+	}
+
+	return false
+}
+
+// SetRole gets a reference to the given string and assigns it to the Role field.
+func (o *CreateOrderChannelRequest) SetRole(v string) {
+	o.Role = &v
+}
+
 // GetSettings returns the Settings field value if set, zero value otherwise.
 func (o *CreateOrderChannelRequest) GetSettings() CreateOrderChannelRequestSettings {
 	if o == nil || IsNil(o.Settings) {
@@ -233,6 +271,9 @@ func (o CreateOrderChannelRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
+	}
+	if !IsNil(o.Role) {
+		toSerialize["role"] = o.Role
 	}
 	if !IsNil(o.Settings) {
 		toSerialize["settings"] = o.Settings

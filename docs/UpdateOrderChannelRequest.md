@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **BrandId** | Pointer to **NullableString** | Brand this channel belongs to; null for organization-wide | [optional] 
 **Name** | Pointer to **string** | Display name for the channel. | [optional] 
 **Enabled** | Pointer to **bool** | Whether the channel is active. | [optional] 
+**Role** | Pointer to **string** | What Zippendo is used for on this channel. &#x60;orders_and_rates&#x60; (default) imports orders and serves checkout rates. &#x60;rates_only&#x60; serves checkout rates and service-point selection ONLY — orders are owned by an external system such as a WMS, nothing is imported, and no fulfilment or tracking is pushed back to the platform. | [optional] 
 **Credentials** | Pointer to **map[string]interface{}** | Type-specific platform credentials. | [optional] 
 **Settings** | Pointer to [**UpdateOrderChannelRequestSettings**](UpdateOrderChannelRequestSettings.md) |  | [optional] 
 **ShippingRuleIds** | Pointer to **[]string** | IDs of shipping rules linked to this channel. | [optional] 
@@ -114,6 +115,31 @@ SetEnabled sets Enabled field to given value.
 `func (o *UpdateOrderChannelRequest) HasEnabled() bool`
 
 HasEnabled returns a boolean if a field has been set.
+
+### GetRole
+
+`func (o *UpdateOrderChannelRequest) GetRole() string`
+
+GetRole returns the Role field if non-nil, zero value otherwise.
+
+### GetRoleOk
+
+`func (o *UpdateOrderChannelRequest) GetRoleOk() (*string, bool)`
+
+GetRoleOk returns a tuple with the Role field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRole
+
+`func (o *UpdateOrderChannelRequest) SetRole(v string)`
+
+SetRole sets Role field to given value.
+
+### HasRole
+
+`func (o *UpdateOrderChannelRequest) HasRole() bool`
+
+HasRole returns a boolean if a field has been set.
 
 ### GetCredentials
 

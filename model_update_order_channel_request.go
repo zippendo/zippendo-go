@@ -26,6 +26,8 @@ type UpdateOrderChannelRequest struct {
 	Name *string `json:"name,omitempty"`
 	// Whether the channel is active.
 	Enabled *bool `json:"enabled,omitempty"`
+	// What Zippendo is used for on this channel. `orders_and_rates` (default) imports orders and serves checkout rates. `rates_only` serves checkout rates and service-point selection ONLY — orders are owned by an external system such as a WMS, nothing is imported, and no fulfilment or tracking is pushed back to the platform.
+	Role *string `json:"role,omitempty"`
 	// Type-specific platform credentials.
 	Credentials map[string]interface{} `json:"credentials,omitempty"`
 	Settings *UpdateOrderChannelRequestSettings `json:"settings,omitempty"`
@@ -156,6 +158,38 @@ func (o *UpdateOrderChannelRequest) SetEnabled(v bool) {
 	o.Enabled = &v
 }
 
+// GetRole returns the Role field value if set, zero value otherwise.
+func (o *UpdateOrderChannelRequest) GetRole() string {
+	if o == nil || IsNil(o.Role) {
+		var ret string
+		return ret
+	}
+	return *o.Role
+}
+
+// GetRoleOk returns a tuple with the Role field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateOrderChannelRequest) GetRoleOk() (*string, bool) {
+	if o == nil || IsNil(o.Role) {
+		return nil, false
+	}
+	return o.Role, true
+}
+
+// HasRole returns a boolean if a field has been set.
+func (o *UpdateOrderChannelRequest) HasRole() bool {
+	if o != nil && !IsNil(o.Role) {
+		return true
+	}
+
+	return false
+}
+
+// SetRole gets a reference to the given string and assigns it to the Role field.
+func (o *UpdateOrderChannelRequest) SetRole(v string) {
+	o.Role = &v
+}
+
 // GetCredentials returns the Credentials field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UpdateOrderChannelRequest) GetCredentials() map[string]interface{} {
 	if o == nil {
@@ -271,6 +305,9 @@ func (o UpdateOrderChannelRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
+	}
+	if !IsNil(o.Role) {
+		toSerialize["role"] = o.Role
 	}
 	if o.Credentials != nil {
 		toSerialize["credentials"] = o.Credentials
