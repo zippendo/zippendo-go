@@ -3796,7 +3796,7 @@ paths:
   /orgs/{orgId}/shipments:
     get:
       description: "List all shipments for an organization, paginated and ordered\
-        \ by newest first."
+        \ by newest first. Accepts an advanced filter definition."
       operationId: listShipments
       parameters:
       - description: Page number (1-based)
@@ -3890,6 +3890,21 @@ paths:
         required: false
         schema:
           example: SHIP-1042
+          type: string
+        style: form
+      - description: "Advanced filter as a JSON-encoded definition: a `conjunction`\
+          \ (`and`/`or`) over `conditions`, each `{ id, field, operator, value }`\
+          \ or a nested group. Fields and operators per list are documented under\
+          \ Filtering lists in the API overview. An invalid filter returns 400 `FILTER_INVALID`."
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          example: "{\"conjunction\":\"and\",\"conditions\":[{\"id\":\"c_1\",\"field\"\
+            :\"status\",\"operator\":\"in\",\"value\":[\"pending\",\"processing\"\
+            ]}]}"
+          maxLength: 8000
           type: string
         style: form
       - description: Organization ID
@@ -5041,7 +5056,7 @@ paths:
   /orgs/{orgId}/orders:
     get:
       description: "Returns a paginated list of orders for an organization, filterable\
-        \ by status, channel, and search term."
+        \ by status, channel, search term and an advanced filter definition."
       operationId: listOrders
       parameters:
       - description: Page number (1-based)
@@ -5130,6 +5145,21 @@ paths:
         required: false
         schema:
           example: Anna
+          type: string
+        style: form
+      - description: "Advanced filter as a JSON-encoded definition: a `conjunction`\
+          \ (`and`/`or`) over `conditions`, each `{ id, field, operator, value }`\
+          \ or a nested group. Fields and operators per list are documented under\
+          \ Filtering lists in the API overview. An invalid filter returns 400 `FILTER_INVALID`."
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          example: "{\"conjunction\":\"and\",\"conditions\":[{\"id\":\"c_1\",\"field\"\
+            :\"status\",\"operator\":\"in\",\"value\":[\"pending\",\"processing\"\
+            ]}]}"
+          maxLength: 8000
           type: string
         style: form
       - description: Organization ID
@@ -7525,6 +7555,9 @@ components:
           - AUTOMATION_INVALID
           - ZIPPY_DISABLED
           - CONVERSATION_NOT_FOUND
+          - FILTER_INVALID
+          - SAVED_VIEW_NOT_FOUND
+          - SAVED_VIEW_LIMIT_REACHED
           - ADMIN_FORBIDDEN
           - JOB_HANDLER_NOT_REGISTERED
           - JOB_QUEUE_NOT_CONFIGURED
@@ -13669,6 +13702,9 @@ components:
           - AUTOMATION_INVALID
           - ZIPPY_DISABLED
           - CONVERSATION_NOT_FOUND
+          - FILTER_INVALID
+          - SAVED_VIEW_NOT_FOUND
+          - SAVED_VIEW_LIMIT_REACHED
           - ADMIN_FORBIDDEN
           - JOB_HANDLER_NOT_REGISTERED
           - JOB_QUEUE_NOT_CONFIGURED
@@ -13893,6 +13929,9 @@ components:
           - AUTOMATION_INVALID
           - ZIPPY_DISABLED
           - CONVERSATION_NOT_FOUND
+          - FILTER_INVALID
+          - SAVED_VIEW_NOT_FOUND
+          - SAVED_VIEW_LIMIT_REACHED
           - ADMIN_FORBIDDEN
           - JOB_HANDLER_NOT_REGISTERED
           - JOB_QUEUE_NOT_CONFIGURED

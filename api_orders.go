@@ -459,6 +459,7 @@ type ApiListOrdersRequest struct {
 	status *string
 	orderChannelId *string
 	search *string
+	filter *string
 }
 
 // Page number (1-based)
@@ -503,6 +504,12 @@ func (r ApiListOrdersRequest) Search(search string) ApiListOrdersRequest {
 	return r
 }
 
+// Advanced filter as a JSON-encoded definition: a &#x60;conjunction&#x60; (&#x60;and&#x60;/&#x60;or&#x60;) over &#x60;conditions&#x60;, each &#x60;{ id, field, operator, value }&#x60; or a nested group. Fields and operators per list are documented under Filtering lists in the API overview. An invalid filter returns 400 &#x60;FILTER_INVALID&#x60;.
+func (r ApiListOrdersRequest) Filter(filter string) ApiListOrdersRequest {
+	r.filter = &filter
+	return r
+}
+
 func (r ApiListOrdersRequest) Execute() (*ListOrders200Response, *http.Response, error) {
 	return r.ApiService.ListOrdersExecute(r)
 }
@@ -510,7 +517,7 @@ func (r ApiListOrdersRequest) Execute() (*ListOrders200Response, *http.Response,
 /*
 ListOrders List orders
 
-Returns a paginated list of orders for an organization, filterable by status, channel, and search term.
+Returns a paginated list of orders for an organization, filterable by status, channel, search term and an advanced filter definition.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param orgId Organization ID
@@ -574,6 +581,9 @@ func (a *OrdersAPIService) ListOrdersExecute(r ApiListOrdersRequest) (*ListOrder
 	}
 	if r.search != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
+	}
+	if r.filter != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

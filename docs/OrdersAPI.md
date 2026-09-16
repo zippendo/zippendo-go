@@ -232,7 +232,7 @@ Name | Type | Description  | Notes
 
 ## ListOrders
 
-> ListOrders200Response ListOrders(ctx, orgId).Page(page).Limit(limit).BrandId(brandId).BrandScope(brandScope).Status(status).OrderChannelId(orderChannelId).Search(search).Execute()
+> ListOrders200Response ListOrders(ctx, orgId).Page(page).Limit(limit).BrandId(brandId).BrandScope(brandScope).Status(status).OrderChannelId(orderChannelId).Search(search).Filter(filter).Execute()
 
 List orders
 
@@ -259,10 +259,11 @@ func main() {
 	status := "processing" // string | Order fulfilment status derived from its shipments. (optional)
 	orderChannelId := "clz9k2f0a0001abcd1234efgh" // string | Filter by order channel ID. (optional)
 	search := "Anna" // string | Search by order number or customer name/email. (optional)
+	filter := "{\"conjunction\":\"and\",\"conditions\":[{\"id\":\"c_1\",\"field\":\"status\",\"operator\":\"in\",\"value\":[\"pending\",\"processing\"]}]}" // string | Advanced filter as a JSON-encoded definition: a `conjunction` (`and`/`or`) over `conditions`, each `{ id, field, operator, value }` or a nested group. Fields and operators per list are documented under Filtering lists in the API overview. An invalid filter returns 400 `FILTER_INVALID`. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.OrdersAPI.ListOrders(context.Background(), orgId).Page(page).Limit(limit).BrandId(brandId).BrandScope(brandScope).Status(status).OrderChannelId(orderChannelId).Search(search).Execute()
+	resp, r, err := apiClient.OrdersAPI.ListOrders(context.Background(), orgId).Page(page).Limit(limit).BrandId(brandId).BrandScope(brandScope).Status(status).OrderChannelId(orderChannelId).Search(search).Filter(filter).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `OrdersAPI.ListOrders``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -295,6 +296,7 @@ Name | Type | Description  | Notes
  **status** | **string** | Order fulfilment status derived from its shipments. | 
  **orderChannelId** | **string** | Filter by order channel ID. | 
  **search** | **string** | Search by order number or customer name/email. | 
+ **filter** | **string** | Advanced filter as a JSON-encoded definition: a &#x60;conjunction&#x60; (&#x60;and&#x60;/&#x60;or&#x60;) over &#x60;conditions&#x60;, each &#x60;{ id, field, operator, value }&#x60; or a nested group. Fields and operators per list are documented under Filtering lists in the API overview. An invalid filter returns 400 &#x60;FILTER_INVALID&#x60;. | 
 
 ### Return type
 
