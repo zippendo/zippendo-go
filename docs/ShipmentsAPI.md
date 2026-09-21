@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**CreateReturnShipment**](ShipmentsAPI.md#CreateReturnShipment) | **Post** /orgs/{orgId}/shipments/{shipmentId}/create-return | Create return shipment
 [**CreateShipment**](ShipmentsAPI.md#CreateShipment) | **Post** /orgs/{orgId}/shipments | Create shipment
 [**DeleteShipment**](ShipmentsAPI.md#DeleteShipment) | **Delete** /orgs/{orgId}/shipments/{shipmentId} | Delete shipment
+[**FetchShipmentLabel**](ShipmentsAPI.md#FetchShipmentLabel) | **Post** /orgs/{orgId}/shipments/{shipmentId}/fetch-label | Fetch missing label
 [**GetShipment**](ShipmentsAPI.md#GetShipment) | **Get** /orgs/{orgId}/shipments/{shipmentId} | Get shipment
 [**GetShipmentDocumentContent**](ShipmentsAPI.md#GetShipmentDocumentContent) | **Get** /orgs/{orgId}/shipments/{shipmentId}/documents/{documentId}/content | Download shipment document
 [**ListShipments**](ShipmentsAPI.md#ListShipments) | **Get** /orgs/{orgId}/shipments | List shipments
@@ -370,6 +371,79 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**RevokeApiToken200Response**](RevokeApiToken200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## FetchShipmentLabel
+
+> CreateShipment201Response FetchShipmentLabel(ctx, orgId, shipmentId).Execute()
+
+Fetch missing label
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/zippendo/zippendo-go"
+)
+
+func main() {
+	orgId := "org_1a2b3c4d" // string | Organization identifier.
+	shipmentId := "shp_4d9e7a2f" // string | Shipment identifier.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ShipmentsAPI.FetchShipmentLabel(context.Background(), orgId, shipmentId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ShipmentsAPI.FetchShipmentLabel``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `FetchShipmentLabel`: CreateShipment201Response
+	fmt.Fprintf(os.Stdout, "Response from `ShipmentsAPI.FetchShipmentLabel`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**orgId** | **string** | Organization identifier. | 
+**shipmentId** | **string** | Shipment identifier. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiFetchShipmentLabelRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**CreateShipment201Response**](CreateShipment201Response.md)
 
 ### Authorization
 

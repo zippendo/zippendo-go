@@ -4518,6 +4518,102 @@ paths:
 
           Zippendo.configure { |c| c.access_token = ENV["ZIPPENDO_API_TOKEN"] }
           result = Zippendo::ShipmentsApi.new.send_shipment("...", "...")
+  /orgs/{orgId}/shipments/{shipmentId}/fetch-label:
+    post:
+      description: "Ask the carrier again for the label of a dispatched shipment whose\
+        \ label could not be downloaded when it was sent (it carries a LABEL_DOWNLOAD_FAILED\
+        \ error). Stores the label, clears the error and returns the shipment."
+      operationId: fetchShipmentLabel
+      parameters:
+      - description: Organization identifier.
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          example: org_1a2b3c4d
+          type: string
+        style: simple
+      - description: Shipment identifier.
+        explode: false
+        in: path
+        name: shipmentId
+        required: true
+        schema:
+          example: shp_4d9e7a2f
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/createShipment_201_response"
+          description: Default Response
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+      summary: Fetch missing label
+      tags:
+      - Shipments
+      x-codeSamples:
+      - lang: typescript
+        label: TypeScript
+        source: |-
+          import { Configuration, ShipmentsApi } from "@zippendo/sdk"
+
+          const api = new ShipmentsApi(new Configuration({ accessToken: process.env.ZIPPENDO_API_TOKEN }))
+          const result = await api.fetchShipmentLabel({ orgId: "...", shipmentId: "..." })
+      - lang: python
+        label: Python
+        source: |-
+          import os
+          import zippendo
+
+          config = zippendo.Configuration(access_token=os.environ["ZIPPENDO_API_TOKEN"])
+          with zippendo.ApiClient(config) as client:
+              result = zippendo.ShipmentsApi(client).fetch_shipment_label("...", "...")
+      - lang: php
+        label: PHP
+        source: |-
+          <?php
+          $config = Zippendo\Sdk\Configuration::getDefaultConfiguration()->setAccessToken(getenv("ZIPPENDO_API_TOKEN"));
+          $api = new Zippendo\Sdk\Api\ShipmentsApi(new GuzzleHttp\Client(), $config);
+          $result = $api->fetchShipmentLabel("...", "...");
+      - lang: go
+        label: Go
+        source: |-
+          client := zippendo.NewAPIClient(zippendo.NewConfiguration())
+          ctx := context.WithValue(context.Background(), zippendo.ContextAccessToken, os.Getenv("ZIPPENDO_API_TOKEN"))
+          result, _, err := client.ShipmentsAPI.FetchShipmentLabel(ctx, "...", "...").Execute()
+      - lang: ruby
+        label: Ruby
+        source: |-
+          require "zippendo"
+
+          Zippendo.configure { |c| c.access_token = ENV["ZIPPENDO_API_TOKEN"] }
+          result = Zippendo::ShipmentsApi.new.fetch_shipment_label("...", "...")
   /orgs/{orgId}/shipments/batch-send:
     post:
       description: Book multiple pending/error shipments with their carriers in one
@@ -4888,9 +4984,10 @@ paths:
           result = Zippendo::ShipmentsApi.new.split_shipment_parcel("...", "...", Zippendo::SplitShipmentParcelRequest.new)
   /orgs/{orgId}/shipments/{shipmentId}/create-return:
     post:
-      description: Create and auto-send a return shipment from a dispatched outbound
-        shipment with swapped sender/receiver. Requires a configured return shipping
-        rule.
+      description: "Create and auto-send a return shipment from a dispatched outbound\
+        \ shipment with swapped sender/receiver. Requires a configured return shipping\
+        \ rule. The return is returned with its booking outcome: `dispatched`, or\
+        \ `error` with the carrier's reasons in `errors`."
       operationId: createReturnShipment
       parameters:
       - description: Organization identifier.
@@ -7512,6 +7609,10 @@ components:
           - CARRIER_CONFIG_INVALID
           - CARRIER_PARAMETER_INVALID
           - CARRIER_SERVER_UNAVAILABLE
+          - CARRIER_UNREACHABLE
+          - CARRIER_NOT_RESPONDING
+          - LABEL_DOWNLOAD_FAILED
+          - CARRIER_DOCUMENT_INCOMPLETE
           - CARRIER_GLS_WRONG_ADDRESS
           - CARRIER_DAO_INVALID_POSTAL_CODE
           - CARRIER_POSTNORD_BOOKING_FAILED
@@ -7519,6 +7620,9 @@ components:
           - CARRIER_DHL_EXPRESS_BOOKING_FAILED
           - CARRIER_UPS_BOOKING_FAILED
           - CARRIER_MATKAHUOLTO_BOOKING_FAILED
+          - CARRIER_DPD_PL_BOOKING_FAILED
+          - CARRIER_POSTNL_BOOKING_FAILED
+          - CARRIER_ROYAL_MAIL_BOOKING_FAILED
           - CARRIER_TRACKING_WEBHOOK_REGISTRATION_FAILED
           - CARRIER_CUSTOMS_UNSUPPORTED_PRODUCT
           - CARRIER_CUSTOMS_INCOMPLETE
@@ -13659,6 +13763,10 @@ components:
           - CARRIER_CONFIG_INVALID
           - CARRIER_PARAMETER_INVALID
           - CARRIER_SERVER_UNAVAILABLE
+          - CARRIER_UNREACHABLE
+          - CARRIER_NOT_RESPONDING
+          - LABEL_DOWNLOAD_FAILED
+          - CARRIER_DOCUMENT_INCOMPLETE
           - CARRIER_GLS_WRONG_ADDRESS
           - CARRIER_DAO_INVALID_POSTAL_CODE
           - CARRIER_POSTNORD_BOOKING_FAILED
@@ -13666,6 +13774,9 @@ components:
           - CARRIER_DHL_EXPRESS_BOOKING_FAILED
           - CARRIER_UPS_BOOKING_FAILED
           - CARRIER_MATKAHUOLTO_BOOKING_FAILED
+          - CARRIER_DPD_PL_BOOKING_FAILED
+          - CARRIER_POSTNL_BOOKING_FAILED
+          - CARRIER_ROYAL_MAIL_BOOKING_FAILED
           - CARRIER_TRACKING_WEBHOOK_REGISTRATION_FAILED
           - CARRIER_CUSTOMS_UNSUPPORTED_PRODUCT
           - CARRIER_CUSTOMS_INCOMPLETE
@@ -13886,6 +13997,10 @@ components:
           - CARRIER_CONFIG_INVALID
           - CARRIER_PARAMETER_INVALID
           - CARRIER_SERVER_UNAVAILABLE
+          - CARRIER_UNREACHABLE
+          - CARRIER_NOT_RESPONDING
+          - LABEL_DOWNLOAD_FAILED
+          - CARRIER_DOCUMENT_INCOMPLETE
           - CARRIER_GLS_WRONG_ADDRESS
           - CARRIER_DAO_INVALID_POSTAL_CODE
           - CARRIER_POSTNORD_BOOKING_FAILED
@@ -13893,6 +14008,9 @@ components:
           - CARRIER_DHL_EXPRESS_BOOKING_FAILED
           - CARRIER_UPS_BOOKING_FAILED
           - CARRIER_MATKAHUOLTO_BOOKING_FAILED
+          - CARRIER_DPD_PL_BOOKING_FAILED
+          - CARRIER_POSTNL_BOOKING_FAILED
+          - CARRIER_ROYAL_MAIL_BOOKING_FAILED
           - CARRIER_TRACKING_WEBHOOK_REGISTRATION_FAILED
           - CARRIER_CUSTOMS_UNSUPPORTED_PRODUCT
           - CARRIER_CUSTOMS_INCOMPLETE
