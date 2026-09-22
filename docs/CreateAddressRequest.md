@@ -4,15 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | Name of the address | 
-**AttContact** | **string** | Attention contact person | 
+**Name** | **string** | Company or person the parcel is sent from, printed on labels | 
+**Description** | Pointer to **NullableString** | Internal label for this address; never printed or sent to a carrier | [optional] 
+**AttContact** | Pointer to **NullableString** | Contact person at this address, printed as the att. line | [optional] 
 **Address1** | **string** | Address line 1 | 
-**Address2** | Pointer to **string** | Address line 2 | [optional] 
+**Address2** | Pointer to **NullableString** | Address line 2 | [optional] 
 **Zipcode** | **string** | Postal/ZIP code | 
 **City** | **string** | City | 
 **Phone** | **string** | Phone number | 
 **CountryCode** | **string** | Country code (ISO 2 or 3 letter) | 
-**State** | Pointer to **string** | State/Province | [optional] 
+**State** | Pointer to **NullableString** | State/Province | [optional] 
 **Email** | **string** | Email address | 
 **Customs** | Pointer to **map[string]string** | Customs identifiers (voec, eori, sprn, ioss, fda, duns) | [optional] 
 **AddressTypes** | Pointer to **[]string** | Address types (sender, pickup, return) | [optional] [default to {"sender"}]
@@ -22,7 +23,7 @@ Name | Type | Description | Notes
 
 ### NewCreateAddressRequest
 
-`func NewCreateAddressRequest(name string, attContact string, address1 string, zipcode string, city string, phone string, countryCode string, email string, ) *CreateAddressRequest`
+`func NewCreateAddressRequest(name string, address1 string, zipcode string, city string, phone string, countryCode string, email string, ) *CreateAddressRequest`
 
 NewCreateAddressRequest instantiates a new CreateAddressRequest object
 This constructor will assign default values to properties that have it defined,
@@ -57,6 +58,41 @@ and a boolean to check if the value has been set.
 SetName sets Name field to given value.
 
 
+### GetDescription
+
+`func (o *CreateAddressRequest) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *CreateAddressRequest) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *CreateAddressRequest) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *CreateAddressRequest) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
+
+### SetDescriptionNil
+
+`func (o *CreateAddressRequest) SetDescriptionNil(b bool)`
+
+ SetDescriptionNil sets the value for Description to be an explicit nil
+
+### UnsetDescription
+`func (o *CreateAddressRequest) UnsetDescription()`
+
+UnsetDescription ensures that no value is present for Description, not even an explicit nil
 ### GetAttContact
 
 `func (o *CreateAddressRequest) GetAttContact() string`
@@ -76,7 +112,22 @@ and a boolean to check if the value has been set.
 
 SetAttContact sets AttContact field to given value.
 
+### HasAttContact
 
+`func (o *CreateAddressRequest) HasAttContact() bool`
+
+HasAttContact returns a boolean if a field has been set.
+
+### SetAttContactNil
+
+`func (o *CreateAddressRequest) SetAttContactNil(b bool)`
+
+ SetAttContactNil sets the value for AttContact to be an explicit nil
+
+### UnsetAttContact
+`func (o *CreateAddressRequest) UnsetAttContact()`
+
+UnsetAttContact ensures that no value is present for AttContact, not even an explicit nil
 ### GetAddress1
 
 `func (o *CreateAddressRequest) GetAddress1() string`
@@ -122,6 +173,16 @@ SetAddress2 sets Address2 field to given value.
 
 HasAddress2 returns a boolean if a field has been set.
 
+### SetAddress2Nil
+
+`func (o *CreateAddressRequest) SetAddress2Nil(b bool)`
+
+ SetAddress2Nil sets the value for Address2 to be an explicit nil
+
+### UnsetAddress2
+`func (o *CreateAddressRequest) UnsetAddress2()`
+
+UnsetAddress2 ensures that no value is present for Address2, not even an explicit nil
 ### GetZipcode
 
 `func (o *CreateAddressRequest) GetZipcode() string`
@@ -227,6 +288,16 @@ SetState sets State field to given value.
 
 HasState returns a boolean if a field has been set.
 
+### SetStateNil
+
+`func (o *CreateAddressRequest) SetStateNil(b bool)`
+
+ SetStateNil sets the value for State to be an explicit nil
+
+### UnsetState
+`func (o *CreateAddressRequest) UnsetState()`
+
+UnsetState ensures that no value is present for State, not even an explicit nil
 ### GetEmail
 
 `func (o *CreateAddressRequest) GetEmail() string`

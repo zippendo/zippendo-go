@@ -34,7 +34,7 @@ import (
 
 func main() {
 	orgId := "org_01HZX9K2QF" // string | Organization ID
-	createAddressRequest := *openapiclient.NewCreateAddressRequest("Hovedlager", "Mette Hansen", "Vesterbrogade 1", "1620", "København", "+4533123456", "DK", "lager@example.dk") // CreateAddressRequest | 
+	createAddressRequest := *openapiclient.NewCreateAddressRequest("Zippendo ApS", "Vesterbrogade 1", "1620", "København", "+4533123456", "DK", "lager@example.dk") // CreateAddressRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -256,7 +256,7 @@ func main() {
 	limit := int32(20) // int32 | Items per page (max 100) (optional) (default to 20)
 	type_ := "sender" // string | Filter by address type (sender, pickup, return) (optional)
 	countryCode := "DK" // string | Filter by ISO 3166-1 alpha-2 country code. (optional)
-	search := "Copenhagen" // string | Search by address name, contact or city. (optional)
+	search := "Copenhagen" // string | Search by company name, description, contact or city. (optional)
 	brandId := "brnd_8f3kd92ld0" // string | Filter by brand. Pass a brand ID, or \"none\" for records not assigned to any brand. (optional)
 	brandScope := "own" // string | How the brand context narrows this list: \"own\" returns only rows assigned to the current brand (requires a brand session, a brand-bound token, or the X-Zippendo-Brand header), \"shared\" returns only unassigned organization-wide rows, \"both\" (default) returns both. The X-Zippendo-Brand-Scope header supplies a default when the parameter is omitted. For strictly brand-owned records (orders, shipments), a brand-scoped request combined with \"shared\" returns no rows, since those records are never visible organization-wide from within a brand context. (optional)
 
@@ -292,7 +292,7 @@ Name | Type | Description  | Notes
  **limit** | **int32** | Items per page (max 100) | [default to 20]
  **type_** | **string** | Filter by address type (sender, pickup, return) | 
  **countryCode** | **string** | Filter by ISO 3166-1 alpha-2 country code. | 
- **search** | **string** | Search by address name, contact or city. | 
+ **search** | **string** | Search by company name, description, contact or city. | 
  **brandId** | **string** | Filter by brand. Pass a brand ID, or \&quot;none\&quot; for records not assigned to any brand. | 
  **brandScope** | **string** | How the brand context narrows this list: \&quot;own\&quot; returns only rows assigned to the current brand (requires a brand session, a brand-bound token, or the X-Zippendo-Brand header), \&quot;shared\&quot; returns only unassigned organization-wide rows, \&quot;both\&quot; (default) returns both. The X-Zippendo-Brand-Scope header supplies a default when the parameter is omitted. For strictly brand-owned records (orders, shipments), a brand-scoped request combined with \&quot;shared\&quot; returns no rows, since those records are never visible organization-wide from within a brand context. | 
 

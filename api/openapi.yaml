@@ -2126,7 +2126,7 @@ paths:
           minLength: 2
           type: string
         style: form
-      - description: "Search by address name, contact or city."
+      - description: "Search by company name, description, contact or city."
         explode: true
         in: query
         name: search
@@ -8734,7 +8734,8 @@ components:
       additionalProperties: false
       example:
         id: addr_01HZX9K2QF
-        name: Hovedlager
+        name: Zippendo ApS
+        description: "Main warehouse, Copenhagen"
         attContact: Mette Hansen
         address1: Vesterbrogade 1
         address2: 2. sal
@@ -8758,12 +8759,19 @@ components:
           example: addr_01HZX9K2QF
           type: string
         name:
-          description: Name of the address
-          example: Hovedlager
+          description: "Company or person the parcel is sent from, printed on labels"
+          example: Zippendo ApS
+          type: string
+        description:
+          description: Internal label for this address; never printed or sent to a
+            carrier
+          example: "Main warehouse, Copenhagen"
+          nullable: true
           type: string
         attContact:
-          description: Attention contact person
+          description: "Contact person at this address, printed as the att. line"
           example: Mette Hansen
+          nullable: true
           type: string
         address1:
           description: Address line 1
@@ -8856,6 +8864,7 @@ components:
       - city
       - countryCode
       - createdAt
+      - description
       - email
       - id
       - name
@@ -8870,7 +8879,8 @@ components:
       example:
         data:
         - id: addr_01HZX9K2QF
-          name: Hovedlager
+          name: Zippendo ApS
+          description: "Main warehouse, Copenhagen"
           attContact: Mette Hansen
           address1: Vesterbrogade 1
           address2: 2. sal
@@ -8889,7 +8899,8 @@ components:
           createdAt: 2026-06-22T09:00:00.000Z
           updatedAt: 2026-06-22T09:00:00.000Z
         - id: addr_01HZX9K2QF
-          name: Hovedlager
+          name: Zippendo ApS
+          description: "Main warehouse, Copenhagen"
           attContact: Mette Hansen
           address1: Vesterbrogade 1
           address2: 2. sal
@@ -8943,14 +8954,20 @@ components:
     createAddress_request:
       properties:
         name:
-          description: Name of the address
-          example: Hovedlager
+          description: "Company or person the parcel is sent from, printed on labels"
+          example: Zippendo ApS
           minLength: 1
           type: string
+        description:
+          description: Internal label for this address; never printed or sent to a
+            carrier
+          example: "Main warehouse, Copenhagen"
+          nullable: true
+          type: string
         attContact:
-          description: Attention contact person
+          description: "Contact person at this address, printed as the att. line"
           example: Mette Hansen
-          minLength: 1
+          nullable: true
           type: string
         address1:
           description: Address line 1
@@ -8960,6 +8977,7 @@ components:
         address2:
           description: Address line 2
           example: 2. sal
+          nullable: true
           type: string
         zipcode:
           description: Postal/ZIP code
@@ -8984,7 +9002,8 @@ components:
           type: string
         state:
           description: State/Province
-          example: ""
+          example: Hovedstaden
+          nullable: true
           type: string
         email:
           description: Email address
@@ -9032,7 +9051,6 @@ components:
           type: string
       required:
       - address1
-      - attContact
       - city
       - countryCode
       - email
@@ -9043,14 +9061,21 @@ components:
     updateAddress_request:
       properties:
         name:
-          description: Name of the address
-          example: Hovedlager
+          description: "Company or person the parcel is sent from, printed on labels"
+          example: Zippendo ApS
           minLength: 1
           type: string
+        description:
+          description: Internal label for this address; send null or an empty string
+            to clear it
+          example: "Main warehouse, Copenhagen"
+          nullable: true
+          type: string
         attContact:
-          description: Attention contact person
+          description: Contact person at this address; send null or an empty string
+            to clear it
           example: Mette Hansen
-          minLength: 1
+          nullable: true
           type: string
         address1:
           description: Address line 1
@@ -9058,8 +9083,9 @@ components:
           minLength: 1
           type: string
         address2:
-          description: Address line 2
+          description: Address line 2; send null or an empty string to clear it
           example: 2. sal
+          nullable: true
           type: string
         zipcode:
           description: Postal/ZIP code
@@ -9083,9 +9109,9 @@ components:
           minLength: 2
           type: string
         state:
-          description: State/Province
+          description: State/Province; send null or an empty string to clear it
           example: Hovedstaden
-          minLength: 1
+          nullable: true
           type: string
         email:
           description: Email address
@@ -10163,7 +10189,8 @@ components:
           updatedAt: 2026-06-22T09:00:00.000Z
         address:
           id: addr_01HZX9K2QF
-          name: Hovedlager
+          name: Zippendo ApS
+          description: "Main warehouse, Copenhagen"
           attContact: Mette Hansen
           address1: Vesterbrogade 1
           address2: 2. sal
@@ -10460,7 +10487,8 @@ components:
             updatedAt: 2026-06-22T09:00:00.000Z
           address:
             id: addr_01HZX9K2QF
-            name: Hovedlager
+            name: Zippendo ApS
+            description: "Main warehouse, Copenhagen"
             attContact: Mette Hansen
             address1: Vesterbrogade 1
             address2: 2. sal
@@ -10537,7 +10565,8 @@ components:
             updatedAt: 2026-06-22T09:00:00.000Z
           address:
             id: addr_01HZX9K2QF
-            name: Hovedlager
+            name: Zippendo ApS
+            description: "Main warehouse, Copenhagen"
             attContact: Mette Hansen
             address1: Vesterbrogade 1
             address2: 2. sal
@@ -11664,7 +11693,8 @@ components:
       additionalProperties: false
       example:
         id: addr_01HZX9K2QF
-        name: Hovedlager
+        name: Zippendo ApS
+        description: "Main warehouse, Copenhagen"
         attContact: Mette Hansen
         address1: Vesterbrogade 1
         address2: 2. sal
@@ -11689,12 +11719,19 @@ components:
           example: addr_01HZX9K2QF
           type: string
         name:
-          description: Name of the address
-          example: Hovedlager
+          description: "Company or person the parcel is sent from, printed on labels"
+          example: Zippendo ApS
+          type: string
+        description:
+          description: Internal label for this address; never printed or sent to a
+            carrier
+          example: "Main warehouse, Copenhagen"
+          nullable: true
           type: string
         attContact:
-          description: Attention contact person
+          description: "Contact person at this address, printed as the att. line"
           example: Mette Hansen
+          nullable: true
           type: string
         address1:
           description: Address line 1
@@ -11787,6 +11824,7 @@ components:
       - city
       - countryCode
       - createdAt
+      - description
       - email
       - id
       - name
@@ -11813,7 +11851,8 @@ components:
         brandId: brnd_8f3kd92ld0
         address:
           id: addr_01HZX9K2QF
-          name: Hovedlager
+          name: Zippendo ApS
+          description: "Main warehouse, Copenhagen"
           attContact: Mette Hansen
           address1: Vesterbrogade 1
           address2: 2. sal
@@ -11907,7 +11946,8 @@ components:
           brandId: brnd_8f3kd92ld0
           address:
             id: addr_01HZX9K2QF
-            name: Hovedlager
+            name: Zippendo ApS
+            description: "Main warehouse, Copenhagen"
             attContact: Mette Hansen
             address1: Vesterbrogade 1
             address2: 2. sal
@@ -11941,7 +11981,8 @@ components:
           brandId: brnd_8f3kd92ld0
           address:
             id: addr_01HZX9K2QF
-            name: Hovedlager
+            name: Zippendo ApS
+            description: "Main warehouse, Copenhagen"
             attContact: Mette Hansen
             address1: Vesterbrogade 1
             address2: 2. sal

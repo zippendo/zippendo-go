@@ -4,15 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** | Name of the address | [optional] 
-**AttContact** | Pointer to **string** | Attention contact person | [optional] 
+**Name** | Pointer to **string** | Company or person the parcel is sent from, printed on labels | [optional] 
+**Description** | Pointer to **NullableString** | Internal label for this address; send null or an empty string to clear it | [optional] 
+**AttContact** | Pointer to **NullableString** | Contact person at this address; send null or an empty string to clear it | [optional] 
 **Address1** | Pointer to **string** | Address line 1 | [optional] 
-**Address2** | Pointer to **string** | Address line 2 | [optional] 
+**Address2** | Pointer to **NullableString** | Address line 2; send null or an empty string to clear it | [optional] 
 **Zipcode** | Pointer to **string** | Postal/ZIP code | [optional] 
 **City** | Pointer to **string** | City | [optional] 
 **Phone** | Pointer to **string** | Phone number | [optional] 
 **CountryCode** | Pointer to **string** | ISO country code | [optional] 
-**State** | Pointer to **string** | State/Province | [optional] 
+**State** | Pointer to **NullableString** | State/Province; send null or an empty string to clear it | [optional] 
 **Email** | Pointer to **string** | Email address | [optional] 
 **Customs** | Pointer to **map[string]string** | Customs identifiers | [optional] 
 **AddressTypes** | Pointer to **[]string** | Address types (sender, pickup, return) | [optional] 
@@ -62,6 +63,41 @@ SetName sets Name field to given value.
 
 HasName returns a boolean if a field has been set.
 
+### GetDescription
+
+`func (o *UpdateAddressRequest) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *UpdateAddressRequest) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *UpdateAddressRequest) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *UpdateAddressRequest) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
+
+### SetDescriptionNil
+
+`func (o *UpdateAddressRequest) SetDescriptionNil(b bool)`
+
+ SetDescriptionNil sets the value for Description to be an explicit nil
+
+### UnsetDescription
+`func (o *UpdateAddressRequest) UnsetDescription()`
+
+UnsetDescription ensures that no value is present for Description, not even an explicit nil
 ### GetAttContact
 
 `func (o *UpdateAddressRequest) GetAttContact() string`
@@ -87,6 +123,16 @@ SetAttContact sets AttContact field to given value.
 
 HasAttContact returns a boolean if a field has been set.
 
+### SetAttContactNil
+
+`func (o *UpdateAddressRequest) SetAttContactNil(b bool)`
+
+ SetAttContactNil sets the value for AttContact to be an explicit nil
+
+### UnsetAttContact
+`func (o *UpdateAddressRequest) UnsetAttContact()`
+
+UnsetAttContact ensures that no value is present for AttContact, not even an explicit nil
 ### GetAddress1
 
 `func (o *UpdateAddressRequest) GetAddress1() string`
@@ -137,6 +183,16 @@ SetAddress2 sets Address2 field to given value.
 
 HasAddress2 returns a boolean if a field has been set.
 
+### SetAddress2Nil
+
+`func (o *UpdateAddressRequest) SetAddress2Nil(b bool)`
+
+ SetAddress2Nil sets the value for Address2 to be an explicit nil
+
+### UnsetAddress2
+`func (o *UpdateAddressRequest) UnsetAddress2()`
+
+UnsetAddress2 ensures that no value is present for Address2, not even an explicit nil
 ### GetZipcode
 
 `func (o *UpdateAddressRequest) GetZipcode() string`
@@ -262,6 +318,16 @@ SetState sets State field to given value.
 
 HasState returns a boolean if a field has been set.
 
+### SetStateNil
+
+`func (o *UpdateAddressRequest) SetStateNil(b bool)`
+
+ SetStateNil sets the value for State to be an explicit nil
+
+### UnsetState
+`func (o *UpdateAddressRequest) UnsetState()`
+
+UnsetState ensures that no value is present for State, not even an explicit nil
 ### GetEmail
 
 `func (o *UpdateAddressRequest) GetEmail() string`

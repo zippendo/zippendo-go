@@ -5,8 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | Unique address identifier | 
-**Name** | **string** | Name of the address | 
-**AttContact** | **string** | Attention contact person | 
+**Name** | **string** | Company or person the parcel is sent from, printed on labels | 
+**Description** | **NullableString** | Internal label for this address; never printed or sent to a carrier | 
+**AttContact** | **NullableString** | Contact person at this address, printed as the att. line | 
 **Address1** | **string** | Address line 1 | 
 **Address2** | **NullableString** | Address line 2 | 
 **Zipcode** | **string** | Postal/ZIP code | 
@@ -26,7 +27,7 @@ Name | Type | Description | Notes
 
 ### NewListAddresses200ResponseDataInner
 
-`func NewListAddresses200ResponseDataInner(id string, name string, attContact string, address1 string, address2 NullableString, zipcode string, city string, phone string, countryCode string, state NullableString, email string, addressTypes []string, orgId string, brandId NullableString, createdAt string, updatedAt string, ) *ListAddresses200ResponseDataInner`
+`func NewListAddresses200ResponseDataInner(id string, name string, description NullableString, attContact NullableString, address1 string, address2 NullableString, zipcode string, city string, phone string, countryCode string, state NullableString, email string, addressTypes []string, orgId string, brandId NullableString, createdAt string, updatedAt string, ) *ListAddresses200ResponseDataInner`
 
 NewListAddresses200ResponseDataInner instantiates a new ListAddresses200ResponseDataInner object
 This constructor will assign default values to properties that have it defined,
@@ -81,6 +82,36 @@ and a boolean to check if the value has been set.
 SetName sets Name field to given value.
 
 
+### GetDescription
+
+`func (o *ListAddresses200ResponseDataInner) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *ListAddresses200ResponseDataInner) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *ListAddresses200ResponseDataInner) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+
+### SetDescriptionNil
+
+`func (o *ListAddresses200ResponseDataInner) SetDescriptionNil(b bool)`
+
+ SetDescriptionNil sets the value for Description to be an explicit nil
+
+### UnsetDescription
+`func (o *ListAddresses200ResponseDataInner) UnsetDescription()`
+
+UnsetDescription ensures that no value is present for Description, not even an explicit nil
 ### GetAttContact
 
 `func (o *ListAddresses200ResponseDataInner) GetAttContact() string`
@@ -101,6 +132,16 @@ and a boolean to check if the value has been set.
 SetAttContact sets AttContact field to given value.
 
 
+### SetAttContactNil
+
+`func (o *ListAddresses200ResponseDataInner) SetAttContactNil(b bool)`
+
+ SetAttContactNil sets the value for AttContact to be an explicit nil
+
+### UnsetAttContact
+`func (o *ListAddresses200ResponseDataInner) UnsetAttContact()`
+
+UnsetAttContact ensures that no value is present for AttContact, not even an explicit nil
 ### GetAddress1
 
 `func (o *ListAddresses200ResponseDataInner) GetAddress1() string`

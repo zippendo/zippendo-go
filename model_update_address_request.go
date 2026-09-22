@@ -20,14 +20,16 @@ var _ MappedNullable = &UpdateAddressRequest{}
 
 // UpdateAddressRequest struct for UpdateAddressRequest
 type UpdateAddressRequest struct {
-	// Name of the address
+	// Company or person the parcel is sent from, printed on labels
 	Name *string `json:"name,omitempty"`
-	// Attention contact person
-	AttContact *string `json:"attContact,omitempty"`
+	// Internal label for this address; send null or an empty string to clear it
+	Description NullableString `json:"description,omitempty"`
+	// Contact person at this address; send null or an empty string to clear it
+	AttContact NullableString `json:"attContact,omitempty"`
 	// Address line 1
 	Address1 *string `json:"address1,omitempty"`
-	// Address line 2
-	Address2 *string `json:"address2,omitempty"`
+	// Address line 2; send null or an empty string to clear it
+	Address2 NullableString `json:"address2,omitempty"`
 	// Postal/ZIP code
 	Zipcode *string `json:"zipcode,omitempty"`
 	// City
@@ -36,8 +38,8 @@ type UpdateAddressRequest struct {
 	Phone *string `json:"phone,omitempty"`
 	// ISO country code
 	CountryCode *string `json:"countryCode,omitempty"`
-	// State/Province
-	State *string `json:"state,omitempty"`
+	// State/Province; send null or an empty string to clear it
+	State NullableString `json:"state,omitempty"`
 	// Email address
 	Email *string `json:"email,omitempty" validate:"regexp=^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2\\,}$"`
 	// Customs identifiers
@@ -97,36 +99,88 @@ func (o *UpdateAddressRequest) SetName(v string) {
 	o.Name = &v
 }
 
-// GetAttContact returns the AttContact field value if set, zero value otherwise.
-func (o *UpdateAddressRequest) GetAttContact() string {
-	if o == nil || IsNil(o.AttContact) {
+// GetDescription returns the Description field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UpdateAddressRequest) GetDescription() string {
+	if o == nil || IsNil(o.Description.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.AttContact
+	return *o.Description.Get()
 }
 
-// GetAttContactOk returns a tuple with the AttContact field value if set, nil otherwise
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateAddressRequest) GetAttContactOk() (*string, bool) {
-	if o == nil || IsNil(o.AttContact) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UpdateAddressRequest) GetDescriptionOk() (*string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AttContact, true
+	return o.Description.Get(), o.Description.IsSet()
 }
 
-// HasAttContact returns a boolean if a field has been set.
-func (o *UpdateAddressRequest) HasAttContact() bool {
-	if o != nil && !IsNil(o.AttContact) {
+// HasDescription returns a boolean if a field has been set.
+func (o *UpdateAddressRequest) HasDescription() bool {
+	if o != nil && o.Description.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetAttContact gets a reference to the given string and assigns it to the AttContact field.
+// SetDescription gets a reference to the given NullableString and assigns it to the Description field.
+func (o *UpdateAddressRequest) SetDescription(v string) {
+	o.Description.Set(&v)
+}
+// SetDescriptionNil sets the value for Description to be an explicit nil
+func (o *UpdateAddressRequest) SetDescriptionNil() {
+	o.Description.Set(nil)
+}
+
+// UnsetDescription ensures that no value is present for Description, not even an explicit nil
+func (o *UpdateAddressRequest) UnsetDescription() {
+	o.Description.Unset()
+}
+
+// GetAttContact returns the AttContact field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UpdateAddressRequest) GetAttContact() string {
+	if o == nil || IsNil(o.AttContact.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.AttContact.Get()
+}
+
+// GetAttContactOk returns a tuple with the AttContact field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UpdateAddressRequest) GetAttContactOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.AttContact.Get(), o.AttContact.IsSet()
+}
+
+// HasAttContact returns a boolean if a field has been set.
+func (o *UpdateAddressRequest) HasAttContact() bool {
+	if o != nil && o.AttContact.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetAttContact gets a reference to the given NullableString and assigns it to the AttContact field.
 func (o *UpdateAddressRequest) SetAttContact(v string) {
-	o.AttContact = &v
+	o.AttContact.Set(&v)
+}
+// SetAttContactNil sets the value for AttContact to be an explicit nil
+func (o *UpdateAddressRequest) SetAttContactNil() {
+	o.AttContact.Set(nil)
+}
+
+// UnsetAttContact ensures that no value is present for AttContact, not even an explicit nil
+func (o *UpdateAddressRequest) UnsetAttContact() {
+	o.AttContact.Unset()
 }
 
 // GetAddress1 returns the Address1 field value if set, zero value otherwise.
@@ -161,36 +215,46 @@ func (o *UpdateAddressRequest) SetAddress1(v string) {
 	o.Address1 = &v
 }
 
-// GetAddress2 returns the Address2 field value if set, zero value otherwise.
+// GetAddress2 returns the Address2 field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UpdateAddressRequest) GetAddress2() string {
-	if o == nil || IsNil(o.Address2) {
+	if o == nil || IsNil(o.Address2.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Address2
+	return *o.Address2.Get()
 }
 
 // GetAddress2Ok returns a tuple with the Address2 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UpdateAddressRequest) GetAddress2Ok() (*string, bool) {
-	if o == nil || IsNil(o.Address2) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Address2, true
+	return o.Address2.Get(), o.Address2.IsSet()
 }
 
 // HasAddress2 returns a boolean if a field has been set.
 func (o *UpdateAddressRequest) HasAddress2() bool {
-	if o != nil && !IsNil(o.Address2) {
+	if o != nil && o.Address2.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetAddress2 gets a reference to the given string and assigns it to the Address2 field.
+// SetAddress2 gets a reference to the given NullableString and assigns it to the Address2 field.
 func (o *UpdateAddressRequest) SetAddress2(v string) {
-	o.Address2 = &v
+	o.Address2.Set(&v)
+}
+// SetAddress2Nil sets the value for Address2 to be an explicit nil
+func (o *UpdateAddressRequest) SetAddress2Nil() {
+	o.Address2.Set(nil)
+}
+
+// UnsetAddress2 ensures that no value is present for Address2, not even an explicit nil
+func (o *UpdateAddressRequest) UnsetAddress2() {
+	o.Address2.Unset()
 }
 
 // GetZipcode returns the Zipcode field value if set, zero value otherwise.
@@ -321,36 +385,46 @@ func (o *UpdateAddressRequest) SetCountryCode(v string) {
 	o.CountryCode = &v
 }
 
-// GetState returns the State field value if set, zero value otherwise.
+// GetState returns the State field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UpdateAddressRequest) GetState() string {
-	if o == nil || IsNil(o.State) {
+	if o == nil || IsNil(o.State.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.State
+	return *o.State.Get()
 }
 
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UpdateAddressRequest) GetStateOk() (*string, bool) {
-	if o == nil || IsNil(o.State) {
+	if o == nil {
 		return nil, false
 	}
-	return o.State, true
+	return o.State.Get(), o.State.IsSet()
 }
 
 // HasState returns a boolean if a field has been set.
 func (o *UpdateAddressRequest) HasState() bool {
-	if o != nil && !IsNil(o.State) {
+	if o != nil && o.State.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetState gets a reference to the given string and assigns it to the State field.
+// SetState gets a reference to the given NullableString and assigns it to the State field.
 func (o *UpdateAddressRequest) SetState(v string) {
-	o.State = &v
+	o.State.Set(&v)
+}
+// SetStateNil sets the value for State to be an explicit nil
+func (o *UpdateAddressRequest) SetStateNil() {
+	o.State.Set(nil)
+}
+
+// UnsetState ensures that no value is present for State, not even an explicit nil
+func (o *UpdateAddressRequest) UnsetState() {
+	o.State.Unset()
 }
 
 // GetEmail returns the Email field value if set, zero value otherwise.
@@ -504,14 +578,17 @@ func (o UpdateAddressRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if !IsNil(o.AttContact) {
-		toSerialize["attContact"] = o.AttContact
+	if o.Description.IsSet() {
+		toSerialize["description"] = o.Description.Get()
+	}
+	if o.AttContact.IsSet() {
+		toSerialize["attContact"] = o.AttContact.Get()
 	}
 	if !IsNil(o.Address1) {
 		toSerialize["address1"] = o.Address1
 	}
-	if !IsNil(o.Address2) {
-		toSerialize["address2"] = o.Address2
+	if o.Address2.IsSet() {
+		toSerialize["address2"] = o.Address2.Get()
 	}
 	if !IsNil(o.Zipcode) {
 		toSerialize["zipcode"] = o.Zipcode
@@ -525,8 +602,8 @@ func (o UpdateAddressRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CountryCode) {
 		toSerialize["countryCode"] = o.CountryCode
 	}
-	if !IsNil(o.State) {
-		toSerialize["state"] = o.State
+	if o.State.IsSet() {
+		toSerialize["state"] = o.State.Get()
 	}
 	if !IsNil(o.Email) {
 		toSerialize["email"] = o.Email

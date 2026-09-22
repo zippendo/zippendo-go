@@ -463,7 +463,7 @@ func (r ApiListAddressesRequest) CountryCode(countryCode string) ApiListAddresse
 	return r
 }
 
-// Search by address name, contact or city.
+// Search by company name, description, contact or city.
 func (r ApiListAddressesRequest) Search(search string) ApiListAddressesRequest {
 	r.search = &search
 	return r

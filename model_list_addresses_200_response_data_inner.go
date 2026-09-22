@@ -24,10 +24,12 @@ var _ MappedNullable = &ListAddresses200ResponseDataInner{}
 type ListAddresses200ResponseDataInner struct {
 	// Unique address identifier
 	Id string `json:"id"`
-	// Name of the address
+	// Company or person the parcel is sent from, printed on labels
 	Name string `json:"name"`
-	// Attention contact person
-	AttContact string `json:"attContact"`
+	// Internal label for this address; never printed or sent to a carrier
+	Description NullableString `json:"description"`
+	// Contact person at this address, printed as the att. line
+	AttContact NullableString `json:"attContact"`
 	// Address line 1
 	Address1 string `json:"address1"`
 	// Address line 2
@@ -64,10 +66,11 @@ type _ListAddresses200ResponseDataInner ListAddresses200ResponseDataInner
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListAddresses200ResponseDataInner(id string, name string, attContact string, address1 string, address2 NullableString, zipcode string, city string, phone string, countryCode string, state NullableString, email string, addressTypes []string, orgId string, brandId NullableString, createdAt string, updatedAt string) *ListAddresses200ResponseDataInner {
+func NewListAddresses200ResponseDataInner(id string, name string, description NullableString, attContact NullableString, address1 string, address2 NullableString, zipcode string, city string, phone string, countryCode string, state NullableString, email string, addressTypes []string, orgId string, brandId NullableString, createdAt string, updatedAt string) *ListAddresses200ResponseDataInner {
 	this := ListAddresses200ResponseDataInner{}
 	this.Id = id
 	this.Name = name
+	this.Description = description
 	this.AttContact = attContact
 	this.Address1 = address1
 	this.Address2 = address2
@@ -141,28 +144,56 @@ func (o *ListAddresses200ResponseDataInner) SetName(v string) {
 	o.Name = v
 }
 
-// GetAttContact returns the AttContact field value
-func (o *ListAddresses200ResponseDataInner) GetAttContact() string {
-	if o == nil {
+// GetDescription returns the Description field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *ListAddresses200ResponseDataInner) GetDescription() string {
+	if o == nil || o.Description.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.AttContact
+	return *o.Description.Get()
+}
+
+// GetDescriptionOk returns a tuple with the Description field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListAddresses200ResponseDataInner) GetDescriptionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Description.Get(), o.Description.IsSet()
+}
+
+// SetDescription sets field value
+func (o *ListAddresses200ResponseDataInner) SetDescription(v string) {
+	o.Description.Set(&v)
+}
+
+// GetAttContact returns the AttContact field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *ListAddresses200ResponseDataInner) GetAttContact() string {
+	if o == nil || o.AttContact.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.AttContact.Get()
 }
 
 // GetAttContactOk returns a tuple with the AttContact field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ListAddresses200ResponseDataInner) GetAttContactOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AttContact, true
+	return o.AttContact.Get(), o.AttContact.IsSet()
 }
 
 // SetAttContact sets field value
 func (o *ListAddresses200ResponseDataInner) SetAttContact(v string) {
-	o.AttContact = v
+	o.AttContact.Set(&v)
 }
 
 // GetAddress1 returns the Address1 field value
@@ -528,7 +559,8 @@ func (o ListAddresses200ResponseDataInner) ToMap() (map[string]interface{}, erro
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
-	toSerialize["attContact"] = o.AttContact
+	toSerialize["description"] = o.Description.Get()
+	toSerialize["attContact"] = o.AttContact.Get()
 	toSerialize["address1"] = o.Address1
 	toSerialize["address2"] = o.Address2.Get()
 	toSerialize["zipcode"] = o.Zipcode
@@ -555,6 +587,7 @@ func (o *ListAddresses200ResponseDataInner) UnmarshalJSON(data []byte) (err erro
 	requiredProperties := []string{
 		"id",
 		"name",
+		"description",
 		"attContact",
 		"address1",
 		"address2",
