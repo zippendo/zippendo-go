@@ -699,6 +699,12 @@ paths:
               schema:
                 $ref: "#/components/schemas/updateOrg_200_response"
           description: Default Response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
         "404":
           content:
             application/json:
@@ -7591,6 +7597,9 @@ components:
           - BILLING_CHECKOUT_REQUIRED
           - ZIPPY_ADDON_REQUIRED
           - ZIPPY_MESSAGE_LIMIT_REACHED
+          - ZIPPY_NOT_ACTIVATED
+          - ZIPPY_INCLUDED_CREDITS_EXHAUSTED
+          - ZIPPY_DAILY_LIMIT_REACHED
           - SHIPMENT_NOT_FOUND
           - SHIPMENT_DOCUMENT_NOT_FOUND
           - SHIPMENT_ALREADY_SENT
@@ -13786,6 +13795,9 @@ components:
           - BILLING_CHECKOUT_REQUIRED
           - ZIPPY_ADDON_REQUIRED
           - ZIPPY_MESSAGE_LIMIT_REACHED
+          - ZIPPY_NOT_ACTIVATED
+          - ZIPPY_INCLUDED_CREDITS_EXHAUSTED
+          - ZIPPY_DAILY_LIMIT_REACHED
           - SHIPMENT_NOT_FOUND
           - SHIPMENT_DOCUMENT_NOT_FOUND
           - SHIPMENT_ALREADY_SENT
@@ -14020,6 +14032,9 @@ components:
           - BILLING_CHECKOUT_REQUIRED
           - ZIPPY_ADDON_REQUIRED
           - ZIPPY_MESSAGE_LIMIT_REACHED
+          - ZIPPY_NOT_ACTIVATED
+          - ZIPPY_INCLUDED_CREDITS_EXHAUSTED
+          - ZIPPY_DAILY_LIMIT_REACHED
           - SHIPMENT_NOT_FOUND
           - SHIPMENT_DOCUMENT_NOT_FOUND
           - SHIPMENT_ALREADY_SENT
@@ -18725,29 +18740,42 @@ components:
       - type
       - unitPrice
       type: object
-    getBillingUsage_200_response_zippyMessages:
+    getBillingUsage_200_response_zippyCredits:
       additionalProperties: false
-      description: Zippy AI message usage this period (present when Zippy access is
-        enabled)
+      description: Zippy AI credit usage this period (present when the Zippy add-on
+        is enabled)
       example:
-        used: 42
-        charges: 4158
+        used: 2640
+        included: 2500
+        billed: 140
+        charges: 1000
         limit: -1
       properties:
         used:
-          description: Zippy messages used this period
-          example: 42
+          description: "Zippy credits used this period, included bundle and metered\
+            \ alike"
+          example: 2640
+          type: number
+        included:
+          description: Credits included in the add-on bundle this period
+          example: 2500
+          type: number
+        billed:
+          description: "Credits beyond the bundle, metered this period"
+          example: 140
           type: number
         charges:
-          description: "Zippy message charges so far, in øre"
-          example: 4158
+          description: "Metered credit charges so far, in øre (whole packs)"
+          example: 1000
           type: number
         limit:
-          description: Maximum Zippy messages per month (-1 for unlimited)
+          description: Maximum Zippy credits per month (-1 for unlimited)
           example: -1
           type: number
       required:
+      - billed
       - charges
+      - included
       - limit
       - used
       type: object
@@ -18785,9 +18813,11 @@ components:
             used: 3
             limit: 5
         addOns: []
-        zippyMessages:
-          used: 42
-          charges: 4158
+        zippyCredits:
+          used: 2640
+          included: 2500
+          billed: 140
+          charges: 1000
           limit: -1
       properties:
         currentPeriod:
@@ -18802,8 +18832,8 @@ components:
           items:
             $ref: "#/components/schemas/getBillingUsage_200_response_addOns_inner"
           type: array
-        zippyMessages:
-          $ref: "#/components/schemas/getBillingUsage_200_response_zippyMessages"
+        zippyCredits:
+          $ref: "#/components/schemas/getBillingUsage_200_response_zippyCredits"
       required:
       - addOns
       - currentPeriod

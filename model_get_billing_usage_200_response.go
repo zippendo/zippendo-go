@@ -27,7 +27,7 @@ type GetBillingUsage200Response struct {
 	Limits GetBillingUsage200ResponseLimits `json:"limits"`
 	// Active add-ons on the subscription
 	AddOns []GetBillingUsage200ResponseAddOnsInner `json:"addOns"`
-	ZippyMessages *GetBillingUsage200ResponseZippyMessages `json:"zippyMessages,omitempty"`
+	ZippyCredits *GetBillingUsage200ResponseZippyCredits `json:"zippyCredits,omitempty"`
 }
 
 type _GetBillingUsage200Response GetBillingUsage200Response
@@ -149,36 +149,36 @@ func (o *GetBillingUsage200Response) SetAddOns(v []GetBillingUsage200ResponseAdd
 	o.AddOns = v
 }
 
-// GetZippyMessages returns the ZippyMessages field value if set, zero value otherwise.
-func (o *GetBillingUsage200Response) GetZippyMessages() GetBillingUsage200ResponseZippyMessages {
-	if o == nil || IsNil(o.ZippyMessages) {
-		var ret GetBillingUsage200ResponseZippyMessages
+// GetZippyCredits returns the ZippyCredits field value if set, zero value otherwise.
+func (o *GetBillingUsage200Response) GetZippyCredits() GetBillingUsage200ResponseZippyCredits {
+	if o == nil || IsNil(o.ZippyCredits) {
+		var ret GetBillingUsage200ResponseZippyCredits
 		return ret
 	}
-	return *o.ZippyMessages
+	return *o.ZippyCredits
 }
 
-// GetZippyMessagesOk returns a tuple with the ZippyMessages field value if set, nil otherwise
+// GetZippyCreditsOk returns a tuple with the ZippyCredits field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetBillingUsage200Response) GetZippyMessagesOk() (*GetBillingUsage200ResponseZippyMessages, bool) {
-	if o == nil || IsNil(o.ZippyMessages) {
+func (o *GetBillingUsage200Response) GetZippyCreditsOk() (*GetBillingUsage200ResponseZippyCredits, bool) {
+	if o == nil || IsNil(o.ZippyCredits) {
 		return nil, false
 	}
-	return o.ZippyMessages, true
+	return o.ZippyCredits, true
 }
 
-// HasZippyMessages returns a boolean if a field has been set.
-func (o *GetBillingUsage200Response) HasZippyMessages() bool {
-	if o != nil && !IsNil(o.ZippyMessages) {
+// HasZippyCredits returns a boolean if a field has been set.
+func (o *GetBillingUsage200Response) HasZippyCredits() bool {
+	if o != nil && !IsNil(o.ZippyCredits) {
 		return true
 	}
 
 	return false
 }
 
-// SetZippyMessages gets a reference to the given GetBillingUsage200ResponseZippyMessages and assigns it to the ZippyMessages field.
-func (o *GetBillingUsage200Response) SetZippyMessages(v GetBillingUsage200ResponseZippyMessages) {
-	o.ZippyMessages = &v
+// SetZippyCredits gets a reference to the given GetBillingUsage200ResponseZippyCredits and assigns it to the ZippyCredits field.
+func (o *GetBillingUsage200Response) SetZippyCredits(v GetBillingUsage200ResponseZippyCredits) {
+	o.ZippyCredits = &v
 }
 
 func (o GetBillingUsage200Response) MarshalJSON() ([]byte, error) {
@@ -195,8 +195,8 @@ func (o GetBillingUsage200Response) ToMap() (map[string]interface{}, error) {
 	toSerialize["shipments"] = o.Shipments
 	toSerialize["limits"] = o.Limits
 	toSerialize["addOns"] = o.AddOns
-	if !IsNil(o.ZippyMessages) {
-		toSerialize["zippyMessages"] = o.ZippyMessages
+	if !IsNil(o.ZippyCredits) {
+		toSerialize["zippyCredits"] = o.ZippyCredits
 	}
 	return toSerialize, nil
 }

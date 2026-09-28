@@ -17,43 +17,49 @@ import (
 	"fmt"
 )
 
-// checks if the GetBillingUsage200ResponseZippyMessages type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &GetBillingUsage200ResponseZippyMessages{}
+// checks if the GetBillingUsage200ResponseZippyCredits type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GetBillingUsage200ResponseZippyCredits{}
 
-// GetBillingUsage200ResponseZippyMessages Zippy AI message usage this period (present when Zippy access is enabled)
-type GetBillingUsage200ResponseZippyMessages struct {
-	// Zippy messages used this period
+// GetBillingUsage200ResponseZippyCredits Zippy AI credit usage this period (present when the Zippy add-on is enabled)
+type GetBillingUsage200ResponseZippyCredits struct {
+	// Zippy credits used this period, included bundle and metered alike
 	Used float32 `json:"used"`
-	// Zippy message charges so far, in øre
+	// Credits included in the add-on bundle this period
+	Included float32 `json:"included"`
+	// Credits beyond the bundle, metered this period
+	Billed float32 `json:"billed"`
+	// Metered credit charges so far, in øre (whole packs)
 	Charges float32 `json:"charges"`
-	// Maximum Zippy messages per month (-1 for unlimited)
+	// Maximum Zippy credits per month (-1 for unlimited)
 	Limit float32 `json:"limit"`
 }
 
-type _GetBillingUsage200ResponseZippyMessages GetBillingUsage200ResponseZippyMessages
+type _GetBillingUsage200ResponseZippyCredits GetBillingUsage200ResponseZippyCredits
 
-// NewGetBillingUsage200ResponseZippyMessages instantiates a new GetBillingUsage200ResponseZippyMessages object
+// NewGetBillingUsage200ResponseZippyCredits instantiates a new GetBillingUsage200ResponseZippyCredits object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetBillingUsage200ResponseZippyMessages(used float32, charges float32, limit float32) *GetBillingUsage200ResponseZippyMessages {
-	this := GetBillingUsage200ResponseZippyMessages{}
+func NewGetBillingUsage200ResponseZippyCredits(used float32, included float32, billed float32, charges float32, limit float32) *GetBillingUsage200ResponseZippyCredits {
+	this := GetBillingUsage200ResponseZippyCredits{}
 	this.Used = used
+	this.Included = included
+	this.Billed = billed
 	this.Charges = charges
 	this.Limit = limit
 	return &this
 }
 
-// NewGetBillingUsage200ResponseZippyMessagesWithDefaults instantiates a new GetBillingUsage200ResponseZippyMessages object
+// NewGetBillingUsage200ResponseZippyCreditsWithDefaults instantiates a new GetBillingUsage200ResponseZippyCredits object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewGetBillingUsage200ResponseZippyMessagesWithDefaults() *GetBillingUsage200ResponseZippyMessages {
-	this := GetBillingUsage200ResponseZippyMessages{}
+func NewGetBillingUsage200ResponseZippyCreditsWithDefaults() *GetBillingUsage200ResponseZippyCredits {
+	this := GetBillingUsage200ResponseZippyCredits{}
 	return &this
 }
 
 // GetUsed returns the Used field value
-func (o *GetBillingUsage200ResponseZippyMessages) GetUsed() float32 {
+func (o *GetBillingUsage200ResponseZippyCredits) GetUsed() float32 {
 	if o == nil {
 		var ret float32
 		return ret
@@ -64,7 +70,7 @@ func (o *GetBillingUsage200ResponseZippyMessages) GetUsed() float32 {
 
 // GetUsedOk returns a tuple with the Used field value
 // and a boolean to check if the value has been set.
-func (o *GetBillingUsage200ResponseZippyMessages) GetUsedOk() (*float32, bool) {
+func (o *GetBillingUsage200ResponseZippyCredits) GetUsedOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -72,12 +78,60 @@ func (o *GetBillingUsage200ResponseZippyMessages) GetUsedOk() (*float32, bool) {
 }
 
 // SetUsed sets field value
-func (o *GetBillingUsage200ResponseZippyMessages) SetUsed(v float32) {
+func (o *GetBillingUsage200ResponseZippyCredits) SetUsed(v float32) {
 	o.Used = v
 }
 
+// GetIncluded returns the Included field value
+func (o *GetBillingUsage200ResponseZippyCredits) GetIncluded() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.Included
+}
+
+// GetIncludedOk returns a tuple with the Included field value
+// and a boolean to check if the value has been set.
+func (o *GetBillingUsage200ResponseZippyCredits) GetIncludedOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Included, true
+}
+
+// SetIncluded sets field value
+func (o *GetBillingUsage200ResponseZippyCredits) SetIncluded(v float32) {
+	o.Included = v
+}
+
+// GetBilled returns the Billed field value
+func (o *GetBillingUsage200ResponseZippyCredits) GetBilled() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.Billed
+}
+
+// GetBilledOk returns a tuple with the Billed field value
+// and a boolean to check if the value has been set.
+func (o *GetBillingUsage200ResponseZippyCredits) GetBilledOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Billed, true
+}
+
+// SetBilled sets field value
+func (o *GetBillingUsage200ResponseZippyCredits) SetBilled(v float32) {
+	o.Billed = v
+}
+
 // GetCharges returns the Charges field value
-func (o *GetBillingUsage200ResponseZippyMessages) GetCharges() float32 {
+func (o *GetBillingUsage200ResponseZippyCredits) GetCharges() float32 {
 	if o == nil {
 		var ret float32
 		return ret
@@ -88,7 +142,7 @@ func (o *GetBillingUsage200ResponseZippyMessages) GetCharges() float32 {
 
 // GetChargesOk returns a tuple with the Charges field value
 // and a boolean to check if the value has been set.
-func (o *GetBillingUsage200ResponseZippyMessages) GetChargesOk() (*float32, bool) {
+func (o *GetBillingUsage200ResponseZippyCredits) GetChargesOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -96,12 +150,12 @@ func (o *GetBillingUsage200ResponseZippyMessages) GetChargesOk() (*float32, bool
 }
 
 // SetCharges sets field value
-func (o *GetBillingUsage200ResponseZippyMessages) SetCharges(v float32) {
+func (o *GetBillingUsage200ResponseZippyCredits) SetCharges(v float32) {
 	o.Charges = v
 }
 
 // GetLimit returns the Limit field value
-func (o *GetBillingUsage200ResponseZippyMessages) GetLimit() float32 {
+func (o *GetBillingUsage200ResponseZippyCredits) GetLimit() float32 {
 	if o == nil {
 		var ret float32
 		return ret
@@ -112,7 +166,7 @@ func (o *GetBillingUsage200ResponseZippyMessages) GetLimit() float32 {
 
 // GetLimitOk returns a tuple with the Limit field value
 // and a boolean to check if the value has been set.
-func (o *GetBillingUsage200ResponseZippyMessages) GetLimitOk() (*float32, bool) {
+func (o *GetBillingUsage200ResponseZippyCredits) GetLimitOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -120,11 +174,11 @@ func (o *GetBillingUsage200ResponseZippyMessages) GetLimitOk() (*float32, bool) 
 }
 
 // SetLimit sets field value
-func (o *GetBillingUsage200ResponseZippyMessages) SetLimit(v float32) {
+func (o *GetBillingUsage200ResponseZippyCredits) SetLimit(v float32) {
 	o.Limit = v
 }
 
-func (o GetBillingUsage200ResponseZippyMessages) MarshalJSON() ([]byte, error) {
+func (o GetBillingUsage200ResponseZippyCredits) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -132,20 +186,24 @@ func (o GetBillingUsage200ResponseZippyMessages) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o GetBillingUsage200ResponseZippyMessages) ToMap() (map[string]interface{}, error) {
+func (o GetBillingUsage200ResponseZippyCredits) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["used"] = o.Used
+	toSerialize["included"] = o.Included
+	toSerialize["billed"] = o.Billed
 	toSerialize["charges"] = o.Charges
 	toSerialize["limit"] = o.Limit
 	return toSerialize, nil
 }
 
-func (o *GetBillingUsage200ResponseZippyMessages) UnmarshalJSON(data []byte) (err error) {
+func (o *GetBillingUsage200ResponseZippyCredits) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"used",
+		"included",
+		"billed",
 		"charges",
 		"limit",
 	}
@@ -164,53 +222,53 @@ func (o *GetBillingUsage200ResponseZippyMessages) UnmarshalJSON(data []byte) (er
 		}
 	}
 
-	varGetBillingUsage200ResponseZippyMessages := _GetBillingUsage200ResponseZippyMessages{}
+	varGetBillingUsage200ResponseZippyCredits := _GetBillingUsage200ResponseZippyCredits{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGetBillingUsage200ResponseZippyMessages)
+	err = decoder.Decode(&varGetBillingUsage200ResponseZippyCredits)
 
 	if err != nil {
 		return err
 	}
 
-	*o = GetBillingUsage200ResponseZippyMessages(varGetBillingUsage200ResponseZippyMessages)
+	*o = GetBillingUsage200ResponseZippyCredits(varGetBillingUsage200ResponseZippyCredits)
 
 	return err
 }
 
-type NullableGetBillingUsage200ResponseZippyMessages struct {
-	value *GetBillingUsage200ResponseZippyMessages
+type NullableGetBillingUsage200ResponseZippyCredits struct {
+	value *GetBillingUsage200ResponseZippyCredits
 	isSet bool
 }
 
-func (v NullableGetBillingUsage200ResponseZippyMessages) Get() *GetBillingUsage200ResponseZippyMessages {
+func (v NullableGetBillingUsage200ResponseZippyCredits) Get() *GetBillingUsage200ResponseZippyCredits {
 	return v.value
 }
 
-func (v *NullableGetBillingUsage200ResponseZippyMessages) Set(val *GetBillingUsage200ResponseZippyMessages) {
+func (v *NullableGetBillingUsage200ResponseZippyCredits) Set(val *GetBillingUsage200ResponseZippyCredits) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableGetBillingUsage200ResponseZippyMessages) IsSet() bool {
+func (v NullableGetBillingUsage200ResponseZippyCredits) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableGetBillingUsage200ResponseZippyMessages) Unset() {
+func (v *NullableGetBillingUsage200ResponseZippyCredits) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableGetBillingUsage200ResponseZippyMessages(val *GetBillingUsage200ResponseZippyMessages) *NullableGetBillingUsage200ResponseZippyMessages {
-	return &NullableGetBillingUsage200ResponseZippyMessages{value: val, isSet: true}
+func NewNullableGetBillingUsage200ResponseZippyCredits(val *GetBillingUsage200ResponseZippyCredits) *NullableGetBillingUsage200ResponseZippyCredits {
+	return &NullableGetBillingUsage200ResponseZippyCredits{value: val, isSet: true}
 }
 
-func (v NullableGetBillingUsage200ResponseZippyMessages) MarshalJSON() ([]byte, error) {
+func (v NullableGetBillingUsage200ResponseZippyCredits) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableGetBillingUsage200ResponseZippyMessages) UnmarshalJSON(src []byte) error {
+func (v *NullableGetBillingUsage200ResponseZippyCredits) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

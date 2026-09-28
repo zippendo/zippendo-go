@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Shipments** | [**GetBillingUsage200ResponseShipments**](GetBillingUsage200ResponseShipments.md) |  | 
 **Limits** | [**GetBillingUsage200ResponseLimits**](GetBillingUsage200ResponseLimits.md) |  | 
 **AddOns** | [**[]GetBillingUsage200ResponseAddOnsInner**](GetBillingUsage200ResponseAddOnsInner.md) | Active add-ons on the subscription | 
-**ZippyMessages** | Pointer to [**GetBillingUsage200ResponseZippyMessages**](GetBillingUsage200ResponseZippyMessages.md) |  | [optional] 
+**ZippyCredits** | Pointer to [**GetBillingUsage200ResponseZippyCredits**](GetBillingUsage200ResponseZippyCredits.md) |  | [optional] 
 
 ## Methods
 
@@ -109,30 +109,30 @@ and a boolean to check if the value has been set.
 SetAddOns sets AddOns field to given value.
 
 
-### GetZippyMessages
+### GetZippyCredits
 
-`func (o *GetBillingUsage200Response) GetZippyMessages() GetBillingUsage200ResponseZippyMessages`
+`func (o *GetBillingUsage200Response) GetZippyCredits() GetBillingUsage200ResponseZippyCredits`
 
-GetZippyMessages returns the ZippyMessages field if non-nil, zero value otherwise.
+GetZippyCredits returns the ZippyCredits field if non-nil, zero value otherwise.
 
-### GetZippyMessagesOk
+### GetZippyCreditsOk
 
-`func (o *GetBillingUsage200Response) GetZippyMessagesOk() (*GetBillingUsage200ResponseZippyMessages, bool)`
+`func (o *GetBillingUsage200Response) GetZippyCreditsOk() (*GetBillingUsage200ResponseZippyCredits, bool)`
 
-GetZippyMessagesOk returns a tuple with the ZippyMessages field if it's non-nil, zero value otherwise
+GetZippyCreditsOk returns a tuple with the ZippyCredits field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetZippyMessages
+### SetZippyCredits
 
-`func (o *GetBillingUsage200Response) SetZippyMessages(v GetBillingUsage200ResponseZippyMessages)`
+`func (o *GetBillingUsage200Response) SetZippyCredits(v GetBillingUsage200ResponseZippyCredits)`
 
-SetZippyMessages sets ZippyMessages field to given value.
+SetZippyCredits sets ZippyCredits field to given value.
 
-### HasZippyMessages
+### HasZippyCredits
 
-`func (o *GetBillingUsage200Response) HasZippyMessages() bool`
+`func (o *GetBillingUsage200Response) HasZippyCredits() bool`
 
-HasZippyMessages returns a boolean if a field has been set.
+HasZippyCredits returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
