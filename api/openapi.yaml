@@ -16504,9 +16504,8 @@ components:
           nullable: true
           type: string
         id:
-          description: "Order line ID. Present once the line is a row. Absent for\
-            \ jsonb-only lines during the dual-write window — do not synthesise one,\
-            \ or an edit would re-point packed lines."
+          description: "Order line ID. Send it back as `orderLines[].id` when updating\
+            \ the order to edit this line in place."
           example: clz9k2f0a0004abcd3456qrst
           type: string
       required:
@@ -16819,9 +16818,8 @@ components:
           nullable: true
           type: string
         id:
-          description: "Order line ID. Present once the line is a row. Absent for\
-            \ jsonb-only lines during the dual-write window — do not synthesise one,\
-            \ or an edit would re-point packed lines."
+          description: "Order line ID. Send it back as `orderLines[].id` when updating\
+            \ the order to edit this line in place."
           example: clz9k2f0a0004abcd3456qrst
           type: string
         packedQuantity:

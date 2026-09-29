@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 **Taxable** | Pointer to **NullableBool** | Whether the item is taxable. | [optional] 
 **GiftCard** | Pointer to **NullableBool** | Whether the item is a gift card. | [optional] 
 **Vendor** | Pointer to **NullableString** | Vendor or brand name. | [optional] 
-**Id** | Pointer to **string** | Order line ID. Present once the line is a row. Absent for jsonb-only lines during the dual-write window — do not synthesise one, or an edit would re-point packed lines. | [optional] 
+**Id** | Pointer to **string** | Order line ID. Send it back as &#x60;orderLines[].id&#x60; when updating the order to edit this line in place. | [optional] 
 
 ## Methods
 
