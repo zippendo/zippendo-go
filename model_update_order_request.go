@@ -37,11 +37,11 @@ type UpdateOrderRequest struct {
 	Currency NullableString `json:"currency,omitempty"`
 	// Free-form internal notes.
 	Notes NullableString `json:"notes,omitempty"`
-	// Order fulfilment status derived from its shipments.
+	// Order fulfillment status derived from its shipments.
 	Status *string `json:"status,omitempty"`
 	// ID of the shipping rule to apply.
 	ShippingRuleId NullableString `json:"shippingRuleId,omitempty"`
-	// Service point (parcel shop) ID to apply to unsent outbound shipments.
+	// Service point ID to apply to unsent outbound shipments.
 	ServicePointId NullableString `json:"servicePointId,omitempty"`
 }
 

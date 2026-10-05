@@ -24,7 +24,7 @@ var _ MappedNullable = &BatchSendShipments200ResponseSummary{}
 type BatchSendShipments200ResponseSummary struct {
 	// Number of unique shipments requested.
 	Total int32 `json:"total"`
-	// How many were successfully booked.
+	// How many were sent successfully.
 	Sent int32 `json:"sent"`
 	// How many the carrier or Zippendo rejected.
 	Failed int32 `json:"failed"`

@@ -22,7 +22,7 @@ var _ MappedNullable = &BatchSendShipmentsRequest{}
 
 // BatchSendShipmentsRequest struct for BatchSendShipmentsRequest
 type BatchSendShipmentsRequest struct {
-	// IDs of the shipments to book. Each must be in `pending` or `error` status; duplicates are ignored. Max 100 per request.
+	// IDs of the shipments to send. Each must be in `pending` or `error` status; duplicates are ignored. Max 100 per request.
 	ShipmentIds []string `json:"shipmentIds"`
 }
 

@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | Display name of the shipping product | 
+**Name** | **string** | Display name of the carrier product | 
 **ProductId** | **string** | Unique carrier product identifier | 
 **Type** | **string** | Direction of the shipment for this product | 
-**Description** | Pointer to **string** | Description of the shipping product | [optional] 
-**AvailableCountries** | **[]string** | Recipient countries supported by this product | 
+**Description** | Pointer to **string** | Description of the carrier product | [optional] 
+**AvailableCountries** | **[]string** | Receiver countries this product delivers to | 
 **AvailableSenderCountries** | **[]string** | Sender countries supported by this product | 
-**IsServicePoint** | **bool** | Whether delivery is to a service point/pickup location | [default to false]
+**IsServicePoint** | **bool** | Whether this product delivers to a service point | [default to false]
 **IsPickupAvailable** | **bool** | Whether carrier pickup is available for this product | [default to false]
 **Services** | Pointer to [**[]ListCarrierProducts200ResponseInnerServicesInner**](ListCarrierProducts200ResponseInnerServicesInner.md) | Additional services available for this product | [optional] 
 **AdditionalParameters** | Pointer to [**[]ListCarrierProducts200ResponseInnerAdditionalParametersInner**](ListCarrierProducts200ResponseInnerAdditionalParametersInner.md) | Extra parameters that can or must be supplied for this product | [optional] 

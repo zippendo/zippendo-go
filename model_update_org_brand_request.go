@@ -36,9 +36,9 @@ type UpdateOrgBrandRequest struct {
 	PostalCode NullableString `json:"postalCode,omitempty"`
 	// Country (ISO 3166-1 alpha-2)
 	Country NullableString `json:"country,omitempty"`
-	// Primary brand colour — document title and table headers
+	// Primary brand color — document title and table headers
 	PrimaryColor NullableString `json:"primaryColor,omitempty" validate:"regexp=^#[0-9a-fA-F]{6}$"`
-	// Secondary brand colour — subtitle, section headings, totals accent
+	// Secondary brand color — subtitle, section headings, totals accent
 	SecondaryColor NullableString `json:"secondaryColor,omitempty" validate:"regexp=^#[0-9a-fA-F]{6}$"`
 	// Brand display name
 	Name *string `json:"name,omitempty"`

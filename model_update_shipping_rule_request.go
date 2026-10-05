@@ -38,9 +38,9 @@ type UpdateShippingRuleRequest struct {
 	AddressId *string `json:"addressId,omitempty"`
 	// List of supported country codes
 	ReceivingCountries []string `json:"receivingCountries,omitempty"`
-	// Send email notification to recipient
+	// Send an email notification to the receiver
 	EmailNotification *bool `json:"emailNotification,omitempty"`
-	// Send SMS notification to recipient
+	// Send an SMS notification to the receiver
 	PhoneNotification *bool `json:"phoneNotification,omitempty"`
 	// Minimum required weight in kg
 	MinWeight NullableFloat32 `json:"minWeight,omitempty"`
@@ -56,7 +56,7 @@ type UpdateShippingRuleRequest struct {
 	GenerateProformaInvoice *bool `json:"generateProformaInvoice,omitempty"`
 	// Generate commercial invoice for international shipments
 	GenerateCommercialInvoice *bool `json:"generateCommercialInvoice,omitempty"`
-	// Generate packing slip with package and item details
+	// Generate a packing slip with parcel and item details
 	GeneratePackingList *bool `json:"generatePackingList,omitempty"`
 	// Automatically print labels when shipment is sent
 	AutoPrintLabels *bool `json:"autoPrintLabels,omitempty"`

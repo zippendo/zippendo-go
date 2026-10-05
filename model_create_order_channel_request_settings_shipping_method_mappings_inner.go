@@ -26,7 +26,7 @@ type CreateOrderChannelRequestSettingsShippingMethodMappingsInner struct {
 	Match string `json:"match"`
 	// Shipping rule applied to orders whose shipping-method title matches.
 	ShippingRuleId string `json:"shippingRuleId"`
-	// For rules whose product delivers to a service point: 'nearest' auto-selects the closest point to the recipient address; 'manual' keeps the shipment in draft for manual selection.
+	// For rules whose product delivers to a service point: 'nearest' auto-selects the closest point to the receiver's address; 'manual' keeps the shipment in draft for manual selection.
 	ServicePointSelection *string `json:"servicePointSelection,omitempty"`
 }
 

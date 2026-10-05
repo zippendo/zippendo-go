@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Total** | **int32** | Number of unique shipments requested. | 
-**Sent** | **int32** | How many were successfully booked. | 
+**Sent** | **int32** | How many were sent successfully. | 
 **Failed** | **int32** | How many the carrier or Zippendo rejected. | 
 **Skipped** | **int32** | How many the batch ran out of time to attempt. Submit these again. | 
 

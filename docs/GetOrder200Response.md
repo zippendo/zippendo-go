@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **SubtotalAmount** | Pointer to **NullableFloat32** | Order subtotal before shipping and tax. | [optional] 
 **TotalAmount** | Pointer to **NullableFloat32** | Order grand total. | [optional] 
 **Currency** | Pointer to **NullableString** | ISO 4217 currency code. | [optional] 
-**Status** | **string** | Order fulfilment status derived from its shipments. | 
+**Status** | **string** | Order fulfillment status derived from its shipments. | 
 **ShippingRuleId** | Pointer to **NullableString** | ID of the applied shipping rule. | [optional] 
 **Notes** | Pointer to **NullableString** | Free-form internal notes. | [optional] 
 **ExternalData** | Pointer to **map[string]interface{}** | Raw platform-specific payload for reference. | [optional] 

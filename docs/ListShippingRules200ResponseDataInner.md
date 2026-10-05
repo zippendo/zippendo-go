@@ -14,8 +14,8 @@ Name | Type | Description | Notes
 **AdditionalParameters** | [**map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue**](ListShippingRules200ResponseDataInnerAdditionalParametersValue.md) | Carrier-specific extra parameters, keyed by the carrier parameter &#x60;key&#x60; from the product&#39;s &#x60;additionalParameters[].key&#x60;. | 
 **AddressId** | **string** | Sender address ID | 
 **ReceivingCountries** | **[]string** | List of supported country codes | 
-**EmailNotification** | **bool** | Send email notification to recipient | [default to false]
-**PhoneNotification** | **bool** | Send SMS notification to recipient | [default to false]
+**EmailNotification** | **bool** | Send an email notification to the receiver | [default to false]
+**PhoneNotification** | **bool** | Send an SMS notification to the receiver | [default to false]
 **MinWeight** | **NullableFloat32** | Minimum required weight in kg. Orders below this are excluded from the rule. | 
 **MaxWeight** | **NullableFloat32** | Maximum allowed weight in kg. Orders exceeding this are excluded from the rule. | 
 **MinOrderValue** | **NullableFloat32** | Minimum required order value in currency units. Orders below this are excluded from the rule. | 
@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 **Conditions** | [**[]ListShippingRules200ResponseDataInnerConditionsInner**](ListShippingRules200ResponseDataInnerConditionsInner.md) | Rule conditions (weight/price/quantity) | 
 **GenerateProformaInvoice** | **bool** | Generate proforma invoice for shipments | [default to false]
 **GenerateCommercialInvoice** | **bool** | Generate commercial invoice for international shipments | [default to false]
-**GeneratePackingList** | **bool** | Generate packing slip with package and item details | [default to false]
+**GeneratePackingList** | **bool** | Generate a packing slip with parcel and item details | [default to false]
 **AutoPrintLabels** | **bool** | Automatically print labels when shipment is sent | [default to false]
 **AutoPrintDocuments** | **bool** | Automatically print documents when shipment is sent | [default to false]
 **LabelPrinterId** | **NullableString** | ID of the label printer | 

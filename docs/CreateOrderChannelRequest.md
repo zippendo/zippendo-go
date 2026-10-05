@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Type** | **string** | Type of the order channel. Platform channels (Shopify, WooCommerce) are created via their connect flows. | 
 **BrandId** | Pointer to **NullableString** | Brand this channel belongs to; null for organization-wide | [optional] 
 **Enabled** | Pointer to **bool** | Whether the channel is active. | [optional] [default to true]
-**Role** | Pointer to **string** | What Zippendo is used for on this channel. &#x60;orders_and_rates&#x60; (default) imports orders and serves checkout rates. &#x60;rates_only&#x60; serves checkout rates and service-point selection ONLY — orders are owned by an external system such as a WMS, nothing is imported, and no fulfilment or tracking is pushed back to the platform. | [optional] [default to "orders_and_rates"]
+**Role** | Pointer to **string** | What Zippendo is used for on this channel. &#x60;orders_and_rates&#x60; (default) imports orders and serves checkout rates. &#x60;rates_only&#x60; serves checkout rates and service-point selection ONLY — orders are owned by an external system such as a WMS, nothing is imported, and no fulfillment or tracking is pushed back to the platform. | [optional] [default to "orders_and_rates"]
 **Settings** | Pointer to [**CreateOrderChannelRequestSettings**](CreateOrderChannelRequestSettings.md) |  | [optional] [default to {"useWebhooks":true,"autoSync":false,"syncIntervalMinutes":15,"autoShipOnCreate":false,"syncOnlyUnfulfilled":true,"servicePointCount":6}]
 
 ## Methods

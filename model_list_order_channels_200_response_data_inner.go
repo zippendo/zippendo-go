@@ -31,7 +31,7 @@ type ListOrderChannels200ResponseDataInner struct {
 	Type string `json:"type"`
 	// Whether the channel is active.
 	Enabled bool `json:"enabled"`
-	// What Zippendo is used for on this channel. `orders_and_rates` (default) imports orders and serves checkout rates. `rates_only` serves checkout rates and service-point selection ONLY — orders are owned by an external system such as a WMS, nothing is imported, and no fulfilment or tracking is pushed back to the platform.
+	// What Zippendo is used for on this channel. `orders_and_rates` (default) imports orders and serves checkout rates. `rates_only` serves checkout rates and service-point selection ONLY — orders are owned by an external system such as a WMS, nothing is imported, and no fulfillment or tracking is pushed back to the platform.
 	Role string `json:"role"`
 	// Brand this channel belongs to, or null for organization-wide. Orders synced from this channel inherit it, and so do the shipments and documents made from them.
 	BrandId NullableString `json:"brandId"`

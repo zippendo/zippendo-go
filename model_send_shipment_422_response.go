@@ -28,7 +28,7 @@ type SendShipment422Response struct {
 	Error string `json:"error"`
 	// Human-readable summary of the carrier failure.
 	Message string `json:"message"`
-	// Detailed carrier errors that caused the booking to fail.
+	// Detailed carrier errors that made sending fail.
 	Errors []SendShipment422ResponseErrorsInner `json:"errors"`
 }
 

@@ -28,7 +28,7 @@ type CreateShipment201Response struct {
 	Reference string `json:"reference"`
 	// Sender address identifier.
 	AddressId NullableString `json:"addressId,omitempty"`
-	// Selected carrier service point identifier.
+	// Selected service point ID.
 	ServicePointId NullableString `json:"servicePointId,omitempty"`
 	// Parties involved in the shipment (sender, receiver, etc.).
 	Parties []CreateShipment201ResponsePartiesInner `json:"parties"`

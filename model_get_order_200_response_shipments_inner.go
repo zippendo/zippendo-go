@@ -32,7 +32,7 @@ type GetOrder200ResponseShipmentsInner struct {
 	Type string `json:"type"`
 	Tracking NullableCreateShipment201ResponseTracking `json:"tracking,omitempty"`
 	CarrierSettings ListShipments200ResponseDataInnerCarrierSettings `json:"carrierSettings"`
-	// Selected carrier service point identifier.
+	// Selected service point ID.
 	ServicePointId NullableString `json:"servicePointId,omitempty"`
 	// Timestamp when the shipment was created.
 	CreatedAt string `json:"createdAt"`
@@ -42,7 +42,7 @@ type GetOrder200ResponseShipmentsInner struct {
 	ShippingRuleId NullableString `json:"shippingRuleId,omitempty"`
 	// Documents (labels, customs forms) for this shipment.
 	Documents []CreateShipment201ResponseDocumentsInner `json:"documents,omitempty"`
-	// Compact parcels for the order fulfillment workspace (no QR/label payloads).
+	// Compact parcels for the order's fulfillment view (no QR/label payloads).
 	Parcels []GetOrder200ResponseShipmentsInnerParcelsInner `json:"parcels"`
 }
 

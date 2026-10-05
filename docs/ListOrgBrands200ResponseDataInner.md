@@ -12,8 +12,8 @@ Name | Type | Description | Notes
 **City** | Pointer to **NullableString** | City | [optional] 
 **PostalCode** | Pointer to **NullableString** | Postal code | [optional] 
 **Country** | Pointer to **NullableString** | Country (ISO 3166-1 alpha-2) | [optional] 
-**PrimaryColor** | Pointer to **NullableString** | Primary brand colour — document title and table headers | [optional] 
-**SecondaryColor** | Pointer to **NullableString** | Secondary brand colour — subtitle, section headings, totals accent | [optional] 
+**PrimaryColor** | Pointer to **NullableString** | Primary brand color — document title and table headers | [optional] 
+**SecondaryColor** | Pointer to **NullableString** | Secondary brand color — subtitle, section headings, totals accent | [optional] 
 **Id** | **string** | Unique brand identifier | 
 **OrgId** | **string** | Owning organization | 
 **Name** | **string** | Brand display name | 

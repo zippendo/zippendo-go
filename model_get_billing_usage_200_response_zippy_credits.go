@@ -20,7 +20,7 @@ import (
 // checks if the GetBillingUsage200ResponseZippyCredits type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GetBillingUsage200ResponseZippyCredits{}
 
-// GetBillingUsage200ResponseZippyCredits Zippy AI credit usage this period (present when the Zippy add-on is enabled)
+// GetBillingUsage200ResponseZippyCredits Zippy credit usage this period (present when the Zippy add-on is enabled)
 type GetBillingUsage200ResponseZippyCredits struct {
 	// Zippy credits used this period, included bundle and metered alike
 	Used float32 `json:"used"`

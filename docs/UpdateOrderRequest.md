@@ -13,9 +13,9 @@ Name | Type | Description | Notes
 **TotalAmount** | Pointer to **NullableFloat32** | Order grand total. | [optional] 
 **Currency** | Pointer to **NullableString** | ISO 4217 currency code. | [optional] 
 **Notes** | Pointer to **NullableString** | Free-form internal notes. | [optional] 
-**Status** | Pointer to **string** | Order fulfilment status derived from its shipments. | [optional] 
+**Status** | Pointer to **string** | Order fulfillment status derived from its shipments. | [optional] 
 **ShippingRuleId** | Pointer to **NullableString** | ID of the shipping rule to apply. | [optional] 
-**ServicePointId** | Pointer to **NullableString** | Service point (parcel shop) ID to apply to unsent outbound shipments. | [optional] 
+**ServicePointId** | Pointer to **NullableString** | Service point ID to apply to unsent outbound shipments. | [optional] 
 
 ## Methods
 

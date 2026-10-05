@@ -41,7 +41,7 @@ type CreateOrder201Response struct {
 	TotalAmount NullableFloat32 `json:"totalAmount,omitempty"`
 	// ISO 4217 currency code.
 	Currency NullableString `json:"currency,omitempty"`
-	// Order fulfilment status derived from its shipments.
+	// Order fulfillment status derived from its shipments.
 	Status string `json:"status"`
 	// ID of the applied shipping rule.
 	ShippingRuleId NullableString `json:"shippingRuleId,omitempty"`

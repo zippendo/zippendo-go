@@ -42,9 +42,9 @@ type ListShippingRules200ResponseDataInner struct {
 	AddressId string `json:"addressId"`
 	// List of supported country codes
 	ReceivingCountries []string `json:"receivingCountries"`
-	// Send email notification to recipient
+	// Send an email notification to the receiver
 	EmailNotification bool `json:"emailNotification"`
-	// Send SMS notification to recipient
+	// Send an SMS notification to the receiver
 	PhoneNotification bool `json:"phoneNotification"`
 	// Minimum required weight in kg. Orders below this are excluded from the rule.
 	MinWeight NullableFloat32 `json:"minWeight"`
@@ -60,7 +60,7 @@ type ListShippingRules200ResponseDataInner struct {
 	GenerateProformaInvoice bool `json:"generateProformaInvoice"`
 	// Generate commercial invoice for international shipments
 	GenerateCommercialInvoice bool `json:"generateCommercialInvoice"`
-	// Generate packing slip with package and item details
+	// Generate a packing slip with parcel and item details
 	GeneratePackingList bool `json:"generatePackingList"`
 	// Automatically print labels when shipment is sent
 	AutoPrintLabels bool `json:"autoPrintLabels"`

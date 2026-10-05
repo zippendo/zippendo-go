@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Code** | Pointer to **string** | Machine-readable error code. | [optional] 
 **Error** | **string** | Error category. | 
 **Message** | **string** | Human-readable summary of the carrier failure. | 
-**Errors** | [**[]SendShipment422ResponseErrorsInner**](SendShipment422ResponseErrorsInner.md) | Detailed carrier errors that caused the booking to fail. | 
+**Errors** | [**[]SendShipment422ResponseErrorsInner**](SendShipment422ResponseErrorsInner.md) | Detailed carrier errors that made sending fail. | 
 
 ## Methods
 

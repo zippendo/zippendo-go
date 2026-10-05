@@ -583,7 +583,7 @@ func (r ApiListCarrierProductsRequest) Execute() ([]ListCarrierProducts200Respon
 /*
 ListCarrierProducts List carrier products
 
-Returns the shipping products available for a connected carrier.
+Returns the carrier products available for a connected carrier.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param orgId Organization ID

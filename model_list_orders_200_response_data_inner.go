@@ -30,7 +30,7 @@ type ListOrders200ResponseDataInner struct {
 	CustomerName NullableString `json:"customerName,omitempty"`
 	// Customer email address.
 	CustomerEmail NullableString `json:"customerEmail,omitempty"`
-	// Order fulfilment status derived from its shipments.
+	// Order fulfillment status derived from its shipments.
 	Status string `json:"status"`
 	// Brand this record belongs to, or null when it is organization-wide
 	BrandId NullableString `json:"brandId"`

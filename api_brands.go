@@ -1165,7 +1165,7 @@ func (r ApiUpdateOrgBrandRequest) Execute() (*ListOrgBrands200ResponseDataInner,
 /*
 UpdateOrgBrand Update brand
 
-Updates a brand's name, slug, identity overrides (company name, VAT, customs, address) and document colours. Null clears an override so the organization's value applies again.
+Updates a brand's name, slug, identity overrides (company name, VAT, customs, address) and document colors. Null clears an override so the organization's value applies again.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param orgId Organization ID

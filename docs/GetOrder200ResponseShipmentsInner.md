@@ -10,12 +10,12 @@ Name | Type | Description | Notes
 **Type** | **string** | Direction of the shipment relative to the organization. | 
 **Tracking** | Pointer to [**NullableCreateShipment201ResponseTracking**](CreateShipment201ResponseTracking.md) |  | [optional] 
 **CarrierSettings** | [**ListShipments200ResponseDataInnerCarrierSettings**](ListShipments200ResponseDataInnerCarrierSettings.md) |  | 
-**ServicePointId** | Pointer to **NullableString** | Selected carrier service point identifier. | [optional] 
+**ServicePointId** | Pointer to **NullableString** | Selected service point ID. | [optional] 
 **CreatedAt** | **string** | Timestamp when the shipment was created. | 
 **UpdatedAt** | **string** | Timestamp when the shipment was last updated. | 
 **ShippingRuleId** | Pointer to **NullableString** | ID of the shipping rule used for this shipment. | [optional] 
 **Documents** | Pointer to [**[]CreateShipment201ResponseDocumentsInner**](CreateShipment201ResponseDocumentsInner.md) | Documents (labels, customs forms) for this shipment. | [optional] 
-**Parcels** | [**[]GetOrder200ResponseShipmentsInnerParcelsInner**](GetOrder200ResponseShipmentsInnerParcelsInner.md) | Compact parcels for the order fulfillment workspace (no QR/label payloads). | [default to {}]
+**Parcels** | [**[]GetOrder200ResponseShipmentsInnerParcelsInner**](GetOrder200ResponseShipmentsInnerParcelsInner.md) | Compact parcels for the order&#39;s fulfillment view (no QR/label payloads). | [default to {}]
 
 ## Methods
 

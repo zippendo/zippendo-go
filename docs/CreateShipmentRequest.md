@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Reference** | Pointer to **string** | Customer-facing shipment reference. | [optional] 
 **AddressId** | Pointer to **NullableString** | Sender address identifier. | [optional] 
-**ServicePointId** | Pointer to **NullableString** | Selected carrier service point identifier. | [optional] 
+**ServicePointId** | Pointer to **NullableString** | Selected service point ID. | [optional] 
 **Parties** | Pointer to [**[]CreateShipmentRequestPartiesInner**](CreateShipmentRequestPartiesInner.md) | Parties involved in the shipment. Optional when orderId is provided. | [optional] 
 **Type** | **string** | Direction of the shipment relative to the organization. | 
 **CarrierSettings** | Pointer to [**CreateShipmentRequestCarrierSettings**](CreateShipmentRequestCarrierSettings.md) |  | [optional] 

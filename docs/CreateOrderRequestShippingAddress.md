@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | Recipient full name. | 
+**Name** | **string** | Receiver full name. | 
 **Attention** | Pointer to **NullableString** | Attention / care-of line. | [optional] 
 **Company** | Pointer to **NullableString** | Company name. | [optional] 
 **Address1** | **string** | Street address line 1. | 
@@ -15,8 +15,8 @@ Name | Type | Description | Notes
 **PostalCode** | **string** | Postal code. | 
 **Country** | Pointer to **NullableString** | Country name. | [optional] 
 **CountryCode** | **string** | ISO 3166-1 alpha-2 country code. | 
-**Phone** | Pointer to **NullableString** | Recipient phone number. | [optional] 
-**Email** | Pointer to **NullableString** | Recipient email address. | [optional] 
+**Phone** | Pointer to **NullableString** | Receiver phone number. | [optional] 
+**Email** | Pointer to **NullableString** | Receiver email address. | [optional] 
 
 ## Methods
 

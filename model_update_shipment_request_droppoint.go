@@ -20,7 +20,7 @@ import (
 // checks if the UpdateShipmentRequestDroppoint type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &UpdateShipmentRequestDroppoint{}
 
-// UpdateShipmentRequestDroppoint Display details of the selected service point, stored alongside `servicePointId`. Used when applying a service-point shipping rule (whose parameters otherwise replace the stored droppoint).
+// UpdateShipmentRequestDroppoint Display details of the selected service point, stored alongside `servicePointId`. Used when applying a service-point shipping rule (whose parameters otherwise replace it).
 type UpdateShipmentRequestDroppoint struct {
 	// Identifier of the selected service point.
 	Id string `json:"id"`

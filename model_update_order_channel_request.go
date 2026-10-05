@@ -26,7 +26,7 @@ type UpdateOrderChannelRequest struct {
 	Name *string `json:"name,omitempty"`
 	// Whether the channel is active.
 	Enabled *bool `json:"enabled,omitempty"`
-	// What Zippendo is used for on this channel. `orders_and_rates` (default) imports orders and serves checkout rates. `rates_only` serves checkout rates and service-point selection ONLY — orders are owned by an external system such as a WMS, nothing is imported, and no fulfilment or tracking is pushed back to the platform.
+	// What Zippendo is used for on this channel. `orders_and_rates` (default) imports orders and serves checkout rates. `rates_only` serves checkout rates and service-point selection ONLY — orders are owned by an external system such as a WMS, nothing is imported, and no fulfillment or tracking is pushed back to the platform.
 	Role *string `json:"role,omitempty"`
 	// Type-specific platform credentials.
 	Credentials map[string]interface{} `json:"credentials,omitempty"`

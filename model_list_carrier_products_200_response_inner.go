@@ -22,19 +22,19 @@ var _ MappedNullable = &ListCarrierProducts200ResponseInner{}
 
 // ListCarrierProducts200ResponseInner struct for ListCarrierProducts200ResponseInner
 type ListCarrierProducts200ResponseInner struct {
-	// Display name of the shipping product
+	// Display name of the carrier product
 	Name string `json:"name"`
 	// Unique carrier product identifier
 	ProductId string `json:"productId"`
 	// Direction of the shipment for this product
 	Type string `json:"type"`
-	// Description of the shipping product
+	// Description of the carrier product
 	Description *string `json:"description,omitempty"`
-	// Recipient countries supported by this product
+	// Receiver countries this product delivers to
 	AvailableCountries []string `json:"availableCountries"`
 	// Sender countries supported by this product
 	AvailableSenderCountries []string `json:"availableSenderCountries"`
-	// Whether delivery is to a service point/pickup location
+	// Whether this product delivers to a service point
 	IsServicePoint bool `json:"isServicePoint"`
 	// Whether carrier pickup is available for this product
 	IsPickupAvailable bool `json:"isPickupAvailable"`

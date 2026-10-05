@@ -1491,8 +1491,8 @@ paths:
           result = Zippendo::BrandsApi.new.get_org_brand("...", "...")
     patch:
       description: "Updates a brand's name, slug, identity overrides (company name,\
-        \ VAT, customs, address) and document colours. Null clears an override so\
-        \ the organization's value applies again."
+        \ VAT, customs, address) and document colors. Null clears an override so the\
+        \ organization's value applies again."
       operationId: updateOrgBrand
       parameters:
       - description: Organization ID
@@ -3055,7 +3055,7 @@ paths:
           result = Zippendo::CarriersApi.new.update_carrier("...", "...", Zippendo::UpdateCarrierRequest.new)
   /orgs/{orgId}/carriers/{carrierId}/products:
     get:
-      description: Returns the shipping products available for a connected carrier.
+      description: Returns the carrier products available for a connected carrier.
       operationId: listCarrierProducts
       parameters:
       - description: Organization ID
@@ -4431,8 +4431,9 @@ paths:
           result = Zippendo::ShipmentsApi.new.get_shipment_document_content("...", "...", "...")
   /orgs/{orgId}/shipments/{shipmentId}/send:
     post:
-      description: "Book a pending or error shipment with the carrier, generating\
-        \ labels and tracking. Returns 422 with carrier errors if booking fails."
+      description: "Send a shipment in `pending` or `error` status to its carrier,\
+        \ generating labels and tracking. Returns 422 with the carrier's errors if\
+        \ sending fails."
       operationId: sendShipment
       parameters:
       - description: Organization identifier.
@@ -4622,10 +4623,10 @@ paths:
           result = Zippendo::ShipmentsApi.new.fetch_shipment_label("...", "...")
   /orgs/{orgId}/shipments/batch-send:
     post:
-      description: Book multiple pending/error shipments with their carriers in one
-        request. Each shipment is processed independently and reported in `results`;
-        a failure on one shipment never aborts the others. Use it to send every shipment
-        on an order at once.
+      description: Send multiple shipments in `pending` or `error` status to their
+        carriers in one request. Each shipment is processed independently and reported
+        in `results`; a failure on one shipment never aborts the others. Use it to
+        send every shipment on an order at once.
       operationId: batchSendShipments
       parameters:
       - description: Organization ID
@@ -4992,8 +4993,8 @@ paths:
     post:
       description: "Create and auto-send a return shipment from a dispatched outbound\
         \ shipment with swapped sender/receiver. Requires a configured return shipping\
-        \ rule. The return is returned with its booking outcome: `dispatched`, or\
-        \ `error` with the carrier's reasons in `errors`."
+        \ rule. The return is returned with the outcome of sending it: `dispatched`,\
+        \ or `error` with the carrier's reasons in `errors`."
       operationId: createReturnShipment
       parameters:
       - description: Organization identifier.
@@ -5216,7 +5217,7 @@ paths:
           example: own
           type: string
         style: form
-      - description: Order fulfilment status derived from its shipments.
+      - description: Order fulfillment status derived from its shipments.
         explode: true
         in: query
         name: status
@@ -7565,6 +7566,8 @@ components:
           - ORG_ACCESS_DENIED
           - ORG_DISABLED
           - ORG_SLUG_EXISTS
+          - SETUP_NOT_FOUND
+          - SETUP_EXISTS
           - BRAND_NOT_FOUND
           - BRAND_ACCESS_DENIED
           - BRAND_SLUG_EXISTS
@@ -8410,13 +8413,13 @@ components:
           nullable: true
           type: string
         primaryColor:
-          description: Primary brand colour — document title and table headers
+          description: Primary brand color — document title and table headers
           example: "#1D4ED8"
           nullable: true
           pattern: "^#[0-9a-fA-F]{6}$"
           type: string
         secondaryColor:
-          description: "Secondary brand colour — subtitle, section headings, totals\
+          description: "Secondary brand color — subtitle, section headings, totals\
             \ accent"
           example: "#F59E0B"
           nullable: true
@@ -8589,13 +8592,13 @@ components:
           nullable: true
           type: string
         primaryColor:
-          description: Primary brand colour — document title and table headers
+          description: Primary brand color — document title and table headers
           example: "#1D4ED8"
           nullable: true
           pattern: "^#[0-9a-fA-F]{6}$"
           type: string
         secondaryColor:
-          description: "Secondary brand colour — subtitle, section headings, totals\
+          description: "Secondary brand color — subtitle, section headings, totals\
             \ accent"
           example: "#F59E0B"
           nullable: true
@@ -8705,13 +8708,13 @@ components:
           nullable: true
           type: string
         primaryColor:
-          description: Primary brand colour — document title and table headers
+          description: Primary brand color — document title and table headers
           example: "#1D4ED8"
           nullable: true
           pattern: "^#[0-9a-fA-F]{6}$"
           type: string
         secondaryColor:
-          description: "Secondary brand colour — subtitle, section headings, totals\
+          description: "Secondary brand color — subtitle, section headings, totals\
             \ accent"
           example: "#F59E0B"
           nullable: true
@@ -9588,7 +9591,7 @@ components:
           unit: kg
       properties:
         name:
-          description: Display name of the shipping product
+          description: Display name of the carrier product
           example: PostNord MyPack Home
           type: string
         productId:
@@ -9603,13 +9606,13 @@ components:
           example: outbound
           type: string
         description:
-          description: Description of the shipping product
+          description: Description of the carrier product
           example: Home delivery within Denmark
           type: string
         availableCountries:
-          description: Recipient countries supported by this product
+          description: Receiver countries this product delivers to
           items:
-            description: ISO 3166-1 alpha-2 recipient country code
+            description: ISO 3166-1 alpha-2 receiver country code
             example: DK
             type: string
           type: array
@@ -9622,7 +9625,7 @@ components:
           type: array
         isServicePoint:
           default: false
-          description: Whether delivery is to a service point/pickup location
+          description: Whether this product delivers to a service point
           example: false
           type: boolean
         isPickupAvailable:
@@ -10291,12 +10294,12 @@ components:
           type: array
         emailNotification:
           default: false
-          description: Send email notification to recipient
+          description: Send an email notification to the receiver
           example: true
           type: boolean
         phoneNotification:
           default: false
-          description: Send SMS notification to recipient
+          description: Send an SMS notification to the receiver
           example: false
           type: boolean
         minWeight:
@@ -10348,7 +10351,7 @@ components:
           type: boolean
         generatePackingList:
           default: false
-          description: Generate packing slip with package and item details
+          description: Generate a packing slip with parcel and item details
           example: false
           type: boolean
         autoPrintLabels:
@@ -10936,12 +10939,12 @@ components:
           type: array
         emailNotification:
           default: false
-          description: Send email notification to recipient
+          description: Send an email notification to the receiver
           example: true
           type: boolean
         phoneNotification:
           default: false
-          description: Send SMS notification to recipient
+          description: Send an SMS notification to the receiver
           example: false
           type: boolean
         minWeight:
@@ -10989,7 +10992,7 @@ components:
           type: boolean
         generatePackingList:
           default: false
-          description: Generate packing slip with package and item details
+          description: Generate a packing slip with parcel and item details
           example: false
           type: boolean
         autoPrintLabels:
@@ -11144,12 +11147,12 @@ components:
           type: array
         emailNotification:
           default: false
-          description: Send email notification to recipient
+          description: Send an email notification to the receiver
           example: true
           type: boolean
         phoneNotification:
           default: false
-          description: Send SMS notification to recipient
+          description: Send an SMS notification to the receiver
           example: false
           type: boolean
         minWeight:
@@ -11201,7 +11204,7 @@ components:
           type: boolean
         generatePackingList:
           default: false
-          description: Generate packing slip with package and item details
+          description: Generate a packing slip with parcel and item details
           example: false
           type: boolean
         autoPrintLabels:
@@ -11356,12 +11359,12 @@ components:
           type: array
         emailNotification:
           default: false
-          description: Send email notification to recipient
+          description: Send an email notification to the receiver
           example: true
           type: boolean
         phoneNotification:
           default: false
-          description: Send SMS notification to recipient
+          description: Send an SMS notification to the receiver
           example: false
           type: boolean
         minWeight:
@@ -11409,7 +11412,7 @@ components:
           type: boolean
         generatePackingList:
           default: false
-          description: Generate packing slip with package and item details
+          description: Generate a packing slip with parcel and item details
           example: false
           type: boolean
         autoPrintLabels:
@@ -12412,7 +12415,7 @@ components:
           nullable: true
           type: string
         servicePointId:
-          description: Selected carrier service point identifier.
+          description: Selected service point ID.
           example: sp_pn_4521
           nullable: true
           type: string
@@ -13432,7 +13435,7 @@ components:
           nullable: true
           type: string
         servicePointId:
-          description: Selected carrier service point identifier.
+          description: Selected service point ID.
           example: sp_pn_4521
           nullable: true
           type: string
@@ -13583,7 +13586,7 @@ components:
     updateShipment_request_droppoint:
       description: "Display details of the selected service point, stored alongside\
         \ `servicePointId`. Used when applying a service-point shipping rule (whose\
-        \ parameters otherwise replace the stored droppoint)."
+        \ parameters otherwise replace it)."
       example:
         id: SP-1234
         name: Brugsen Vesterbro
@@ -13629,7 +13632,7 @@ components:
           nullable: true
           type: string
         servicePointId:
-          description: Selected carrier service point identifier.
+          description: Selected service point ID.
           example: sp_pn_4521
           nullable: true
           type: string
@@ -13763,6 +13766,8 @@ components:
           - ORG_ACCESS_DENIED
           - ORG_DISABLED
           - ORG_SLUG_EXISTS
+          - SETUP_NOT_FOUND
+          - SETUP_EXISTS
           - BRAND_NOT_FOUND
           - BRAND_ACCESS_DENIED
           - BRAND_SLUG_EXISTS
@@ -13910,7 +13915,7 @@ components:
           example: Shipment could not be booked with PostNord.
           type: string
         errors:
-          description: Detailed carrier errors that caused the booking to fail.
+          description: Detailed carrier errors that made sending fail.
           items:
             $ref: "#/components/schemas/sendShipment_422_response_errors_inner"
           type: array
@@ -13922,7 +13927,7 @@ components:
     batchSendShipments_request:
       properties:
         shipmentIds:
-          description: IDs of the shipments to book. Each must be in `pending` or
+          description: IDs of the shipments to send. Each must be in `pending` or
             `error` status; duplicates are ignored. Max 100 per request.
           example:
           - shp_01H8XABC123
@@ -13954,7 +13959,7 @@ components:
           example: shp_01H8XABC123
           type: string
         status:
-          description: "`sent` when the carrier booked it, `failed` when the carrier\
+          description: "`sent` when the carrier accepted it, `failed` when the carrier\
             \ or Zippendo rejected it, and `skipped` when the batch ran out of time\
             \ before reaching it. A `skipped` shipment was never sent to the carrier\
             \ and is safe to submit again."
@@ -14000,6 +14005,8 @@ components:
           - ORG_ACCESS_DENIED
           - ORG_DISABLED
           - ORG_SLUG_EXISTS
+          - SETUP_NOT_FOUND
+          - SETUP_EXISTS
           - BRAND_NOT_FOUND
           - BRAND_ACCESS_DENIED
           - BRAND_SLUG_EXISTS
@@ -14145,7 +14152,7 @@ components:
           type: string
         errors:
           description: "Carrier-specific errors, present when the carrier rejected\
-            \ the booking."
+            \ the shipment."
           items:
             $ref: "#/components/schemas/sendShipment_422_response_errors_inner"
           type: array
@@ -14169,7 +14176,7 @@ components:
           minimum: -9007199254740991
           type: integer
         sent:
-          description: How many were successfully booked.
+          description: How many were sent successfully.
           example: 2
           maximum: 9007199254740991
           minimum: -9007199254740991
@@ -15873,7 +15880,7 @@ components:
           nullable: true
           type: string
         status:
-          description: Order fulfilment status derived from its shipments.
+          description: Order fulfillment status derived from its shipments.
           enum:
           - pending
           - processing
@@ -16003,7 +16010,7 @@ components:
       nullable: true
       properties:
         name:
-          description: Recipient full name.
+          description: Receiver full name.
           example: Anna Jensen
           minLength: 1
           type: string
@@ -16059,12 +16066,12 @@ components:
           minLength: 2
           type: string
         phone:
-          description: Recipient phone number.
+          description: Receiver phone number.
           example: +45 12 34 56 78
           nullable: true
           type: string
         email:
-          description: Recipient email address.
+          description: Receiver email address.
           example: anna@example.dk
           format: email
           nullable: true
@@ -16303,7 +16310,7 @@ components:
       nullable: true
       properties:
         name:
-          description: Recipient full name.
+          description: Receiver full name.
           example: Anna Jensen
           type: string
         attention:
@@ -16353,12 +16360,12 @@ components:
           example: DK
           type: string
         phone:
-          description: Recipient phone number.
+          description: Receiver phone number.
           example: +45 12 34 56 78
           nullable: true
           type: string
         email:
-          description: Recipient email address.
+          description: Receiver email address.
           example: anna@example.dk
           format: email
           nullable: true
@@ -16634,7 +16641,7 @@ components:
           nullable: true
           type: string
         status:
-          description: Order fulfilment status derived from its shipments.
+          description: Order fulfillment status derived from its shipments.
           enum:
           - pending
           - processing
@@ -17107,7 +17114,7 @@ components:
         carrierSettings:
           $ref: "#/components/schemas/listShipments_200_response_data_inner_carrierSettings"
         servicePointId:
-          description: Selected carrier service point identifier.
+          description: Selected service point ID.
           example: sp_pn_4521
           nullable: true
           type: string
@@ -17131,7 +17138,7 @@ components:
           type: array
         parcels:
           default: []
-          description: Compact parcels for the order fulfillment workspace (no QR/label
+          description: Compact parcels for the order's fulfillment view (no QR/label
             payloads).
           items:
             $ref: "#/components/schemas/getOrder_200_response_shipments_inner_parcels_inner"
@@ -17434,7 +17441,7 @@ components:
           nullable: true
           type: string
         status:
-          description: Order fulfilment status derived from its shipments.
+          description: Order fulfillment status derived from its shipments.
           enum:
           - pending
           - processing
@@ -17548,7 +17555,7 @@ components:
           nullable: true
           type: string
         status:
-          description: Order fulfilment status derived from its shipments.
+          description: Order fulfillment status derived from its shipments.
           enum:
           - pending
           - processing
@@ -17564,8 +17571,7 @@ components:
           nullable: true
           type: string
         servicePointId:
-          description: Service point (parcel shop) ID to apply to unsent outbound
-            shipments.
+          description: Service point ID to apply to unsent outbound shipments.
           example: SP-1234
           nullable: true
           type: string
@@ -17587,7 +17593,7 @@ components:
           type: string
         servicePointSelection:
           description: "For rules whose product delivers to a service point: 'nearest'\
-            \ auto-selects the closest point to the recipient address; 'manual' keeps\
+            \ auto-selects the closest point to the receiver's address; 'manual' keeps\
             \ the shipment in draft for manual selection."
           enum:
           - nearest
@@ -17818,7 +17824,7 @@ components:
           description: "What Zippendo is used for on this channel. `orders_and_rates`\
             \ (default) imports orders and serves checkout rates. `rates_only` serves\
             \ checkout rates and service-point selection ONLY — orders are owned by\
-            \ an external system such as a WMS, nothing is imported, and no fulfilment\
+            \ an external system such as a WMS, nothing is imported, and no fulfillment\
             \ or tracking is pushed back to the platform."
           enum:
           - orders_and_rates
@@ -18018,7 +18024,7 @@ components:
           type: string
         servicePointSelection:
           description: "For rules whose product delivers to a service point: 'nearest'\
-            \ auto-selects the closest point to the recipient address; 'manual' keeps\
+            \ auto-selects the closest point to the receiver's address; 'manual' keeps\
             \ the shipment in draft for manual selection."
           enum:
           - nearest
@@ -18149,7 +18155,7 @@ components:
           description: "What Zippendo is used for on this channel. `orders_and_rates`\
             \ (default) imports orders and serves checkout rates. `rates_only` serves\
             \ checkout rates and service-point selection ONLY — orders are owned by\
-            \ an external system such as a WMS, nothing is imported, and no fulfilment\
+            \ an external system such as a WMS, nothing is imported, and no fulfillment\
             \ or tracking is pushed back to the platform."
           enum:
           - orders_and_rates
@@ -18267,7 +18273,7 @@ components:
           description: "What Zippendo is used for on this channel. `orders_and_rates`\
             \ (default) imports orders and serves checkout rates. `rates_only` serves\
             \ checkout rates and service-point selection ONLY — orders are owned by\
-            \ an external system such as a WMS, nothing is imported, and no fulfilment\
+            \ an external system such as a WMS, nothing is imported, and no fulfillment\
             \ or tracking is pushed back to the platform."
           enum:
           - orders_and_rates
@@ -18740,8 +18746,8 @@ components:
       type: object
     getBillingUsage_200_response_zippyCredits:
       additionalProperties: false
-      description: Zippy AI credit usage this period (present when the Zippy add-on
-        is enabled)
+      description: Zippy credit usage this period (present when the Zippy add-on is
+        enabled)
       example:
         used: 2640
         included: 2500

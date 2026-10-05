@@ -26,7 +26,7 @@ type CreateShipmentRequest struct {
 	Reference *string `json:"reference,omitempty"`
 	// Sender address identifier.
 	AddressId NullableString `json:"addressId,omitempty"`
-	// Selected carrier service point identifier.
+	// Selected service point ID.
 	ServicePointId NullableString `json:"servicePointId,omitempty"`
 	// Parties involved in the shipment. Optional when orderId is provided.
 	Parties []CreateShipmentRequestPartiesInner `json:"parties,omitempty"`

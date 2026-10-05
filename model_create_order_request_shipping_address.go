@@ -22,7 +22,7 @@ var _ MappedNullable = &CreateOrderRequestShippingAddress{}
 
 // CreateOrderRequestShippingAddress Destination shipping address.
 type CreateOrderRequestShippingAddress struct {
-	// Recipient full name.
+	// Receiver full name.
 	Name string `json:"name"`
 	// Attention / care-of line.
 	Attention NullableString `json:"attention,omitempty"`
@@ -44,9 +44,9 @@ type CreateOrderRequestShippingAddress struct {
 	Country NullableString `json:"country,omitempty"`
 	// ISO 3166-1 alpha-2 country code.
 	CountryCode string `json:"countryCode"`
-	// Recipient phone number.
+	// Receiver phone number.
 	Phone NullableString `json:"phone,omitempty"`
-	// Recipient email address.
+	// Receiver email address.
 	Email NullableString `json:"email,omitempty" validate:"regexp=^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2\\,}$"`
 }
 

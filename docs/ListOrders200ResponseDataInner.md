@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **OrderNumber** | **string** | Human-readable order number. | 
 **CustomerName** | Pointer to **NullableString** | Customer full name. | [optional] 
 **CustomerEmail** | Pointer to **NullableString** | Customer email address. | [optional] 
-**Status** | **string** | Order fulfilment status derived from its shipments. | 
+**Status** | **string** | Order fulfillment status derived from its shipments. | 
 **BrandId** | **NullableString** | Brand this record belongs to, or null when it is organization-wide | 
 **SubtotalAmount** | Pointer to **NullableFloat32** | Order subtotal before shipping and tax. | [optional] 
 **TotalAmount** | Pointer to **NullableFloat32** | Order grand total. | [optional] 

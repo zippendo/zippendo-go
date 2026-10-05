@@ -486,7 +486,7 @@ func (r ApiListOrdersRequest) BrandScope(brandScope string) ApiListOrdersRequest
 	return r
 }
 
-// Order fulfilment status derived from its shipments.
+// Order fulfillment status derived from its shipments.
 func (r ApiListOrdersRequest) Status(status string) ApiListOrdersRequest {
 	r.status = &status
 	return r
