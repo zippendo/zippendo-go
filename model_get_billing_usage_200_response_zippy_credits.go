@@ -28,7 +28,7 @@ type GetBillingUsage200ResponseZippyCredits struct {
 	Included float32 `json:"included"`
 	// Credits beyond the bundle, metered this period
 	Billed float32 `json:"billed"`
-	// Metered credit charges so far, in øre (whole packs)
+	// Metered credit charges so far, in minor units of the billing currency (whole packs)
 	Charges float32 `json:"charges"`
 	// Maximum Zippy credits per month (-1 for unlimited)
 	Limit float32 `json:"limit"`

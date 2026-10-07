@@ -44,6 +44,8 @@ type ListAvailableCarriers200ResponseInner struct {
 	Deprecated *bool `json:"deprecated,omitempty"`
 	// Guidance shown alongside the deprecated tag (e.g. what to migrate to)
 	DeprecationMessage *string `json:"deprecationMessage,omitempty"`
+	// Whether this integration is newly launched and still being verified in production
+	Beta *bool `json:"beta,omitempty"`
 	// Whether the carrier produces the customs declaration (CN22/CN23) itself and returns it with the label.
 	GeneratesCustomsDocuments *bool `json:"generatesCustomsDocuments,omitempty"`
 	// Whether the carrier produces the commercial invoice itself and returns it with the label, e.g. via electronic trade documents.
@@ -407,6 +409,38 @@ func (o *ListAvailableCarriers200ResponseInner) SetDeprecationMessage(v string) 
 	o.DeprecationMessage = &v
 }
 
+// GetBeta returns the Beta field value if set, zero value otherwise.
+func (o *ListAvailableCarriers200ResponseInner) GetBeta() bool {
+	if o == nil || IsNil(o.Beta) {
+		var ret bool
+		return ret
+	}
+	return *o.Beta
+}
+
+// GetBetaOk returns a tuple with the Beta field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ListAvailableCarriers200ResponseInner) GetBetaOk() (*bool, bool) {
+	if o == nil || IsNil(o.Beta) {
+		return nil, false
+	}
+	return o.Beta, true
+}
+
+// HasBeta returns a boolean if a field has been set.
+func (o *ListAvailableCarriers200ResponseInner) HasBeta() bool {
+	if o != nil && !IsNil(o.Beta) {
+		return true
+	}
+
+	return false
+}
+
+// SetBeta gets a reference to the given bool and assigns it to the Beta field.
+func (o *ListAvailableCarriers200ResponseInner) SetBeta(v bool) {
+	o.Beta = &v
+}
+
 // GetGeneratesCustomsDocuments returns the GeneratesCustomsDocuments field value if set, zero value otherwise.
 func (o *ListAvailableCarriers200ResponseInner) GetGeneratesCustomsDocuments() bool {
 	if o == nil || IsNil(o.GeneratesCustomsDocuments) {
@@ -509,6 +543,9 @@ func (o ListAvailableCarriers200ResponseInner) ToMap() (map[string]interface{}, 
 	}
 	if !IsNil(o.DeprecationMessage) {
 		toSerialize["deprecationMessage"] = o.DeprecationMessage
+	}
+	if !IsNil(o.Beta) {
+		toSerialize["beta"] = o.Beta
 	}
 	if !IsNil(o.GeneratesCustomsDocuments) {
 		toSerialize["generatesCustomsDocuments"] = o.GeneratesCustomsDocuments

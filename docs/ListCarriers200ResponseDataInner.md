@@ -14,8 +14,9 @@ Name | Type | Description | Notes
 **UpdatedAt** | **string** | Last update timestamp (ISO 8601) | 
 **Logo** | Pointer to **string** | Carrier logo URL | [optional] 
 **BrandColor** | Pointer to **string** | Carrier brand color (hex) | [optional] 
-**Deprecated** | Pointer to **bool** | Whether this carrier integration is deprecated (still works, but discouraged) | [optional] 
+**Deprecated** | Pointer to **bool** | Whether this integration is deprecated (still works, but discouraged) | [optional] 
 **DeprecationMessage** | Pointer to **string** | Guidance shown alongside the deprecated tag (e.g. what to migrate to) | [optional] 
+**Beta** | Pointer to **bool** | Whether this integration is newly launched and still being verified in production | [optional] 
 **GeneratesCustomsDocuments** | Pointer to **bool** | Whether the carrier produces the customs declaration (CN22/CN23) itself and returns it with the label. | [optional] 
 **GeneratesCommercialInvoice** | Pointer to **bool** | Whether the carrier produces the commercial invoice itself and returns it with the label, e.g. via electronic trade documents. | [optional] 
 
@@ -307,6 +308,31 @@ SetDeprecationMessage sets DeprecationMessage field to given value.
 `func (o *ListCarriers200ResponseDataInner) HasDeprecationMessage() bool`
 
 HasDeprecationMessage returns a boolean if a field has been set.
+
+### GetBeta
+
+`func (o *ListCarriers200ResponseDataInner) GetBeta() bool`
+
+GetBeta returns the Beta field if non-nil, zero value otherwise.
+
+### GetBetaOk
+
+`func (o *ListCarriers200ResponseDataInner) GetBetaOk() (*bool, bool)`
+
+GetBetaOk returns a tuple with the Beta field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBeta
+
+`func (o *ListCarriers200ResponseDataInner) SetBeta(v bool)`
+
+SetBeta sets Beta field to given value.
+
+### HasBeta
+
+`func (o *ListCarriers200ResponseDataInner) HasBeta() bool`
+
+HasBeta returns a boolean if a field has been set.
 
 ### GetGeneratesCustomsDocuments
 

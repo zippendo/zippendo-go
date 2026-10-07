@@ -26,9 +26,9 @@ type GetBillingUsage200ResponseAddOnsInner struct {
 	Type string `json:"type"`
 	// Number of add-on units purchased
 	Quantity float32 `json:"quantity"`
-	// Price per unit per month, in øre
+	// Price per unit per month, in minor units of the billing currency
 	UnitPrice float32 `json:"unitPrice"`
-	// Total price per month, in øre
+	// Total price per month, in minor units of the billing currency
 	TotalPrice float32 `json:"totalPrice"`
 }
 

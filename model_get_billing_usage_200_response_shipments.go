@@ -28,7 +28,7 @@ type GetBillingUsage200ResponseShipments struct {
 	Included float32 `json:"included"`
 	// Shipments above the included allowance
 	Overage float32 `json:"overage"`
-	// Overage charges so far, in øre
+	// Overage charges so far, in minor units of the billing currency
 	OverageCharges float32 `json:"overageCharges"`
 }
 

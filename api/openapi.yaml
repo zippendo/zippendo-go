@@ -4529,7 +4529,8 @@ paths:
     post:
       description: "Ask the carrier again for the label of a dispatched shipment whose\
         \ label could not be downloaded when it was sent (it carries a LABEL_DOWNLOAD_FAILED\
-        \ error). Stores the label, clears the error and returns the shipment."
+        \ or CARRIER_BOOKING_UNCONFIRMED warning). Stores the label, clears the warning\
+        \ and returns the shipment."
       operationId: fetchShipmentLabel
       parameters:
       - description: Organization identifier.
@@ -7626,17 +7627,35 @@ components:
           - CARRIER_UNREACHABLE
           - CARRIER_NOT_RESPONDING
           - LABEL_DOWNLOAD_FAILED
+          - CARRIER_BOOKING_UNCONFIRMED
+          - CARRIER_PICKUP_UNCONFIRMED
           - CARRIER_DOCUMENT_INCOMPLETE
+          - CARRIER_LABEL_NOT_ISSUED
+          - CARRIER_CUSTOMS_DATA_NOT_ACCEPTED
           - CARRIER_GLS_WRONG_ADDRESS
+          - CARRIER_GLS_BOOKING_FAILED
           - CARRIER_DAO_INVALID_POSTAL_CODE
           - CARRIER_POSTNORD_BOOKING_FAILED
           - CARRIER_FEDEX_BOOKING_FAILED
           - CARRIER_DHL_EXPRESS_BOOKING_FAILED
+          - CARRIER_DHL_PARCEL_NL_BOOKING_FAILED
+          - CARRIER_DHL_ECOMMERCE_EU_BOOKING_FAILED
           - CARRIER_UPS_BOOKING_FAILED
           - CARRIER_MATKAHUOLTO_BOOKING_FAILED
           - CARRIER_DPD_PL_BOOKING_FAILED
+          - CARRIER_DPD_HU_BOOKING_FAILED
+          - CARRIER_DPD_CH_BOOKING_FAILED
+          - CARRIER_DPD_BE_BOOKING_FAILED
+          - CARRIER_DPD_LV_BOOKING_FAILED
+          - CARRIER_DPD_LT_BOOKING_FAILED
           - CARRIER_POSTNL_BOOKING_FAILED
+          - CARRIER_POSTI_BOOKING_FAILED
           - CARRIER_ROYAL_MAIL_BOOKING_FAILED
+          - CARRIER_HELTHJEM_BOOKING_FAILED
+          - CARRIER_DANSKE_FRAGTMAEND_BOOKING_FAILED
+          - CARRIER_DSV_XPRESS_BOOKING_FAILED
+          - CARRIER_DSV_ROAD_BOOKING_FAILED
+          - CARRIER_DSV_SCHENKER_BOOKING_FAILED
           - CARRIER_TRACKING_WEBHOOK_REGISTRATION_FAILED
           - CARRIER_CUSTOMS_UNSUPPORTED_PRODUCT
           - CARRIER_CUSTOMS_INCOMPLETE
@@ -9192,6 +9211,7 @@ components:
         deprecated: true
         deprecationMessage: The standalone Instabox API is deprecated. Migrate to
           the Instabee-powered Instabox integration.
+        beta: true
         generatesCustomsDocuments: true
         generatesCommercialInvoice: true
       properties:
@@ -9240,8 +9260,7 @@ components:
           example: "#005BAA"
           type: string
         deprecated:
-          description: "Whether this carrier integration is deprecated (still works,\
-            \ but discouraged)"
+          description: "Whether this integration is deprecated (still works, but discouraged)"
           example: true
           type: boolean
         deprecationMessage:
@@ -9250,6 +9269,11 @@ components:
           example: The standalone Instabox API is deprecated. Migrate to the Instabee-powered
             Instabox integration.
           type: string
+        beta:
+          description: Whether this integration is newly launched and still being
+            verified in production
+          example: true
+          type: boolean
         generatesCustomsDocuments:
           description: Whether the carrier produces the customs declaration (CN22/CN23)
             itself and returns it with the label.
@@ -9288,6 +9312,7 @@ components:
           deprecated: true
           deprecationMessage: The standalone Instabox API is deprecated. Migrate to
             the Instabee-powered Instabox integration.
+          beta: true
           generatesCustomsDocuments: true
           generatesCommercialInvoice: true
         - id: carr_01HZX9K2QF
@@ -9304,6 +9329,7 @@ components:
           deprecated: true
           deprecationMessage: The standalone Instabox API is deprecated. Migrate to
             the Instabee-powered Instabox integration.
+          beta: true
           generatesCustomsDocuments: true
           generatesCommercialInvoice: true
         total: 137
@@ -13828,17 +13854,35 @@ components:
           - CARRIER_UNREACHABLE
           - CARRIER_NOT_RESPONDING
           - LABEL_DOWNLOAD_FAILED
+          - CARRIER_BOOKING_UNCONFIRMED
+          - CARRIER_PICKUP_UNCONFIRMED
           - CARRIER_DOCUMENT_INCOMPLETE
+          - CARRIER_LABEL_NOT_ISSUED
+          - CARRIER_CUSTOMS_DATA_NOT_ACCEPTED
           - CARRIER_GLS_WRONG_ADDRESS
+          - CARRIER_GLS_BOOKING_FAILED
           - CARRIER_DAO_INVALID_POSTAL_CODE
           - CARRIER_POSTNORD_BOOKING_FAILED
           - CARRIER_FEDEX_BOOKING_FAILED
           - CARRIER_DHL_EXPRESS_BOOKING_FAILED
+          - CARRIER_DHL_PARCEL_NL_BOOKING_FAILED
+          - CARRIER_DHL_ECOMMERCE_EU_BOOKING_FAILED
           - CARRIER_UPS_BOOKING_FAILED
           - CARRIER_MATKAHUOLTO_BOOKING_FAILED
           - CARRIER_DPD_PL_BOOKING_FAILED
+          - CARRIER_DPD_HU_BOOKING_FAILED
+          - CARRIER_DPD_CH_BOOKING_FAILED
+          - CARRIER_DPD_BE_BOOKING_FAILED
+          - CARRIER_DPD_LV_BOOKING_FAILED
+          - CARRIER_DPD_LT_BOOKING_FAILED
           - CARRIER_POSTNL_BOOKING_FAILED
+          - CARRIER_POSTI_BOOKING_FAILED
           - CARRIER_ROYAL_MAIL_BOOKING_FAILED
+          - CARRIER_HELTHJEM_BOOKING_FAILED
+          - CARRIER_DANSKE_FRAGTMAEND_BOOKING_FAILED
+          - CARRIER_DSV_XPRESS_BOOKING_FAILED
+          - CARRIER_DSV_ROAD_BOOKING_FAILED
+          - CARRIER_DSV_SCHENKER_BOOKING_FAILED
           - CARRIER_TRACKING_WEBHOOK_REGISTRATION_FAILED
           - CARRIER_CUSTOMS_UNSUPPORTED_PRODUCT
           - CARRIER_CUSTOMS_INCOMPLETE
@@ -14069,17 +14113,35 @@ components:
           - CARRIER_UNREACHABLE
           - CARRIER_NOT_RESPONDING
           - LABEL_DOWNLOAD_FAILED
+          - CARRIER_BOOKING_UNCONFIRMED
+          - CARRIER_PICKUP_UNCONFIRMED
           - CARRIER_DOCUMENT_INCOMPLETE
+          - CARRIER_LABEL_NOT_ISSUED
+          - CARRIER_CUSTOMS_DATA_NOT_ACCEPTED
           - CARRIER_GLS_WRONG_ADDRESS
+          - CARRIER_GLS_BOOKING_FAILED
           - CARRIER_DAO_INVALID_POSTAL_CODE
           - CARRIER_POSTNORD_BOOKING_FAILED
           - CARRIER_FEDEX_BOOKING_FAILED
           - CARRIER_DHL_EXPRESS_BOOKING_FAILED
+          - CARRIER_DHL_PARCEL_NL_BOOKING_FAILED
+          - CARRIER_DHL_ECOMMERCE_EU_BOOKING_FAILED
           - CARRIER_UPS_BOOKING_FAILED
           - CARRIER_MATKAHUOLTO_BOOKING_FAILED
           - CARRIER_DPD_PL_BOOKING_FAILED
+          - CARRIER_DPD_HU_BOOKING_FAILED
+          - CARRIER_DPD_CH_BOOKING_FAILED
+          - CARRIER_DPD_BE_BOOKING_FAILED
+          - CARRIER_DPD_LV_BOOKING_FAILED
+          - CARRIER_DPD_LT_BOOKING_FAILED
           - CARRIER_POSTNL_BOOKING_FAILED
+          - CARRIER_POSTI_BOOKING_FAILED
           - CARRIER_ROYAL_MAIL_BOOKING_FAILED
+          - CARRIER_HELTHJEM_BOOKING_FAILED
+          - CARRIER_DANSKE_FRAGTMAEND_BOOKING_FAILED
+          - CARRIER_DSV_XPRESS_BOOKING_FAILED
+          - CARRIER_DSV_ROAD_BOOKING_FAILED
+          - CARRIER_DSV_SCHENKER_BOOKING_FAILED
           - CARRIER_TRACKING_WEBHOOK_REGISTRATION_FAILED
           - CARRIER_CUSTOMS_UNSUPPORTED_PRODUCT
           - CARRIER_CUSTOMS_INCOMPLETE
@@ -18541,6 +18603,7 @@ components:
         deprecated: true
         deprecationMessage: The standalone Instabox API is deprecated. Migrate to
           the Instabee-powered Instabox integration.
+        beta: true
         generatesCustomsDocuments: true
         generatesCommercialInvoice: true
       properties:
@@ -18593,6 +18656,11 @@ components:
           example: The standalone Instabox API is deprecated. Migrate to the Instabee-powered
             Instabox integration.
           type: string
+        beta:
+          description: Whether this integration is newly launched and still being
+            verified in production
+          example: true
+          type: boolean
         generatesCustomsDocuments:
           description: Whether the carrier produces the customs declaration (CN22/CN23)
             itself and returns it with the label.
@@ -18646,7 +18714,7 @@ components:
           example: 240
           type: number
         overageCharges:
-          description: "Overage charges so far, in øre"
+          description: "Overage charges so far, in minor units of the billing currency"
           example: 36000
           type: number
       required:
@@ -18737,11 +18805,11 @@ components:
           example: 2
           type: number
         unitPrice:
-          description: "Price per unit per month, in øre"
+          description: "Price per unit per month, in minor units of the billing currency"
           example: 9900
           type: number
         totalPrice:
-          description: "Total price per month, in øre"
+          description: "Total price per month, in minor units of the billing currency"
           example: 19800
           type: number
       required:
@@ -18775,7 +18843,8 @@ components:
           example: 140
           type: number
         charges:
-          description: "Metered credit charges so far, in øre (whole packs)"
+          description: "Metered credit charges so far, in minor units of the billing\
+            \ currency (whole packs)"
           example: 1000
           type: number
         limit:

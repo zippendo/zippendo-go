@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **OptionalFields** | Pointer to [**[]ListAvailableCarriers200ResponseInnerRequiredFieldsInner**](ListAvailableCarriers200ResponseInnerRequiredFieldsInner.md) | Optional configuration fields for the carrier | [optional] 
 **Deprecated** | Pointer to **bool** | Whether this integration is deprecated (still works, but discouraged) | [optional] 
 **DeprecationMessage** | Pointer to **string** | Guidance shown alongside the deprecated tag (e.g. what to migrate to) | [optional] 
+**Beta** | Pointer to **bool** | Whether this integration is newly launched and still being verified in production | [optional] 
 **GeneratesCustomsDocuments** | Pointer to **bool** | Whether the carrier produces the customs declaration (CN22/CN23) itself and returns it with the label. | [optional] 
 **GeneratesCommercialInvoice** | Pointer to **bool** | Whether the carrier produces the commercial invoice itself and returns it with the label, e.g. via electronic trade documents. | [optional] 
 
@@ -301,6 +302,31 @@ SetDeprecationMessage sets DeprecationMessage field to given value.
 `func (o *ListAvailableCarriers200ResponseInner) HasDeprecationMessage() bool`
 
 HasDeprecationMessage returns a boolean if a field has been set.
+
+### GetBeta
+
+`func (o *ListAvailableCarriers200ResponseInner) GetBeta() bool`
+
+GetBeta returns the Beta field if non-nil, zero value otherwise.
+
+### GetBetaOk
+
+`func (o *ListAvailableCarriers200ResponseInner) GetBetaOk() (*bool, bool)`
+
+GetBetaOk returns a tuple with the Beta field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBeta
+
+`func (o *ListAvailableCarriers200ResponseInner) SetBeta(v bool)`
+
+SetBeta sets Beta field to given value.
+
+### HasBeta
+
+`func (o *ListAvailableCarriers200ResponseInner) HasBeta() bool`
+
+HasBeta returns a boolean if a field has been set.
 
 ### GetGeneratesCustomsDocuments
 

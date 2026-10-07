@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Used** | **float32** | Zippy credits used this period, included bundle and metered alike | 
 **Included** | **float32** | Credits included in the add-on bundle this period | 
 **Billed** | **float32** | Credits beyond the bundle, metered this period | 
-**Charges** | **float32** | Metered credit charges so far, in øre (whole packs) | 
+**Charges** | **float32** | Metered credit charges so far, in minor units of the billing currency (whole packs) | 
 **Limit** | **float32** | Maximum Zippy credits per month (-1 for unlimited) | 
 
 ## Methods

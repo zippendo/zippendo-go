@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Type of billing add-on | 
 **Quantity** | **float32** | Number of add-on units purchased | 
-**UnitPrice** | **float32** | Price per unit per month, in øre | 
-**TotalPrice** | **float32** | Total price per month, in øre | 
+**UnitPrice** | **float32** | Price per unit per month, in minor units of the billing currency | 
+**TotalPrice** | **float32** | Total price per month, in minor units of the billing currency | 
 
 ## Methods
 

@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Used** | **float32** | Shipments created this period | 
 **Included** | **float32** | Shipments included in the plan | 
 **Overage** | **float32** | Shipments above the included allowance | 
-**OverageCharges** | **float32** | Overage charges so far, in øre | 
+**OverageCharges** | **float32** | Overage charges so far, in minor units of the billing currency | 
 
 ## Methods
 
