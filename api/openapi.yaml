@@ -4433,7 +4433,7 @@ paths:
     post:
       description: "Send a shipment in `pending` or `error` status to its carrier,\
         \ generating labels and tracking. Returns 422 with the carrier's errors if\
-        \ sending fails."
+        \ sending fails, and 409 while the same shipment is already being sent."
       operationId: sendShipment
       parameters:
       - description: Organization identifier.
@@ -4474,6 +4474,12 @@ paths:
                 $ref: "#/components/schemas/listApiTokens_401_response"
           description: Default Response
         "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "409":
           content:
             application/json:
               schema:
@@ -4995,7 +5001,8 @@ paths:
       description: "Create and auto-send a return shipment from a dispatched outbound\
         \ shipment with swapped sender/receiver. Requires a configured return shipping\
         \ rule. The return is returned with the outcome of sending it: `dispatched`,\
-        \ or `error` with the carrier's reasons in `errors`."
+        \ or `error` with the carrier's reasons in `errors`. Returns 409 while a return\
+        \ for the same shipment is already being created."
       operationId: createReturnShipment
       parameters:
       - description: Organization identifier.
@@ -5036,6 +5043,12 @@ paths:
                 $ref: "#/components/schemas/listApiTokens_401_response"
           description: Default Response
         "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listApiTokens_401_response"
+          description: Default Response
+        "409":
           content:
             application/json:
               schema:
