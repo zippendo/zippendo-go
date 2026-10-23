@@ -10957,7 +10957,6 @@ components:
         additionalParameters:
           additionalProperties:
             $ref: "#/components/schemas/createShippingRule_request_additionalParameters_value"
-          default: {}
           description: "Carrier-specific extra parameters, keyed by the carrier parameter\
             \ `key` from the product's `additionalParameters[].key` (e.g. `returnFunctionality`)."
           example:
@@ -18117,13 +18116,6 @@ components:
       - shippingRuleId
       type: object
     createOrderChannel_request_settings:
-      default:
-        useWebhooks: true
-        autoSync: false
-        syncIntervalMinutes: 15
-        autoShipOnCreate: false
-        syncOnlyUnfulfilled: true
-        servicePointCount: 6
       properties:
         useWebhooks:
           default: true

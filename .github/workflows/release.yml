@@ -1,0 +1,33 @@
+name: Release
+
+# Zippendo's release pipeline generates this SDK and pushes a version tag; Go modules are served from
+# that tag, so there is nothing to upload. This asks the Go module proxy for the new version, which is
+# what makes pkg.go.dev list it without waiting for someone else to fetch it first.
+
+on:
+  push:
+    tags: ["v*.*.*"]
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # the GitHub release
+    steps:
+      # A miss only delays the listing until the next fetch, so it warns rather than failing the release.
+      - name: Fetch the version through the Go module proxy
+        run: |
+          curl -fsS --retry 5 --retry-delay 10 --retry-all-errors \
+            "https://proxy.golang.org/github.com/zippendo/zippendo-go/@v/${GITHUB_REF_NAME}.info" ||
+            echo "::warning::proxy.golang.org did not return ${GITHUB_REF_NAME}; pkg.go.dev lists it on the next fetch."
+
+      - name: Create the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view "$GITHUB_REF_NAME" -R "$GITHUB_REPOSITORY" > /dev/null 2>&1 && exit 0
+          gh release create "$GITHUB_REF_NAME" -R "$GITHUB_REPOSITORY" --verify-tag --title "$GITHUB_REF_NAME" --notes \
+            "Install with \`go get github.com/zippendo/zippendo-go@${GITHUB_REF_NAME}\`. Guide: https://www.zippendo.com/docs/sdks/overview"

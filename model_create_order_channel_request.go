@@ -49,8 +49,6 @@ func NewCreateOrderChannelRequest(name string, type_ string) *CreateOrderChannel
 	this.Enabled = &enabled
 	var role string = "orders_and_rates"
 	this.Role = &role
-	var settings CreateOrderChannelRequestSettings = {"useWebhooks":true,"autoSync":false,"syncIntervalMinutes":15,"autoShipOnCreate":false,"syncOnlyUnfulfilled":true,"servicePointCount":6}
-	this.Settings = &settings
 	return &this
 }
 
@@ -63,8 +61,6 @@ func NewCreateOrderChannelRequestWithDefaults() *CreateOrderChannelRequest {
 	this.Enabled = &enabled
 	var role string = "orders_and_rates"
 	this.Role = &role
-	var settings CreateOrderChannelRequestSettings = {"useWebhooks":true,"autoSync":false,"syncIntervalMinutes":15,"autoShipOnCreate":false,"syncOnlyUnfulfilled":true,"servicePointCount":6}
-	this.Settings = &settings
 	return &this
 }
 

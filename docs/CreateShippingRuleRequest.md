@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **CarrierId** | **string** | Carrier ID | 
 **ProductId** | **string** | Product ID from carrier | 
 **Services** | **[]string** | List of selected services | 
-**AdditionalParameters** | Pointer to [**map[string]CreateShippingRuleRequestAdditionalParametersValue**](CreateShippingRuleRequestAdditionalParametersValue.md) | Carrier-specific extra parameters, keyed by the carrier parameter &#x60;key&#x60; from the product&#39;s &#x60;additionalParameters[].key&#x60; (e.g. &#x60;returnFunctionality&#x60;). | [optional] [default to {}]
+**AdditionalParameters** | Pointer to [**map[string]CreateShippingRuleRequestAdditionalParametersValue**](CreateShippingRuleRequestAdditionalParametersValue.md) | Carrier-specific extra parameters, keyed by the carrier parameter &#x60;key&#x60; from the product&#39;s &#x60;additionalParameters[].key&#x60; (e.g. &#x60;returnFunctionality&#x60;). | [optional] 
 **AddressId** | **string** | Sender address ID | 
 **ReceivingCountries** | **[]string** | List of supported country codes | 
 **EmailNotification** | Pointer to **bool** | Send an email notification to the receiver | [optional] [default to false]
