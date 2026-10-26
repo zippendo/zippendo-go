@@ -55,18 +55,6 @@ type UpdateOrderChannelRequestSettings struct {
 // will change when the set of required properties is changed
 func NewUpdateOrderChannelRequestSettings() *UpdateOrderChannelRequestSettings {
 	this := UpdateOrderChannelRequestSettings{}
-	var useWebhooks bool = true
-	this.UseWebhooks = &useWebhooks
-	var autoSync bool = false
-	this.AutoSync = &autoSync
-	var syncIntervalMinutes int32 = 15
-	this.SyncIntervalMinutes = &syncIntervalMinutes
-	var autoShipOnCreate bool = false
-	this.AutoShipOnCreate = &autoShipOnCreate
-	var syncOnlyUnfulfilled bool = true
-	this.SyncOnlyUnfulfilled = &syncOnlyUnfulfilled
-	var servicePointCount int32 = 6
-	this.ServicePointCount = &servicePointCount
 	return &this
 }
 
@@ -75,18 +63,6 @@ func NewUpdateOrderChannelRequestSettings() *UpdateOrderChannelRequestSettings {
 // but it doesn't guarantee that properties required by API are set
 func NewUpdateOrderChannelRequestSettingsWithDefaults() *UpdateOrderChannelRequestSettings {
 	this := UpdateOrderChannelRequestSettings{}
-	var useWebhooks bool = true
-	this.UseWebhooks = &useWebhooks
-	var autoSync bool = false
-	this.AutoSync = &autoSync
-	var syncIntervalMinutes int32 = 15
-	this.SyncIntervalMinutes = &syncIntervalMinutes
-	var autoShipOnCreate bool = false
-	this.AutoShipOnCreate = &autoShipOnCreate
-	var syncOnlyUnfulfilled bool = true
-	this.SyncOnlyUnfulfilled = &syncOnlyUnfulfilled
-	var servicePointCount int32 = 6
-	this.ServicePointCount = &servicePointCount
 	return &this
 }
 

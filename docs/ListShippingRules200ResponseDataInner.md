@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Id** | **string** | Unique shipping rule identifier | 
 **Name** | **string** | Shipping rule name | 
 **Description** | **NullableString** | Optional description | 
+**Translations** | [**map[string]ListShippingRules200ResponseDataInnerTranslationsValue**](ListShippingRules200ResponseDataInnerTranslationsValue.md) | Checkout name and description per language | 
 **Direction** | **string** | Whether this rule is for outbound or inbound (return) shipments | [default to "outbound"]
 **CarrierId** | **string** | Carrier ID | 
 **ProductId** | **string** | Product ID from carrier | 
@@ -44,7 +45,7 @@ Name | Type | Description | Notes
 
 ### NewListShippingRules200ResponseDataInner
 
-`func NewListShippingRules200ResponseDataInner(id string, name string, description NullableString, direction string, carrierId string, productId string, services []string, additionalParameters map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue, addressId string, receivingCountries []string, emailNotification bool, phoneNotification bool, minWeight NullableFloat32, maxWeight NullableFloat32, minOrderValue NullableFloat32, maxOrderValue NullableFloat32, conditions []ListShippingRules200ResponseDataInnerConditionsInner, generateProformaInvoice bool, generateCommercialInvoice bool, generatePackingList bool, autoPrintLabels bool, autoPrintDocuments bool, labelPrinterId NullableString, documentPrinterId NullableString, returnShippingRuleId NullableString, autoCreateReturnShipment bool, orgId string, brandId NullableString, createdAt string, updatedAt string, carrier ListShippingRules200ResponseDataInnerCarrier, address ListAddresses200ResponseDataInner, ) *ListShippingRules200ResponseDataInner`
+`func NewListShippingRules200ResponseDataInner(id string, name string, description NullableString, translations map[string]ListShippingRules200ResponseDataInnerTranslationsValue, direction string, carrierId string, productId string, services []string, additionalParameters map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue, addressId string, receivingCountries []string, emailNotification bool, phoneNotification bool, minWeight NullableFloat32, maxWeight NullableFloat32, minOrderValue NullableFloat32, maxOrderValue NullableFloat32, conditions []ListShippingRules200ResponseDataInnerConditionsInner, generateProformaInvoice bool, generateCommercialInvoice bool, generatePackingList bool, autoPrintLabels bool, autoPrintDocuments bool, labelPrinterId NullableString, documentPrinterId NullableString, returnShippingRuleId NullableString, autoCreateReturnShipment bool, orgId string, brandId NullableString, createdAt string, updatedAt string, carrier ListShippingRules200ResponseDataInnerCarrier, address ListAddresses200ResponseDataInner, ) *ListShippingRules200ResponseDataInner`
 
 NewListShippingRules200ResponseDataInner instantiates a new ListShippingRules200ResponseDataInner object
 This constructor will assign default values to properties that have it defined,
@@ -129,6 +130,26 @@ SetDescription sets Description field to given value.
 `func (o *ListShippingRules200ResponseDataInner) UnsetDescription()`
 
 UnsetDescription ensures that no value is present for Description, not even an explicit nil
+### GetTranslations
+
+`func (o *ListShippingRules200ResponseDataInner) GetTranslations() map[string]ListShippingRules200ResponseDataInnerTranslationsValue`
+
+GetTranslations returns the Translations field if non-nil, zero value otherwise.
+
+### GetTranslationsOk
+
+`func (o *ListShippingRules200ResponseDataInner) GetTranslationsOk() (*map[string]ListShippingRules200ResponseDataInnerTranslationsValue, bool)`
+
+GetTranslationsOk returns a tuple with the Translations field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTranslations
+
+`func (o *ListShippingRules200ResponseDataInner) SetTranslations(v map[string]ListShippingRules200ResponseDataInnerTranslationsValue)`
+
+SetTranslations sets Translations field to given value.
+
+
 ### GetDirection
 
 `func (o *ListShippingRules200ResponseDataInner) GetDirection() string`

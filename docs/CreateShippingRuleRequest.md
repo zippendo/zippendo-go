@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Shipping rule name | 
 **Description** | Pointer to **string** | Optional description | [optional] 
+**Translations** | Pointer to [**map[string]CreateShippingRuleRequestTranslationsValue**](CreateShippingRuleRequestTranslationsValue.md) | Checkout name and description per language; a blank field falls back to the rule&#39;s own text | [optional] 
 **Direction** | Pointer to **string** | Whether this rule is for outbound or inbound (return) shipments | [optional] [default to "outbound"]
 **CarrierId** | **string** | Carrier ID | 
 **ProductId** | **string** | Product ID from carrier | 
@@ -94,6 +95,31 @@ SetDescription sets Description field to given value.
 `func (o *CreateShippingRuleRequest) HasDescription() bool`
 
 HasDescription returns a boolean if a field has been set.
+
+### GetTranslations
+
+`func (o *CreateShippingRuleRequest) GetTranslations() map[string]CreateShippingRuleRequestTranslationsValue`
+
+GetTranslations returns the Translations field if non-nil, zero value otherwise.
+
+### GetTranslationsOk
+
+`func (o *CreateShippingRuleRequest) GetTranslationsOk() (*map[string]CreateShippingRuleRequestTranslationsValue, bool)`
+
+GetTranslationsOk returns a tuple with the Translations field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTranslations
+
+`func (o *CreateShippingRuleRequest) SetTranslations(v map[string]CreateShippingRuleRequestTranslationsValue)`
+
+SetTranslations sets Translations field to given value.
+
+### HasTranslations
+
+`func (o *CreateShippingRuleRequest) HasTranslations() bool`
+
+HasTranslations returns a boolean if a field has been set.
 
 ### GetDirection
 

@@ -55,10 +55,6 @@ type UpdateShipmentRequest struct {
 // will change when the set of required properties is changed
 func NewUpdateShipmentRequest() *UpdateShipmentRequest {
 	this := UpdateShipmentRequest{}
-	var termOfTrade string = "DAP"
-	this.TermOfTrade = &termOfTrade
-	var status string = "pending"
-	this.Status = &status
 	return &this
 }
 
@@ -67,10 +63,6 @@ func NewUpdateShipmentRequest() *UpdateShipmentRequest {
 // but it doesn't guarantee that properties required by API are set
 func NewUpdateShipmentRequestWithDefaults() *UpdateShipmentRequest {
 	this := UpdateShipmentRequest{}
-	var termOfTrade string = "DAP"
-	this.TermOfTrade = &termOfTrade
-	var status string = "pending"
-	this.Status = &status
 	return &this
 }
 

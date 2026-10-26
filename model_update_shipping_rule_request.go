@@ -24,6 +24,8 @@ type UpdateShippingRuleRequest struct {
 	Name *string `json:"name,omitempty"`
 	// Optional description
 	Description *string `json:"description,omitempty"`
+	// Checkout name and description per language; a blank field falls back to the rule's own text
+	Translations *map[string]CreateShippingRuleRequestTranslationsValue `json:"translations,omitempty"`
 	// Whether this rule is for outbound or inbound (return) shipments
 	Direction *string `json:"direction,omitempty"`
 	// Carrier ID
@@ -80,24 +82,6 @@ type UpdateShippingRuleRequest struct {
 // will change when the set of required properties is changed
 func NewUpdateShippingRuleRequest() *UpdateShippingRuleRequest {
 	this := UpdateShippingRuleRequest{}
-	var direction string = "outbound"
-	this.Direction = &direction
-	var emailNotification bool = false
-	this.EmailNotification = &emailNotification
-	var phoneNotification bool = false
-	this.PhoneNotification = &phoneNotification
-	var generateProformaInvoice bool = false
-	this.GenerateProformaInvoice = &generateProformaInvoice
-	var generateCommercialInvoice bool = false
-	this.GenerateCommercialInvoice = &generateCommercialInvoice
-	var generatePackingList bool = false
-	this.GeneratePackingList = &generatePackingList
-	var autoPrintLabels bool = false
-	this.AutoPrintLabels = &autoPrintLabels
-	var autoPrintDocuments bool = false
-	this.AutoPrintDocuments = &autoPrintDocuments
-	var autoCreateReturnShipment bool = false
-	this.AutoCreateReturnShipment = &autoCreateReturnShipment
 	return &this
 }
 
@@ -106,24 +90,6 @@ func NewUpdateShippingRuleRequest() *UpdateShippingRuleRequest {
 // but it doesn't guarantee that properties required by API are set
 func NewUpdateShippingRuleRequestWithDefaults() *UpdateShippingRuleRequest {
 	this := UpdateShippingRuleRequest{}
-	var direction string = "outbound"
-	this.Direction = &direction
-	var emailNotification bool = false
-	this.EmailNotification = &emailNotification
-	var phoneNotification bool = false
-	this.PhoneNotification = &phoneNotification
-	var generateProformaInvoice bool = false
-	this.GenerateProformaInvoice = &generateProformaInvoice
-	var generateCommercialInvoice bool = false
-	this.GenerateCommercialInvoice = &generateCommercialInvoice
-	var generatePackingList bool = false
-	this.GeneratePackingList = &generatePackingList
-	var autoPrintLabels bool = false
-	this.AutoPrintLabels = &autoPrintLabels
-	var autoPrintDocuments bool = false
-	this.AutoPrintDocuments = &autoPrintDocuments
-	var autoCreateReturnShipment bool = false
-	this.AutoCreateReturnShipment = &autoCreateReturnShipment
 	return &this
 }
 
@@ -189,6 +155,38 @@ func (o *UpdateShippingRuleRequest) HasDescription() bool {
 // SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *UpdateShippingRuleRequest) SetDescription(v string) {
 	o.Description = &v
+}
+
+// GetTranslations returns the Translations field value if set, zero value otherwise.
+func (o *UpdateShippingRuleRequest) GetTranslations() map[string]CreateShippingRuleRequestTranslationsValue {
+	if o == nil || IsNil(o.Translations) {
+		var ret map[string]CreateShippingRuleRequestTranslationsValue
+		return ret
+	}
+	return *o.Translations
+}
+
+// GetTranslationsOk returns a tuple with the Translations field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateShippingRuleRequest) GetTranslationsOk() (*map[string]CreateShippingRuleRequestTranslationsValue, bool) {
+	if o == nil || IsNil(o.Translations) {
+		return nil, false
+	}
+	return o.Translations, true
+}
+
+// HasTranslations returns a boolean if a field has been set.
+func (o *UpdateShippingRuleRequest) HasTranslations() bool {
+	if o != nil && !IsNil(o.Translations) {
+		return true
+	}
+
+	return false
+}
+
+// SetTranslations gets a reference to the given map[string]CreateShippingRuleRequestTranslationsValue and assigns it to the Translations field.
+func (o *UpdateShippingRuleRequest) SetTranslations(v map[string]CreateShippingRuleRequestTranslationsValue) {
+	o.Translations = &v
 }
 
 // GetDirection returns the Direction field value if set, zero value otherwise.
@@ -1054,6 +1052,9 @@ func (o UpdateShippingRuleRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Translations) {
+		toSerialize["translations"] = o.Translations
 	}
 	if !IsNil(o.Direction) {
 		toSerialize["direction"] = o.Direction

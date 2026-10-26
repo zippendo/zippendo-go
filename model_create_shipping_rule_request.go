@@ -26,6 +26,8 @@ type CreateShippingRuleRequest struct {
 	Name string `json:"name"`
 	// Optional description
 	Description *string `json:"description,omitempty"`
+	// Checkout name and description per language; a blank field falls back to the rule's own text
+	Translations *map[string]CreateShippingRuleRequestTranslationsValue `json:"translations,omitempty"`
 	// Whether this rule is for outbound or inbound (return) shipments
 	Direction *string `json:"direction,omitempty"`
 	// Carrier ID
@@ -192,6 +194,38 @@ func (o *CreateShippingRuleRequest) HasDescription() bool {
 // SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *CreateShippingRuleRequest) SetDescription(v string) {
 	o.Description = &v
+}
+
+// GetTranslations returns the Translations field value if set, zero value otherwise.
+func (o *CreateShippingRuleRequest) GetTranslations() map[string]CreateShippingRuleRequestTranslationsValue {
+	if o == nil || IsNil(o.Translations) {
+		var ret map[string]CreateShippingRuleRequestTranslationsValue
+		return ret
+	}
+	return *o.Translations
+}
+
+// GetTranslationsOk returns a tuple with the Translations field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateShippingRuleRequest) GetTranslationsOk() (*map[string]CreateShippingRuleRequestTranslationsValue, bool) {
+	if o == nil || IsNil(o.Translations) {
+		return nil, false
+	}
+	return o.Translations, true
+}
+
+// HasTranslations returns a boolean if a field has been set.
+func (o *CreateShippingRuleRequest) HasTranslations() bool {
+	if o != nil && !IsNil(o.Translations) {
+		return true
+	}
+
+	return false
+}
+
+// SetTranslations gets a reference to the given map[string]CreateShippingRuleRequestTranslationsValue and assigns it to the Translations field.
+func (o *CreateShippingRuleRequest) SetTranslations(v map[string]CreateShippingRuleRequestTranslationsValue) {
+	o.Translations = &v
 }
 
 // GetDirection returns the Direction field value if set, zero value otherwise.
@@ -1007,6 +1041,9 @@ func (o CreateShippingRuleRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["name"] = o.Name
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Translations) {
+		toSerialize["translations"] = o.Translations
 	}
 	if !IsNil(o.Direction) {
 		toSerialize["direction"] = o.Direction

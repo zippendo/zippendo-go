@@ -6,29 +6,30 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** | Shipping rule name | [optional] 
 **Description** | Pointer to **string** | Optional description | [optional] 
-**Direction** | Pointer to **string** | Whether this rule is for outbound or inbound (return) shipments | [optional] [default to "outbound"]
+**Translations** | Pointer to [**map[string]CreateShippingRuleRequestTranslationsValue**](CreateShippingRuleRequestTranslationsValue.md) | Checkout name and description per language; a blank field falls back to the rule&#39;s own text | [optional] 
+**Direction** | Pointer to **string** | Whether this rule is for outbound or inbound (return) shipments | [optional] 
 **CarrierId** | Pointer to **string** | Carrier ID | [optional] 
 **ProductId** | Pointer to **string** | Product ID from carrier | [optional] 
 **Services** | Pointer to **[]string** | List of selected services | [optional] 
 **AdditionalParameters** | Pointer to [**map[string]CreateShippingRuleRequestAdditionalParametersValue**](CreateShippingRuleRequestAdditionalParametersValue.md) | Carrier-specific extra parameters, keyed by the carrier parameter &#x60;key&#x60; from the product&#39;s &#x60;additionalParameters[].key&#x60;. Omit to leave the rule&#39;s parameters unchanged. | [optional] 
 **AddressId** | Pointer to **string** | Sender address ID | [optional] 
 **ReceivingCountries** | Pointer to **[]string** | List of supported country codes | [optional] 
-**EmailNotification** | Pointer to **bool** | Send an email notification to the receiver | [optional] [default to false]
-**PhoneNotification** | Pointer to **bool** | Send an SMS notification to the receiver | [optional] [default to false]
+**EmailNotification** | Pointer to **bool** | Send an email notification to the receiver | [optional] 
+**PhoneNotification** | Pointer to **bool** | Send an SMS notification to the receiver | [optional] 
 **MinWeight** | Pointer to **NullableFloat32** | Minimum required weight in kg | [optional] 
 **MaxWeight** | Pointer to **NullableFloat32** | Maximum allowed weight in kg | [optional] 
 **MinOrderValue** | Pointer to **NullableFloat32** | Minimum required order value in currency units | [optional] 
 **MaxOrderValue** | Pointer to **NullableFloat32** | Maximum allowed order value in currency units | [optional] 
 **Conditions** | Pointer to [**[]CreateShippingRuleRequestConditionsInner**](CreateShippingRuleRequestConditionsInner.md) | Rule conditions (weight/price/quantity) | [optional] 
-**GenerateProformaInvoice** | Pointer to **bool** | Generate proforma invoice for shipments | [optional] [default to false]
-**GenerateCommercialInvoice** | Pointer to **bool** | Generate commercial invoice for international shipments | [optional] [default to false]
-**GeneratePackingList** | Pointer to **bool** | Generate a packing slip with parcel and item details | [optional] [default to false]
-**AutoPrintLabels** | Pointer to **bool** | Automatically print labels when shipment is sent | [optional] [default to false]
-**AutoPrintDocuments** | Pointer to **bool** | Automatically print documents when shipment is sent | [optional] [default to false]
+**GenerateProformaInvoice** | Pointer to **bool** | Generate proforma invoice for shipments | [optional] 
+**GenerateCommercialInvoice** | Pointer to **bool** | Generate commercial invoice for international shipments | [optional] 
+**GeneratePackingList** | Pointer to **bool** | Generate a packing slip with parcel and item details | [optional] 
+**AutoPrintLabels** | Pointer to **bool** | Automatically print labels when shipment is sent | [optional] 
+**AutoPrintDocuments** | Pointer to **bool** | Automatically print documents when shipment is sent | [optional] 
 **LabelPrinterId** | Pointer to **NullableString** | ID of the label printer | [optional] 
 **DocumentPrinterId** | Pointer to **NullableString** | ID of the document printer | [optional] 
 **ReturnShippingRuleId** | Pointer to **NullableString** | ID of the return shipping rule | [optional] 
-**AutoCreateReturnShipment** | Pointer to **bool** | Automatically create and send a return shipment on dispatch | [optional] [default to false]
+**AutoCreateReturnShipment** | Pointer to **bool** | Automatically create and send a return shipment on dispatch | [optional] 
 **BrandId** | Pointer to **NullableString** | Brand this record is assigned to; null (or omitted outside a brand session) keeps it organization-wide | [optional] 
 
 ## Methods
@@ -99,6 +100,31 @@ SetDescription sets Description field to given value.
 `func (o *UpdateShippingRuleRequest) HasDescription() bool`
 
 HasDescription returns a boolean if a field has been set.
+
+### GetTranslations
+
+`func (o *UpdateShippingRuleRequest) GetTranslations() map[string]CreateShippingRuleRequestTranslationsValue`
+
+GetTranslations returns the Translations field if non-nil, zero value otherwise.
+
+### GetTranslationsOk
+
+`func (o *UpdateShippingRuleRequest) GetTranslationsOk() (*map[string]CreateShippingRuleRequestTranslationsValue, bool)`
+
+GetTranslationsOk returns a tuple with the Translations field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTranslations
+
+`func (o *UpdateShippingRuleRequest) SetTranslations(v map[string]CreateShippingRuleRequestTranslationsValue)`
+
+SetTranslations sets Translations field to given value.
+
+### HasTranslations
+
+`func (o *UpdateShippingRuleRequest) HasTranslations() bool`
+
+HasTranslations returns a boolean if a field has been set.
 
 ### GetDirection
 

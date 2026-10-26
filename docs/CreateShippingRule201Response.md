@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Id** | **string** | Unique shipping rule identifier | 
 **Name** | **string** | Shipping rule name | 
 **Description** | **NullableString** | Optional description | 
+**Translations** | [**map[string]ListShippingRules200ResponseDataInnerTranslationsValue**](ListShippingRules200ResponseDataInnerTranslationsValue.md) | Checkout name and description per language | 
 **Direction** | **string** | Whether this rule is for outbound or inbound (return) shipments | [default to "outbound"]
 **CarrierId** | **string** | Carrier ID | 
 **ProductId** | **string** | Product ID from carrier | 
@@ -39,7 +40,7 @@ Name | Type | Description | Notes
 
 ### NewCreateShippingRule201Response
 
-`func NewCreateShippingRule201Response(id string, name string, description NullableString, direction string, carrierId string, productId string, services []string, additionalParameters map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue, addressId string, receivingCountries []string, emailNotification bool, phoneNotification bool, minWeight NullableFloat32, maxWeight NullableFloat32, minOrderValue NullableFloat32, maxOrderValue NullableFloat32, conditions []ListShippingRules200ResponseDataInnerConditionsInner, generateProformaInvoice bool, generateCommercialInvoice bool, generatePackingList bool, autoPrintLabels bool, autoPrintDocuments bool, labelPrinterId NullableString, documentPrinterId NullableString, returnShippingRuleId NullableString, autoCreateReturnShipment bool, orgId string, brandId NullableString, createdAt string, updatedAt string, ) *CreateShippingRule201Response`
+`func NewCreateShippingRule201Response(id string, name string, description NullableString, translations map[string]ListShippingRules200ResponseDataInnerTranslationsValue, direction string, carrierId string, productId string, services []string, additionalParameters map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue, addressId string, receivingCountries []string, emailNotification bool, phoneNotification bool, minWeight NullableFloat32, maxWeight NullableFloat32, minOrderValue NullableFloat32, maxOrderValue NullableFloat32, conditions []ListShippingRules200ResponseDataInnerConditionsInner, generateProformaInvoice bool, generateCommercialInvoice bool, generatePackingList bool, autoPrintLabels bool, autoPrintDocuments bool, labelPrinterId NullableString, documentPrinterId NullableString, returnShippingRuleId NullableString, autoCreateReturnShipment bool, orgId string, brandId NullableString, createdAt string, updatedAt string, ) *CreateShippingRule201Response`
 
 NewCreateShippingRule201Response instantiates a new CreateShippingRule201Response object
 This constructor will assign default values to properties that have it defined,
@@ -124,6 +125,26 @@ SetDescription sets Description field to given value.
 `func (o *CreateShippingRule201Response) UnsetDescription()`
 
 UnsetDescription ensures that no value is present for Description, not even an explicit nil
+### GetTranslations
+
+`func (o *CreateShippingRule201Response) GetTranslations() map[string]ListShippingRules200ResponseDataInnerTranslationsValue`
+
+GetTranslations returns the Translations field if non-nil, zero value otherwise.
+
+### GetTranslationsOk
+
+`func (o *CreateShippingRule201Response) GetTranslationsOk() (*map[string]ListShippingRules200ResponseDataInnerTranslationsValue, bool)`
+
+GetTranslationsOk returns a tuple with the Translations field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTranslations
+
+`func (o *CreateShippingRule201Response) SetTranslations(v map[string]ListShippingRules200ResponseDataInnerTranslationsValue)`
+
+SetTranslations sets Translations field to given value.
+
+
 ### GetDirection
 
 `func (o *CreateShippingRule201Response) GetDirection() string`

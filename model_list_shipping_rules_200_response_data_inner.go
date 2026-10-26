@@ -28,6 +28,8 @@ type ListShippingRules200ResponseDataInner struct {
 	Name string `json:"name"`
 	// Optional description
 	Description NullableString `json:"description"`
+	// Checkout name and description per language
+	Translations map[string]ListShippingRules200ResponseDataInnerTranslationsValue `json:"translations"`
 	// Whether this rule is for outbound or inbound (return) shipments
 	Direction string `json:"direction"`
 	// Carrier ID
@@ -95,11 +97,12 @@ type _ListShippingRules200ResponseDataInner ListShippingRules200ResponseDataInne
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListShippingRules200ResponseDataInner(id string, name string, description NullableString, direction string, carrierId string, productId string, services []string, additionalParameters map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue, addressId string, receivingCountries []string, emailNotification bool, phoneNotification bool, minWeight NullableFloat32, maxWeight NullableFloat32, minOrderValue NullableFloat32, maxOrderValue NullableFloat32, conditions []ListShippingRules200ResponseDataInnerConditionsInner, generateProformaInvoice bool, generateCommercialInvoice bool, generatePackingList bool, autoPrintLabels bool, autoPrintDocuments bool, labelPrinterId NullableString, documentPrinterId NullableString, returnShippingRuleId NullableString, autoCreateReturnShipment bool, orgId string, brandId NullableString, createdAt string, updatedAt string, carrier ListShippingRules200ResponseDataInnerCarrier, address ListAddresses200ResponseDataInner) *ListShippingRules200ResponseDataInner {
+func NewListShippingRules200ResponseDataInner(id string, name string, description NullableString, translations map[string]ListShippingRules200ResponseDataInnerTranslationsValue, direction string, carrierId string, productId string, services []string, additionalParameters map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue, addressId string, receivingCountries []string, emailNotification bool, phoneNotification bool, minWeight NullableFloat32, maxWeight NullableFloat32, minOrderValue NullableFloat32, maxOrderValue NullableFloat32, conditions []ListShippingRules200ResponseDataInnerConditionsInner, generateProformaInvoice bool, generateCommercialInvoice bool, generatePackingList bool, autoPrintLabels bool, autoPrintDocuments bool, labelPrinterId NullableString, documentPrinterId NullableString, returnShippingRuleId NullableString, autoCreateReturnShipment bool, orgId string, brandId NullableString, createdAt string, updatedAt string, carrier ListShippingRules200ResponseDataInnerCarrier, address ListAddresses200ResponseDataInner) *ListShippingRules200ResponseDataInner {
 	this := ListShippingRules200ResponseDataInner{}
 	this.Id = id
 	this.Name = name
 	this.Description = description
+	this.Translations = translations
 	this.Direction = direction
 	this.CarrierId = carrierId
 	this.ProductId = productId
@@ -230,6 +233,30 @@ func (o *ListShippingRules200ResponseDataInner) GetDescriptionOk() (*string, boo
 // SetDescription sets field value
 func (o *ListShippingRules200ResponseDataInner) SetDescription(v string) {
 	o.Description.Set(&v)
+}
+
+// GetTranslations returns the Translations field value
+func (o *ListShippingRules200ResponseDataInner) GetTranslations() map[string]ListShippingRules200ResponseDataInnerTranslationsValue {
+	if o == nil {
+		var ret map[string]ListShippingRules200ResponseDataInnerTranslationsValue
+		return ret
+	}
+
+	return o.Translations
+}
+
+// GetTranslationsOk returns a tuple with the Translations field value
+// and a boolean to check if the value has been set.
+func (o *ListShippingRules200ResponseDataInner) GetTranslationsOk() (*map[string]ListShippingRules200ResponseDataInnerTranslationsValue, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Translations, true
+}
+
+// SetTranslations sets field value
+func (o *ListShippingRules200ResponseDataInner) SetTranslations(v map[string]ListShippingRules200ResponseDataInnerTranslationsValue) {
+	o.Translations = v
 }
 
 // GetDirection returns the Direction field value
@@ -1083,6 +1110,7 @@ func (o ListShippingRules200ResponseDataInner) ToMap() (map[string]interface{}, 
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
 	toSerialize["description"] = o.Description.Get()
+	toSerialize["translations"] = o.Translations
 	toSerialize["direction"] = o.Direction
 	toSerialize["carrierId"] = o.CarrierId
 	toSerialize["productId"] = o.ProductId
@@ -1132,6 +1160,7 @@ func (o *ListShippingRules200ResponseDataInner) UnmarshalJSON(data []byte) (err 
 		"id",
 		"name",
 		"description",
+		"translations",
 		"direction",
 		"carrierId",
 		"productId",
