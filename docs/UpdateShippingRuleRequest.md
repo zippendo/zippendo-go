@@ -26,6 +26,7 @@ Name | Type | Description | Notes
 **GeneratePackingList** | Pointer to **bool** | Generate a packing slip with parcel and item details | [optional] 
 **AutoPrintLabels** | Pointer to **bool** | Automatically print labels when shipment is sent | [optional] 
 **AutoPrintDocuments** | Pointer to **bool** | Automatically print documents when shipment is sent | [optional] 
+**AutoPrintTrigger** | Pointer to **string** | When automatic printing starts: &#x60;ON_BOOKING&#x60; prints as soon as the shipment is sent, &#x60;ON_SCAN&#x60; waits until the packing slip is scanned. | [optional] 
 **LabelPrinterId** | Pointer to **NullableString** | ID of the label printer | [optional] 
 **DocumentPrinterId** | Pointer to **NullableString** | ID of the document printer | [optional] 
 **ReturnShippingRuleId** | Pointer to **NullableString** | ID of the return shipping rule | [optional] 
@@ -640,6 +641,31 @@ SetAutoPrintDocuments sets AutoPrintDocuments field to given value.
 `func (o *UpdateShippingRuleRequest) HasAutoPrintDocuments() bool`
 
 HasAutoPrintDocuments returns a boolean if a field has been set.
+
+### GetAutoPrintTrigger
+
+`func (o *UpdateShippingRuleRequest) GetAutoPrintTrigger() string`
+
+GetAutoPrintTrigger returns the AutoPrintTrigger field if non-nil, zero value otherwise.
+
+### GetAutoPrintTriggerOk
+
+`func (o *UpdateShippingRuleRequest) GetAutoPrintTriggerOk() (*string, bool)`
+
+GetAutoPrintTriggerOk returns a tuple with the AutoPrintTrigger field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAutoPrintTrigger
+
+`func (o *UpdateShippingRuleRequest) SetAutoPrintTrigger(v string)`
+
+SetAutoPrintTrigger sets AutoPrintTrigger field to given value.
+
+### HasAutoPrintTrigger
+
+`func (o *UpdateShippingRuleRequest) HasAutoPrintTrigger() bool`
+
+HasAutoPrintTrigger returns a boolean if a field has been set.
 
 ### GetLabelPrinterId
 

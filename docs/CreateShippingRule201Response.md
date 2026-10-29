@@ -27,6 +27,7 @@ Name | Type | Description | Notes
 **GeneratePackingList** | **bool** | Generate a packing slip with parcel and item details | [default to false]
 **AutoPrintLabels** | **bool** | Automatically print labels when shipment is sent | [default to false]
 **AutoPrintDocuments** | **bool** | Automatically print documents when shipment is sent | [default to false]
+**AutoPrintTrigger** | **string** | When automatic printing starts: &#x60;ON_BOOKING&#x60; prints as soon as the shipment is sent, &#x60;ON_SCAN&#x60; waits until the packing slip is scanned. | 
 **LabelPrinterId** | **NullableString** | ID of the label printer | 
 **DocumentPrinterId** | **NullableString** | ID of the document printer | 
 **ReturnShippingRuleId** | **NullableString** | ID of the return shipping rule | 
@@ -40,7 +41,7 @@ Name | Type | Description | Notes
 
 ### NewCreateShippingRule201Response
 
-`func NewCreateShippingRule201Response(id string, name string, description NullableString, translations map[string]ListShippingRules200ResponseDataInnerTranslationsValue, direction string, carrierId string, productId string, services []string, additionalParameters map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue, addressId string, receivingCountries []string, emailNotification bool, phoneNotification bool, minWeight NullableFloat32, maxWeight NullableFloat32, minOrderValue NullableFloat32, maxOrderValue NullableFloat32, conditions []ListShippingRules200ResponseDataInnerConditionsInner, generateProformaInvoice bool, generateCommercialInvoice bool, generatePackingList bool, autoPrintLabels bool, autoPrintDocuments bool, labelPrinterId NullableString, documentPrinterId NullableString, returnShippingRuleId NullableString, autoCreateReturnShipment bool, orgId string, brandId NullableString, createdAt string, updatedAt string, ) *CreateShippingRule201Response`
+`func NewCreateShippingRule201Response(id string, name string, description NullableString, translations map[string]ListShippingRules200ResponseDataInnerTranslationsValue, direction string, carrierId string, productId string, services []string, additionalParameters map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue, addressId string, receivingCountries []string, emailNotification bool, phoneNotification bool, minWeight NullableFloat32, maxWeight NullableFloat32, minOrderValue NullableFloat32, maxOrderValue NullableFloat32, conditions []ListShippingRules200ResponseDataInnerConditionsInner, generateProformaInvoice bool, generateCommercialInvoice bool, generatePackingList bool, autoPrintLabels bool, autoPrintDocuments bool, autoPrintTrigger string, labelPrinterId NullableString, documentPrinterId NullableString, returnShippingRuleId NullableString, autoCreateReturnShipment bool, orgId string, brandId NullableString, createdAt string, updatedAt string, ) *CreateShippingRule201Response`
 
 NewCreateShippingRule201Response instantiates a new CreateShippingRule201Response object
 This constructor will assign default values to properties that have it defined,
@@ -563,6 +564,26 @@ and a boolean to check if the value has been set.
 `func (o *CreateShippingRule201Response) SetAutoPrintDocuments(v bool)`
 
 SetAutoPrintDocuments sets AutoPrintDocuments field to given value.
+
+
+### GetAutoPrintTrigger
+
+`func (o *CreateShippingRule201Response) GetAutoPrintTrigger() string`
+
+GetAutoPrintTrigger returns the AutoPrintTrigger field if non-nil, zero value otherwise.
+
+### GetAutoPrintTriggerOk
+
+`func (o *CreateShippingRule201Response) GetAutoPrintTriggerOk() (*string, bool)`
+
+GetAutoPrintTriggerOk returns a tuple with the AutoPrintTrigger field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAutoPrintTrigger
+
+`func (o *CreateShippingRule201Response) SetAutoPrintTrigger(v string)`
+
+SetAutoPrintTrigger sets AutoPrintTrigger field to given value.
 
 
 ### GetLabelPrinterId

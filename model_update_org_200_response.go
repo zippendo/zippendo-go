@@ -50,6 +50,8 @@ type UpdateOrg200Response struct {
 	Country NullableString `json:"country,omitempty"`
 	// Customs identifiers keyed by type
 	Customs map[string]string `json:"customs,omitempty"`
+	// Code printed on packing slips that a scan turns into a print: `QR`, `BARCODE`, or `NONE` for no code.
+	PackingSlipScanCode string `json:"packingSlipScanCode"`
 	// Creation timestamp (ISO 8601)
 	CreatedAt string `json:"createdAt"`
 	// Last update timestamp (ISO 8601)
@@ -62,13 +64,14 @@ type _UpdateOrg200Response UpdateOrg200Response
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUpdateOrg200Response(id string, name string, slug string, description NullableString, currency string, createdAt string, updatedAt string) *UpdateOrg200Response {
+func NewUpdateOrg200Response(id string, name string, slug string, description NullableString, currency string, packingSlipScanCode string, createdAt string, updatedAt string) *UpdateOrg200Response {
 	this := UpdateOrg200Response{}
 	this.Id = id
 	this.Name = name
 	this.Slug = slug
 	this.Description = description
 	this.Currency = currency
+	this.PackingSlipScanCode = packingSlipScanCode
 	this.CreatedAt = createdAt
 	this.UpdatedAt = updatedAt
 	return &this
@@ -575,6 +578,30 @@ func (o *UpdateOrg200Response) SetCustoms(v map[string]string) {
 	o.Customs = v
 }
 
+// GetPackingSlipScanCode returns the PackingSlipScanCode field value
+func (o *UpdateOrg200Response) GetPackingSlipScanCode() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.PackingSlipScanCode
+}
+
+// GetPackingSlipScanCodeOk returns a tuple with the PackingSlipScanCode field value
+// and a boolean to check if the value has been set.
+func (o *UpdateOrg200Response) GetPackingSlipScanCodeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PackingSlipScanCode, true
+}
+
+// SetPackingSlipScanCode sets field value
+func (o *UpdateOrg200Response) SetPackingSlipScanCode(v string) {
+	o.PackingSlipScanCode = v
+}
+
 // GetCreatedAt returns the CreatedAt field value
 func (o *UpdateOrg200Response) GetCreatedAt() string {
 	if o == nil {
@@ -665,6 +692,7 @@ func (o UpdateOrg200Response) ToMap() (map[string]interface{}, error) {
 	if o.Customs != nil {
 		toSerialize["customs"] = o.Customs
 	}
+	toSerialize["packingSlipScanCode"] = o.PackingSlipScanCode
 	toSerialize["createdAt"] = o.CreatedAt
 	toSerialize["updatedAt"] = o.UpdatedAt
 	return toSerialize, nil
@@ -680,6 +708,7 @@ func (o *UpdateOrg200Response) UnmarshalJSON(data []byte) (err error) {
 		"slug",
 		"description",
 		"currency",
+		"packingSlipScanCode",
 		"createdAt",
 		"updatedAt",
 	}

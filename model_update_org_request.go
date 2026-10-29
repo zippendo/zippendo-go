@@ -48,6 +48,8 @@ type UpdateOrgRequest struct {
 	Country NullableString `json:"country,omitempty"`
 	// Organization-wide customs identifiers (EORI, IOSS, VOEC, etc.); null clears all
 	Customs map[string]string `json:"customs,omitempty"`
+	// Code printed on packing slips that a scan turns into a print: `QR`, `BARCODE`, or `NONE` for no code.
+	PackingSlipScanCode *string `json:"packingSlipScanCode,omitempty"`
 }
 
 // NewUpdateOrgRequest instantiates a new UpdateOrgRequest object
@@ -606,6 +608,38 @@ func (o *UpdateOrgRequest) SetCustoms(v map[string]string) {
 	o.Customs = v
 }
 
+// GetPackingSlipScanCode returns the PackingSlipScanCode field value if set, zero value otherwise.
+func (o *UpdateOrgRequest) GetPackingSlipScanCode() string {
+	if o == nil || IsNil(o.PackingSlipScanCode) {
+		var ret string
+		return ret
+	}
+	return *o.PackingSlipScanCode
+}
+
+// GetPackingSlipScanCodeOk returns a tuple with the PackingSlipScanCode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateOrgRequest) GetPackingSlipScanCodeOk() (*string, bool) {
+	if o == nil || IsNil(o.PackingSlipScanCode) {
+		return nil, false
+	}
+	return o.PackingSlipScanCode, true
+}
+
+// HasPackingSlipScanCode returns a boolean if a field has been set.
+func (o *UpdateOrgRequest) HasPackingSlipScanCode() bool {
+	if o != nil && !IsNil(o.PackingSlipScanCode) {
+		return true
+	}
+
+	return false
+}
+
+// SetPackingSlipScanCode gets a reference to the given string and assigns it to the PackingSlipScanCode field.
+func (o *UpdateOrgRequest) SetPackingSlipScanCode(v string) {
+	o.PackingSlipScanCode = &v
+}
+
 func (o UpdateOrgRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -657,6 +691,9 @@ func (o UpdateOrgRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if o.Customs != nil {
 		toSerialize["customs"] = o.Customs
+	}
+	if !IsNil(o.PackingSlipScanCode) {
+		toSerialize["packingSlipScanCode"] = o.PackingSlipScanCode
 	}
 	return toSerialize, nil
 }

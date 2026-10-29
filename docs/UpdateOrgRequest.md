@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **PostalCode** | Pointer to **NullableString** | Postal code | [optional] 
 **Country** | Pointer to **NullableString** | Country (ISO 3166-1 alpha-2 code) | [optional] 
 **Customs** | Pointer to **map[string]string** | Organization-wide customs identifiers (EORI, IOSS, VOEC, etc.); null clears all | [optional] 
+**PackingSlipScanCode** | Pointer to **string** | Code printed on packing slips that a scan turns into a print: &#x60;QR&#x60;, &#x60;BARCODE&#x60;, or &#x60;NONE&#x60; for no code. | [optional] 
 
 ## Methods
 
@@ -488,6 +489,31 @@ HasCustoms returns a boolean if a field has been set.
 `func (o *UpdateOrgRequest) UnsetCustoms()`
 
 UnsetCustoms ensures that no value is present for Customs, not even an explicit nil
+### GetPackingSlipScanCode
+
+`func (o *UpdateOrgRequest) GetPackingSlipScanCode() string`
+
+GetPackingSlipScanCode returns the PackingSlipScanCode field if non-nil, zero value otherwise.
+
+### GetPackingSlipScanCodeOk
+
+`func (o *UpdateOrgRequest) GetPackingSlipScanCodeOk() (*string, bool)`
+
+GetPackingSlipScanCodeOk returns a tuple with the PackingSlipScanCode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPackingSlipScanCode
+
+`func (o *UpdateOrgRequest) SetPackingSlipScanCode(v string)`
+
+SetPackingSlipScanCode sets PackingSlipScanCode field to given value.
+
+### HasPackingSlipScanCode
+
+`func (o *UpdateOrgRequest) HasPackingSlipScanCode() bool`
+
+HasPackingSlipScanCode returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

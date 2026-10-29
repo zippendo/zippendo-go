@@ -68,6 +68,8 @@ type ListShippingRules200ResponseDataInner struct {
 	AutoPrintLabels bool `json:"autoPrintLabels"`
 	// Automatically print documents when shipment is sent
 	AutoPrintDocuments bool `json:"autoPrintDocuments"`
+	// When automatic printing starts: `ON_BOOKING` prints as soon as the shipment is sent, `ON_SCAN` waits until the packing slip is scanned.
+	AutoPrintTrigger string `json:"autoPrintTrigger"`
 	// ID of the label printer
 	LabelPrinterId NullableString `json:"labelPrinterId"`
 	// ID of the document printer
@@ -97,7 +99,7 @@ type _ListShippingRules200ResponseDataInner ListShippingRules200ResponseDataInne
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListShippingRules200ResponseDataInner(id string, name string, description NullableString, translations map[string]ListShippingRules200ResponseDataInnerTranslationsValue, direction string, carrierId string, productId string, services []string, additionalParameters map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue, addressId string, receivingCountries []string, emailNotification bool, phoneNotification bool, minWeight NullableFloat32, maxWeight NullableFloat32, minOrderValue NullableFloat32, maxOrderValue NullableFloat32, conditions []ListShippingRules200ResponseDataInnerConditionsInner, generateProformaInvoice bool, generateCommercialInvoice bool, generatePackingList bool, autoPrintLabels bool, autoPrintDocuments bool, labelPrinterId NullableString, documentPrinterId NullableString, returnShippingRuleId NullableString, autoCreateReturnShipment bool, orgId string, brandId NullableString, createdAt string, updatedAt string, carrier ListShippingRules200ResponseDataInnerCarrier, address ListAddresses200ResponseDataInner) *ListShippingRules200ResponseDataInner {
+func NewListShippingRules200ResponseDataInner(id string, name string, description NullableString, translations map[string]ListShippingRules200ResponseDataInnerTranslationsValue, direction string, carrierId string, productId string, services []string, additionalParameters map[string]ListShippingRules200ResponseDataInnerAdditionalParametersValue, addressId string, receivingCountries []string, emailNotification bool, phoneNotification bool, minWeight NullableFloat32, maxWeight NullableFloat32, minOrderValue NullableFloat32, maxOrderValue NullableFloat32, conditions []ListShippingRules200ResponseDataInnerConditionsInner, generateProformaInvoice bool, generateCommercialInvoice bool, generatePackingList bool, autoPrintLabels bool, autoPrintDocuments bool, autoPrintTrigger string, labelPrinterId NullableString, documentPrinterId NullableString, returnShippingRuleId NullableString, autoCreateReturnShipment bool, orgId string, brandId NullableString, createdAt string, updatedAt string, carrier ListShippingRules200ResponseDataInnerCarrier, address ListAddresses200ResponseDataInner) *ListShippingRules200ResponseDataInner {
 	this := ListShippingRules200ResponseDataInner{}
 	this.Id = id
 	this.Name = name
@@ -122,6 +124,7 @@ func NewListShippingRules200ResponseDataInner(id string, name string, descriptio
 	this.GeneratePackingList = generatePackingList
 	this.AutoPrintLabels = autoPrintLabels
 	this.AutoPrintDocuments = autoPrintDocuments
+	this.AutoPrintTrigger = autoPrintTrigger
 	this.LabelPrinterId = labelPrinterId
 	this.DocumentPrinterId = documentPrinterId
 	this.ReturnShippingRuleId = returnShippingRuleId
@@ -723,6 +726,30 @@ func (o *ListShippingRules200ResponseDataInner) SetAutoPrintDocuments(v bool) {
 	o.AutoPrintDocuments = v
 }
 
+// GetAutoPrintTrigger returns the AutoPrintTrigger field value
+func (o *ListShippingRules200ResponseDataInner) GetAutoPrintTrigger() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.AutoPrintTrigger
+}
+
+// GetAutoPrintTriggerOk returns a tuple with the AutoPrintTrigger field value
+// and a boolean to check if the value has been set.
+func (o *ListShippingRules200ResponseDataInner) GetAutoPrintTriggerOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AutoPrintTrigger, true
+}
+
+// SetAutoPrintTrigger sets field value
+func (o *ListShippingRules200ResponseDataInner) SetAutoPrintTrigger(v string) {
+	o.AutoPrintTrigger = v
+}
+
 // GetLabelPrinterId returns the LabelPrinterId field value
 // If the value is explicit nil, the zero value for string will be returned
 func (o *ListShippingRules200ResponseDataInner) GetLabelPrinterId() string {
@@ -1130,6 +1157,7 @@ func (o ListShippingRules200ResponseDataInner) ToMap() (map[string]interface{}, 
 	toSerialize["generatePackingList"] = o.GeneratePackingList
 	toSerialize["autoPrintLabels"] = o.AutoPrintLabels
 	toSerialize["autoPrintDocuments"] = o.AutoPrintDocuments
+	toSerialize["autoPrintTrigger"] = o.AutoPrintTrigger
 	toSerialize["labelPrinterId"] = o.LabelPrinterId.Get()
 	toSerialize["documentPrinterId"] = o.DocumentPrinterId.Get()
 	toSerialize["returnShippingRuleId"] = o.ReturnShippingRuleId.Get()
@@ -1180,6 +1208,7 @@ func (o *ListShippingRules200ResponseDataInner) UnmarshalJSON(data []byte) (err 
 		"generatePackingList",
 		"autoPrintLabels",
 		"autoPrintDocuments",
+		"autoPrintTrigger",
 		"labelPrinterId",
 		"documentPrinterId",
 		"returnShippingRuleId",

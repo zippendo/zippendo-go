@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **PostalCode** | Pointer to **NullableString** | Postal code | [optional] 
 **Country** | Pointer to **NullableString** | Country (ISO 3166-1 alpha-2 code) | [optional] 
 **Customs** | Pointer to **map[string]string** | Customs identifiers keyed by type | [optional] 
+**PackingSlipScanCode** | **string** | Code printed on packing slips that a scan turns into a print: &#x60;QR&#x60;, &#x60;BARCODE&#x60;, or &#x60;NONE&#x60; for no code. | 
 **CreatedAt** | **string** | Creation timestamp (ISO 8601) | 
 **UpdatedAt** | **string** | Last update timestamp (ISO 8601) | 
 
@@ -25,7 +26,7 @@ Name | Type | Description | Notes
 
 ### NewUpdateOrg200Response
 
-`func NewUpdateOrg200Response(id string, name string, slug string, description NullableString, currency string, createdAt string, updatedAt string, ) *UpdateOrg200Response`
+`func NewUpdateOrg200Response(id string, name string, slug string, description NullableString, currency string, packingSlipScanCode string, createdAt string, updatedAt string, ) *UpdateOrg200Response`
 
 NewUpdateOrg200Response instantiates a new UpdateOrg200Response object
 This constructor will assign default values to properties that have it defined,
@@ -465,6 +466,26 @@ HasCustoms returns a boolean if a field has been set.
 `func (o *UpdateOrg200Response) UnsetCustoms()`
 
 UnsetCustoms ensures that no value is present for Customs, not even an explicit nil
+### GetPackingSlipScanCode
+
+`func (o *UpdateOrg200Response) GetPackingSlipScanCode() string`
+
+GetPackingSlipScanCode returns the PackingSlipScanCode field if non-nil, zero value otherwise.
+
+### GetPackingSlipScanCodeOk
+
+`func (o *UpdateOrg200Response) GetPackingSlipScanCodeOk() (*string, bool)`
+
+GetPackingSlipScanCodeOk returns a tuple with the PackingSlipScanCode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPackingSlipScanCode
+
+`func (o *UpdateOrg200Response) SetPackingSlipScanCode(v string)`
+
+SetPackingSlipScanCode sets PackingSlipScanCode field to given value.
+
+
 ### GetCreatedAt
 
 `func (o *UpdateOrg200Response) GetCreatedAt() string`

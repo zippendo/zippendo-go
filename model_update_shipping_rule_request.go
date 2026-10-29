@@ -64,6 +64,8 @@ type UpdateShippingRuleRequest struct {
 	AutoPrintLabels *bool `json:"autoPrintLabels,omitempty"`
 	// Automatically print documents when shipment is sent
 	AutoPrintDocuments *bool `json:"autoPrintDocuments,omitempty"`
+	// When automatic printing starts: `ON_BOOKING` prints as soon as the shipment is sent, `ON_SCAN` waits until the packing slip is scanned.
+	AutoPrintTrigger *string `json:"autoPrintTrigger,omitempty"`
 	// ID of the label printer
 	LabelPrinterId NullableString `json:"labelPrinterId,omitempty"`
 	// ID of the document printer
@@ -837,6 +839,38 @@ func (o *UpdateShippingRuleRequest) SetAutoPrintDocuments(v bool) {
 	o.AutoPrintDocuments = &v
 }
 
+// GetAutoPrintTrigger returns the AutoPrintTrigger field value if set, zero value otherwise.
+func (o *UpdateShippingRuleRequest) GetAutoPrintTrigger() string {
+	if o == nil || IsNil(o.AutoPrintTrigger) {
+		var ret string
+		return ret
+	}
+	return *o.AutoPrintTrigger
+}
+
+// GetAutoPrintTriggerOk returns a tuple with the AutoPrintTrigger field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateShippingRuleRequest) GetAutoPrintTriggerOk() (*string, bool) {
+	if o == nil || IsNil(o.AutoPrintTrigger) {
+		return nil, false
+	}
+	return o.AutoPrintTrigger, true
+}
+
+// HasAutoPrintTrigger returns a boolean if a field has been set.
+func (o *UpdateShippingRuleRequest) HasAutoPrintTrigger() bool {
+	if o != nil && !IsNil(o.AutoPrintTrigger) {
+		return true
+	}
+
+	return false
+}
+
+// SetAutoPrintTrigger gets a reference to the given string and assigns it to the AutoPrintTrigger field.
+func (o *UpdateShippingRuleRequest) SetAutoPrintTrigger(v string) {
+	o.AutoPrintTrigger = &v
+}
+
 // GetLabelPrinterId returns the LabelPrinterId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UpdateShippingRuleRequest) GetLabelPrinterId() string {
 	if o == nil || IsNil(o.LabelPrinterId.Get()) {
@@ -1112,6 +1146,9 @@ func (o UpdateShippingRuleRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.AutoPrintDocuments) {
 		toSerialize["autoPrintDocuments"] = o.AutoPrintDocuments
+	}
+	if !IsNil(o.AutoPrintTrigger) {
+		toSerialize["autoPrintTrigger"] = o.AutoPrintTrigger
 	}
 	if o.LabelPrinterId.IsSet() {
 		toSerialize["labelPrinterId"] = o.LabelPrinterId.Get()
