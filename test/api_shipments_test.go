@@ -51,6 +51,21 @@ func Test_zippendo_ShipmentsAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test ShipmentsAPIService CancelShipment", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var orgId string
+		var shipmentId string
+
+		resp, httpRes, err := apiClient.ShipmentsAPI.CancelShipment(context.Background(), orgId, shipmentId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test ShipmentsAPIService CreateReturnShipment", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

@@ -43,7 +43,7 @@ func (r ApiConnectCarrierRequest) Execute() (*ListCarriers200ResponseDataInner, 
 /*
 ConnectCarrier Connect carrier
 
-Connects a new carrier to the organization with its configuration.
+Connects a new carrier to the organization with its configuration. Carriers that support it check the credentials with the carrier first and refuse them with CARRIER_AUTH_FAILED or CARRIER_CONFIG_INVALID.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param orgId Organization ID
@@ -146,6 +146,17 @@ func (a *CarriersAPIService) ConnectCarrierExecute(r ApiConnectCarrierRequest) (
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
+			var v ListApiTokens401Response
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 422 {
 			var v ListApiTokens401Response
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -898,7 +909,7 @@ func (r ApiUpdateCarrierRequest) Execute() (*ListCarriers200ResponseDataInner, *
 /*
 UpdateCarrier Update carrier
 
-Updates a connected carrier's configuration or name.
+Updates a connected carrier's configuration or name. A new configuration is checked with the carrier first where the carrier supports it, as on connect.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param orgId Organization ID
@@ -1004,6 +1015,17 @@ func (a *CarriersAPIService) UpdateCarrierExecute(r ApiUpdateCarrierRequest) (*L
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
+			var v ListApiTokens401Response
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 422 {
 			var v ListApiTokens401Response
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {

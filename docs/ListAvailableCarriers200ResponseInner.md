@@ -18,6 +18,9 @@ Name | Type | Description | Notes
 **Beta** | Pointer to **bool** | Whether this integration is newly launched and still being verified in production | [optional] 
 **GeneratesCustomsDocuments** | Pointer to **bool** | Whether the carrier produces the customs declaration (CN22/CN23) itself and returns it with the label. | [optional] 
 **GeneratesCommercialInvoice** | Pointer to **bool** | Whether the carrier produces the commercial invoice itself and returns it with the label, e.g. via electronic trade documents. | [optional] 
+**CancelsShipments** | Pointer to **bool** | Whether a sent shipment of this carrier can be cancelled from Zippendo. | [optional] 
+**UncancellableProductIds** | Pointer to **[]string** | Products whose shipments this carrier cannot cancel, although it cancels its other products (for example locker deliveries). | [optional] 
+**VerifiesCredentials** | Pointer to **bool** | Whether Zippendo checks the credentials with the carrier when the carrier is connected or updated. | [optional] 
 
 ## Methods
 
@@ -377,6 +380,81 @@ SetGeneratesCommercialInvoice sets GeneratesCommercialInvoice field to given val
 `func (o *ListAvailableCarriers200ResponseInner) HasGeneratesCommercialInvoice() bool`
 
 HasGeneratesCommercialInvoice returns a boolean if a field has been set.
+
+### GetCancelsShipments
+
+`func (o *ListAvailableCarriers200ResponseInner) GetCancelsShipments() bool`
+
+GetCancelsShipments returns the CancelsShipments field if non-nil, zero value otherwise.
+
+### GetCancelsShipmentsOk
+
+`func (o *ListAvailableCarriers200ResponseInner) GetCancelsShipmentsOk() (*bool, bool)`
+
+GetCancelsShipmentsOk returns a tuple with the CancelsShipments field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCancelsShipments
+
+`func (o *ListAvailableCarriers200ResponseInner) SetCancelsShipments(v bool)`
+
+SetCancelsShipments sets CancelsShipments field to given value.
+
+### HasCancelsShipments
+
+`func (o *ListAvailableCarriers200ResponseInner) HasCancelsShipments() bool`
+
+HasCancelsShipments returns a boolean if a field has been set.
+
+### GetUncancellableProductIds
+
+`func (o *ListAvailableCarriers200ResponseInner) GetUncancellableProductIds() []string`
+
+GetUncancellableProductIds returns the UncancellableProductIds field if non-nil, zero value otherwise.
+
+### GetUncancellableProductIdsOk
+
+`func (o *ListAvailableCarriers200ResponseInner) GetUncancellableProductIdsOk() (*[]string, bool)`
+
+GetUncancellableProductIdsOk returns a tuple with the UncancellableProductIds field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUncancellableProductIds
+
+`func (o *ListAvailableCarriers200ResponseInner) SetUncancellableProductIds(v []string)`
+
+SetUncancellableProductIds sets UncancellableProductIds field to given value.
+
+### HasUncancellableProductIds
+
+`func (o *ListAvailableCarriers200ResponseInner) HasUncancellableProductIds() bool`
+
+HasUncancellableProductIds returns a boolean if a field has been set.
+
+### GetVerifiesCredentials
+
+`func (o *ListAvailableCarriers200ResponseInner) GetVerifiesCredentials() bool`
+
+GetVerifiesCredentials returns the VerifiesCredentials field if non-nil, zero value otherwise.
+
+### GetVerifiesCredentialsOk
+
+`func (o *ListAvailableCarriers200ResponseInner) GetVerifiesCredentialsOk() (*bool, bool)`
+
+GetVerifiesCredentialsOk returns a tuple with the VerifiesCredentials field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVerifiesCredentials
+
+`func (o *ListAvailableCarriers200ResponseInner) SetVerifiesCredentials(v bool)`
+
+SetVerifiesCredentials sets VerifiesCredentials field to given value.
+
+### HasVerifiesCredentials
+
+`func (o *ListAvailableCarriers200ResponseInner) HasVerifiesCredentials() bool`
+
+HasVerifiesCredentials returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -52,6 +52,12 @@ type ListCarriers200ResponseDataInner struct {
 	GeneratesCustomsDocuments *bool `json:"generatesCustomsDocuments,omitempty"`
 	// Whether the carrier produces the commercial invoice itself and returns it with the label, e.g. via electronic trade documents.
 	GeneratesCommercialInvoice *bool `json:"generatesCommercialInvoice,omitempty"`
+	// Whether a sent shipment of this carrier can be cancelled from Zippendo.
+	CancelsShipments *bool `json:"cancelsShipments,omitempty"`
+	// Products whose shipments this carrier cannot cancel, although it cancels its other products (for example locker deliveries).
+	UncancellableProductIds []string `json:"uncancellableProductIds,omitempty"`
+	// Whether Zippendo checks the credentials with the carrier when the carrier is connected or updated.
+	VerifiesCredentials *bool `json:"verifiesCredentials,omitempty"`
 }
 
 type _ListCarriers200ResponseDataInner ListCarriers200ResponseDataInner
@@ -499,6 +505,102 @@ func (o *ListCarriers200ResponseDataInner) SetGeneratesCommercialInvoice(v bool)
 	o.GeneratesCommercialInvoice = &v
 }
 
+// GetCancelsShipments returns the CancelsShipments field value if set, zero value otherwise.
+func (o *ListCarriers200ResponseDataInner) GetCancelsShipments() bool {
+	if o == nil || IsNil(o.CancelsShipments) {
+		var ret bool
+		return ret
+	}
+	return *o.CancelsShipments
+}
+
+// GetCancelsShipmentsOk returns a tuple with the CancelsShipments field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ListCarriers200ResponseDataInner) GetCancelsShipmentsOk() (*bool, bool) {
+	if o == nil || IsNil(o.CancelsShipments) {
+		return nil, false
+	}
+	return o.CancelsShipments, true
+}
+
+// HasCancelsShipments returns a boolean if a field has been set.
+func (o *ListCarriers200ResponseDataInner) HasCancelsShipments() bool {
+	if o != nil && !IsNil(o.CancelsShipments) {
+		return true
+	}
+
+	return false
+}
+
+// SetCancelsShipments gets a reference to the given bool and assigns it to the CancelsShipments field.
+func (o *ListCarriers200ResponseDataInner) SetCancelsShipments(v bool) {
+	o.CancelsShipments = &v
+}
+
+// GetUncancellableProductIds returns the UncancellableProductIds field value if set, zero value otherwise.
+func (o *ListCarriers200ResponseDataInner) GetUncancellableProductIds() []string {
+	if o == nil || IsNil(o.UncancellableProductIds) {
+		var ret []string
+		return ret
+	}
+	return o.UncancellableProductIds
+}
+
+// GetUncancellableProductIdsOk returns a tuple with the UncancellableProductIds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ListCarriers200ResponseDataInner) GetUncancellableProductIdsOk() ([]string, bool) {
+	if o == nil || IsNil(o.UncancellableProductIds) {
+		return nil, false
+	}
+	return o.UncancellableProductIds, true
+}
+
+// HasUncancellableProductIds returns a boolean if a field has been set.
+func (o *ListCarriers200ResponseDataInner) HasUncancellableProductIds() bool {
+	if o != nil && !IsNil(o.UncancellableProductIds) {
+		return true
+	}
+
+	return false
+}
+
+// SetUncancellableProductIds gets a reference to the given []string and assigns it to the UncancellableProductIds field.
+func (o *ListCarriers200ResponseDataInner) SetUncancellableProductIds(v []string) {
+	o.UncancellableProductIds = v
+}
+
+// GetVerifiesCredentials returns the VerifiesCredentials field value if set, zero value otherwise.
+func (o *ListCarriers200ResponseDataInner) GetVerifiesCredentials() bool {
+	if o == nil || IsNil(o.VerifiesCredentials) {
+		var ret bool
+		return ret
+	}
+	return *o.VerifiesCredentials
+}
+
+// GetVerifiesCredentialsOk returns a tuple with the VerifiesCredentials field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ListCarriers200ResponseDataInner) GetVerifiesCredentialsOk() (*bool, bool) {
+	if o == nil || IsNil(o.VerifiesCredentials) {
+		return nil, false
+	}
+	return o.VerifiesCredentials, true
+}
+
+// HasVerifiesCredentials returns a boolean if a field has been set.
+func (o *ListCarriers200ResponseDataInner) HasVerifiesCredentials() bool {
+	if o != nil && !IsNil(o.VerifiesCredentials) {
+		return true
+	}
+
+	return false
+}
+
+// SetVerifiesCredentials gets a reference to the given bool and assigns it to the VerifiesCredentials field.
+func (o *ListCarriers200ResponseDataInner) SetVerifiesCredentials(v bool) {
+	o.VerifiesCredentials = &v
+}
+
 func (o ListCarriers200ResponseDataInner) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -537,6 +639,15 @@ func (o ListCarriers200ResponseDataInner) ToMap() (map[string]interface{}, error
 	}
 	if !IsNil(o.GeneratesCommercialInvoice) {
 		toSerialize["generatesCommercialInvoice"] = o.GeneratesCommercialInvoice
+	}
+	if !IsNil(o.CancelsShipments) {
+		toSerialize["cancelsShipments"] = o.CancelsShipments
+	}
+	if !IsNil(o.UncancellableProductIds) {
+		toSerialize["uncancellableProductIds"] = o.UncancellableProductIds
+	}
+	if !IsNil(o.VerifiesCredentials) {
+		toSerialize["verifiesCredentials"] = o.VerifiesCredentials
 	}
 	return toSerialize, nil
 }

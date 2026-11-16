@@ -26,6 +26,10 @@ type CreateShipment201ResponseTracking struct {
 	Number NullableString `json:"number,omitempty"`
 	// Label-free drop-off code.
 	LabelFreeCode NullableString `json:"labelFreeCode,omitempty"`
+	// The day the carrier plans to collect the parcel, for carriers that choose the pickup day at booking (WebrinQ return pickups).
+	ExpectedPickupDate NullableString `json:"expectedPickupDate,omitempty"`
+	// When a cancellation was sent to a carrier that confirms it later. The shipment stays dispatched until the carrier reports it cancelled.
+	CancellationRequestedAt NullableString `json:"cancellationRequestedAt,omitempty"`
 	// DEPRECATED — use `qrCodeDataUri` (embeddable data URI) or `qrCodeUrl` (hosted link). Catch-all that carries whichever applies, kept populated for backwards compatibility during the migration and until it is disabled.
 	QrCodeLink NullableString `json:"qrCodeLink,omitempty"`
 	// Embeddable `data:` URI of the QR code image for label-free drop-off — base64 image bytes you can drop straight into an <img>/email. Populated whenever the image bytes are available, including for carriers that host the image (it is fetched and inlined); null if the carrier published no QR code or its image could not be retrieved.
@@ -177,6 +181,90 @@ func (o *CreateShipment201ResponseTracking) UnsetLabelFreeCode() {
 	o.LabelFreeCode.Unset()
 }
 
+// GetExpectedPickupDate returns the ExpectedPickupDate field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateShipment201ResponseTracking) GetExpectedPickupDate() string {
+	if o == nil || IsNil(o.ExpectedPickupDate.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.ExpectedPickupDate.Get()
+}
+
+// GetExpectedPickupDateOk returns a tuple with the ExpectedPickupDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateShipment201ResponseTracking) GetExpectedPickupDateOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ExpectedPickupDate.Get(), o.ExpectedPickupDate.IsSet()
+}
+
+// HasExpectedPickupDate returns a boolean if a field has been set.
+func (o *CreateShipment201ResponseTracking) HasExpectedPickupDate() bool {
+	if o != nil && o.ExpectedPickupDate.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetExpectedPickupDate gets a reference to the given NullableString and assigns it to the ExpectedPickupDate field.
+func (o *CreateShipment201ResponseTracking) SetExpectedPickupDate(v string) {
+	o.ExpectedPickupDate.Set(&v)
+}
+// SetExpectedPickupDateNil sets the value for ExpectedPickupDate to be an explicit nil
+func (o *CreateShipment201ResponseTracking) SetExpectedPickupDateNil() {
+	o.ExpectedPickupDate.Set(nil)
+}
+
+// UnsetExpectedPickupDate ensures that no value is present for ExpectedPickupDate, not even an explicit nil
+func (o *CreateShipment201ResponseTracking) UnsetExpectedPickupDate() {
+	o.ExpectedPickupDate.Unset()
+}
+
+// GetCancellationRequestedAt returns the CancellationRequestedAt field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateShipment201ResponseTracking) GetCancellationRequestedAt() string {
+	if o == nil || IsNil(o.CancellationRequestedAt.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.CancellationRequestedAt.Get()
+}
+
+// GetCancellationRequestedAtOk returns a tuple with the CancellationRequestedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateShipment201ResponseTracking) GetCancellationRequestedAtOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.CancellationRequestedAt.Get(), o.CancellationRequestedAt.IsSet()
+}
+
+// HasCancellationRequestedAt returns a boolean if a field has been set.
+func (o *CreateShipment201ResponseTracking) HasCancellationRequestedAt() bool {
+	if o != nil && o.CancellationRequestedAt.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetCancellationRequestedAt gets a reference to the given NullableString and assigns it to the CancellationRequestedAt field.
+func (o *CreateShipment201ResponseTracking) SetCancellationRequestedAt(v string) {
+	o.CancellationRequestedAt.Set(&v)
+}
+// SetCancellationRequestedAtNil sets the value for CancellationRequestedAt to be an explicit nil
+func (o *CreateShipment201ResponseTracking) SetCancellationRequestedAtNil() {
+	o.CancellationRequestedAt.Set(nil)
+}
+
+// UnsetCancellationRequestedAt ensures that no value is present for CancellationRequestedAt, not even an explicit nil
+func (o *CreateShipment201ResponseTracking) UnsetCancellationRequestedAt() {
+	o.CancellationRequestedAt.Unset()
+}
+
 // GetQrCodeLink returns the QrCodeLink field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateShipment201ResponseTracking) GetQrCodeLink() string {
 	if o == nil || IsNil(o.QrCodeLink.Get()) {
@@ -321,6 +409,12 @@ func (o CreateShipment201ResponseTracking) ToMap() (map[string]interface{}, erro
 	}
 	if o.LabelFreeCode.IsSet() {
 		toSerialize["labelFreeCode"] = o.LabelFreeCode.Get()
+	}
+	if o.ExpectedPickupDate.IsSet() {
+		toSerialize["expectedPickupDate"] = o.ExpectedPickupDate.Get()
+	}
+	if o.CancellationRequestedAt.IsSet() {
+		toSerialize["cancellationRequestedAt"] = o.CancellationRequestedAt.Get()
 	}
 	if o.QrCodeLink.IsSet() {
 		toSerialize["qrCodeLink"] = o.QrCodeLink.Get()

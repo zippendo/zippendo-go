@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **Url** | Pointer to **NullableString** | Public carrier tracking URL. | [optional] 
 **Number** | Pointer to **NullableString** | Carrier tracking number. | [optional] 
 **LabelFreeCode** | Pointer to **NullableString** | Label-free drop-off code. | [optional] 
+**ExpectedPickupDate** | Pointer to **NullableString** | The day the carrier plans to collect the parcel, for carriers that choose the pickup day at booking (WebrinQ return pickups). | [optional] 
+**CancellationRequestedAt** | Pointer to **NullableString** | When a cancellation was sent to a carrier that confirms it later. The shipment stays dispatched until the carrier reports it cancelled. | [optional] 
 **QrCodeLink** | Pointer to **NullableString** | DEPRECATED — use &#x60;qrCodeDataUri&#x60; (embeddable data URI) or &#x60;qrCodeUrl&#x60; (hosted link). Catch-all that carries whichever applies, kept populated for backwards compatibility during the migration and until it is disabled. | [optional] 
 **QrCodeDataUri** | Pointer to **NullableString** | Embeddable &#x60;data:&#x60; URI of the QR code image for label-free drop-off — base64 image bytes you can drop straight into an &lt;img&gt;/email. Populated whenever the image bytes are available, including for carriers that host the image (it is fetched and inlined); null if the carrier published no QR code or its image could not be retrieved. | [optional] 
 **QrCodeUrl** | Pointer to **NullableString** | Carrier-hosted URL of the QR code image for label-free drop-off, returned by carriers (e.g. Bring) that link to the image rather than embedding it. Independent of &#x60;qrCodeDataUri&#x60; — both are set when the hosted image was inlined successfully; null for carriers that only return embedded bytes. | [optional] 
@@ -135,6 +137,76 @@ HasLabelFreeCode returns a boolean if a field has been set.
 `func (o *CreateShipment201ResponseTracking) UnsetLabelFreeCode()`
 
 UnsetLabelFreeCode ensures that no value is present for LabelFreeCode, not even an explicit nil
+### GetExpectedPickupDate
+
+`func (o *CreateShipment201ResponseTracking) GetExpectedPickupDate() string`
+
+GetExpectedPickupDate returns the ExpectedPickupDate field if non-nil, zero value otherwise.
+
+### GetExpectedPickupDateOk
+
+`func (o *CreateShipment201ResponseTracking) GetExpectedPickupDateOk() (*string, bool)`
+
+GetExpectedPickupDateOk returns a tuple with the ExpectedPickupDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExpectedPickupDate
+
+`func (o *CreateShipment201ResponseTracking) SetExpectedPickupDate(v string)`
+
+SetExpectedPickupDate sets ExpectedPickupDate field to given value.
+
+### HasExpectedPickupDate
+
+`func (o *CreateShipment201ResponseTracking) HasExpectedPickupDate() bool`
+
+HasExpectedPickupDate returns a boolean if a field has been set.
+
+### SetExpectedPickupDateNil
+
+`func (o *CreateShipment201ResponseTracking) SetExpectedPickupDateNil(b bool)`
+
+ SetExpectedPickupDateNil sets the value for ExpectedPickupDate to be an explicit nil
+
+### UnsetExpectedPickupDate
+`func (o *CreateShipment201ResponseTracking) UnsetExpectedPickupDate()`
+
+UnsetExpectedPickupDate ensures that no value is present for ExpectedPickupDate, not even an explicit nil
+### GetCancellationRequestedAt
+
+`func (o *CreateShipment201ResponseTracking) GetCancellationRequestedAt() string`
+
+GetCancellationRequestedAt returns the CancellationRequestedAt field if non-nil, zero value otherwise.
+
+### GetCancellationRequestedAtOk
+
+`func (o *CreateShipment201ResponseTracking) GetCancellationRequestedAtOk() (*string, bool)`
+
+GetCancellationRequestedAtOk returns a tuple with the CancellationRequestedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCancellationRequestedAt
+
+`func (o *CreateShipment201ResponseTracking) SetCancellationRequestedAt(v string)`
+
+SetCancellationRequestedAt sets CancellationRequestedAt field to given value.
+
+### HasCancellationRequestedAt
+
+`func (o *CreateShipment201ResponseTracking) HasCancellationRequestedAt() bool`
+
+HasCancellationRequestedAt returns a boolean if a field has been set.
+
+### SetCancellationRequestedAtNil
+
+`func (o *CreateShipment201ResponseTracking) SetCancellationRequestedAtNil(b bool)`
+
+ SetCancellationRequestedAtNil sets the value for CancellationRequestedAt to be an explicit nil
+
+### UnsetCancellationRequestedAt
+`func (o *CreateShipment201ResponseTracking) UnsetCancellationRequestedAt()`
+
+UnsetCancellationRequestedAt ensures that no value is present for CancellationRequestedAt, not even an explicit nil
 ### GetQrCodeLink
 
 `func (o *CreateShipment201ResponseTracking) GetQrCodeLink() string`
