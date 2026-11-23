@@ -22,7 +22,7 @@ var _ MappedNullable = &GetBillingUsage200ResponseAddOnsInner{}
 
 // GetBillingUsage200ResponseAddOnsInner struct for GetBillingUsage200ResponseAddOnsInner
 type GetBillingUsage200ResponseAddOnsInner struct {
-	// Type of billing add-on
+	// Type of billing add-on. Only zippy can be purchased.
 	Type string `json:"type"`
 	// Number of add-on units purchased
 	Quantity float32 `json:"quantity"`

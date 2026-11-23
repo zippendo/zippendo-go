@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **IsPickupAvailable** | **bool** | Whether carrier pickup is available for this product | [default to false]
 **Services** | Pointer to [**[]ListCarrierProducts200ResponseInnerServicesInner**](ListCarrierProducts200ResponseInnerServicesInner.md) | Additional services available for this product | [optional] 
 **AdditionalParameters** | Pointer to [**[]ListCarrierProducts200ResponseInnerAdditionalParametersInner**](ListCarrierProducts200ResponseInnerAdditionalParametersInner.md) | Extra parameters that can or must be supplied for this product | [optional] 
+**DangerousGoods** | Pointer to [**[]ListCarrierProducts200ResponseInnerDangerousGoodsInner**](ListCarrierProducts200ResponseInnerDangerousGoodsInner.md) | How this product declares dangerous goods: the service to request and the parameters that carry the details. Absent when the product cannot carry them. | [optional] 
 **WeightLimits** | Pointer to [**ListCarrierProducts200ResponseInnerWeightLimits**](ListCarrierProducts200ResponseInnerWeightLimits.md) |  | [optional] 
 
 ## Methods
@@ -249,6 +250,31 @@ SetAdditionalParameters sets AdditionalParameters field to given value.
 `func (o *ListCarrierProducts200ResponseInner) HasAdditionalParameters() bool`
 
 HasAdditionalParameters returns a boolean if a field has been set.
+
+### GetDangerousGoods
+
+`func (o *ListCarrierProducts200ResponseInner) GetDangerousGoods() []ListCarrierProducts200ResponseInnerDangerousGoodsInner`
+
+GetDangerousGoods returns the DangerousGoods field if non-nil, zero value otherwise.
+
+### GetDangerousGoodsOk
+
+`func (o *ListCarrierProducts200ResponseInner) GetDangerousGoodsOk() (*[]ListCarrierProducts200ResponseInnerDangerousGoodsInner, bool)`
+
+GetDangerousGoodsOk returns a tuple with the DangerousGoods field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDangerousGoods
+
+`func (o *ListCarrierProducts200ResponseInner) SetDangerousGoods(v []ListCarrierProducts200ResponseInnerDangerousGoodsInner)`
+
+SetDangerousGoods sets DangerousGoods field to given value.
+
+### HasDangerousGoods
+
+`func (o *ListCarrierProducts200ResponseInner) HasDangerousGoods() bool`
+
+HasDangerousGoods returns a boolean if a field has been set.
 
 ### GetWeightLimits
 

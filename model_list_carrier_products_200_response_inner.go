@@ -42,6 +42,8 @@ type ListCarrierProducts200ResponseInner struct {
 	Services []ListCarrierProducts200ResponseInnerServicesInner `json:"services,omitempty"`
 	// Extra parameters that can or must be supplied for this product
 	AdditionalParameters []ListCarrierProducts200ResponseInnerAdditionalParametersInner `json:"additionalParameters,omitempty"`
+	// How this product declares dangerous goods: the service to request and the parameters that carry the details. Absent when the product cannot carry them.
+	DangerousGoods []ListCarrierProducts200ResponseInnerDangerousGoodsInner `json:"dangerousGoods,omitempty"`
 	WeightLimits *ListCarrierProducts200ResponseInnerWeightLimits `json:"weightLimits,omitempty"`
 }
 
@@ -339,6 +341,38 @@ func (o *ListCarrierProducts200ResponseInner) SetAdditionalParameters(v []ListCa
 	o.AdditionalParameters = v
 }
 
+// GetDangerousGoods returns the DangerousGoods field value if set, zero value otherwise.
+func (o *ListCarrierProducts200ResponseInner) GetDangerousGoods() []ListCarrierProducts200ResponseInnerDangerousGoodsInner {
+	if o == nil || IsNil(o.DangerousGoods) {
+		var ret []ListCarrierProducts200ResponseInnerDangerousGoodsInner
+		return ret
+	}
+	return o.DangerousGoods
+}
+
+// GetDangerousGoodsOk returns a tuple with the DangerousGoods field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ListCarrierProducts200ResponseInner) GetDangerousGoodsOk() ([]ListCarrierProducts200ResponseInnerDangerousGoodsInner, bool) {
+	if o == nil || IsNil(o.DangerousGoods) {
+		return nil, false
+	}
+	return o.DangerousGoods, true
+}
+
+// HasDangerousGoods returns a boolean if a field has been set.
+func (o *ListCarrierProducts200ResponseInner) HasDangerousGoods() bool {
+	if o != nil && !IsNil(o.DangerousGoods) {
+		return true
+	}
+
+	return false
+}
+
+// SetDangerousGoods gets a reference to the given []ListCarrierProducts200ResponseInnerDangerousGoodsInner and assigns it to the DangerousGoods field.
+func (o *ListCarrierProducts200ResponseInner) SetDangerousGoods(v []ListCarrierProducts200ResponseInnerDangerousGoodsInner) {
+	o.DangerousGoods = v
+}
+
 // GetWeightLimits returns the WeightLimits field value if set, zero value otherwise.
 func (o *ListCarrierProducts200ResponseInner) GetWeightLimits() ListCarrierProducts200ResponseInnerWeightLimits {
 	if o == nil || IsNil(o.WeightLimits) {
@@ -396,6 +430,9 @@ func (o ListCarrierProducts200ResponseInner) ToMap() (map[string]interface{}, er
 	}
 	if !IsNil(o.AdditionalParameters) {
 		toSerialize["additionalParameters"] = o.AdditionalParameters
+	}
+	if !IsNil(o.DangerousGoods) {
+		toSerialize["dangerousGoods"] = o.DangerousGoods
 	}
 	if !IsNil(o.WeightLimits) {
 		toSerialize["weightLimits"] = o.WeightLimits
