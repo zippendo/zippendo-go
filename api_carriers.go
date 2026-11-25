@@ -195,7 +195,7 @@ func (r ApiDisconnectCarrierRequest) Execute() (string, *http.Response, error) {
 /*
 DisconnectCarrier Disconnect carrier
 
-Disconnects a carrier from the organization.
+Disconnects a carrier from the organization. A carrier that has pickups cannot be disconnected.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param orgId Organization ID
@@ -285,6 +285,17 @@ func (a *CarriersAPIService) DisconnectCarrierExecute(r ApiDisconnectCarrierRequ
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
+			var v ListApiTokens401Response
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
 			var v ListApiTokens401Response
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
